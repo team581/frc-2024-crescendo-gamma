@@ -21,8 +21,8 @@ import frc.robot.config.RobotConfig.IMUConfig;
 import frc.robot.config.RobotConfig.IntakeConfig;
 import frc.robot.config.RobotConfig.LightsConfig;
 import frc.robot.config.RobotConfig.ShooterConfig;
-import frc.robot.config.RobotConfig.ShoulderConfig;
 import frc.robot.config.RobotConfig.SwerveConfig;
+import frc.robot.config.RobotConfig.WristConfig;
 
 class PracticeConfig {
   public static final RobotConfig config =
@@ -60,9 +60,8 @@ class PracticeConfig {
                 floorSpotDistanceToRPM.put(4.8, 2700.0);
               }),
           new ClimberConfig(20, 21, new TalonFXConfiguration()),
-          new ShoulderConfig(
+          new WristConfig(
               14,
-              15,
               new TalonFXConfiguration()
                   .withSlot0(
                       new Slot0Configs()

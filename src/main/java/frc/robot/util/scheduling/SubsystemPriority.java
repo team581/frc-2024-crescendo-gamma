@@ -14,7 +14,7 @@ public enum SubsystemPriority {
   SWERVE(10),
   IMU(10),
   SHOOTER(10),
-  SHOULDER(10),
+  WRIST(10),
   VISION(10),
   LOCALIZATION(10),
   LIGHTS(10),
