@@ -156,7 +156,7 @@ public class RobotManager extends LifecycleSubsystem {
       state = RobotState.HOMING;
     }
     if (groundIntakeFlag) {
-      intake.idleNoGPRequest();
+      intake.setState(IntakeState.IDLE);
       if (HOMED_STATES.contains(state)) {
         state = RobotState.GROUND_INTAKING;
       }
@@ -228,7 +228,7 @@ public class RobotManager extends LifecycleSubsystem {
       }
     }
     if (sourceIntakeFlag) {
-      intake.idleNoGPRequest();
+      intake.setState(IntakeState.IDLE);
       if (HOMED_STATES.contains(state)) {
         state = RobotState.SOURCE_INTAKING;
       }
@@ -300,22 +300,22 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case GROUND_INTAKING:
-        if (intake.getState() == IntakeState.INTAKING_GP_WAITING_FOR_SENSOR_OFF) {
+        if (intake.atGoal(IntakeState.INTAKING)) {
           state = RobotState.GROUND_INTAKING_SETTLING;
         }
         break;
       case GROUND_INTAKING_SETTLING:
-        if (intake.getState() == IntakeState.IDLE_WITH_GP) {
+        if (intake.atGoal(IntakeState.IDLE)) {
           state = RobotState.IDLE_DOWN_WITH_GP;
         }
         break;
       case SOURCE_INTAKING:
-        if (intake.getState() == IntakeState.INTAKING_GP_WAITING_FOR_SENSOR_OFF) {
+        if (intake.atGoal(IntakeState.INTAKING)) {
           state = RobotState.SOURCE_INTAKING_SETTLING;
         }
         break;
       case SOURCE_INTAKING_SETTLING:
-        if (intake.getState() == IntakeState.IDLE_WITH_GP) {
+        if (intake.atGoal(IntakeState.IDLE)) {
           state = RobotState.IDLE_UP_WITH_GP;
         }
         break;
@@ -357,12 +357,12 @@ public class RobotManager extends LifecycleSubsystem {
       case AMP_SHOOT:
       case SUBWOOFER_SHOOT:
       case SPEAKER_SHOOT:
-        if (intake.getState() == IntakeState.IDLE_NO_GP) {
+        if (intake.atGoal(IntakeState.IDLE)) {
           state = RobotState.IDLE_DOWN_NO_GP;
         }
         break;
       case TRAP_SHOOT:
-        if (intake.getState() == IntakeState.IDLE_NO_GP) {
+        if (intake.atGoal(IntakeState.IDLE)) {
           state = RobotState.CLIMBER_HANGING;
         }
         break;
@@ -385,72 +385,72 @@ public class RobotManager extends LifecycleSubsystem {
     switch (state) {
       case UNHOMED:
         shoulder.startPreMatchHoming();
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         break;
       case HOMING:
         shoulder.startMidMatchHoming();
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         break;
       case IDLE_UP_NO_GP:
         shoulder.setAngle(ShoulderPositions.STOWED_UP);
-        intake.idleNoGPRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case IDLE_UP_WITH_GP:
         shoulder.setAngle(ShoulderPositions.STOWED_UP);
-        intake.idleWithGPRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case IDLE_DOWN_NO_GP:
         shoulder.setAngle(ShoulderPositions.STOWED_DOWN);
-        intake.idleNoGPRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case IDLE_DOWN_WITH_GP:
         shoulder.setAngle(ShoulderPositions.STOWED_DOWN);
-        intake.idleWithGPRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case GROUND_INTAKING:
         shoulder.setAngle(ShoulderPositions.GROUND_INTAKING);
-        intake.intakingRequest();
+        intake.setState(IntakeState.INTAKING);
         shooter.setMode(ShooterMode.INTAKE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case GROUND_INTAKING_SETTLING:
         shoulder.setAngle(ShoulderPositions.STOWED_DOWN);
-        intake.intakingRequest();
+        intake.setState(IntakeState.INTAKING);
         shooter.setMode(ShooterMode.INTAKE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case SOURCE_INTAKING:
         shoulder.setAngle(ShoulderPositions.SOURCE_INTAKING);
-        intake.intakingRequest();
+        intake.setState(IntakeState.INTAKING);
         shooter.setMode(ShooterMode.INTAKE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case SOURCE_INTAKING_SETTLING:
         shoulder.setAngle(ShoulderPositions.STOWED_UP);
-        intake.intakingRequest();
+        intake.setState(IntakeState.INTAKING);
         shooter.setMode(ShooterMode.INTAKE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case OUTTAKING:
         shoulder.setAngle(ShoulderPositions.OUTTAKING);
-        intake.outtakingRequest();
+        intake.setState(IntakeState.OUTTAKING);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case WAITING_FLOOR_SHOT:
       case PREPARE_FLOOR_SHOT:
         shoulder.setAngle(shoulderAngleForFloorSpot);
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.FLOOR_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToFloorSpot);
@@ -459,7 +459,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case FLOOR_SHOOT:
         shoulder.setAngle(shoulderAngleForFloorSpot);
-        intake.shootingRequest();
+        intake.setState(IntakeState.PASS_TO_QUEUER);
         shooter.setMode(ShooterMode.FLOOR_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToFloorSpot);
@@ -469,20 +469,20 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_SUBWOOFER_SHOT:
       case PREPARE_SUBWOOFER_SHOT:
         shoulder.setAngle(ShoulderPositions.SUBWOOFER_SHOT);
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case SUBWOOFER_SHOOT:
         shoulder.setAngle(ShoulderPositions.SUBWOOFER_SHOT);
-        intake.shootingRequest();
+        intake.setState(IntakeState.PASS_TO_QUEUER);
         shooter.setMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case WAITING_SPEAKER_SHOT:
       case PREPARE_SPEAKER_SHOT:
         shoulder.setAngle(shoulderAngleForSpeaker);
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToSpeaker);
@@ -491,7 +491,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case SPEAKER_SHOOT:
         shoulder.setAngle(shoulderAngleForSpeaker);
-        intake.shootingRequest();
+        intake.setState(IntakeState.PASS_TO_QUEUER);
         shooter.setMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToSpeaker);
@@ -501,44 +501,44 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_AMP_SHOT:
       case PREPARE_AMP_SHOT:
         shoulder.setAngle(ShoulderPositions.AMP_SHOT);
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.AMP_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case AMP_SHOOT:
         shoulder.setAngle(ShoulderPositions.AMP_SHOT);
-        intake.shootingRequest();
+        intake.setState(IntakeState.PASS_TO_CONVEYOR);
         shooter.setMode(ShooterMode.AMP_SHOT);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case WAITING_CLIMBER_RAISED:
         shoulder.setAngle(ShoulderPositions.WAITING_CLIMBER_RAISED);
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.RAISED);
         break;
       case PREPARE_CLIMBER_RAISED:
       case CLIMBER_RAISED:
         shoulder.setAngle(ShoulderPositions.TRAP_SHOT);
-        intake.idleRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.RAISED);
         break;
       case PREPARE_CLIMBER_HANGING:
         shoulder.setAngle(ShoulderPositions.TRAP_SHOT);
-        intake.climbingRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.HANGING);
         break;
       case CLIMBER_HANGING:
         shoulder.setAngle(ShoulderPositions.TRAP_SHOT);
-        intake.climbingRequest();
+        intake.setState(IntakeState.IDLE);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.HANGING);
         break;
       case TRAP_SHOOT:
         shoulder.setAngle(ShoulderPositions.TRAP_SHOT);
-        intake.trapOuttakeRequest();
+        intake.setState(IntakeState.PASS_TO_CONVEYOR);
         shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.HANGING);
         break;

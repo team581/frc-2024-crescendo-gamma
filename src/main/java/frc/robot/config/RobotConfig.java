@@ -33,11 +33,9 @@ public record RobotConfig(
       int mainMotorID, int followerMotorID, TalonFXConfiguration motorConfig) {}
 
   public record IntakeConfig(
-      int topMotorID,
-      int bottomMotorID,
+      int motorID,
       int sensorID,
-      TalonFXConfiguration topMotorConfig,
-      TalonFXConfiguration bottomMotorConfig) {}
+      TalonFXConfiguration motorConfig) {}
 
   public record ShoulderConfig(
       int rightMotorID,
