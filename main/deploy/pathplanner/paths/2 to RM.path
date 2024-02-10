@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 14.027992554465351,
+        "y": 5.539403662393951
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 14.192677528212199,
+        "y": 5.526891121437723
+      },
+      "isLocked": false,
+      "linkedName": "Red 2 to Subwoofer"
+    },
+    {
+      "anchor": {
+        "x": 15.176305334892739,
+        "y": 5.539403662393951
+      },
+      "prevControl": {
+        "x": 14.996086693725973,
+        "y": 5.541266145081389
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Subwoofer Mid"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

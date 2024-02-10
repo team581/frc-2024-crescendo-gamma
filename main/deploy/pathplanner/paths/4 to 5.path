@@ -1,0 +1,92 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 11.37588132412128,
+        "y": 6.459694522811665
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.226938982236597,
+        "y": 6.320598256619132
+      },
+      "isLocked": false,
+      "linkedName": "Red 4"
+    },
+    {
+      "anchor": {
+        "x": 8.850192024384048,
+        "y": 5.807410210820422
+      },
+      "prevControl": {
+        "x": 9.048856997713996,
+        "y": 6.135679451358904
+      },
+      "nextControl": {
+        "x": 8.769699888993065,
+        "y": 5.674406935450714
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 12.56797088556975,
+        "y": 5.7014242218588596
+      },
+      "prevControl": {
+        "x": 11.559259842519687,
+        "y": 7.238598425196851
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red 5"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake and warmup",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "eagerSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.7,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
