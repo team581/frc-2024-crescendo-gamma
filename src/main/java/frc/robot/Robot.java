@@ -55,9 +55,7 @@ public class Robot extends LoggedRobot {
               RobotConfig.get().shooter().bottomMotorID(), RobotConfig.get().canivoreName()),
           new TalonFX(RobotConfig.get().shooter().topMotorID(), RobotConfig.get().canivoreName()));
   private final IClimberSubsystem climber =
-      RobotConfig.IS_PRACTICE_BOT
-          ? new ClimberSubsystemStub()
-          : new ClimberSubsystem(
+      new ClimberSubsystem(
               new TalonFX(
                   RobotConfig.get().climber().mainMotorID(), RobotConfig.get().canivoreName()),
               new TalonFX(
