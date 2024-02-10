@@ -118,19 +118,18 @@ class PracticeConfig {
                 floorSpotDistanceToAngle.put(4.8, 50.0);
               }),
               new ElevatorConfig(
-              14,
-              15,
+              0,
               new TalonFXConfiguration()
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.4)
-                          .withKP(200.0))
+                          .withKG(0.0)
+                          .withKP(0.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.4)
-                          .withKP(200.0))
+                          .withKG(0.0)
+                          .withKP(0.0))
                   .withMotionMagic(
                       new MotionMagicConfigs()
                           .withMotionMagicAcceleration(2.0)
@@ -139,7 +138,7 @@ class PracticeConfig {
                   .withFeedback(
                       new FeedbackConfigs()
                           .withSensorToMechanismRatio(
-                              1 / ((12.0 / 50.0) * (20.0 / 84.0) * (12.0 / 72.0))))
+                              0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
                   .withMotorOutput(
                       new MotorOutputConfigs()
@@ -147,30 +146,22 @@ class PracticeConfig {
                           .withNeutralMode(NeutralModeValue.Brake)),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
               -0.05,
-              10,
-              Rotation2d.fromDegrees(-18),
+              0,
+              Rotation2d.fromDegrees(0),
               4,
-              Rotation2d.fromDegrees(-18),
-              Rotation2d.fromDegrees(95),
+              Rotation2d.fromDegrees(0),
+              Rotation2d.fromDegrees(0),
               distanceToAngleTolerance -> {
-                distanceToAngleTolerance.put(0.85, 5.0);
-                distanceToAngleTolerance.put(8.0, 0.5);
+                distanceToAngleTolerance.put(0.0, 0.0);
+                distanceToAngleTolerance.put(0.0, 0.0);
               },
               speakerDistanceToAngle -> {
-                speakerDistanceToAngle.put(0.92, 0.0);
-                speakerDistanceToAngle.put(1.5, 5.0);
-                speakerDistanceToAngle.put(2.2, 17.0);
-                speakerDistanceToAngle.put(2.57, 18.6);
-                speakerDistanceToAngle.put(2.65, 20.0);
-                speakerDistanceToAngle.put(3.3, 23.0);
-                speakerDistanceToAngle.put(3.6, 24.0);
-                speakerDistanceToAngle.put(3.8, 26.0);
-                speakerDistanceToAngle.put(4.2, 26.0);
+                speakerDistanceToAngle.put(0.0, 0.0);
+
               },
               floorSpotDistanceToAngle -> {
-                floorSpotDistanceToAngle.put(1.6, 70.0);
-                floorSpotDistanceToAngle.put(3.4, 60.0);
-                floorSpotDistanceToAngle.put(4.8, 50.0);
+                floorSpotDistanceToAngle.put(0.0, 0.0);
+
               }),
           new IntakeConfig(
               16,

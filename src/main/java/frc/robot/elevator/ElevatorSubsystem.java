@@ -30,16 +30,16 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private final LoggedDashboardNumber ntHeight =
       new LoggedDashboardNumber("Elevator/HeightOverride", -1);
 
-  private static final double PRE_MATCH_HOMING_MIN_MOVEMENT = 75.0;
+  private static final double PRE_MATCH_HOMING_MIN_MOVEMENT = 0.0;
 
   private double rotationsPerElevatorInch = 0.0;
   private double lowestSeenHeight = 0.0;
   private double highestSeenHeight = 0.0;
   private static double minHeight = 0.0;
-  private static double maxHeight = 100.0;
-  private double goalHeight = 50.0;
+  private static double maxHeight = 0.0;
+  private double goalHeight = 0.0;
   private boolean preMatchHomingOccured = false;
-  private static double StowedHeight = 10.0;
+  private static double StowedHeight = 0.0;
   private HomingState homingState = HomingState.PRE_MATCH_HOMING;
   private int slot = 0;
 

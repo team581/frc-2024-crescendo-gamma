@@ -61,7 +61,6 @@ public record RobotConfig(
 
       public record ElevatorConfig(
       int rightMotorID,
-      int leftMotorID,
       TalonFXConfiguration motorConfig,
       CurrentLimitsConfigs strictCurrentLimits,
       double homingVoltage,
