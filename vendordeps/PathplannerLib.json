@@ -1,38 +1,32 @@
 {
-    "fileName": "PathplannerLib.json",
-    "name": "PathplannerLib",
-    "version": "2024.2.3",
-    "uuid": "1b42324f-17c6-4875-8e77-1c312bc8c786",
-    "frcYear": "2024",
-    "mavenUrls": [
-        "https://3015rangerrobotics.github.io/pathplannerlib/repo"
+  "javaDependencies": [{
+    "groupId": "com.pathplanner.lib",
+    "artifactId": "PathplannerLib-java",
+    "version": "2024.2.2"
+  }],
+  "fileName": "PathplannerLib.json",
+  "frcYear": "2024",
+  "jsonUrl": "https://3015rangerrobotics.github.io/pathplannerlib/PathplannerLib.json",
+  "name": "PathplannerLib",
+  "jniDependencies": [],
+  "mavenUrls": ["https://3015rangerrobotics.github.io/pathplannerlib/repo"],
+  "cppDependencies": [{
+    "groupId": "com.pathplanner.lib",
+    "libName": "PathplannerLib",
+    "artifactId": "PathplannerLib-cpp",
+    "skipInvalidPlatforms": true,
+    "version": "2024.2.2",
+    "headerClassifier": "headers",
+    "binaryPlatforms": [
+      "windowsx86-64",
+      "linuxx86-64",
+      "osxuniversal",
+      "linuxathena",
+      "linuxarm32",
+      "linuxarm64"
     ],
-    "jsonUrl": "https://3015rangerrobotics.github.io/pathplannerlib/PathplannerLib.json",
-    "javaDependencies": [
-        {
-            "groupId": "com.pathplanner.lib",
-            "artifactId": "PathplannerLib-java",
-            "version": "2024.2.3"
-        }
-    ],
-    "jniDependencies": [],
-    "cppDependencies": [
-        {
-            "groupId": "com.pathplanner.lib",
-            "artifactId": "PathplannerLib-cpp",
-            "version": "2024.2.3",
-            "libName": "PathplannerLib",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxuniversal",
-                "linuxathena",
-                "linuxarm32",
-                "linuxarm64"
-            ]
-        }
-    ]
+    "sharedLibrary": false
+  }],
+  "version": "2024.2.2",
+  "uuid": "1b42324f-17c6-4875-8e77-1c312bc8c786"
 }

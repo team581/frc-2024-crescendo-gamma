@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "request": "launch",
+      "desktop": true,
+      "name": "WPILib Desktop Debug",
+      "type": "wpilib"
+    },
+    {
+      "request": "launch",
+      "desktop": false,
+      "name": "WPILib roboRIO Debug",
+      "type": "wpilib"
+    }
+  ],
+  "version": "0.2.0"
+}
