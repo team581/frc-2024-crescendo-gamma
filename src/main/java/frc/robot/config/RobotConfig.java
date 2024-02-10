@@ -67,7 +67,7 @@ public record RobotConfig(
 
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;
-  private static final String ROBOT_SERIAL_NUMBER = "0322443D"; //TODO: get serial number
+  private static final String ROBOT_SERIAL_NUMBER = "0322443D"; // TODO: get serial number
   public static final String SERIAL_NUMBER = System.getenv("serialnum");
 
   public static RobotConfig get() {
