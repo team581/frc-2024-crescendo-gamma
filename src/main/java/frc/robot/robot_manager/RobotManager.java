@@ -335,7 +335,7 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case PREPARE_AMP_SHOT:
-        if (shoulder.atAngle(ShoulderPositions.AMP_SHOT) && shooter.atGoal(ShooterMode.AMP_SHOT)) {
+        if (shoulder.atAngle(ShoulderPositions.AMP_SHOT)) {
           state = RobotState.AMP_SHOOT;
         }
         break;
@@ -420,25 +420,25 @@ public class RobotManager extends LifecycleSubsystem {
       case GROUND_INTAKING:
         shoulder.setAngle(ShoulderPositions.GROUND_INTAKING);
         intake.intakingRequest();
-        shooter.setMode(ShooterMode.INTAKE);
+        shooter.setMode(ShooterMode.INTAKING);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case GROUND_INTAKING_SETTLING:
         shoulder.setAngle(ShoulderPositions.STOWED_DOWN);
         intake.intakingRequest();
-        shooter.setMode(ShooterMode.INTAKE);
+        shooter.setMode(ShooterMode.INTAKING);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case SOURCE_INTAKING:
         shoulder.setAngle(ShoulderPositions.SOURCE_INTAKING);
         intake.intakingRequest();
-        shooter.setMode(ShooterMode.INTAKE);
+        shooter.setMode(ShooterMode.INTAKING);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case SOURCE_INTAKING_SETTLING:
         shoulder.setAngle(ShoulderPositions.STOWED_UP);
         intake.intakingRequest();
-        shooter.setMode(ShooterMode.INTAKE);
+        shooter.setMode(ShooterMode.INTAKING);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case OUTTAKING:
@@ -502,13 +502,13 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_AMP_SHOT:
         shoulder.setAngle(ShoulderPositions.AMP_SHOT);
         intake.idleRequest();
-        shooter.setMode(ShooterMode.AMP_SHOT);
+        shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case AMP_SHOOT:
         shoulder.setAngle(ShoulderPositions.AMP_SHOT);
         intake.shootingRequest();
-        shooter.setMode(ShooterMode.AMP_SHOT);
+        shooter.setMode(ShooterMode.IDLE);
         climber.setGoal(ClimberMode.IDLE);
         break;
       case WAITING_CLIMBER_RAISED:

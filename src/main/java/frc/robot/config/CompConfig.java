@@ -33,6 +33,7 @@ class CompConfig {
           new ShooterConfig(
               18,
               19,
+              // Left Motor
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0 / 1.5))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
@@ -41,6 +42,7 @@ class CompConfig {
                       new MotorOutputConfigs()
                           .withNeutralMode(NeutralModeValue.Coast)
                           .withInverted(InvertedValue.Clockwise_Positive)),
+              // Right Motor
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0 / 1.5))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
