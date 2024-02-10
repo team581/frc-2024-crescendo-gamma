@@ -20,6 +20,8 @@ public enum SubsystemPriority {
   LIGHTS(10),
   INTAKE(10),
 
+  CONVEYOR(10),
+
   FMS(0),
   RUMBLE_CONTROLLER(0);
 
