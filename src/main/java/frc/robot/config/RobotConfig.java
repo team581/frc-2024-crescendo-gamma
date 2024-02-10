@@ -17,10 +17,15 @@ public record RobotConfig(
     ShooterConfig shooter,
     ClimberConfig climber,
     ShoulderConfig shoulder,
+    ElevatorConfig elevator,
     IntakeConfig intake,
     SwerveConfig swerve,
     IMUConfig imu,
-    LightsConfig lights) {
+    LightsConfig lights
+
+    ) {
+
+
   public record ShooterConfig(
       int bottomMotorID,
       int topMotorID,
@@ -40,6 +45,21 @@ public record RobotConfig(
       TalonFXConfiguration bottomMotorConfig) {}
 
   public record ShoulderConfig(
+      int rightMotorID,
+      int leftMotorID,
+      TalonFXConfiguration motorConfig,
+      CurrentLimitsConfigs strictCurrentLimits,
+      double homingVoltage,
+      double homingCurrentThreshold,
+      Rotation2d homingEndPosition,
+      int currentTaps,
+      Rotation2d minAngle,
+      Rotation2d maxAngle,
+      Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance,
+      Consumer<InterpolatingDoubleTreeMap> speakerShotAngles,
+      Consumer<InterpolatingDoubleTreeMap> floorShotAngles) {}
+
+      public record ElevatorConfig(
       int rightMotorID,
       int leftMotorID,
       TalonFXConfiguration motorConfig,

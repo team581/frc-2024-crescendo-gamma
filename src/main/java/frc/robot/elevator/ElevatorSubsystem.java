@@ -12,7 +12,6 @@ import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
-import frc.robot.shoulder.ShoulderPositions;
 import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -23,11 +22,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
 
   private final LinearFilter currentFilter =
-      LinearFilter.movingAverage(RobotConfig.get().shoulder().currentTaps());
+      LinearFilter.movingAverage(RobotConfig.get().elevator().currentTaps());
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
   private final MotionMagicVoltage positionRequest =
-      new MotionMagicVoltage(ShoulderPositions.STOWED_DOWN.getRotations()).withEnableFOC(true);
+      new MotionMagicVoltage(ElevatorPositions.STOWED_DOWN).withEnableFOC(true);
   private final LoggedDashboardNumber ntHeight =
       new LoggedDashboardNumber("Elevator/HeightOverride", -1);
 
@@ -45,23 +44,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private int slot = 0;
 
   public ElevatorSubsystem(TalonFX motor) {
-     // CHANGE TO ELEVATOR CONFIG WHEN IT GETS ADDED
-        //
-        //
-        //
-        //
-        //
-        //
-    super(SubsystemPriority.SHOULDER);
+
+    super(SubsystemPriority.ELEVATOR);
     this.motor = motor;
-    motor.getConfigurator().apply(RobotConfig.get().shoulder().motorConfig());
-     // CHANGE TO ELEVATOR CONFIG WHEN IT GETS ADDED
-        //
-        //
-        //
-        //
-        //
-        //
+    motor.getConfigurator().apply(RobotConfig.get().elevator().motorConfig());
+
   }
 
   @Override
@@ -106,7 +93,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
           if (!preMatchHomingOccured && rangeOfMotionSeen()) {
             // homingEndPosition + (currentAngle - minAngle)
-            Rotation2d homingEndPosition = RobotConfig.get().shoulder().homingEndPosition();
+            Rotation2d homingEndPosition = RobotConfig.get().elevator().homingEndPosition();
             Rotation2d homedAngle =
                 Rotation2d.fromDegrees(
                     homingEndPosition.getDegrees() + (getHeight() - lowestSeenHeight));
@@ -118,13 +105,13 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         }
         break;
       case MID_MATCH_HOMING:
-        motor.set(RobotConfig.get().shoulder().homingVoltage());
+        motor.set(RobotConfig.get().elevator().homingVoltage());
 
-        if (filteredCurrent > RobotConfig.get().shoulder().homingCurrentThreshold()) {
+        if (filteredCurrent > RobotConfig.get().elevator().homingCurrentThreshold()) {
           homingState = HomingState.HOMED;
           goalHeight = StowedHeight;
 
-          motor.setPosition(RobotConfig.get().shoulder().homingEndPosition().getRotations());
+          motor.setPosition(RobotConfig.get().elevator().homingEndPosition().getRotations());
         }
 
         break;
@@ -148,24 +135,12 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     height = clampHeight(height);
     if (height == goalHeight) {
       if (height == minHeight) {
-        // CHANGE TO ELEVATOR CONFIG WHEN IT GETS ADDED
-        //
-        //
-        //
-        //
-        //
-        //
-        motor.getConfigurator().apply(RobotConfig.get().shoulder().strictCurrentLimits());
+
+        motor.getConfigurator().apply(RobotConfig.get().elevator().strictCurrentLimits());
 
       } else {
-        // CHANGE TO ELEVATOR CONFIG WHEN IT GETS ADDED
-        //
-        //
-        //
-        //
-        //
-        //
-        motor.getConfigurator().apply(RobotConfig.get().shoulder().motorConfig().CurrentLimits);
+
+        motor.getConfigurator().apply(RobotConfig.get().elevator().motorConfig().CurrentLimits);
       }
     }
 

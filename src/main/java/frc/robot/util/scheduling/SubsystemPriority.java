@@ -15,6 +15,7 @@ public enum SubsystemPriority {
   IMU(10),
   SHOOTER(10),
   SHOULDER(10),
+  ELEVATOR(10),//Maybe needs to be different priority
   VISION(10),
   LOCALIZATION(10),
   LIGHTS(10),
