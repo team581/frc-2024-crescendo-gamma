@@ -16,17 +16,19 @@ public record RobotConfig(
     String canivoreName,
     ShooterConfig shooter,
     ClimberConfig climber,
-    ShoulderConfig shoulder,
+    WristConfig wrist,
+    ElevatorConfig elevator,
     IntakeConfig intake,
     QueuerConfig queuer,
     SwerveConfig swerve,
     IMUConfig imu,
     LightsConfig lights) {
+
   public record ShooterConfig(
-      int bottomMotorID,
-      int topMotorID,
-      TalonFXConfiguration bottomMotorConfig,
-      TalonFXConfiguration topMotorConfig,
+      int leftMotorID,
+      int rightMotorID,
+      TalonFXConfiguration leftMotorConfig,
+      TalonFXConfiguration rightMotorConfig,
       Consumer<InterpolatingDoubleTreeMap> speakerShotRpms,
       Consumer<InterpolatingDoubleTreeMap> floorShotRpms) {}
 
@@ -41,10 +43,9 @@ public record RobotConfig(
       TalonFXConfiguration bottomMotorConfig) {}
 
   public record QueuerConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
-
-  public record ShoulderConfig(
-      int rightMotorID,
-      int leftMotorID,
+  
+  public record WristConfig(
+      int motorID,
       TalonFXConfiguration motorConfig,
       CurrentLimitsConfigs strictCurrentLimits,
       double homingVoltage,
@@ -56,6 +57,17 @@ public record RobotConfig(
       Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance,
       Consumer<InterpolatingDoubleTreeMap> speakerShotAngles,
       Consumer<InterpolatingDoubleTreeMap> floorShotAngles) {}
+
+  public record ElevatorConfig(
+      int motorID,
+      TalonFXConfiguration motorConfig,
+      CurrentLimitsConfigs strictCurrentLimits,
+      double homingVoltage,
+      double homingCurrentThreshold,
+      double homingEndPosition,
+      int currentTaps,
+      double minHeight,
+      double maxHeight) {}
 
   public record IMUConfig(
       int deviceID, Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance) {}
