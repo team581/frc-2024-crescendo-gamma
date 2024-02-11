@@ -16,7 +16,7 @@ public class RobotCommands {
 
   public Command stowUpCommand() {
     return Commands.runOnce(
-            () -> robot.stowUpRequest(), robot.shoulder, robot.intake, robot.shooter, robot.climber)
+            () -> robot.stowUpRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
         .andThen(
             Commands.race(
                 robot.waitForStateCommand(RobotState.IDLE_UP_NO_GP),
@@ -25,11 +25,7 @@ public class RobotCommands {
 
   public Command stowDownCommand() {
     return Commands.runOnce(
-            () -> robot.stowDownRequest(),
-            robot.shoulder,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
+            () -> robot.stowDownRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
         .andThen(
             Commands.race(
                 robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP),
@@ -39,7 +35,7 @@ public class RobotCommands {
   public Command stowUpAfterIntakeCommand() {
     return Commands.runOnce(
             () -> robot.stowUpAfterIntakeRequest(),
-            robot.shoulder,
+            robot.wrist,
             robot.intake,
             robot.shooter,
             robot.climber)
@@ -52,7 +48,7 @@ public class RobotCommands {
   public Command stowDownAfterIntakeCommand() {
     return Commands.runOnce(
             () -> robot.stowDownAfterIntakeRequest(),
-            robot.shoulder,
+            robot.wrist,
             robot.intake,
             robot.shooter,
             robot.climber)
@@ -65,7 +61,7 @@ public class RobotCommands {
   public Command intakeFloorCommand() {
     return Commands.runOnce(
             () -> robot.groundIntakeRequest(),
-            robot.shoulder,
+            robot.wrist,
             robot.intake,
             robot.shooter,
             robot.climber)
@@ -75,7 +71,7 @@ public class RobotCommands {
   public Command sourceIntakeCommand() {
     return Commands.runOnce(
             () -> robot.sourceIntakeRequest(),
-            robot.shoulder,
+            robot.wrist,
             robot.intake,
             robot.shooter,
             robot.climber)
@@ -84,24 +80,20 @@ public class RobotCommands {
 
   public Command outtakeCommand() {
     return Commands.runOnce(
-            () -> robot.outtakeRequest(),
-            robot.shoulder,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
+            () -> robot.outtakeRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP));
   }
 
   public Command homeCommand() {
     return Commands.runOnce(
-            () -> robot.homingRequest(), robot.shoulder, robot.intake, robot.shooter, robot.climber)
+            () -> robot.homingRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP));
   }
 
   public Command waitForSpeakerShotCommand() {
     return Commands.runOnce(
         () -> robot.waitSpeakerShotRequest(),
-        robot.shoulder,
+        robot.wrist,
         robot.intake,
         robot.shooter,
         robot.climber);
@@ -109,17 +101,13 @@ public class RobotCommands {
 
   public Command waitForAmpShotCommand() {
     return Commands.runOnce(
-        () -> robot.waitAmpShotRequest(),
-        robot.shoulder,
-        robot.intake,
-        robot.shooter,
-        robot.climber);
+        () -> robot.waitAmpShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber);
   }
 
   public Command waitForFloorShotCommand() {
     return Commands.runOnce(
         () -> robot.waitFloorShotRequest(),
-        robot.shoulder,
+        robot.wrist,
         robot.intake,
         robot.shooter,
         robot.climber);
@@ -127,17 +115,13 @@ public class RobotCommands {
 
   public Command confirmShotCommand() {
     return Commands.runOnce(
-        () -> robot.confirmShotRequest(),
-        robot.shoulder,
-        robot.intake,
-        robot.shooter,
-        robot.climber);
+        () -> robot.confirmShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber);
   }
 
   public Command speakerShotCommand() {
     return Commands.runOnce(
             () -> robot.speakerShotRequest(),
-            robot.shoulder,
+            robot.wrist,
             robot.intake,
             robot.shooter,
             robot.climber)
@@ -150,28 +134,20 @@ public class RobotCommands {
 
   public Command ampShotCommand() {
     return Commands.runOnce(
-            () -> robot.ampShotRequest(),
-            robot.shoulder,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
+            () -> robot.ampShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP));
   }
 
   public Command trapShotCommand() {
     return Commands.runOnce(
-            () -> robot.trapShotRequest(),
-            robot.shoulder,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
+            () -> robot.trapShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
         .andThen(robot.waitForStateCommand(RobotState.CLIMBER_HANGING));
   }
 
   public Command waitSubwooferShotCommand() {
     return Commands.runOnce(
         () -> robot.waitSubwooferShotRequest(),
-        robot.shoulder,
+        robot.wrist,
         robot.intake,
         robot.shooter,
         robot.climber);
@@ -180,7 +156,7 @@ public class RobotCommands {
   public Command subwooferShotCommand() {
     return Commands.runOnce(
             () -> robot.subwooferShotRequest(),
-            robot.shoulder,
+            robot.wrist,
             robot.intake,
             robot.shooter,
             robot.climber)
@@ -189,20 +165,12 @@ public class RobotCommands {
 
   public Command getClimberCommand() {
     return Commands.runOnce(
-        () -> robot.getClimberRequest(),
-        robot.shoulder,
-        robot.intake,
-        robot.shooter,
-        robot.climber);
+        () -> robot.getClimberRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber);
   }
 
   public Command preloadNoteCommand() {
     return Commands.runOnce(
-        () -> robot.preloadNoteRequest(),
-        robot.shoulder,
-        robot.intake,
-        robot.shooter,
-        robot.climber);
+        () -> robot.preloadNoteRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber);
   }
 
   public Command waitForIdle() {
