@@ -24,10 +24,10 @@ public record RobotConfig(
     LightsConfig lights) {
 
   public record ShooterConfig(
-      int bottomMotorID,
-      int topMotorID,
-      TalonFXConfiguration bottomMotorConfig,
-      TalonFXConfiguration topMotorConfig,
+      int leftMotorID,
+      int rightMotorID,
+      TalonFXConfiguration leftMotorConfig,
+      TalonFXConfiguration rightMotorConfig,
       Consumer<InterpolatingDoubleTreeMap> speakerShotRpms,
       Consumer<InterpolatingDoubleTreeMap> floorShotRpms) {}
 

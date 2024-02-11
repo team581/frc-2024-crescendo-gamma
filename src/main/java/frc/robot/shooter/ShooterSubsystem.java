@@ -16,11 +16,12 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ShooterSubsystem extends LifecycleSubsystem {
   private static final int IDLE_RPM = 1000;
+  private static final double PASSING_RPM = 1500; // Make this not horrible
+  private static final double OUTTAKE_RPM = 2000; // TODO: adjust for desirable outtake speeds
   private static final double SUBWOOFER_SHOOTING_RPM = 5000;
-  private static final double AMP_SHOOTING_RPM = 1000;
   private static final double TOLERANCE_RPM = 100;
-  private final TalonFX bottomMotor;
-  private final TalonFX topMotor;
+  private final TalonFX leftMotor;
+  private final TalonFX rightMotor;
   private final LoggedDashboardNumber ntRPM = new LoggedDashboardNumber("Shooter/RPMOverride", -1);
   private final VelocityTorqueCurrentFOC velocityRequest =
       new VelocityTorqueCurrentFOC(0).withSlot(0).withLimitReverseMotion(true);
@@ -37,17 +38,17 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private ShooterMode goalMode = ShooterMode.IDLE;
   private final StaticBrake brakeRequest = new StaticBrake();
 
-  public ShooterSubsystem(TalonFX bottomMotor, TalonFX topMotor) {
+  public ShooterSubsystem(TalonFX leftMotor, TalonFX rightMotor) {
     super(SubsystemPriority.SHOOTER);
 
-    this.bottomMotor = bottomMotor;
-    this.topMotor = topMotor;
+    this.leftMotor = leftMotor;
+    this.rightMotor = rightMotor;
 
     RobotConfig.get().shooter().speakerShotRpms().accept(speakerDistanceToRPM);
     RobotConfig.get().shooter().floorShotRpms().accept(floorSpotDistanceToRPM);
 
-    bottomMotor.getConfigurator().apply(RobotConfig.get().shooter().bottomMotorConfig());
-    topMotor.getConfigurator().apply(RobotConfig.get().shooter().topMotorConfig());
+    leftMotor.getConfigurator().apply(RobotConfig.get().shooter().leftMotorConfig());
+    rightMotor.getConfigurator().apply(RobotConfig.get().shooter().rightMotorConfig());
   }
 
   @Override
@@ -59,49 +60,60 @@ public class ShooterSubsystem extends LifecycleSubsystem {
 
     usedGoalRPM = overrideRPM == -1 ? goalRPM : overrideRPM;
 
-    if (goalMode == ShooterMode.INTAKE) {
-      bottomMotor.setControl(brakeRequest);
-      topMotor.setControl(brakeRequest);
+    if (goalMode == ShooterMode.INTAKING) {
+      rightMotor.setControl(brakeRequest);
+      leftMotor.setControl(brakeRequest);
     } else {
-      bottomMotor.setControl(velocityRequest.withVelocity(usedGoalRPM / 60));
-      topMotor.setControl(velocityRequest.withVelocity(usedGoalRPM / 60));
+      rightMotor.setControl(velocityRequest.withVelocity((usedGoalRPM) / 60));
+      leftMotor.setControl(velocityRequest.withVelocity((usedGoalRPM - 500) / 60));
     }
   }
 
   @Override
   public void robotPeriodic() {
-    if (goalMode == ShooterMode.SPEAKER_SHOT) {
-      goalRPM = speakerDistanceToRPM.get(speakerDistance);
-    } else if (goalMode == ShooterMode.AMP_SHOT) {
-      goalRPM = AMP_SHOOTING_RPM;
-    } else if (goalMode == ShooterMode.SUBWOOFER_SHOT) {
-      goalRPM = SUBWOOFER_SHOOTING_RPM;
-    } else if (goalMode == ShooterMode.FLOOR_SHOT) {
-      goalRPM = floorSpotDistanceToRPM.get(floorSpotDistance);
-    } else {
-      goalRPM = IDLE_RPM;
+    switch (goalMode) {
+      case SPEAKER_SHOT:
+        goalRPM = speakerDistanceToRPM.get(speakerDistance);
+        break;
+      case SUBWOOFER_SHOT:
+        goalRPM = SUBWOOFER_SHOOTING_RPM;
+        break;
+      case FLOOR_SHOT:
+        goalRPM = floorSpotDistanceToRPM.get(floorSpotDistance);
+        break;
+      case OUTTAKE:
+        goalRPM = OUTTAKE_RPM;
+        break;
+      case IDLE:
+        goalRPM = IDLE_RPM;
+        break;
+      case PASSING_NOTE:
+        goalRPM = PASSING_RPM;
+        break;
+      default:
+        break;
     }
     Logger.recordOutput("Shooter/DistanceToSpeaker", speakerDistance);
     Logger.recordOutput("Shooter/DistanceToFloorSpot", floorSpotDistance);
     Logger.recordOutput("Shooter/Mode", goalMode);
     Logger.recordOutput("Shooter/GoalRPM", goalRPM);
-    Logger.recordOutput("Shooter/TopMotor/Temperature", topMotor.getDeviceTemp().getValue());
-    Logger.recordOutput("Shooter/TopMotor/RPM", getRPM(topMotor));
+    Logger.recordOutput("Shooter/LeftMotor/Temperature", leftMotor.getDeviceTemp().getValue());
+    Logger.recordOutput("Shooter/LeftMotor/RPM", getRPM(leftMotor));
     Logger.recordOutput(
-        "Shooter/TopMotor/POutput", topMotor.getClosedLoopProportionalOutput().getValue());
+        "Shooter/LeftMotor/POutput", leftMotor.getClosedLoopProportionalOutput().getValue());
     Logger.recordOutput(
-        "Shooter/TopMotor/SupplierCurrent", topMotor.getSupplyCurrent().getValueAsDouble());
-    Logger.recordOutput("Shooter/TopMotor/StatorCurrent", topMotor.getStatorCurrent().getValue());
-    Logger.recordOutput("Shooter/TopMotor/Voltage", topMotor.getMotorVoltage().getValue());
+        "Shooter/LeftMotor/SupplierCurrent", leftMotor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Shooter/LeftMotor/StatorCurrent", leftMotor.getStatorCurrent().getValue());
+    Logger.recordOutput("Shooter/LeftMotor/Voltage", leftMotor.getMotorVoltage().getValue());
     Logger.recordOutput(
-        "Shooter/BottomMotor/StatorCurrent", bottomMotor.getStatorCurrent().getValue());
-    Logger.recordOutput("Shooter/BottomMotor/Voltage", bottomMotor.getMotorVoltage().getValue());
-    Logger.recordOutput("Shooter/BottomMotor/RPM", getRPM(bottomMotor));
-    Logger.recordOutput("Shooter/BottomMotor/Temperature", bottomMotor.getDeviceTemp().getValue());
+        "Shooter/RightMotor/StatorCurrent", rightMotor.getStatorCurrent().getValue());
+    Logger.recordOutput("Shooter/RightMotor/Voltage", rightMotor.getMotorVoltage().getValue());
+    Logger.recordOutput("Shooter/RightMotor/RPM", getRPM(rightMotor));
+    Logger.recordOutput("Shooter/RightMotor/Temperature", rightMotor.getDeviceTemp().getValue());
     Logger.recordOutput(
-        "Shooter/BottomMotor/POutput", bottomMotor.getClosedLoopProportionalOutput().getValue());
+        "Shooter/RightMotor/POutput", rightMotor.getClosedLoopProportionalOutput().getValue());
     Logger.recordOutput(
-        "Shooter/BottomMotor/SupplierCurrent", bottomMotor.getSupplyCurrent().getValueAsDouble());
+        "Shooter/RightMotor/SupplierCurrent", rightMotor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Shooter/AtGoal", atGoal(goalMode));
   }
 
@@ -114,8 +126,8 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       return true;
     }
 
-    if (Math.abs(goalRPM - getRPM(bottomMotor)) < TOLERANCE_RPM
-        && Math.abs(goalRPM - getRPM(topMotor)) < TOLERANCE_RPM) {
+    if (Math.abs(goalRPM - getRPM(rightMotor)) < TOLERANCE_RPM
+        && Math.abs(goalRPM - getRPM(leftMotor)) < TOLERANCE_RPM) {
       return true;
     }
 
@@ -126,8 +138,12 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     return motor.getVelocity().getValue() * 60.0;
   }
 
-  public void setMode(ShooterMode newMode) {
+  public void setGoalMode(ShooterMode newMode) {
     goalMode = newMode;
+  }
+
+  public ShooterMode getGoalMode() {
+      return goalMode;
   }
 
   public void setSpeakerDistance(double distance) {

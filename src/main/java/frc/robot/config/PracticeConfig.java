@@ -33,7 +33,7 @@ class PracticeConfig {
           new ShooterConfig(
               18,
               19,
-              // Bottom motor
+              // Left motor
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
@@ -42,7 +42,7 @@ class PracticeConfig {
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Coast)),
-              // Top motor
+              // Right motor
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
