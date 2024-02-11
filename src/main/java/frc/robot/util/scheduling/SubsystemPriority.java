@@ -20,6 +20,7 @@ public enum SubsystemPriority {
   LOCALIZATION(10),
   LIGHTS(10),
   INTAKE(10),
+  QUEUER(10),
 
   FMS(0),
   RUMBLE_CONTROLLER(0);

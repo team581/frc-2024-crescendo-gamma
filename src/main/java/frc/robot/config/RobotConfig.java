@@ -19,6 +19,7 @@ public record RobotConfig(
     WristConfig wrist,
     ElevatorConfig elevator,
     IntakeConfig intake,
+    QueuerConfig queuer,
     SwerveConfig swerve,
     IMUConfig imu,
     LightsConfig lights) {
@@ -41,6 +42,8 @@ public record RobotConfig(
       TalonFXConfiguration topMotorConfig,
       TalonFXConfiguration bottomMotorConfig) {}
 
+  public record QueuerConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
+  
   public record WristConfig(
       int motorID,
       TalonFXConfiguration motorConfig,

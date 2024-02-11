@@ -21,6 +21,7 @@ import frc.robot.config.RobotConfig.ElevatorConfig;
 import frc.robot.config.RobotConfig.IMUConfig;
 import frc.robot.config.RobotConfig.IntakeConfig;
 import frc.robot.config.RobotConfig.LightsConfig;
+import frc.robot.config.RobotConfig.QueuerConfig;
 import frc.robot.config.RobotConfig.ShooterConfig;
 import frc.robot.config.RobotConfig.SwerveConfig;
 import frc.robot.config.RobotConfig.WristConfig;
@@ -163,6 +164,12 @@ class PracticeConfig {
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.CounterClockwise_Positive))),
+          new QueuerConfig(
+              0,
+              0,
+              new TalonFXConfiguration()
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))),
           new SwerveConfig(
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
