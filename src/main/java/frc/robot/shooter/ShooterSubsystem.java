@@ -143,7 +143,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   }
 
   public ShooterMode getGoalMode() {
-      return goalMode;
+    return goalMode;
   }
 
   public void setSpeakerDistance(double distance) {
