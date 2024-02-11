@@ -65,7 +65,7 @@ public record RobotConfig(
       CurrentLimitsConfigs strictCurrentLimits,
       double homingVoltage,
       double homingCurrentThreshold,
-      Rotation2d homingEndPosition,
+      double homingEndPosition,
       int currentTaps,
       Rotation2d minAngle,
       Rotation2d maxAngle,
