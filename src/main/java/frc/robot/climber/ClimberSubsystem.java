@@ -4,21 +4,19 @@
 
 package frc.robot.climber;
 
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
-
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ClimberSubsystem extends LifecycleSubsystem {
   private final TalonFX mainMotor;
@@ -26,7 +24,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
   private Follower followRequest;
   private CoastOut coastNeutralRequest = new CoastOut();
   private StaticBrake brakeNeutralRequest = new StaticBrake();
-  private LinearFilter currentFilter = LinearFilter.movingAverage(RobotConfig.get().climber().currentTaps());
+  private LinearFilter currentFilter =
+      LinearFilter.movingAverage(RobotConfig.get().climber().currentTaps());
   private final LoggedDashboardNumber ntposition =
       new LoggedDashboardNumber("Climber/positionOverride", -1);
   private int slot = 0;
@@ -98,8 +97,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         }
         break;
       case HOMED:
-        double usedGoalPosition =
-            ntposition.get() == -1 ? clamp(goalPosition) : ntposition.get();
+        double usedGoalPosition = ntposition.get() == -1 ? clamp(goalPosition) : ntposition.get();
 
         slot = goalPosition == minPositon ? 1 : 0;
         Logger.recordOutput("Climber/UsedGoalPosition", usedGoalPosition);
@@ -111,6 +109,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         break;
     }
   }
+
   public boolean atGoal(ClimberMode goal) {
     if (goalMode != goal) {
       return false;
@@ -118,7 +117,9 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     if (goalMode == ClimberMode.IDLE) {
       return true;
     }
-    if (goal == goalMode && Math.abs(rotationsToInches(mainMotor.getAcceleration().getValueAsDouble())) < ACCEL_TOLERANCE) {
+    if (goal == goalMode
+        && Math.abs(rotationsToInches(mainMotor.getAcceleration().getValueAsDouble()))
+            < ACCEL_TOLERANCE) {
       return true;
     }
     return false;

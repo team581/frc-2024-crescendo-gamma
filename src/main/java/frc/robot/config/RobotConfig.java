@@ -44,10 +44,8 @@ public record RobotConfig(
       double minPosition,
       double maxPosition,
       TalonFXConfiguration motorConfig) {}
-  public record IntakeConfig(
-      int motorID,
-      int sensorID,
-      TalonFXConfiguration motorConfig) {}
+
+  public record IntakeConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
 
   public record ConveyorConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
 
