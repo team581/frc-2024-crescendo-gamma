@@ -17,6 +17,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.config.RobotConfig.ClimberConfig;
+import frc.robot.config.RobotConfig.ElevatorConfig;
 import frc.robot.config.RobotConfig.IMUConfig;
 import frc.robot.config.RobotConfig.IntakeConfig;
 import frc.robot.config.RobotConfig.LightsConfig;
@@ -114,6 +115,37 @@ class PracticeConfig {
                 floorSpotDistanceToAngle.put(3.4, 60.0);
                 floorSpotDistanceToAngle.put(4.8, 50.0);
               }),
+          new ElevatorConfig(
+              0,
+              new TalonFXConfiguration()
+                  .withSlot0(
+                      new Slot0Configs()
+                          .withGravityType(GravityTypeValue.Arm_Cosine)
+                          .withKG(0.0)
+                          .withKP(0.0))
+                  .withSlot1(
+                      new Slot1Configs()
+                          .withGravityType(GravityTypeValue.Arm_Cosine)
+                          .withKG(0.0)
+                          .withKP(0.0))
+                  .withMotionMagic(
+                      new MotionMagicConfigs()
+                          .withMotionMagicAcceleration(2.0)
+                          .withMotionMagicCruiseVelocity(1.5)
+                          .withMotionMagicJerk(0))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(0))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
+                  .withMotorOutput(
+                      new MotorOutputConfigs()
+                          .withInverted(InvertedValue.Clockwise_Positive)
+                          .withNeutralMode(NeutralModeValue.Brake)),
+              new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
+              -0.05,
+              0,
+              0,
+              4,
+              0.0,
+              0.0),
           new IntakeConfig(
               16,
               22,
