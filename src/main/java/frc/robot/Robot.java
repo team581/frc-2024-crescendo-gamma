@@ -61,8 +61,7 @@ public class Robot extends LoggedRobot {
                   RobotConfig.get().climber().followerMotorID(), RobotConfig.get().canivoreName()));
   private final IntakeSubsystem intake =
       new IntakeSubsystem(
-          new TalonFX(RobotConfig.get().intake().topMotorID(), RobotConfig.get().canivoreName()),
-          new TalonFX(RobotConfig.get().intake().bottomMotorID(), RobotConfig.get().canivoreName()),
+          new TalonFX(RobotConfig.get().intake().motorID(), RobotConfig.get().canivoreName()),
           new DigitalInput(RobotConfig.get().intake().sensorID()));
   private final SwerveSubsystem swerve = new SwerveSubsystem(driverController);
   private final ImuSubsystem imu = new ImuSubsystem(swerve);

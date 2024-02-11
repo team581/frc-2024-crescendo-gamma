@@ -162,7 +162,6 @@ class CompConfig {
               0.0),
           new IntakeConfig(
               16,
-              22,
               0,
               // Top Motor
               new TalonFXConfiguration()
@@ -170,13 +169,7 @@ class CompConfig {
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
                       new MotorOutputConfigs()
-                          .withInverted(InvertedValue.CounterClockwise_Positive)),
-              // Bottom Motor
-              new TalonFXConfiguration()
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
-                  .withMotorOutput(
-                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))),
+                          .withInverted(InvertedValue.CounterClockwise_Positive))),
           new QueuerConfig(
               0,
               0,

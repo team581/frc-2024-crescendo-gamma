@@ -149,21 +149,13 @@ class PracticeConfig {
               0.0),
           new IntakeConfig(
               16,
-              22,
               0,
               // Top Motor
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
-                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive)),
-              // Bottom Motor
-              new TalonFXConfiguration()
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
-                  .withMotorOutput(
-                      new MotorOutputConfigs()
-                          .withInverted(InvertedValue.CounterClockwise_Positive))),
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))),
           new QueuerConfig(
               0,
               0,
