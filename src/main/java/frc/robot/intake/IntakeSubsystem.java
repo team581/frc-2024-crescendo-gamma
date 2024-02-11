@@ -23,7 +23,6 @@ public class IntakeSubsystem extends LifecycleSubsystem {
 
     this.motor = motor;
     this.sensor = sensor;
-
   }
 
   @Override

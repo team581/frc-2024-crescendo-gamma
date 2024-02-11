@@ -34,17 +34,25 @@ public record RobotConfig(
       Consumer<InterpolatingDoubleTreeMap> floorShotRpms) {}
 
   public record ClimberConfig(
-      int mainMotorID, int followerMotorID, TalonFXConfiguration motorConfig) {}
-
+      int mainMotorID,
+      int followerMotorID,
+      boolean opposeMasterDirection,
+      int currentTaps,
+      double homingCurrentThreshold,
+      double homingEndPosition,
+      double homingVoltage,
+      double minPosition,
+      double maxPosition,
+      TalonFXConfiguration motorConfig) {}
   public record IntakeConfig(
       int motorID,
       int sensorID,
       TalonFXConfiguration motorConfig) {}
 
   public record ConveyorConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
-  
+
   public record QueuerConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
-  
+
   public record WristConfig(
       int motorID,
       TalonFXConfiguration motorConfig,

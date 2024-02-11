@@ -11,6 +11,7 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -62,7 +63,24 @@ class PracticeConfig {
                 floorSpotDistanceToRPM.put(3.4, 2000.0);
                 floorSpotDistanceToRPM.put(4.8, 2700.0);
               }),
-          new ClimberConfig(20, 21, new TalonFXConfiguration()),
+          new ClimberConfig(
+              20,
+              21,
+              false,
+              4,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              new TalonFXConfiguration()
+                  .withSlot0(new Slot0Configs().withKP(8))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(17.0 / 1.0))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
+                  .withVoltage(
+                      new VoltageConfigs()
+                          .withPeakForwardVoltage(12.0)
+                          .withPeakReverseVoltage(-2.0))),
           new WristConfig(
               14,
               new TalonFXConfiguration()
@@ -156,7 +174,7 @@ class PracticeConfig {
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))),
-        new ConveyorConfig(
+          new ConveyorConfig(
               0,
               0,
               new TalonFXConfiguration()

@@ -15,8 +15,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.Autos;
 import frc.robot.climber.ClimberSubsystem;
-import frc.robot.climber.ClimberSubsystemStub;
-import frc.robot.climber.IClimberSubsystem;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.generated.BuildConstants;
@@ -51,14 +49,12 @@ public class Robot extends LoggedRobot {
           new TalonFX(RobotConfig.get().shooter().leftMotorID(), RobotConfig.get().canivoreName()),
           new TalonFX(
               RobotConfig.get().shooter().rightMotorID(), RobotConfig.get().canivoreName()));
-  private final IClimberSubsystem climber =
-      RobotConfig.IS_PRACTICE_BOT
-          ? new ClimberSubsystemStub()
-          : new ClimberSubsystem(
-              new TalonFX(
-                  RobotConfig.get().climber().mainMotorID(), RobotConfig.get().canivoreName()),
-              new TalonFX(
-                  RobotConfig.get().climber().followerMotorID(), RobotConfig.get().canivoreName()));
+
+  private final ClimberSubsystem climber =
+      new ClimberSubsystem(
+          new TalonFX(RobotConfig.get().climber().mainMotorID(), RobotConfig.get().canivoreName()),
+          new TalonFX(
+              RobotConfig.get().climber().followerMotorID(), RobotConfig.get().canivoreName()));
   private final IntakeSubsystem intake =
       new IntakeSubsystem(
           new TalonFX(RobotConfig.get().intake().motorID(), RobotConfig.get().canivoreName()),

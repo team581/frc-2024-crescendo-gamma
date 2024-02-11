@@ -8,7 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.climber.ClimberMode;
-import frc.robot.climber.IClimberSubsystem;
+import frc.robot.climber.ClimberSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.intake.IntakeState;
 import frc.robot.intake.IntakeSubsystem;
@@ -56,7 +56,7 @@ public class RobotManager extends LifecycleSubsystem {
   public final ShooterSubsystem shooter;
   public final LocalizationSubsystem localization;
   public final VisionSubsystem vision;
-  public final IClimberSubsystem climber;
+  public final ClimberSubsystem climber;
   public final SwerveSubsystem swerve;
   public final SnapManager snaps;
   private final ImuSubsystem imu;
@@ -92,7 +92,7 @@ public class RobotManager extends LifecycleSubsystem {
       ShooterSubsystem shooter,
       LocalizationSubsystem localization,
       VisionSubsystem vision,
-      IClimberSubsystem climber,
+      ClimberSubsystem climber,
       SwerveSubsystem swerve,
       SnapManager snaps,
       ImuSubsystem imu) {
@@ -396,62 +396,62 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(WristPositions.STOWED_UP);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case IDLE_UP_WITH_GP:
         wrist.setAngle(WristPositions.STOWED_UP);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case IDLE_DOWN_NO_GP:
         wrist.setAngle(WristPositions.STOWED_DOWN);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case IDLE_DOWN_WITH_GP:
         wrist.setAngle(WristPositions.STOWED_DOWN);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case GROUND_INTAKING:
         wrist.setAngle(WristPositions.GROUND_INTAKING);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.INTAKING);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case GROUND_INTAKING_SETTLING:
         wrist.setAngle(WristPositions.STOWED_DOWN);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.INTAKING);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case SOURCE_INTAKING:
         wrist.setAngle(WristPositions.SOURCE_INTAKING);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.INTAKING);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case SOURCE_INTAKING_SETTLING:
         wrist.setAngle(WristPositions.STOWED_UP);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.INTAKING);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case OUTTAKING:
         wrist.setAngle(WristPositions.OUTTAKING);
         intake.setState(IntakeState.OUTTAKING);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case WAITING_FLOOR_SHOT:
       case PREPARE_FLOOR_SHOT:
         wrist.setAngle(wristAngleForFloorSpot);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -460,7 +460,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(wristAngleForFloorSpot);
         intake.setState(IntakeState.PASS_TO_QUEUER);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -470,20 +470,20 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case SUBWOOFER_SHOOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
         intake.setState(IntakeState.PASS_TO_QUEUER);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case WAITING_SPEAKER_SHOT:
       case PREPARE_SPEAKER_SHOT:
         wrist.setAngle(wristAngleForSpeaker);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -492,7 +492,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(wristAngleForSpeaker);
         intake.setState(IntakeState.PASS_TO_QUEUER);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -502,44 +502,44 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(WristPositions.AMP_SHOT);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case AMP_SHOOT:
         wrist.setAngle(WristPositions.AMP_SHOT);
         intake.setState(IntakeState.PASS_TO_CONVEYOR);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
         break;
       case WAITING_CLIMBER_RAISED:
         wrist.setAngle(WristPositions.WAITING_CLIMBER_RAISED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.RAISED);
+        climber.setGoalMode(ClimberMode.RAISED);
         break;
       case PREPARE_CLIMBER_RAISED:
       case CLIMBER_RAISED:
         wrist.setAngle(WristPositions.TRAP_SHOT);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.RAISED);
+        climber.setGoalMode(ClimberMode.RAISED);
         break;
       case PREPARE_CLIMBER_HANGING:
         wrist.setAngle(WristPositions.TRAP_SHOT);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.HANGING);
+        climber.setGoalMode(ClimberMode.HANGING);
         break;
       case CLIMBER_HANGING:
         wrist.setAngle(WristPositions.TRAP_SHOT);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.HANGING);
+        climber.setGoalMode(ClimberMode.HANGING);
         break;
       case TRAP_SHOOT:
         wrist.setAngle(WristPositions.TRAP_SHOT);
         intake.setState(IntakeState.PASS_TO_CONVEYOR);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoal(ClimberMode.HANGING);
+        climber.setGoalMode(ClimberMode.HANGING);
         break;
       default:
         // Should never happen
