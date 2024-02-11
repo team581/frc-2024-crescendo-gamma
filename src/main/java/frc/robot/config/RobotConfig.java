@@ -17,15 +17,19 @@ public record RobotConfig(
     ShooterConfig shooter,
     ClimberConfig climber,
     WristConfig wrist,
+    ElevatorConfig elevator,
     IntakeConfig intake,
+    ConveyorConfig conveyor,
+    QueuerConfig queuer,
     SwerveConfig swerve,
     IMUConfig imu,
     LightsConfig lights) {
+
   public record ShooterConfig(
-      int bottomMotorID,
-      int topMotorID,
-      TalonFXConfiguration bottomMotorConfig,
-      TalonFXConfiguration topMotorConfig,
+      int leftMotorID,
+      int rightMotorID,
+      TalonFXConfiguration leftMotorConfig,
+      TalonFXConfiguration rightMotorConfig,
       Consumer<InterpolatingDoubleTreeMap> speakerShotRpms,
       Consumer<InterpolatingDoubleTreeMap> floorShotRpms) {}
 
@@ -33,12 +37,14 @@ public record RobotConfig(
       int mainMotorID, int followerMotorID, TalonFXConfiguration motorConfig) {}
 
   public record IntakeConfig(
-      int topMotorID,
-      int bottomMotorID,
+      int motorID,
       int sensorID,
-      TalonFXConfiguration topMotorConfig,
-      TalonFXConfiguration bottomMotorConfig) {}
+      TalonFXConfiguration motorConfig) {}
 
+  public record ConveyorConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
+  
+  public record QueuerConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
+  
   public record WristConfig(
       int motorID,
       TalonFXConfiguration motorConfig,
@@ -52,6 +58,17 @@ public record RobotConfig(
       Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance,
       Consumer<InterpolatingDoubleTreeMap> speakerShotAngles,
       Consumer<InterpolatingDoubleTreeMap> floorShotAngles) {}
+
+  public record ElevatorConfig(
+      int motorID,
+      TalonFXConfiguration motorConfig,
+      CurrentLimitsConfigs strictCurrentLimits,
+      double homingVoltage,
+      double homingCurrentThreshold,
+      double homingEndPosition,
+      int currentTaps,
+      double minHeight,
+      double maxHeight) {}
 
   public record IMUConfig(
       int deviceID, Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance) {}
