@@ -22,6 +22,8 @@ public enum SubsystemPriority {
   INTAKE(10),
   QUEUER(10),
 
+  CONVEYOR(10),
+
   FMS(0),
   RUMBLE_CONTROLLER(0);
 

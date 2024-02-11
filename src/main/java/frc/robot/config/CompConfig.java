@@ -18,6 +18,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.config.RobotConfig.ClimberConfig;
+import frc.robot.config.RobotConfig.ConveyorConfig;
 import frc.robot.config.RobotConfig.ElevatorConfig;
 import frc.robot.config.RobotConfig.IMUConfig;
 import frc.robot.config.RobotConfig.IntakeConfig;
@@ -170,12 +171,21 @@ class CompConfig {
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.CounterClockwise_Positive))),
+          new ConveyorConfig(
+              0,
+              0,
+              new TalonFXConfiguration()
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
+                  .withSlot0(new Slot0Configs().withKP(0).withKV(0))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(30))),
           new QueuerConfig(
               0,
               0,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))),
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
+                  .withMotorOutput(
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))),
           new SwerveConfig(
               new CurrentLimitsConfigs().withStatorCurrentLimit(60),
               new CurrentLimitsConfigs().withStatorCurrentLimit(60),
