@@ -6,11 +6,9 @@ package frc.robot.elevator;
 
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.HomingState;
@@ -50,11 +48,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private int slot = 0;
 
   public ElevatorSubsystem(TalonFX motor) {
-
     super(SubsystemPriority.ELEVATOR);
-    this.motor = motor;
+
     motor.getConfigurator().apply(RobotConfig.get().elevator().motorConfig());
 
+    this.motor = motor;
   }
 
   @Override
@@ -85,7 +83,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
             // homingEndPosition + (currentAngle - minAngle)
             double homingEndPosition = RobotConfig.get().elevator().homingEndPosition();
             double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
-            motor.setPosition(homedPosition);
+            motor.setPosition(inchesToRotations(homedPosition));
 
             preMatchHomingOccured = true;
             homingState = HomingState.HOMED;
@@ -99,16 +97,18 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
           homingState = HomingState.HOMED;
           goalHeight = ElevatorPositions.STOWED;
 
-          motor.setPosition(RobotConfig.get().elevator().homingEndPosition());
+          motor.setPosition(inchesToRotations(RobotConfig.get().elevator().homingEndPosition()));
         }
         break;
       case HOMED:
-        double usedGoalPosition = ntposition.get() == -1 ? clampHeight(goalHeight) : ntposition.get();
+        double usedGoalPosition =
+            ntposition.get() == -1 ? clampHeight(goalHeight) : ntposition.get();
 
         slot = goalHeight == minHeight ? 1 : 0;
-        Logger.recordOutput("Elevator/UsedGoalAngle", usedGoalPosition);
+        Logger.recordOutput("Elevator/UsedGoalPosition", usedGoalPosition);
 
-        motor.setControl(positionRequest.withSlot(slot).withPosition(usedGoalPosition));
+        motor.setControl(
+            positionRequest.withSlot(slot).withPosition(inchesToRotations(usedGoalPosition)));
 
         break;
     }
@@ -118,10 +118,9 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return highestSeenHeight - lowestSeenHeight >= PRE_MATCH_HOMING_MIN_MOVEMENT;
   }
 
-  public void setHeight(double newHeight) {
-      goalHeight = clampHeight(newHeight);
-    }
-
+  public void setGoalHeight(double newHeight) {
+    goalHeight = clampHeight(newHeight);
+  }
 
   public double getHeight() {
     return rotationsToInches(motor.getPosition().getValueAsDouble());
@@ -131,19 +130,25 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return Math.abs(getHeight() - goalHeight) < TOLERANCE;
   }
 
-  // Tune later
+  public boolean atGoal(double inches) {
+    return Math.abs(getHeight() - inches) < TOLERANCE;
+  }
+
+  // Tune the radius in inches later
   private double rotationsToInches(double rotations) {
-    return rotations * 0;
+    return rotations * (2 * Math.PI * 0);
+  }
+
+  private double inchesToRotations(double inches) {
+    return inches / (2 * Math.PI * 0);
   }
 
   private static double clampHeight(double height) {
     if (height < minHeight) {
       height = minHeight;
-
     } else if (height > maxHeight) {
       height = maxHeight;
     }
-
     return height;
   }
 }
