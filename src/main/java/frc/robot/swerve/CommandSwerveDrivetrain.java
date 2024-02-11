@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.config.RobotConfig;
 import frc.robot.generated.PracticeBotTunerConstants;
 import java.util.function.Supplier;
 
@@ -22,14 +21,10 @@ import java.util.function.Supplier;
  * in command-based projects easily.
  */
 public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsystem {
-  public static final SwerveModuleConstants BackRight =
-      PracticeBotTunerConstants.BackRight;
-  public static final SwerveModuleConstants BackLeft =
-      PracticeBotTunerConstants.BackLeft;
-  public static final SwerveModuleConstants FrontRight =
-      PracticeBotTunerConstants.FrontRight;
-  public static final SwerveModuleConstants FrontLeft =
-      PracticeBotTunerConstants.FrontLeft;
+  public static final SwerveModuleConstants BackRight = PracticeBotTunerConstants.BackRight;
+  public static final SwerveModuleConstants BackLeft = PracticeBotTunerConstants.BackLeft;
+  public static final SwerveModuleConstants FrontRight = PracticeBotTunerConstants.FrontRight;
+  public static final SwerveModuleConstants FrontLeft = PracticeBotTunerConstants.FrontLeft;
   public static final SwerveDrivetrainConstants DrivetrainConstants =
       PracticeBotTunerConstants.DrivetrainConstants;
   private static final double kSimLoopPeriod = 0.005; // 5 ms

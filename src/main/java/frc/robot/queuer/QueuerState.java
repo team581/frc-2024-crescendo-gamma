@@ -2,15 +2,10 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.shooter;
+package frc.robot.queuer;
 
-public enum ShooterMode {
+public enum QueuerState {
   IDLE,
   PASSING_NOTE,
-  OUTTAKE,
-  SUBWOOFER_SHOT,
-  SPEAKER_SHOT,
-  FLOOR_SHOT,
-  // Isnt really used
-  INTAKING;
+  PASS_TO_INTAKE;
 }

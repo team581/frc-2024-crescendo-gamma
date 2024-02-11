@@ -27,11 +27,11 @@ import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.robot_manager.RobotManager;
 import frc.robot.shooter.ShooterSubsystem;
-import frc.robot.shoulder.ShoulderSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystemManager;
 import frc.robot.vision.VisionSubsystem;
+import frc.robot.wrist.WristSubsystem;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -43,17 +43,14 @@ public class Robot extends LoggedRobot {
   private final CommandXboxController operatorController = new CommandXboxController(1);
 
   private final PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
-  private final ShoulderSubsystem shoulder =
-      new ShoulderSubsystem(
-          new TalonFX(
-              RobotConfig.get().shoulder().rightMotorID(), RobotConfig.get().canivoreName()),
-          new TalonFX(
-              RobotConfig.get().shoulder().leftMotorID(), RobotConfig.get().canivoreName()));
+  private final WristSubsystem wrist =
+      new WristSubsystem(
+          new TalonFX(RobotConfig.get().wrist().motorID(), RobotConfig.get().canivoreName()));
   private final ShooterSubsystem shooter =
       new ShooterSubsystem(
+          new TalonFX(RobotConfig.get().shooter().leftMotorID(), RobotConfig.get().canivoreName()),
           new TalonFX(
-              RobotConfig.get().shooter().bottomMotorID(), RobotConfig.get().canivoreName()),
-          new TalonFX(RobotConfig.get().shooter().topMotorID(), RobotConfig.get().canivoreName()));
+              RobotConfig.get().shooter().rightMotorID(), RobotConfig.get().canivoreName()));
   private final IClimberSubsystem climber =
       RobotConfig.IS_PRACTICE_BOT
           ? new ClimberSubsystemStub()
@@ -73,8 +70,7 @@ public class Robot extends LoggedRobot {
   private final LocalizationSubsystem localization = new LocalizationSubsystem(swerve, imu, vision);
   private final SnapManager snaps = new SnapManager(swerve, driverController);
   private final RobotManager robotManager =
-      new RobotManager(
-          shoulder, intake, shooter, localization, vision, climber, swerve, snaps, imu);
+      new RobotManager(wrist, intake, shooter, localization, vision, climber, swerve, snaps, imu);
   private final RobotCommands actions = new RobotCommands(robotManager);
   private final Autos autos = new Autos(swerve, localization, imu, actions);
   private final LightsSubsystem lightsSubsystem =
