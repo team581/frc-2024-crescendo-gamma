@@ -13,6 +13,7 @@ public class IntakeSubsystem extends LifecycleSubsystem {
   private final DigitalInput sensor;
   private VoltageOut voltageRequest = new VoltageOut(0.0);
   private IntakeState goalState = IntakeState.IDLE;
+  private double voltageUsed = 0.0;
   private boolean hasNote = false;
 
   public IntakeSubsystem(TalonFX motor, DigitalInput sensor) {
@@ -27,20 +28,30 @@ public class IntakeSubsystem extends LifecycleSubsystem {
 
   @Override
   public void enabledPeriodic() {
+    switch (goalState) {
+      case IDLE:
+        voltageUsed = 0.0;
+        break;
+      case OUTTAKING:
+        voltageUsed = -4.0;
+        break;
+      case PASS_TO_CONVEYOR:
+        voltageUsed = 2.0;
+        break;
+      case PASS_TO_QUEUER:
+        voltageUsed = 2.0;
+        break;
+      case INTAKING:
+        voltageUsed = 4.0;
+        break;
+      default:
+        break;
+    }
     if (goalState == IntakeState.IDLE) {
       motor.disable();
-    } else if ( goalState == IntakeState.OUTTAKING) {
-      voltageRequest.withOutput(-4.0);
-    } else if (goalState == IntakeState.PASS_TO_CONVEYOR) {
-      voltageRequest.withOutput(2.0);
-    } else if (goalState == IntakeState.PASS_TO_QUEUER) {
-      voltageRequest.withOutput(2.0);
-    } else if (goalState == IntakeState.INTAKING) {
-      voltageRequest.withOutput(4.0);
     } else {
-      motor.disable();
+      voltageRequest.withOutput(voltageUsed);
     }
-
     setHasNote(sensorHasNote());
   }
 
