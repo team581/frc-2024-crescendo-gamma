@@ -23,8 +23,8 @@ import frc.robot.config.RobotConfig.IMUConfig;
 import frc.robot.config.RobotConfig.IntakeConfig;
 import frc.robot.config.RobotConfig.LightsConfig;
 import frc.robot.config.RobotConfig.ShooterConfig;
-import frc.robot.config.RobotConfig.ShoulderConfig;
 import frc.robot.config.RobotConfig.SwerveConfig;
+import frc.robot.config.RobotConfig.WristConfig;
 
 class CompConfig {
   public static final RobotConfig competitionBot =
@@ -72,9 +72,8 @@ class CompConfig {
                       new VoltageConfigs()
                           .withPeakForwardVoltage(12.0)
                           .withPeakReverseVoltage(-2.0))),
-          new ShoulderConfig(
+          new WristConfig(
               14,
-              15,
               new TalonFXConfiguration()
                   .withSlot0(
                       new Slot0Configs()

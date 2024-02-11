@@ -16,7 +16,7 @@ public record RobotConfig(
     String canivoreName,
     ShooterConfig shooter,
     ClimberConfig climber,
-    ShoulderConfig shoulder,
+    WristConfig wrist,
     ElevatorConfig elevator,
     IntakeConfig intake,
     SwerveConfig swerve,
@@ -41,9 +41,8 @@ public record RobotConfig(
       TalonFXConfiguration topMotorConfig,
       TalonFXConfiguration bottomMotorConfig) {}
 
-  public record ShoulderConfig(
-      int rightMotorID,
-      int leftMotorID,
+  public record WristConfig(
+      int motorID,
       TalonFXConfiguration motorConfig,
       CurrentLimitsConfigs strictCurrentLimits,
       double homingVoltage,
@@ -81,7 +80,6 @@ public record RobotConfig(
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;
   private static final String PRACTICE_BOT_SERIAL_NUMBER = "0322443D"; // TODO: get serial number
-
   public static final String SERIAL_NUMBER = System.getenv("serialnum");
   public static final boolean IS_PRACTICE_BOT =
       SERIAL_NUMBER != null && SERIAL_NUMBER.equals(PRACTICE_BOT_SERIAL_NUMBER);

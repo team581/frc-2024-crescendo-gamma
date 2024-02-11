@@ -53,7 +53,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
     RobotState state = robotManager.getState();
 
     if (DriverStation.isDisabled()) {
-      if (!robotManager.shoulder.rangeOfMotionSeen()) {
+      if (!robotManager.wrist.rangeOfMotionSeen()) {
         color = Color.kRed;
         blinkPattern = BlinkPattern.SOLID;
       } else if (!vision.isWorking()) {
