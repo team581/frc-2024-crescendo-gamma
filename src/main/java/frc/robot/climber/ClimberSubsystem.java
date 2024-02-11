@@ -4,119 +4,152 @@
 
 package frc.robot.climber;
 
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
+
 import com.ctre.phoenix6.controls.CoastOut;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.StaticBrake;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.math.geometry.Rotation2d;
+
+import edu.wpi.first.math.filter.LinearFilter;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
+import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import org.littletonrobotics.junction.Logger;
 
-public class ClimberSubsystem extends LifecycleSubsystem implements IClimberSubsystem {
-  private static final Rotation2d TOLERANCE = Rotation2d.fromRotations(0.05);
+public class ClimberSubsystem extends LifecycleSubsystem {
   private final TalonFX mainMotor;
   private final TalonFX followerMotor;
+  private Follower followRequest;
+  private CoastOut coastNeutralRequest = new CoastOut();
+  private StaticBrake brakeNeutralRequest = new StaticBrake();
+  private LinearFilter currentFilter = LinearFilter.movingAverage(RobotConfig.get().climber().currentTaps());
+  private final LoggedDashboardNumber ntposition =
+      new LoggedDashboardNumber("Climber/positionOverride", -1);
+  private int slot = 0;
+
+  private double ACCEL_TOLERANCE = 0.1; // inches per second
+  private double goalPosition = 0.0;
+  private PositionTorqueCurrentFOC positionRequest = new PositionTorqueCurrentFOC(goalPosition);
 
   private ClimberMode goalMode = ClimberMode.IDLE;
-  private Rotation2d goalPosition = Rotation2d.fromRotations(0);
-  private final StaticBrake brakeNeutralRequest = new StaticBrake();
-  private final CoastOut coastNeutralRequest = new CoastOut();
-  private final VoltageOut voltageRequest = new VoltageOut(0).withEnableFOC(true);
+  private HomingState homingState = HomingState.NOT_HOMED;
+  private boolean preMatchHomingOccured = false;
 
-  private boolean enabledOnce = false;
+  private double maxPosition = RobotConfig.get().climber().maxPosition();
+  private double minPositon = RobotConfig.get().climber().minPosition();
+  private double lowestSeenPosition = 0.0;
 
   public ClimberSubsystem(TalonFX mainMotor, TalonFX followerMotor) {
     super(SubsystemPriority.CLIMBER);
+
     this.mainMotor = mainMotor;
     this.followerMotor = followerMotor;
 
     mainMotor.getConfigurator().apply(RobotConfig.get().climber().motorConfig());
     followerMotor.getConfigurator().apply(RobotConfig.get().climber().motorConfig());
 
-    mainMotor.setInverted(true);
-    mainMotor.setPosition(0.0);
-    followerMotor.setPosition(0.0);
-  }
-
-  public void setGoal(ClimberMode newMode) {
-    goalMode = newMode;
-  }
-
-  public boolean atGoal(ClimberMode mode) {
-    if (mode != goalMode) {
-      return false;
-    }
-
-    if (goalMode == ClimberMode.IDLE) {
-      return true;
-    }
-
-    if ((goalPosition.getRotations() - mainMotor.getPosition().getValue())
-        < TOLERANCE.getRotations()) {
-      return true;
-    }
-
-    return false;
-  }
-
-  @Override
-  public void robotPeriodic() {
-    enabledOnce = true;
-    // Current
-    Logger.recordOutput("Climber/MainMotor/Current", mainMotor.getStatorCurrent().getValue());
-    Logger.recordOutput(
-        "Climber/FollowerMotor/Current", followerMotor.getStatorCurrent().getValue());
-    Logger.recordOutput("Climber/MainMotor/OutputVoltage", mainMotor.getMotorVoltage().getValue());
-    Logger.recordOutput(
-        "Climber/FollowerMotor/OutputVoltage", followerMotor.getMotorVoltage().getValue());
-    Logger.recordOutput("Climber/MainMotor/RPM", mainMotor.getVelocity().getValue() * 60.0);
-    Logger.recordOutput("Climber/FollowerMotor/RPM", followerMotor.getVelocity().getValue() * 60.0);
-    Logger.recordOutput("Climber/MainMotor/Position", mainMotor.getPosition().getValue());
-    Logger.recordOutput("Climber/FollowerMotor/Position", followerMotor.getPosition().getValue());
-    Logger.recordOutput("Climber/GoalPositionRotations", goalPosition.getRotations());
-    Logger.recordOutput("Climber/GoalMode", goalMode);
-    Logger.recordOutput("Climber/MainMotor/Tempereature", mainMotor.getDeviceTemp().getValue());
-    Logger.recordOutput(
-        "Climber/FollowerMotor/Tempereature", followerMotor.getDeviceTemp().getValue());
-
-    if (goalMode == ClimberMode.IDLE) {
-      goalPosition = Rotation2d.fromRotations(0);
-    } else if (goalMode == ClimberMode.RAISED) {
-      goalPosition = Rotation2d.fromRotations(6.5);
-    } else if (goalMode == ClimberMode.HANGING) {
-      goalPosition = Rotation2d.fromRotations(22);
-    }
+    followRequest =
+        new Follower(mainMotor.getDeviceID(), RobotConfig.get().climber().opposeMasterDirection());
   }
 
   @Override
   public void enabledPeriodic() {
-    // placeholder voltage
-    if (atGoal(goalMode)) {
-      if (enabledOnce) {
-        mainMotor.setControl(brakeNeutralRequest);
-        followerMotor.setControl(brakeNeutralRequest);
-      } else {
+    double rawCurrent = mainMotor.getStatorCurrent().getValueAsDouble();
+    double filteredCurrent = currentFilter.calculate(rawCurrent);
+
+    switch (homingState) {
+      case NOT_HOMED:
         mainMotor.setControl(coastNeutralRequest);
         followerMotor.setControl(coastNeutralRequest);
-      }
+        break;
+      case PRE_MATCH_HOMING:
+        if (DriverStation.isDisabled()) {
+          mainMotor.setControl(coastNeutralRequest);
+          followerMotor.setControl(coastNeutralRequest);
+        } else {
+          mainMotor.setControl(brakeNeutralRequest);
+          followerMotor.setControl(brakeNeutralRequest);
 
-    } else {
-      double currentPosition = mainMotor.getPosition().getValue();
-      double goal = goalPosition.getRotations();
-      double tolerance = TOLERANCE.getRotations();
+          if (!preMatchHomingOccured && rangeOfMotionSeen()) {
+            double homingEndPosition = RobotConfig.get().climber().homingEndPosition();
+            double homedPosition = homingEndPosition + (getPosition() - lowestSeenPosition);
+            mainMotor.setPosition(inchesToRotations(homedPosition));
+            followerMotor.setPosition(inchesToRotations(homedPosition));
 
-      if (currentPosition < goal - tolerance) {
-        mainMotor.setControl(voltageRequest.withOutput(12));
-        followerMotor.setControl(voltageRequest.withOutput(12));
-      } else if (currentPosition > goal - tolerance && goal > currentPosition) {
-        mainMotor.setControl(voltageRequest.withOutput(3));
-        followerMotor.setControl(voltageRequest.withOutput(3));
-      } else {
-        mainMotor.disable();
-        followerMotor.disable();
-      }
+            preMatchHomingOccured = true;
+            homingState = HomingState.HOMED;
+          }
+        }
+        break;
+      case MID_MATCH_HOMING:
+        mainMotor.set(RobotConfig.get().climber().homingVoltage());
+        followerMotor.setControl(followRequest);
+
+        if (filteredCurrent > RobotConfig.get().climber().homingCurrentThreshold()) {
+          homingState = HomingState.HOMED;
+          setGoalPosition(minPositon);
+
+          mainMotor.setPosition(inchesToRotations(RobotConfig.get().climber().homingEndPosition()));
+          followerMotor.setControl(followRequest);
+        }
+        break;
+      case HOMED:
+        double usedGoalPosition =
+            ntposition.get() == -1 ? clamp(goalPosition) : ntposition.get();
+
+        slot = goalPosition == minPositon ? 1 : 0;
+        Logger.recordOutput("Climber/UsedGoalPosition", usedGoalPosition);
+
+        mainMotor.setControl(
+            positionRequest.withSlot(slot).withPosition(inchesToRotations(usedGoalPosition)));
+        followerMotor.setControl(followRequest);
+
+        break;
     }
+  }
+  public boolean atGoal(ClimberMode goal) {
+    if (goalMode != goal) {
+      return false;
+    }
+    if (goalMode == ClimberMode.IDLE) {
+      return true;
+    }
+    if (goal == goalMode && Math.abs(rotationsToInches(mainMotor.getAcceleration().getValueAsDouble())) < ACCEL_TOLERANCE) {
+      return true;
+    }
+    return false;
+  }
+
+  private boolean rangeOfMotionSeen() {
+    return maxPosition - lowestSeenPosition >= maxPosition;
+  }
+
+  public double getPosition() {
+    return rotationsToInches(mainMotor.getPosition().getValueAsDouble());
+  }
+
+  private void setGoalPosition(double pos) {
+    goalPosition = clamp(pos);
+  }
+
+  public void setGoalMode(ClimberMode mode) {
+    goalMode = mode;
+  }
+
+  private double clamp(double pos) {
+    return pos < minPositon ? minPositon : pos > maxPosition ? maxPosition : pos;
+  }
+
+  // Tune the radius in inches later
+  private double rotationsToInches(double rotations) {
+    return rotations * (2 * Math.PI * 0);
+  }
+
+  private double inchesToRotations(double inches) {
+    return inches / (2 * Math.PI * 0);
   }
 }
