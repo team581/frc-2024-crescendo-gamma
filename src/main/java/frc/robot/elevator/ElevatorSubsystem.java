@@ -126,6 +126,18 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return rotationsToInches(motor.getPosition().getValueAsDouble());
   }
 
+  public HomingState getHomingState() {
+    return homingState;
+  }
+
+  public void startPreMatchHoming() {
+    homingState = HomingState.PRE_MATCH_HOMING;
+  }
+
+  public void startMidMatchHoming() {
+    homingState = HomingState.MID_MATCH_HOMING;
+  }
+
   public boolean atGoal() {
     return Math.abs(getHeight() - goalHeight) < TOLERANCE;
   }

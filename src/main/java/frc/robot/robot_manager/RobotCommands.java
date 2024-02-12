@@ -19,8 +19,8 @@ public class RobotCommands {
             () -> robot.stowUpRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
         .andThen(
             Commands.race(
-                robot.waitForStateCommand(RobotState.IDLE_UP_NO_GP),
-                robot.waitForStateCommand(RobotState.IDLE_UP_WITH_GP)));
+                robot.waitForStateCommand(RobotState.IDLE_NO_GP),
+                robot.waitForStateCommand(RobotState.IDLE_WITH_GP)));
   }
 
   public Command stowDownCommand() {
@@ -34,20 +34,20 @@ public class RobotCommands {
 
   public Command stowUpAfterIntakeCommand() {
     return Commands.runOnce(
-            () -> robot.stowUpAfterIntakeRequest(),
+            () -> robot.stowAfterIntakeRequest(),
             robot.wrist,
             robot.intake,
             robot.shooter,
             robot.climber)
         .andThen(
             Commands.race(
-                robot.waitForStateCommand(RobotState.IDLE_UP_NO_GP),
-                robot.waitForStateCommand(RobotState.IDLE_UP_WITH_GP)));
+                robot.waitForStateCommand(RobotState.IDLE_NO_GP),
+                robot.waitForStateCommand(RobotState.IDLE_WITH_GP)));
   }
 
   public Command stowDownAfterIntakeCommand() {
     return Commands.runOnce(
-            () -> robot.stowDownAfterIntakeRequest(),
+            () -> robot.stowAfterIntakeRequest(),
             robot.wrist,
             robot.intake,
             robot.shooter,
@@ -178,7 +178,7 @@ public class RobotCommands {
         () ->
             robot.getState() == RobotState.IDLE_DOWN_NO_GP
                 || robot.getState() == RobotState.IDLE_DOWN_WITH_GP
-                || robot.getState() == RobotState.IDLE_UP_NO_GP
-                || robot.getState() == RobotState.IDLE_UP_WITH_GP);
+                || robot.getState() == RobotState.IDLE_NO_GP
+                || robot.getState() == RobotState.IDLE_WITH_GP);
   }
 }

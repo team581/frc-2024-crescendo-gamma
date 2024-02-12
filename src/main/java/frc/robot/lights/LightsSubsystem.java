@@ -66,14 +66,14 @@ public class LightsSubsystem extends LifecycleSubsystem {
     } else {
       switch (state) {
         case IDLE_DOWN_NO_GP:
-        case IDLE_UP_NO_GP:
+        case IDLE_NO_GP:
         case GROUND_INTAKING:
         case SOURCE_INTAKING:
           color = Color.kOrange;
           blinkPattern = BlinkPattern.BLINK_SLOW;
           break;
         case IDLE_DOWN_WITH_GP:
-        case IDLE_UP_WITH_GP:
+        case IDLE_WITH_GP:
         case WAITING_SPEAKER_SHOT:
         case WAITING_SUBWOOFER_SHOT:
         case WAITING_AMP_SHOT:
@@ -96,7 +96,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
           }
           break;
         case AMP_SHOOT:
-        case OUTTAKING:
+        case OUTTAKING_INTAKE:
         case SUBWOOFER_SHOOT:
           color = Color.kGreen;
           blinkPattern = BlinkPattern.BLINK_FAST;

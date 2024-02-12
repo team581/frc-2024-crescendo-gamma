@@ -25,7 +25,7 @@ public class WristSubsystem extends LifecycleSubsystem {
   private final LoggedDashboardNumber ntAngle =
       new LoggedDashboardNumber("Wrist/AngleOverride", -1);
   private final MotionMagicVoltage positionRequest =
-      new MotionMagicVoltage(WristPositions.STOWED_DOWN.getRotations()).withEnableFOC(true);
+      new MotionMagicVoltage(WristPositions.STOWED.getRotations()).withEnableFOC(true);
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
   private HomingState homingState = HomingState.PRE_MATCH_HOMING;
@@ -118,7 +118,7 @@ public class WristSubsystem extends LifecycleSubsystem {
 
         if (filteredCurrent > RobotConfig.get().wrist().homingCurrentThreshold()) {
           homingState = HomingState.HOMED;
-          goalAngle = WristPositions.STOWED_UP;
+          goalAngle = WristPositions.STOWED;
 
           motor.setPosition(RobotConfig.get().wrist().homingEndPosition().getRotations());
         }

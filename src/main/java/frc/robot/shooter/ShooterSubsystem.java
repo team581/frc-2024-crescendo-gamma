@@ -87,9 +87,6 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       case IDLE:
         goalRPM = IDLE_RPM;
         break;
-      case PASSING_NOTE:
-        goalRPM = PASSING_RPM;
-        break;
       default:
         break;
     }

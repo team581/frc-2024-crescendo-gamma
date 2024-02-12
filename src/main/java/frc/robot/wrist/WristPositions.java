@@ -5,23 +5,19 @@
 package frc.robot.wrist;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.config.RobotConfig;
 
 public class WristPositions {
-  public static final Rotation2d STOWED_UP = Rotation2d.fromDegrees(60);
-  public static final Rotation2d STOWED_DOWN = Rotation2d.fromDegrees(-5);
+  public static final Rotation2d STOWED = Rotation2d.fromDegrees(-5);
 
-  public static final Rotation2d GROUND_INTAKING = RobotConfig.get().wrist().minAngle();
-  public static final Rotation2d SOURCE_INTAKING = Rotation2d.fromDegrees(54.5);
-
-  public static final Rotation2d OUTTAKING = Rotation2d.fromDegrees(-15);
+  public static final Rotation2d OUTTAKING_SHOOTER = Rotation2d.fromDegrees(-15);
+  public static final Rotation2d OUTTAKING_CONVEYOR = Rotation2d.fromDegrees(-15);
 
   public static final Rotation2d FLOOR_SHOT = Rotation2d.fromDegrees(60);
 
   public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(5);
   public static final Rotation2d AMP_SHOT = Rotation2d.fromDegrees(85);
 
-  public static final Rotation2d WAITING_CLIMBER_RAISED = Rotation2d.fromDegrees(0);
+  public static final Rotation2d CLIMBING = Rotation2d.fromDegrees(0);
   public static final Rotation2d TRAP_SHOT = Rotation2d.fromDegrees(95);
 
   private WristPositions() {}

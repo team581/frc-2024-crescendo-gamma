@@ -6,7 +6,6 @@ package frc.robot.shooter;
 
 public enum ShooterMode {
   IDLE,
-  PASSING_NOTE,
   OUTTAKE,
   SUBWOOFER_SHOT,
   SPEAKER_SHOT,

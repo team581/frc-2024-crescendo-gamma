@@ -40,12 +40,10 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    if (goalMode == ConveyorMode.AMP_OUTTAKE) {
+    if (goalMode == ConveyorMode.OUTTAKE) {
       goalVelocity = 0.20;
     } else if (goalMode == ConveyorMode.CONVEYORING) {
       goalVelocity = 0.35;
-    } else if (goalMode == ConveyorMode.PASSING_NOTE) {
-      goalVelocity = 0.30;
     } else if (goalMode == ConveyorMode.PASS_TO_INTAKE) {
       goalVelocity = -0.30;
     } else {
@@ -81,7 +79,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     hasNote = bool;
   }
 
-  public boolean gethasNote() {
+  public boolean getHasNote() {
     return hasNote;
   }
 

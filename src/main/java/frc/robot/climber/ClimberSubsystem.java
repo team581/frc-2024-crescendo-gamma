@@ -129,6 +129,18 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     return maxPosition - lowestSeenPosition >= maxPosition;
   }
 
+  public HomingState getHomingState() {
+    return homingState;
+  }
+
+  public void startPreMatchHoming() {
+    homingState = HomingState.PRE_MATCH_HOMING;
+  }
+
+  public void startMidMatchHoming() {
+    homingState = HomingState.MID_MATCH_HOMING;
+  }
+
   public double getPosition() {
     return rotationsToInches(mainMotor.getPosition().getValueAsDouble());
   }
