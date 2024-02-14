@@ -14,118 +14,103 @@ public class RobotCommands {
     this.robot = robot;
   }
 
-  public Command stowUpCommand() {
-    return Commands.runOnce(
-            () -> robot.stowUpRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
+  public Command stowCommand() {
+    return Commands.runOnce(() -> robot.stowRequest(), robot.wrist, robot.elevator)
         .andThen(
             Commands.race(
                 robot.waitForStateCommand(RobotState.IDLE_NO_GP),
-                robot.waitForStateCommand(RobotState.IDLE_WITH_GP)));
+                robot.waitForStateCommand(RobotState.IDLE_WITH_GP),
+                robot.waitForStateCommand(RobotState.WAITING_AMP_SHOT)));
   }
 
-  public Command stowDownCommand() {
-    return Commands.runOnce(
-            () -> robot.stowDownRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
-        .andThen(
-            Commands.race(
-                robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP),
-                robot.waitForStateCommand(RobotState.IDLE_DOWN_WITH_GP)));
-  }
-
-  public Command stowUpAfterIntakeCommand() {
+  public Command stowAfterIntakeCommand() {
     return Commands.runOnce(
             () -> robot.stowAfterIntakeRequest(),
             robot.wrist,
             robot.intake,
-            robot.shooter,
-            robot.climber)
+            robot.conveyor,
+            robot.queuer)
         .andThen(
             Commands.race(
                 robot.waitForStateCommand(RobotState.IDLE_NO_GP),
                 robot.waitForStateCommand(RobotState.IDLE_WITH_GP)));
-  }
-
-  public Command stowDownAfterIntakeCommand() {
-    return Commands.runOnce(
-            () -> robot.stowAfterIntakeRequest(),
-            robot.wrist,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
-        .andThen(
-            Commands.race(
-                robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP),
-                robot.waitForStateCommand(RobotState.IDLE_DOWN_WITH_GP)));
   }
 
   public Command intakeFloorCommand() {
     return Commands.runOnce(
-            () -> robot.groundIntakeRequest(),
-            robot.wrist,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_WITH_GP));
+            () -> robot.groundIntakeRequest(), robot.intake, robot.queuer, robot.conveyor)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP));
   }
 
-  public Command sourceIntakeCommand() {
+  public Command outtakeIntakeCommand() {
     return Commands.runOnce(
-            () -> robot.sourceIntakeRequest(),
-            robot.wrist,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_WITH_GP));
+            () -> robot.outtakeIntakeRequest(), robot.intake, robot.queuer, robot.conveyor)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP));
   }
 
-  public Command outtakeCommand() {
-    return Commands.runOnce(
-            () -> robot.outtakeRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP));
+  public Command outtakeShooterCommand() {
+    return Commands.runOnce(() -> robot.outtakeShooterRequest(), robot.shooter, robot.queuer)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP));
   }
 
   public Command homeCommand() {
-    return Commands.runOnce(
-            () -> robot.homingRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP));
+    return Commands.runOnce(() -> robot.homingRequest(), robot.wrist, robot.elevator, robot.climber)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP));
   }
 
   public Command waitForSpeakerShotCommand() {
     return Commands.runOnce(
         () -> robot.waitSpeakerShotRequest(),
         robot.wrist,
-        robot.intake,
         robot.shooter,
-        robot.climber);
+        robot.queuer,
+        robot.localization,
+        robot.snaps,
+        robot.vision,
+        robot.swerve);
   }
 
-  public Command waitForAmpShotCommand() {
+  public Command passToConveyorForAmpShotCommand() {
     return Commands.runOnce(
-        () -> robot.waitAmpShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber);
+        () -> robot.passNoteToConveyorRequest(), robot.intake, robot.queuer, robot.conveyor);
   }
 
   public Command waitForFloorShotCommand() {
     return Commands.runOnce(
         () -> robot.waitFloorShotRequest(),
         robot.wrist,
-        robot.intake,
         robot.shooter,
-        robot.climber);
+        robot.queuer,
+        robot.localization,
+        robot.snaps,
+        robot.vision,
+        robot.swerve);
   }
 
   public Command confirmShotCommand() {
     return Commands.runOnce(
-        () -> robot.confirmShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber);
+        () -> robot.confirmShotRequest(),
+        robot.wrist,
+        robot.shooter,
+        robot.elevator,
+        robot.queuer,
+        robot.localization,
+        robot.snaps,
+        robot.vision,
+        robot.swerve);
   }
 
   public Command speakerShotCommand() {
     return Commands.runOnce(
             () -> robot.speakerShotRequest(),
             robot.wrist,
-            robot.intake,
             robot.shooter,
-            robot.climber)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP))
+            robot.queuer,
+            robot.localization,
+            robot.snaps,
+            robot.vision,
+            robot.swerve)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
         .finallyDo(
             () -> {
               robot.snaps.setEnabled(false);
@@ -133,34 +118,25 @@ public class RobotCommands {
   }
 
   public Command ampShotCommand() {
-    return Commands.runOnce(
-            () -> robot.ampShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP));
+    return Commands.runOnce(() -> robot.ampShotRequest(), robot.elevator, robot.conveyor)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP));
   }
 
   public Command trapShotCommand() {
     return Commands.runOnce(
-            () -> robot.trapShotRequest(), robot.wrist, robot.intake, robot.shooter, robot.climber)
+            () -> robot.trapShotRequest(), robot.elevator, robot.climber, robot.conveyor)
         .andThen(robot.waitForStateCommand(RobotState.CLIMBER_HANGING));
   }
 
   public Command waitSubwooferShotCommand() {
     return Commands.runOnce(
-        () -> robot.waitSubwooferShotRequest(),
-        robot.wrist,
-        robot.intake,
-        robot.shooter,
-        robot.climber);
+        () -> robot.waitSubwooferShotRequest(), robot.wrist, robot.shooter, robot.queuer);
   }
 
   public Command subwooferShotCommand() {
     return Commands.runOnce(
-            () -> robot.subwooferShotRequest(),
-            robot.wrist,
-            robot.intake,
-            robot.shooter,
-            robot.climber)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_DOWN_NO_GP));
+            () -> robot.subwooferShotRequest(), robot.wrist, robot.queuer, robot.shooter)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP));
   }
 
   public Command getClimberCommand() {
@@ -176,9 +152,7 @@ public class RobotCommands {
   public Command waitForIdle() {
     return Commands.waitUntil(
         () ->
-            robot.getState() == RobotState.IDLE_DOWN_NO_GP
-                || robot.getState() == RobotState.IDLE_DOWN_WITH_GP
-                || robot.getState() == RobotState.IDLE_NO_GP
+            robot.getState() == RobotState.IDLE_NO_GP
                 || robot.getState() == RobotState.IDLE_WITH_GP);
   }
 }

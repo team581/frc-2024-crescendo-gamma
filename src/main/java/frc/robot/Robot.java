@@ -16,12 +16,15 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.Autos;
 import frc.robot.climber.ClimberSubsystem;
 import frc.robot.config.RobotConfig;
+import frc.robot.conveyor.ConveyorSubsystem;
+import frc.robot.elevator.ElevatorSubsystem;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.generated.BuildConstants;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.intake.IntakeSubsystem;
 import frc.robot.lights.LightsSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
+import frc.robot.queuer.QueuerSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.robot_manager.RobotManager;
 import frc.robot.shooter.ShooterSubsystem;
@@ -62,11 +65,34 @@ public class Robot extends LoggedRobot {
   private final SwerveSubsystem swerve = new SwerveSubsystem(driverController);
   private final ImuSubsystem imu = new ImuSubsystem(swerve);
   private final FmsSubsystem fms = new FmsSubsystem();
+  private final ElevatorSubsystem elevator =
+      new ElevatorSubsystem(
+          new TalonFX(RobotConfig.get().elevator().motorID(), RobotConfig.get().canivoreName()));
+  private final QueuerSubsystem queuer =
+      new QueuerSubsystem(
+          new TalonFX(RobotConfig.get().queuer().motorID(), RobotConfig.get().canivoreName()),
+          new DigitalInput(RobotConfig.get().queuer().sensorID()));
+  private final ConveyorSubsystem conveyor =
+      new ConveyorSubsystem(
+          new TalonFX(RobotConfig.get().conveyor().motorID(), RobotConfig.get().canivoreName()),
+          new DigitalInput(RobotConfig.get().conveyor().sensorID()));
   private final VisionSubsystem vision = new VisionSubsystem();
   private final LocalizationSubsystem localization = new LocalizationSubsystem(swerve, imu, vision);
   private final SnapManager snaps = new SnapManager(swerve, driverController);
   private final RobotManager robotManager =
-      new RobotManager(wrist, intake, shooter, localization, vision, climber, swerve, snaps, imu);
+      new RobotManager(
+          wrist,
+          intake,
+          elevator,
+          queuer,
+          conveyor,
+          shooter,
+          localization,
+          vision,
+          climber,
+          swerve,
+          snaps,
+          imu);
   private final RobotCommands actions = new RobotCommands(robotManager);
   private final Autos autos = new Autos(swerve, localization, imu, actions);
   private final LightsSubsystem lightsSubsystem =
@@ -183,40 +209,35 @@ public class Robot extends LoggedRobot {
     driverController
         .leftTrigger()
         .onTrue(actions.intakeFloorCommand())
-        .onFalse(actions.stowDownAfterIntakeCommand());
-    driverController
-        .leftBumper()
-        .onTrue(actions.sourceIntakeCommand())
-        .onFalse(actions.stowUpAfterIntakeCommand());
+        .onFalse(actions.stowAfterIntakeCommand());
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
-        .onFalse(actions.stowDownCommand());
+        .onFalse(actions.stowCommand());
     driverController
         .rightBumper()
-        .onTrue(actions.outtakeCommand())
-        .onFalse(actions.stowDownCommand());
+        .onTrue(actions.outtakeIntakeCommand())
+        .onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberCommand());
 
     operatorController
         .y()
         .onTrue(actions.waitSubwooferShotCommand())
-        .onFalse(actions.stowDownCommand());
-    operatorController.b().onTrue(actions.stowUpCommand());
-    operatorController.a().onTrue(actions.stowDownCommand());
+        .onFalse(actions.stowCommand());
+    operatorController.a().onTrue(actions.stowCommand());
     operatorController
         .leftBumper()
         .onTrue(actions.waitForFloorShotCommand())
-        .onFalse(actions.stowDownCommand());
+        .onFalse(actions.stowCommand());
     operatorController
         .rightBumper()
-        .onTrue(actions.waitForAmpShotCommand())
-        .onFalse(actions.stowDownCommand());
+        .onTrue(actions.passToConveyorForAmpShotCommand())
+        .onFalse(actions.stowCommand());
     operatorController
         .rightTrigger()
         .onTrue(actions.waitForSpeakerShotCommand())
-        .onFalse(actions.stowDownCommand());
+        .onFalse(actions.stowCommand());
     operatorController.back().onTrue(actions.homeCommand());
   }
 }
