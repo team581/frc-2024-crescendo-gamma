@@ -6,6 +6,6 @@ package frc.robot.queuer;
 
 public enum QueuerState {
   IDLE,
-  PASSING_NOTE,
+  PASS_TO_SHOOTER,
   PASS_TO_INTAKE;
 }

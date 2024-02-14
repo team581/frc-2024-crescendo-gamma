@@ -6,7 +6,8 @@ package frc.robot.conveyor;
 
 public enum ConveyorMode {
   IDLE,
-  CONVEYORING,
-  OUTTAKE,
-  PASS_TO_INTAKE;
+  CONVEYOR_OUT,
+  CONVEYOR_IN,
+  WAITING_AMP_SHOT,
+  AMP_SHOT;
 }

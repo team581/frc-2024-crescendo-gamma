@@ -35,16 +35,13 @@ public class IntakeSubsystem extends LifecycleSubsystem {
         voltageUsed = 0.0;
         break;
       case OUTTAKING:
-        voltageUsed = -4.0;
+        voltageUsed = 0.0;
         break;
-      case PASS_TO_CONVEYOR:
-        voltageUsed = 2.0;
-        break;
-      case PASS_TO_QUEUER:
-        voltageUsed = 2.0;
+      case PASS_NOTE_OUTTAKE:
+        voltageUsed = 0.0;
         break;
       case INTAKING:
-        voltageUsed = 4.0;
+        voltageUsed = 0.0;
         break;
       default:
         break;

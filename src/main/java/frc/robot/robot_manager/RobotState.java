@@ -14,8 +14,12 @@ public enum RobotState {
   GROUND_INTAKING,
 
   OUTTAKING_SHOOTER,
-  OUTTAKING_CONVEYOR,
   OUTTAKING_INTAKE,
+
+  QUEUER_TO_INTAKE_FOR_AMP,
+  CONVEYOR_TO_INTAKE_FOR_SHOOTER,
+  INTAKE_TO_QUEUER_FOR_SHOOTER,
+  INTAKE_TO_CONVEYOR_FOR_AMP,
 
   WAITING_FLOOR_SHOT,
   PREPARE_FLOOR_SHOT,
@@ -30,8 +34,8 @@ public enum RobotState {
   PREPARE_SUBWOOFER_SHOT,
   SUBWOOFER_SHOOT,
 
-  PREPARE_TRAP_SHOT,
-  TRAP_SHOOT,
+  PREPARE_TRAP_OUTTAKE,
+  TRAP_OUTTAKE,
 
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
   WAITING_SPEAKER_SHOT,
@@ -40,8 +44,7 @@ public enum RobotState {
   SPEAKER_SHOOT,
 
   WAITING_AMP_SHOT,
-  PREPARE_AMP_SHOT,
-  AMP_SHOOT,
+  AMP_SHOT,
 
   /** Arm moves to chain height, climber hooks are touching the chain */
   WAITING_CLIMBER_RAISED,

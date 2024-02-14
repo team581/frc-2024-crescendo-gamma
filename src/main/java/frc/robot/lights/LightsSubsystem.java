@@ -83,7 +83,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
           color = Color.kOrange;
           blinkPattern = BlinkPattern.SOLID;
           break;
-        case PREPARE_AMP_SHOT:
+        case PREPARE_AMP_OUTTAKE:
         case PREPARE_SPEAKER_SHOT:
         case PREPARE_SUBWOOFER_SHOT:
         case PREPARE_FLOOR_SHOT:
@@ -95,14 +95,14 @@ public class LightsSubsystem extends LifecycleSubsystem {
             blinkPattern = BlinkPattern.BLINK_SLOW;
           }
           break;
-        case AMP_SHOOT:
+        case AMP_SHOT:
         case OUTTAKING_INTAKE:
         case SUBWOOFER_SHOOT:
           color = Color.kGreen;
           blinkPattern = BlinkPattern.BLINK_FAST;
           break;
         case SPEAKER_SHOOT:
-        case TRAP_SHOOT:
+        case TRAP_OUTTAKE:
         case FLOOR_SHOOT:
           if (vision.isWorking()) {
             color = Color.kGreen;

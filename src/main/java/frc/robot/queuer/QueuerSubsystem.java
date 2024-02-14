@@ -31,10 +31,10 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   public void enabledPeriodic() {
     if (goalState == QueuerState.IDLE) {
       motor.disable();
-    } else if (goalState == QueuerState.PASSING_NOTE) {
-      voltageRequest.withOutput(3.0);
+    } else if (goalState == QueuerState.PASS_TO_SHOOTER) {
+      voltageRequest.withOutput(0.0);
     } else if (goalState == QueuerState.PASS_TO_INTAKE) {
-      voltageRequest.withOutput(-3.0);
+      voltageRequest.withOutput(0.0);
     }
 
     setHasNote(sensorHasNote());
