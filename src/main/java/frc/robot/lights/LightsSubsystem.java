@@ -65,25 +65,23 @@ public class LightsSubsystem extends LifecycleSubsystem {
       }
     } else {
       switch (state) {
-        case IDLE_DOWN_NO_GP:
         case IDLE_NO_GP:
         case GROUND_INTAKING:
-        case SOURCE_INTAKING:
           color = Color.kOrange;
           blinkPattern = BlinkPattern.BLINK_SLOW;
           break;
-        case IDLE_DOWN_WITH_GP:
         case IDLE_WITH_GP:
         case WAITING_SPEAKER_SHOT:
         case WAITING_SUBWOOFER_SHOT:
         case WAITING_AMP_SHOT:
         case WAITING_FLOOR_SHOT:
-        case SOURCE_INTAKING_SETTLING:
-        case GROUND_INTAKING_SETTLING:
+        case INTAKE_TO_CONVEYOR_FOR_AMP:
+        case INTAKE_TO_QUEUER_FOR_SHOOTER:
+        case QUEUER_TO_INTAKE_FOR_AMP:
+        case CONVEYOR_TO_INTAKE_FOR_SHOOTER:
           color = Color.kOrange;
           blinkPattern = BlinkPattern.SOLID;
           break;
-        case PREPARE_AMP_OUTTAKE:
         case PREPARE_SPEAKER_SHOT:
         case PREPARE_SUBWOOFER_SHOT:
         case PREPARE_FLOOR_SHOT:
@@ -97,12 +95,13 @@ public class LightsSubsystem extends LifecycleSubsystem {
           break;
         case AMP_SHOT:
         case OUTTAKING_INTAKE:
+        case OUTTAKING_SHOOTER:
+        case TRAP_OUTTAKE:
         case SUBWOOFER_SHOOT:
           color = Color.kGreen;
           blinkPattern = BlinkPattern.BLINK_FAST;
           break;
         case SPEAKER_SHOOT:
-        case TRAP_OUTTAKE:
         case FLOOR_SHOOT:
           if (vision.isWorking()) {
             color = Color.kGreen;
