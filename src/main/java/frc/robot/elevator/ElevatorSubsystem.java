@@ -34,8 +34,8 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private static final double TOLERANCE = 0.0;
 
   // Add to config
-  private static double minHeight = 0.0;
-  private static double maxHeight = 0.0;
+  private static double minHeight = RobotConfig.get().elevator().maxHeight();
+  private static double maxHeight = RobotConfig.get().elevator().minHeight();
 
   // Homing
   private boolean preMatchHomingOccured = false;
