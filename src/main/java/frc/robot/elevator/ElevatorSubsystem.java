@@ -20,8 +20,6 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 public class ElevatorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
 
-  private final LinearFilter currentFilter =
-      LinearFilter.movingAverage(RobotConfig.get().elevator().currentTaps());
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
   private final MotionMagicTorqueCurrentFOC positionRequest =
@@ -31,7 +29,6 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
   private static final double TOLERANCE = 0.0;
 
-  // Add to config
   private static double minHeight = RobotConfig.get().elevator().maxHeight();
   private static double maxHeight = RobotConfig.get().elevator().minHeight();
 

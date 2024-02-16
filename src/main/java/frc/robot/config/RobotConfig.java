@@ -69,10 +69,7 @@ public record RobotConfig(
       int motorID,
       TalonFXConfiguration motorConfig,
       CurrentLimitsConfigs strictCurrentLimits,
-      double homingVoltage,
-      double homingCurrentThreshold,
       double homingEndPosition,
-      int currentTaps,
       double minHeight,
       double maxHeight) {}
 

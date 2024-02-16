@@ -160,10 +160,7 @@ class PracticeConfig {
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Brake)),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
-              -0.05,
               0,
-              0,
-              4,
               0.0,
               0.0),
           new IntakeConfig(
