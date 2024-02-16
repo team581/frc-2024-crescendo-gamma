@@ -8,7 +8,6 @@ import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.HomingState;
@@ -83,11 +82,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         }
         break;
       case MID_MATCH_HOMING:
-      if (preMatchHomingOccured) {
-            double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
-            motor.setPosition(inchesToRotations(homedPosition));
-            homingState = HomingState.HOMED;
-          }
+        if (preMatchHomingOccured) {
+          double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
+          motor.setPosition(inchesToRotations(homedPosition));
+          homingState = HomingState.HOMED;
+        }
         break;
       case HOMED:
         double usedGoalPosition =

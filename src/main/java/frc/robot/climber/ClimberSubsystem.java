@@ -31,7 +31,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
       new LoggedDashboardNumber("Climber/positionOverride", -1);
   private int slot = 0;
 
-  private double ACCEL_TOLERANCE = RobotConfig.get().climber().accelerationTolerance(); // inches per second
+  private double ACCEL_TOLERANCE =
+      RobotConfig.get().climber().accelerationTolerance(); // inches per second
   private double goalPosition = 0.0;
   private PositionVoltage positionRequest = new PositionVoltage(goalPosition);
   private VoltageOut voltageRequest = new VoltageOut(0.0);
@@ -84,20 +85,20 @@ public class ClimberSubsystem extends LifecycleSubsystem {
             mainMotor.setControl(voltageRequest.withOutput(homingVoltage));
             followerMotor.setControl(followRequest);
             if (filteredCurrent > homingCurrentThreshold) {
-            mainMotor.setPosition(inchesToRotations(0.0));
-            followerMotor.setPosition(inchesToRotations(0.0));
+              mainMotor.setPosition(inchesToRotations(0.0));
+              followerMotor.setPosition(inchesToRotations(0.0));
 
-            preMatchHomingOccured = true;
-            homingState = HomingState.HOMED;
+              preMatchHomingOccured = true;
+              homingState = HomingState.HOMED;
+            }
           }
         }
-      }
         break;
       case MID_MATCH_HOMING:
         if (preMatchHomingOccured) {
-            mainMotor.setControl(voltageRequest.withOutput(homingVoltage));
-            followerMotor.setControl(followRequest);
-            if (filteredCurrent > homingCurrentThreshold) {
+          mainMotor.setControl(voltageRequest.withOutput(homingVoltage));
+          followerMotor.setControl(followRequest);
+          if (filteredCurrent > homingCurrentThreshold) {
             mainMotor.setPosition(inchesToRotations(0.0));
             followerMotor.setPosition(inchesToRotations(0.0));
             homingState = HomingState.HOMED;
@@ -116,7 +117,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
             setGoalPosition(HANGING);
             break;
           default:
-          break;
+            break;
         }
         double usedGoalPosition = ntposition.get() == -1 ? clamp(goalPosition) : ntposition.get();
 

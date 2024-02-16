@@ -5,12 +5,9 @@
 package frc.robot.wrist;
 
 import com.ctre.phoenix6.controls.CoastOut;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -95,15 +92,15 @@ public class WristSubsystem extends LifecycleSubsystem {
         break;
       case MID_MATCH_HOMING:
         if (preMatchHomingOccured) {
-            Rotation2d homingEndPosition = RobotConfig.get().wrist().homingEndPosition();
-            Rotation2d homedAngle =
-                Rotation2d.fromDegrees(
-                    homingEndPosition.getDegrees()
-                        + (getAngle().getDegrees() - lowestSeenAngle.getDegrees()));
-            motor.setPosition(homedAngle.getRotations());
+          Rotation2d homingEndPosition = RobotConfig.get().wrist().homingEndPosition();
+          Rotation2d homedAngle =
+              Rotation2d.fromDegrees(
+                  homingEndPosition.getDegrees()
+                      + (getAngle().getDegrees() - lowestSeenAngle.getDegrees()));
+          motor.setPosition(homedAngle.getRotations());
 
-            homingState = HomingState.HOMED;
-          }
+          homingState = HomingState.HOMED;
+        }
         break;
       case HOMED:
         Rotation2d usedGoalAngle =
