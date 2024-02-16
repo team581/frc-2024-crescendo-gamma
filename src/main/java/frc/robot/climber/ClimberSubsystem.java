@@ -63,7 +63,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
   }
 
   @Override
-  public void enabledPeriodic() {
+  public void robotPeriodic() {
     double rawCurrent = mainMotor.getStatorCurrent().getValueAsDouble();
     double filteredCurrent = currentFilter.calculate(rawCurrent);
 
