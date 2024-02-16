@@ -86,8 +86,6 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
       if (preMatchHomingOccured) {
             double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
             motor.setPosition(inchesToRotations(homedPosition));
-
-            preMatchHomingOccured = true;
             homingState = HomingState.HOMED;
           }
         break;

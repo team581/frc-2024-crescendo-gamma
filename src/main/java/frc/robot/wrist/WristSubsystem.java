@@ -6,7 +6,9 @@ package frc.robot.wrist;
 
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,17 +22,17 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class WristSubsystem extends LifecycleSubsystem {
-  private static final Rotation2d PRE_MATCH_HOMING_MIN_MOVEMENT = Rotation2d.fromDegrees(60);
   private final TalonFX motor;
   private final LoggedDashboardNumber ntAngle =
       new LoggedDashboardNumber("Wrist/AngleOverride", -1);
-  private final MotionMagicVoltage positionRequest =
-      new MotionMagicVoltage(WristPositions.STOWED.getRotations()).withEnableFOC(true);
+  private final PositionVoltage positionRequest =
+      new PositionVoltage(WristPositions.STOWED.getRotations()).withEnableFOC(true);
+
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
+
   private HomingState homingState = HomingState.PRE_MATCH_HOMING;
-  private final LinearFilter currentFilter =
-      LinearFilter.movingAverage(RobotConfig.get().wrist().currentTaps());
+
   private static final InterpolatingDoubleTreeMap speakerDistanceToAngle =
       new InterpolatingDoubleTreeMap();
   private static final InterpolatingDoubleTreeMap floorSpotDistanceToAngle =
@@ -39,7 +41,6 @@ public class WristSubsystem extends LifecycleSubsystem {
       new InterpolatingDoubleTreeMap();
 
   private Rotation2d lowestSeenAngle = new Rotation2d();
-  private Rotation2d highestSeenAngle = new Rotation2d();
   private int slot = 0;
   private Rotation2d TOLERANCE = Rotation2d.fromDegrees(5);
 
@@ -65,64 +66,44 @@ public class WristSubsystem extends LifecycleSubsystem {
     if (currentAngle.getDegrees() < lowestSeenAngle.getDegrees()) {
       lowestSeenAngle = currentAngle;
     }
-
-    if (currentAngle.getDegrees() > highestSeenAngle.getDegrees()) {
-      highestSeenAngle = currentAngle;
-    }
   }
 
   @Override
   public void robotPeriodic() {
-    double rawCurrent = motor.getStatorCurrent().getValueAsDouble();
-    double filteredCurrent = currentFilter.calculate(rawCurrent);
-
-    Logger.recordOutput("Wrist/FilteredCurrent", filteredCurrent);
-
     switch (homingState) {
       case NOT_HOMED:
-        if (DriverStation.isDisabled()) {
-          if (rangeOfMotionSeen()) {
-            motor.setControl(brakeNeutralRequest);
-          } else {
-            motor.setControl(coastNeutralRequest);
-          }
-        }
+        motor.setControl(coastNeutralRequest);
         break;
       case PRE_MATCH_HOMING:
         if (DriverStation.isDisabled()) {
-          if (rangeOfMotionSeen()) {
-            motor.setControl(brakeNeutralRequest);
-          } else {
-            motor.setControl(coastNeutralRequest);
-          }
+          motor.setControl(coastNeutralRequest);
         } else {
           motor.setControl(brakeNeutralRequest);
 
-          // If we need to require the range of motion to be seen, add " && rangeOfMotionSeen()"
-
           if (!preMatchHomingOccured) {
-            // homingEndPosition + (currentAngle - minAngle)
             Rotation2d homingEndPosition = RobotConfig.get().wrist().homingEndPosition();
             Rotation2d homedAngle =
                 Rotation2d.fromDegrees(
                     homingEndPosition.getDegrees()
                         + (getAngle().getDegrees() - lowestSeenAngle.getDegrees()));
             motor.setPosition(homedAngle.getRotations());
+
             preMatchHomingOccured = true;
             homingState = HomingState.HOMED;
           }
         }
         break;
       case MID_MATCH_HOMING:
-        motor.set(RobotConfig.get().wrist().homingVoltage());
+        if (preMatchHomingOccured) {
+            Rotation2d homingEndPosition = RobotConfig.get().wrist().homingEndPosition();
+            Rotation2d homedAngle =
+                Rotation2d.fromDegrees(
+                    homingEndPosition.getDegrees()
+                        + (getAngle().getDegrees() - lowestSeenAngle.getDegrees()));
+            motor.setPosition(homedAngle.getRotations());
 
-        if (filteredCurrent > RobotConfig.get().wrist().homingCurrentThreshold()) {
-          homingState = HomingState.HOMED;
-          goalAngle = WristPositions.STOWED;
-
-          motor.setPosition(RobotConfig.get().wrist().homingEndPosition().getRotations());
-        }
-
+            homingState = HomingState.HOMED;
+          }
         break;
       case HOMED:
         Rotation2d usedGoalAngle =
@@ -146,11 +127,6 @@ public class WristSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Wrist/Temperature", motor.getDeviceTemp().getValue());
     Logger.recordOutput("Wrist/MotorPidSlot", slot);
     Logger.recordOutput("Wrist/ControlMode", motor.getControlMode().toString());
-  }
-
-  public boolean rangeOfMotionSeen() {
-    return highestSeenAngle.getDegrees() - lowestSeenAngle.getDegrees()
-        >= PRE_MATCH_HOMING_MIN_MOVEMENT.getDegrees();
   }
 
   public void setAngle(Rotation2d angle) {

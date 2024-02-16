@@ -66,8 +66,11 @@ class PracticeConfig {
           new ClimberConfig(
               20,
               21,
+              0.0,
               false,
               4,
+              0.0,
+              0.0,
               0.0,
               0.0,
               0.0,
@@ -109,10 +112,7 @@ class PracticeConfig {
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Brake)),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
-              -0.05,
-              10,
               Rotation2d.fromDegrees(-18),
-              4,
               Rotation2d.fromDegrees(-18),
               Rotation2d.fromDegrees(95),
               distanceToAngleTolerance -> {

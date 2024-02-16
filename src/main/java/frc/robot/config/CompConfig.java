@@ -68,8 +68,11 @@ class CompConfig {
           new ClimberConfig(
               20,
               21,
+              0.0,
               false,
               4,
+              0.0,
+              0.0,
               0.0,
               0.0,
               0.0,
@@ -111,10 +114,7 @@ class CompConfig {
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Brake)),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
-              -0.05,
-              10,
               Rotation2d.fromDegrees(-14),
-              4,
               Rotation2d.fromDegrees(-13.5),
               Rotation2d.fromDegrees(115),
               distanceToAngleTolerance -> {

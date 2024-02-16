@@ -36,13 +36,16 @@ public record RobotConfig(
   public record ClimberConfig(
       int mainMotorID,
       int followerMotorID,
+      double accelerationTolerance,
       boolean opposeMasterDirection,
       int currentTaps,
       double homingCurrentThreshold,
-      double homingEndPosition,
       double homingVoltage,
       double minPosition,
       double maxPosition,
+      double idlePosition,
+      double raisedPosition,
+      double hangingPosition,
       TalonFXConfiguration motorConfig) {}
 
   public record IntakeConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
@@ -55,10 +58,7 @@ public record RobotConfig(
       int motorID,
       TalonFXConfiguration motorConfig,
       CurrentLimitsConfigs strictCurrentLimits,
-      double homingVoltage,
-      double homingCurrentThreshold,
       Rotation2d homingEndPosition,
-      int currentTaps,
       Rotation2d minAngle,
       Rotation2d maxAngle,
       Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance,
