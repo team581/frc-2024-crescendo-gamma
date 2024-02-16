@@ -72,7 +72,18 @@ public class RobotCommands {
 
   public Command passToConveyorForAmpShotCommand() {
     return Commands.runOnce(
-        () -> robot.passNoteToConveyorRequest(), robot.intake, robot.queuer, robot.conveyor);
+            () -> robot.passNoteToConveyorRequest(), robot.intake, robot.queuer, robot.conveyor)
+        .andThen(robot.waitForStateCommand(RobotState.WAITING_AMP_SHOT));
+  }
+
+  public Command passToQueuerCommand() {
+    return Commands.runOnce(
+            () -> robot.passNoteToQueuerRequest(),
+            robot.intake,
+            robot.queuer,
+            robot.conveyor,
+            robot.shooter)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP));
   }
 
   public Command waitForFloorShotCommand() {

@@ -216,28 +216,27 @@ public class Robot extends LoggedRobot {
         .onFalse(actions.stowCommand());
     driverController
         .rightBumper()
+        .onTrue(actions.outtakeShooterCommand())
+        .onFalse(actions.stowCommand());
+    driverController
+        .leftBumper()
         .onTrue(actions.outtakeIntakeCommand())
         .onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberCommand());
 
     operatorController
-        .y()
+        .x()
         .onTrue(actions.waitSubwooferShotCommand())
         .onFalse(actions.stowCommand());
     operatorController.a().onTrue(actions.stowCommand());
+    operatorController.b().onTrue(actions.waitForFloorShotCommand()).onFalse(actions.stowCommand());
     operatorController
-        .leftBumper()
-        .onTrue(actions.waitForFloorShotCommand())
-        .onFalse(actions.stowCommand());
-    operatorController
-        .rightBumper()
-        .onTrue(actions.passToConveyorForAmpShotCommand())
-        .onFalse(actions.stowCommand());
-    operatorController
-        .rightTrigger()
-        .onTrue(actions.waitForSpeakerShotCommand())
-        .onFalse(actions.stowCommand());
+        .y()
+        .onFalse(actions.stowCommand())
+        .onTrue(actions.waitForSpeakerShotCommand());
+    operatorController.rightBumper().onTrue(actions.passToConveyorForAmpShotCommand());
+    operatorController.leftBumper().onTrue(actions.passToQueuerCommand());
     operatorController.back().onTrue(actions.homeCommand());
   }
 }
