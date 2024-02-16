@@ -4,7 +4,6 @@
 
 package frc.robot.conveyor;
 
-import com.ctre.phoenix6.controls.MotionMagicVelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -13,12 +12,10 @@ import frc.robot.util.scheduling.SubsystemPriority;
 public class ConveyorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
-  private MotionMagicVelocityDutyCycle velocityRequest =
-      new MotionMagicVelocityDutyCycle(0.00).withSlot(0);
 
   private ConveyorMode goalMode = ConveyorMode.IDLE;
-  private boolean hasNote = false;
-  private double goalVelocity = 0.00;
+  private boolean holdingNote = false;
+  private double goalPercentage = 0.00;
 
   public ConveyorSubsystem(TalonFX motor, DigitalInput sensor) {
     super(SubsystemPriority.CONVEYOR);
@@ -32,29 +29,30 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     if (goalMode == ConveyorMode.IDLE) {
       motor.disable();
     } else {
-      velocityRequest.withVelocity(goalVelocity);
-    }
+      motor.set(goalPercentage);
 
-    setHasNote(sensorHasNote());
+      setHoldingNote(sensorHasNote());
+    }
   }
 
   @Override
   public void robotPeriodic() {
     switch (goalMode) {
       case IDLE:
-        goalVelocity = 0.0;
+        goalPercentage = 0.0;
         break;
-      case CONVEYOR_IN:
-        goalVelocity = 0.0;
+      case PASS_TO_CONVEYOR:
+        goalPercentage = 0.0;
         break;
       case WAITING_AMP_SHOT:
-        goalVelocity = 0.0;
+        goalPercentage = 0.0;
         break;
       case AMP_SHOT:
-        goalVelocity = 0.0;
+        goalPercentage = 0.0;
         break;
-      case CONVEYOR_OUT:
-        goalVelocity = 0.0;
+      case PASS_TO_INTAKE:
+      case PASS_TO_SHOOTER:
+        goalPercentage = 0.0;
         break;
       default:
         break;
@@ -73,24 +71,30 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     if (goalMode != mode) {
       return false;
     }
-    if (goalMode == ConveyorMode.IDLE) {
-      return true;
+
+    switch (goalMode) {
+      case IDLE:
+        return true;
+      case AMP_SHOT:
+      case PASS_TO_INTAKE:
+      case PASS_TO_SHOOTER:
+        return !holdingNote;
+      case PASS_TO_CONVEYOR:
+      case WAITING_AMP_SHOT:
+        return holdingNote;
+      default:
+        break;
     }
-    if (hasNote) {
-      return true;
-    }
-    if (!hasNote && Math.abs(goalVelocity) > 0.00) {
-      return true;
-    }
+
     return false;
   }
 
-  public void setHasNote(boolean bool) {
-    hasNote = bool;
+  public void setHoldingNote(boolean newValue) {
+    holdingNote = newValue;
   }
 
-  public boolean getHasNote() {
-    return hasNote;
+  public boolean hasNote() {
+    return holdingNote;
   }
 
   private boolean sensorHasNote() {

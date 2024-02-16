@@ -69,8 +69,8 @@ class CompConfig {
               20,
               21,
               0.0,
-              false,
               4,
+              0.0,
               0.0,
               0.0,
               0.0,
@@ -85,7 +85,8 @@ class CompConfig {
                   .withVoltage(
                       new VoltageConfigs()
                           .withPeakForwardVoltage(12.0)
-                          .withPeakReverseVoltage(-2.0))),
+                          .withPeakReverseVoltage(-2.0)),
+              new TalonFXConfiguration()),
           new WristConfig(
               14,
               new TalonFXConfiguration()
@@ -163,6 +164,7 @@ class CompConfig {
                           .withNeutralMode(NeutralModeValue.Brake)),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
               0,
+              0.0,
               0.0,
               0.0),
           new IntakeConfig(

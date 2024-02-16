@@ -4,15 +4,15 @@
 
 package frc.robot.climber;
 
-import com.ctre.phoenix6.controls.CoastOut;
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.StaticBrake;
+import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.config.RobotConfig;
+import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -20,115 +20,76 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ClimberSubsystem extends LifecycleSubsystem {
-  private final TalonFX mainMotor;
-  private final TalonFX followerMotor;
-  private Follower followRequest;
-  private CoastOut coastNeutralRequest = new CoastOut();
-  private StaticBrake brakeNeutralRequest = new StaticBrake();
-  private LinearFilter currentFilter =
-      LinearFilter.movingAverage(RobotConfig.get().climber().currentTaps());
-  private final LoggedDashboardNumber ntposition =
-      new LoggedDashboardNumber("Climber/positionOverride", -1);
-  private int slot = 0;
-
-  private double ACCEL_TOLERANCE =
-      RobotConfig.get().climber().accelerationTolerance(); // inches per second
-  private double goalPosition = 0.0;
-  private PositionVoltage positionRequest = new PositionVoltage(goalPosition);
+  private static final ClimberConfig CONFIG = RobotConfig.get().climber();
+  private final TalonFX leftMotor;
+  private final TalonFX rightMotor;
+  private StrictFollower followRequest;
+  private LinearFilter currentFilter = LinearFilter.movingAverage(CONFIG.currentTaps());
+  private final LoggedDashboardNumber ntDistance =
+      new LoggedDashboardNumber("Climber/PositionOverride", -1);
+  private double goalDistance = 0.0;
+  private PositionVoltage positionRequest = new PositionVoltage(goalDistance);
   private VoltageOut voltageRequest = new VoltageOut(0.0);
-
-  private double IDLE = RobotConfig.get().climber().idlePosition();
-  private double RAISED = RobotConfig.get().climber().raisedPosition();
-  private double HANGING = RobotConfig.get().climber().hangingPosition();
 
   private ClimberMode goalMode = ClimberMode.IDLE;
   private HomingState homingState = HomingState.NOT_HOMED;
-  private double homingCurrentThreshold = RobotConfig.get().climber().homingCurrentThreshold();
-  private double homingVoltage = RobotConfig.get().climber().homingVoltage();
-  private boolean preMatchHomingOccured = false;
 
-  private double maxPosition = RobotConfig.get().climber().maxPosition();
-  private double minPositon = RobotConfig.get().climber().minPosition();
-
-  public ClimberSubsystem(TalonFX mainMotor, TalonFX followerMotor) {
+  public ClimberSubsystem(TalonFX leftMotor, TalonFX rightMotor) {
     super(SubsystemPriority.CLIMBER);
 
-    this.mainMotor = mainMotor;
-    this.followerMotor = followerMotor;
+    this.leftMotor = leftMotor;
+    this.rightMotor = rightMotor;
 
-    mainMotor.getConfigurator().apply(RobotConfig.get().climber().motorConfig());
-    followerMotor.getConfigurator().apply(RobotConfig.get().climber().motorConfig());
+    leftMotor.getConfigurator().apply(CONFIG.leftMotorConfig());
+    rightMotor.getConfigurator().apply(CONFIG.rightMotorConfig());
 
-    followRequest =
-        new Follower(mainMotor.getDeviceID(), RobotConfig.get().climber().opposeMasterDirection());
+    followRequest = new StrictFollower(leftMotor.getDeviceID());
   }
 
   @Override
   public void robotPeriodic() {
-    double rawCurrent = mainMotor.getStatorCurrent().getValueAsDouble();
+    double rawCurrent = leftMotor.getStatorCurrent().getValueAsDouble();
     double filteredCurrent = currentFilter.calculate(rawCurrent);
 
     switch (homingState) {
       case NOT_HOMED:
-        mainMotor.setControl(coastNeutralRequest);
-        followerMotor.setControl(coastNeutralRequest);
-        break;
-      case PRE_MATCH_HOMING:
-        if (DriverStation.isDisabled()) {
-          mainMotor.setControl(coastNeutralRequest);
-          followerMotor.setControl(coastNeutralRequest);
-        } else {
-          mainMotor.setControl(brakeNeutralRequest);
-          followerMotor.setControl(brakeNeutralRequest);
-
-          if (!preMatchHomingOccured) {
-            mainMotor.setControl(voltageRequest.withOutput(homingVoltage));
-            followerMotor.setControl(followRequest);
-            if (filteredCurrent > homingCurrentThreshold) {
-              mainMotor.setPosition(inchesToRotations(0.0));
-              followerMotor.setPosition(inchesToRotations(0.0));
-
-              preMatchHomingOccured = true;
-              homingState = HomingState.HOMED;
-            }
-          }
-        }
+        leftMotor.disable();
+        rightMotor.disable();
         break;
       case MID_MATCH_HOMING:
-        if (preMatchHomingOccured) {
-          mainMotor.setControl(voltageRequest.withOutput(homingVoltage));
-          followerMotor.setControl(followRequest);
-          if (filteredCurrent > homingCurrentThreshold) {
-            mainMotor.setPosition(inchesToRotations(0.0));
-            followerMotor.setPosition(inchesToRotations(0.0));
-            homingState = HomingState.HOMED;
-          }
+        leftMotor.setControl(voltageRequest.withOutput(CONFIG.homingVoltage()));
+        rightMotor.setControl(followRequest);
+        if (filteredCurrent > CONFIG.homingCurrentThreshold()) {
+          leftMotor.setPosition(0);
+          rightMotor.setPosition(0);
+          homingState = HomingState.HOMED;
         }
         break;
       case HOMED:
         switch (goalMode) {
           case IDLE:
-            setGoalPosition(IDLE);
+            setGoalDistance(CONFIG.idlePosition());
             break;
           case RAISED:
-            setGoalPosition(RAISED);
+            setGoalDistance(CONFIG.raisedPosition());
             break;
           case HANGING:
-            setGoalPosition(HANGING);
+            setGoalDistance(CONFIG.hangingPosition());
             break;
           default:
             break;
         }
-        double usedGoalPosition = ntposition.get() == -1 ? clamp(goalPosition) : ntposition.get();
+        double usedGoalDistance = clamp(ntDistance.get() == -1 ? goalDistance : ntDistance.get());
 
-        slot = goalPosition == minPositon ? 1 : 0;
-        Logger.recordOutput("Climber/UsedGoalPosition", usedGoalPosition);
+        Logger.recordOutput("Climber/UsedGoalPosition", usedGoalDistance);
 
-        mainMotor.setControl(
-            positionRequest.withSlot(slot).withPosition(inchesToRotations(usedGoalPosition)));
-        followerMotor.setControl(followRequest);
+        leftMotor.setControl(
+            positionRequest.withPosition(inchesToRotations(usedGoalDistance).getRotations()));
+        rightMotor.setControl(followRequest);
 
         break;
+      case PRE_MATCH_HOMING:
+        throw new IllegalStateException("Climber can't do pre match homing");
     }
   }
 
@@ -140,8 +101,10 @@ public class ClimberSubsystem extends LifecycleSubsystem {
       return true;
     }
     if (goal == goalMode
-        && Math.abs(rotationsToInches(mainMotor.getAcceleration().getValueAsDouble()))
-            < ACCEL_TOLERANCE) {
+        && Math.abs(
+                rotationsToInches(
+                    Rotation2d.fromRotations(leftMotor.getAcceleration().getValueAsDouble())))
+            < CONFIG.accelerationTolerance()) {
       return true;
     }
     return false;
@@ -151,36 +114,32 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     return homingState;
   }
 
-  public void startPreMatchHoming() {
-    homingState = HomingState.PRE_MATCH_HOMING;
-  }
-
-  public void startMidMatchHoming() {
+  public void startHoming() {
     homingState = HomingState.MID_MATCH_HOMING;
   }
 
-  public double getPosition() {
-    return rotationsToInches(mainMotor.getPosition().getValueAsDouble());
+  public double getDistance() {
+    return rotationsToInches(Rotation2d.fromRotations(leftMotor.getPosition().getValueAsDouble()));
   }
 
-  private void setGoalPosition(double pos) {
-    goalPosition = clamp(pos);
+  private void setGoalDistance(double distance) {
+    goalDistance = clamp(distance);
   }
 
   public void setGoalMode(ClimberMode mode) {
     goalMode = mode;
   }
 
-  private double clamp(double pos) {
-    return pos < minPositon ? minPositon : pos > maxPosition ? maxPosition : pos;
+  private static double clamp(double pos) {
+    return MathUtil.clamp(pos, CONFIG.minPosition(), CONFIG.maxPosition());
   }
 
   // Tune the radius in inches later
-  private double rotationsToInches(double rotations) {
-    return rotations * (2 * Math.PI * 0);
+  private static double rotationsToInches(Rotation2d angle) {
+    return angle.getRadians() * (CONFIG.rotationsToDistance());
   }
 
-  private double inchesToRotations(double inches) {
-    return inches / (2 * Math.PI * 0);
+  private static Rotation2d inchesToRotations(double inches) {
+    return Rotation2d.fromRadians(inches / (CONFIG.rotationsToDistance()));
   }
 }

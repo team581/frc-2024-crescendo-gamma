@@ -37,7 +37,6 @@ public record RobotConfig(
       int mainMotorID,
       int followerMotorID,
       double accelerationTolerance,
-      boolean opposeMasterDirection,
       int currentTaps,
       double homingCurrentThreshold,
       double homingVoltage,
@@ -46,7 +45,9 @@ public record RobotConfig(
       double idlePosition,
       double raisedPosition,
       double hangingPosition,
-      TalonFXConfiguration motorConfig) {}
+      double rotationsToDistance,
+      TalonFXConfiguration leftMotorConfig,
+      TalonFXConfiguration rightMotorConfig) {}
 
   public record IntakeConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
 
@@ -71,7 +72,8 @@ public record RobotConfig(
       CurrentLimitsConfigs strictCurrentLimits,
       double homingEndPosition,
       double minHeight,
-      double maxHeight) {}
+      double maxHeight,
+      double rotationsToDistance) {}
 
   public record IMUConfig(
       int deviceID, Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance) {}

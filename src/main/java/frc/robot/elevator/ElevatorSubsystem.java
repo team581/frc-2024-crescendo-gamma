@@ -5,9 +5,12 @@
 package frc.robot.elevator;
 
 import com.ctre.phoenix6.controls.CoastOut;
-import com.ctre.phoenix6.controls.MotionMagicTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.HomingState;
@@ -21,19 +24,16 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
-  private final MotionMagicTorqueCurrentFOC positionRequest =
-      new MotionMagicTorqueCurrentFOC(ElevatorPositions.STOWED);
-  private final LoggedDashboardNumber ntposition =
-      new LoggedDashboardNumber("Elevator/positionOverride", -1);
+  private final PositionVoltage positionRequest =
+      new PositionVoltage(ElevatorPositions.STOWED);
+  private final LoggedDashboardNumber ntDistance =
+      new LoggedDashboardNumber("Elevator/DistanceOverride", -1);
 
+  // TODO: Put in config
   private static final double TOLERANCE = 0.0;
-
-  private static double minHeight = RobotConfig.get().elevator().maxHeight();
-  private static double maxHeight = RobotConfig.get().elevator().minHeight();
 
   // Homing
   double currentHeight = 0.0;
-  double homingEndPosition = RobotConfig.get().elevator().homingEndPosition();
   private boolean preMatchHomingOccured = false;
   private double lowestSeenHeight = 0.0;
   private HomingState homingState = HomingState.PRE_MATCH_HOMING;
@@ -74,31 +74,27 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
           if (!preMatchHomingOccured) {
             double homingEndPosition = RobotConfig.get().elevator().homingEndPosition();
             double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
-            motor.setPosition(inchesToRotations(homedPosition));
+            motor.setPosition(inchesToRotations(homedPosition).getRotations());
 
             preMatchHomingOccured = true;
             homingState = HomingState.HOMED;
           }
         }
         break;
-      case MID_MATCH_HOMING:
-        if (preMatchHomingOccured) {
-          double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
-          motor.setPosition(inchesToRotations(homedPosition));
-          homingState = HomingState.HOMED;
-        }
-        break;
+
       case HOMED:
         double usedGoalPosition =
-            ntposition.get() == -1 ? clampHeight(goalHeight) : ntposition.get();
+            clampHeight(ntDistance.get() == -1 ? goalHeight : ntDistance.get());
 
-        slot = goalHeight == minHeight ? 1 : 0;
+        slot = goalHeight == RobotConfig.get().elevator().minHeight() ? 1 : 0;
         Logger.recordOutput("Elevator/UsedGoalPosition", usedGoalPosition);
 
         motor.setControl(
-            positionRequest.withSlot(slot).withPosition(inchesToRotations(usedGoalPosition)));
+            positionRequest.withSlot(slot).withPosition(inchesToRotations(usedGoalPosition).getRotations()));
 
         break;
+      case MID_MATCH_HOMING:
+        throw new IllegalStateException("Elevator can't do mid match homing");
     }
   }
 
@@ -107,7 +103,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   }
 
   public double getHeight() {
-    return rotationsToInches(motor.getPosition().getValueAsDouble());
+    return rotationsToInches(getRotations());
+  }
+
+  private Rotation2d getRotations() {
+    return Rotation2d.fromRotations(motor.getPosition().getValueAsDouble());
   }
 
   public HomingState getHomingState() {
@@ -118,33 +118,20 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     homingState = HomingState.PRE_MATCH_HOMING;
   }
 
-  public void startMidMatchHoming() {
-    homingState = HomingState.MID_MATCH_HOMING;
-  }
-
-  public boolean atGoal() {
-    return Math.abs(getHeight() - goalHeight) < TOLERANCE;
-  }
-
-  public boolean atGoal(double inches) {
-    return Math.abs(getHeight() - inches) < TOLERANCE;
+  public boolean atGoal(double distance) {
+    return Math.abs(getHeight() - distance) < TOLERANCE;
   }
 
   // Tune the radius in inches later
-  private double rotationsToInches(double rotations) {
-    return rotations * (2 * Math.PI * 0);
+  private double rotationsToInches(Rotation2d rotations) {
+    return rotations.getRadians() * (RobotConfig.get().elevator().rotationsToDistance());
   }
 
-  private double inchesToRotations(double inches) {
-    return inches / (2 * Math.PI * 0);
+  private Rotation2d inchesToRotations(double inches) {
+    return Rotation2d.fromRadians(inches / (RobotConfig.get().elevator().rotationsToDistance()));
   }
 
   private static double clampHeight(double height) {
-    if (height < minHeight) {
-      height = minHeight;
-    } else if (height > maxHeight) {
-      height = maxHeight;
-    }
-    return height;
+    return MathUtil.clamp(height, RobotConfig.get().elevator().minHeight(), RobotConfig.get().elevator().maxHeight());
   }
 }
