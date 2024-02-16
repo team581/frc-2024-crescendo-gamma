@@ -6,8 +6,9 @@ package frc.robot.climber;
 
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -30,17 +31,23 @@ public class ClimberSubsystem extends LifecycleSubsystem {
       new LoggedDashboardNumber("Climber/positionOverride", -1);
   private int slot = 0;
 
-  private double ACCEL_TOLERANCE = 0.1; // inches per second
+  private double ACCEL_TOLERANCE = RobotConfig.get().climber().accelerationTolerance(); // inches per second
   private double goalPosition = 0.0;
-  private PositionTorqueCurrentFOC positionRequest = new PositionTorqueCurrentFOC(goalPosition);
+  private PositionVoltage positionRequest = new PositionVoltage(goalPosition);
+  private VoltageOut voltageRequest = new VoltageOut(0.0);
+
+  private double IDLE = RobotConfig.get().climber().idlePosition();
+  private double RAISED = RobotConfig.get().climber().raisedPosition();
+  private double HANGING = RobotConfig.get().climber().hangingPosition();
 
   private ClimberMode goalMode = ClimberMode.IDLE;
   private HomingState homingState = HomingState.NOT_HOMED;
+  private double homingCurrentThreshold = RobotConfig.get().climber().homingCurrentThreshold();
+  private double homingVoltage = RobotConfig.get().climber().homingVoltage();
   private boolean preMatchHomingOccured = false;
 
   private double maxPosition = RobotConfig.get().climber().maxPosition();
   private double minPositon = RobotConfig.get().climber().minPosition();
-  private double lowestSeenPosition = 0.0;
 
   public ClimberSubsystem(TalonFX mainMotor, TalonFX followerMotor) {
     super(SubsystemPriority.CLIMBER);
@@ -73,30 +80,44 @@ public class ClimberSubsystem extends LifecycleSubsystem {
           mainMotor.setControl(brakeNeutralRequest);
           followerMotor.setControl(brakeNeutralRequest);
 
-          if (!preMatchHomingOccured && rangeOfMotionSeen()) {
-            double homingEndPosition = RobotConfig.get().climber().homingEndPosition();
-            double homedPosition = homingEndPosition + (getPosition() - lowestSeenPosition);
-            mainMotor.setPosition(inchesToRotations(homedPosition));
-            followerMotor.setPosition(inchesToRotations(homedPosition));
+          if (!preMatchHomingOccured) {
+            mainMotor.setControl(voltageRequest.withOutput(homingVoltage));
+            followerMotor.setControl(followRequest);
+            if (filteredCurrent > homingCurrentThreshold) {
+            mainMotor.setPosition(inchesToRotations(0.0));
+            followerMotor.setPosition(inchesToRotations(0.0));
 
             preMatchHomingOccured = true;
             homingState = HomingState.HOMED;
           }
         }
+      }
         break;
       case MID_MATCH_HOMING:
-        mainMotor.set(RobotConfig.get().climber().homingVoltage());
-        followerMotor.setControl(followRequest);
-
-        if (filteredCurrent > RobotConfig.get().climber().homingCurrentThreshold()) {
-          homingState = HomingState.HOMED;
-          setGoalPosition(minPositon);
-
-          mainMotor.setPosition(inchesToRotations(RobotConfig.get().climber().homingEndPosition()));
-          followerMotor.setControl(followRequest);
+        if (preMatchHomingOccured) {
+            mainMotor.setControl(voltageRequest.withOutput(homingVoltage));
+            followerMotor.setControl(followRequest);
+            if (filteredCurrent > homingCurrentThreshold) {
+            mainMotor.setPosition(inchesToRotations(0.0));
+            followerMotor.setPosition(inchesToRotations(0.0));
+            homingState = HomingState.HOMED;
+          }
         }
         break;
       case HOMED:
+        switch (goalMode) {
+          case IDLE:
+            setGoalPosition(IDLE);
+            break;
+          case RAISED:
+            setGoalPosition(RAISED);
+            break;
+          case HANGING:
+            setGoalPosition(HANGING);
+            break;
+          default:
+          break;
+        }
         double usedGoalPosition = ntposition.get() == -1 ? clamp(goalPosition) : ntposition.get();
 
         slot = goalPosition == minPositon ? 1 : 0;
@@ -123,10 +144,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
       return true;
     }
     return false;
-  }
-
-  private boolean rangeOfMotionSeen() {
-    return maxPosition - lowestSeenPosition >= maxPosition;
   }
 
   public HomingState getHomingState() {
