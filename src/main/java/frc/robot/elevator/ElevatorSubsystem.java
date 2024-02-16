@@ -29,8 +29,6 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private final LoggedDashboardNumber ntposition =
       new LoggedDashboardNumber("Elevator/positionOverride", -1);
 
-  private static final double PRE_MATCH_HOMING_MIN_MOVEMENT = 0.0;
-
   private static final double TOLERANCE = 0.0;
 
   // Add to config
@@ -38,9 +36,10 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private static double maxHeight = RobotConfig.get().elevator().minHeight();
 
   // Homing
+  double currentHeight = 0.0;
+  double homingEndPosition = RobotConfig.get().elevator().homingEndPosition();
   private boolean preMatchHomingOccured = false;
   private double lowestSeenHeight = 0.0;
-  private double highestSeenHeight = 0.0;
   private HomingState homingState = HomingState.PRE_MATCH_HOMING;
 
   private double goalHeight = ElevatorPositions.STOWED;
@@ -57,18 +56,15 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void disabledPeriodic() {
-    double currentPosition = getHeight();
+    currentHeight = getHeight();
 
-    if (currentPosition < lowestSeenHeight) {
-      lowestSeenHeight = currentPosition;
+    if (currentHeight < lowestSeenHeight) {
+      lowestSeenHeight = currentHeight;
     }
   }
 
   @Override
   public void robotPeriodic() {
-    double rawCurrent = motor.getStatorCurrent().getValueAsDouble();
-    double filteredCurrent = currentFilter.calculate(rawCurrent);
-
     switch (homingState) {
       case NOT_HOMED:
         motor.setControl(coastNeutralRequest);
@@ -79,8 +75,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         } else {
           motor.setControl(brakeNeutralRequest);
 
-          if (!preMatchHomingOccured && rangeOfMotionSeen()) {
-            // homingEndPosition + (currentAngle - minAngle)
+          if (!preMatchHomingOccured) {
             double homingEndPosition = RobotConfig.get().elevator().homingEndPosition();
             double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
             motor.setPosition(inchesToRotations(homedPosition));
@@ -91,14 +86,13 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         }
         break;
       case MID_MATCH_HOMING:
-        motor.set(RobotConfig.get().elevator().homingVoltage());
+      if (preMatchHomingOccured) {
+            double homedPosition = homingEndPosition + (getHeight() - lowestSeenHeight);
+            motor.setPosition(inchesToRotations(homedPosition));
 
-        if (filteredCurrent > RobotConfig.get().elevator().homingCurrentThreshold()) {
-          homingState = HomingState.HOMED;
-          goalHeight = ElevatorPositions.STOWED;
-
-          motor.setPosition(inchesToRotations(RobotConfig.get().elevator().homingEndPosition()));
-        }
+            preMatchHomingOccured = true;
+            homingState = HomingState.HOMED;
+          }
         break;
       case HOMED:
         double usedGoalPosition =
@@ -112,10 +106,6 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
         break;
     }
-  }
-
-  public boolean rangeOfMotionSeen() {
-    return highestSeenHeight - lowestSeenHeight >= PRE_MATCH_HOMING_MIN_MOVEMENT;
   }
 
   public void setGoalHeight(double newHeight) {
