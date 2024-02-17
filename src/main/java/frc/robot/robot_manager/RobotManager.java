@@ -30,42 +30,9 @@ import frc.robot.vision.DistanceAngle;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristPositions;
 import frc.robot.wrist.WristSubsystem;
-import java.util.EnumSet;
-import java.util.Set;
 import org.littletonrobotics.junction.Logger;
 
 public class RobotManager extends LifecycleSubsystem {
-  private static final Set<RobotState> HAS_GP_STATES =
-      EnumSet.of(
-          RobotState.WAITING_FLOOR_SHOT,
-          RobotState.PREPARE_FLOOR_SHOT,
-          RobotState.FLOOR_SHOOT,
-          RobotState.WAITING_SUBWOOFER_SHOT,
-          RobotState.PREPARE_SUBWOOFER_SHOT,
-          RobotState.SUBWOOFER_SHOOT,
-          RobotState.TRAP_OUTTAKE,
-          RobotState.WAITING_SPEAKER_SHOT,
-          RobotState.PREPARE_SPEAKER_SHOT,
-          RobotState.SPEAKER_SHOOT,
-          RobotState.WAITING_AMP_SHOT,
-          RobotState.QUEUER_TO_INTAKE_FOR_AMP,
-          RobotState.CONVEYOR_TO_INTAKE_FOR_SHOOTER,
-          RobotState.INTAKE_TO_CONVEYOR_FOR_AMP,
-          RobotState.INTAKE_TO_QUEUER_FOR_SHOOTER,
-          RobotState.AMP_SHOT,
-          RobotState.IDLE_WITH_GP,
-          RobotState.WAITING_CLIMBER_RAISED,
-          RobotState.PREPARE_CLIMBER_RAISED,
-          RobotState.CLIMBER_RAISED,
-          RobotState.PREPARE_CLIMBER_HANGING,
-          RobotState.CLIMBER_HANGING);
-  private static final Set<RobotState> HOMED_STATES = EnumSet.allOf(RobotState.class);
-
-  {
-    HOMED_STATES.remove(RobotState.HOMING);
-    HOMED_STATES.remove(RobotState.UNHOMED);
-  }
-
   public final WristSubsystem wrist;
   public final IntakeSubsystem intake;
   public final ElevatorSubsystem elevator;
@@ -176,13 +143,13 @@ public class RobotManager extends LifecycleSubsystem {
     }
     if (groundIntakeFlag) {
       intake.setState(IntakeState.IDLE);
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.GROUND_INTAKING;
       }
     }
     if (stowFlag) {
-      if (HOMED_STATES.contains(state)) {
-        if (HAS_GP_STATES.contains(state)) {
+      if (state.homed) {
+        if (state.hasNote) {
           state = RobotState.IDLE_WITH_GP;
         } else {
           state = RobotState.IDLE_NO_GP;
@@ -190,8 +157,8 @@ public class RobotManager extends LifecycleSubsystem {
       }
     }
     if (stowAfterIntakeFlag) {
-      if (HOMED_STATES.contains(state) && state != RobotState.GROUND_INTAKING) {
-        if (HAS_GP_STATES.contains(state)) {
+      if (state.homed && state != RobotState.GROUND_INTAKING) {
+        if (state.hasNote) {
           state = RobotState.IDLE_WITH_GP;
         } else {
           state = RobotState.IDLE_NO_GP;
@@ -199,12 +166,12 @@ public class RobotManager extends LifecycleSubsystem {
       }
     }
     if (waitingClimberRaisedFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.WAITING_CLIMBER_RAISED;
       }
     }
     if (raiseClimberFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.PREPARE_CLIMBER_RAISED;
       }
     }
@@ -214,67 +181,67 @@ public class RobotManager extends LifecycleSubsystem {
       }
     }
     if (waitSpeakerShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.WAITING_SPEAKER_SHOT;
       }
     }
     if (waitSubwooferShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.WAITING_SUBWOOFER_SHOT;
       }
     }
     if (outtakeIntakeFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.OUTTAKING_INTAKE;
       }
     }
     if (outtakeShooterFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.OUTTAKING_SHOOTER;
       }
     }
     if (speakerShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.PREPARE_SPEAKER_SHOT;
       }
     }
     if (ampShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.AMP_SHOT;
       }
     }
     if (passNoteToQueuerFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.CONVEYOR_TO_INTAKE_FOR_SHOOTER;
       }
     }
     if (passNoteToConveyorFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.QUEUER_TO_INTAKE_FOR_AMP;
       }
     }
     if (trapShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.TRAP_OUTTAKE;
       }
     }
     if (subwooferShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.PREPARE_SUBWOOFER_SHOT;
       }
     }
     if (preloadNoteRequest) {
-      if (HOMED_STATES.contains(state) && !HAS_GP_STATES.contains(state)) {
+      if (state.homed && !state.hasNote) {
         state = RobotState.IDLE_WITH_GP;
       }
     }
     if (waitFloorShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.WAITING_FLOOR_SHOT;
       }
     }
     if (floorShotFlag) {
-      if (HOMED_STATES.contains(state)) {
+      if (state.homed) {
         state = RobotState.PREPARE_FLOOR_SHOT;
       }
     }
@@ -350,7 +317,7 @@ public class RobotManager extends LifecycleSubsystem {
       case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
       case SPEAKER_SHOOT:
-        if (queuer.atGoal(QueuerState.PASS_TO_SHOOTER) && !getCollectiveHasNote()) {
+        if (queuer.atGoal(QueuerState.PASS_TO_SHOOTER) && !state.hasNote) {
           state = RobotState.IDLE_NO_GP;
         }
         break;
@@ -419,7 +386,7 @@ public class RobotManager extends LifecycleSubsystem {
       case HOMING:
         wrist.startMidMatchHoming();
         climber.startHoming();
-        elevator.startMidMatchHoming();
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
         conveyor.setMode(ConveyorMode.IDLE);
         queuer.setState(QueuerState.IDLE);
         intake.setState(IntakeState.IDLE);
@@ -774,10 +741,6 @@ public class RobotManager extends LifecycleSubsystem {
 
   public Command waitForStateCommand(RobotState goalState) {
     return Commands.waitUntil(() -> this.state == goalState);
-  }
-
-  public boolean getCollectiveHasNote() {
-    return intake.getHasNote() || queuer.getHasNote() || conveyor.hasNote();
   }
 
   public RobotState getState() {

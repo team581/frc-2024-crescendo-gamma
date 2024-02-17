@@ -8,7 +8,6 @@ import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,8 +23,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
-  private final PositionVoltage positionRequest =
-      new PositionVoltage(ElevatorPositions.STOWED);
+  private final PositionVoltage positionRequest = new PositionVoltage(ElevatorPositions.STOWED);
   private final LoggedDashboardNumber ntDistance =
       new LoggedDashboardNumber("Elevator/DistanceOverride", -1);
 
@@ -90,7 +88,9 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         Logger.recordOutput("Elevator/UsedGoalPosition", usedGoalPosition);
 
         motor.setControl(
-            positionRequest.withSlot(slot).withPosition(inchesToRotations(usedGoalPosition).getRotations()));
+            positionRequest
+                .withSlot(slot)
+                .withPosition(inchesToRotations(usedGoalPosition).getRotations()));
 
         break;
       case MID_MATCH_HOMING:
@@ -132,6 +132,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   }
 
   private static double clampHeight(double height) {
-    return MathUtil.clamp(height, RobotConfig.get().elevator().minHeight(), RobotConfig.get().elevator().maxHeight());
+    return MathUtil.clamp(
+        height, RobotConfig.get().elevator().minHeight(), RobotConfig.get().elevator().maxHeight());
   }
 }
