@@ -118,6 +118,7 @@ class CompConfig {
               Rotation2d.fromDegrees(-14),
               Rotation2d.fromDegrees(-13.5),
               Rotation2d.fromDegrees(115),
+              Rotation2d.fromDegrees(2),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
                 distanceToAngleTolerance.put(8.0, 1.0);

@@ -38,10 +38,6 @@ public class WristSubsystem extends LifecycleSubsystem {
       new InterpolatingDoubleTreeMap();
 
   private Rotation2d lowestSeenAngle = new Rotation2d();
-  // TODO: This should be a variable, not a field
-  private int slot = 0;
-  // TODO: Delete this
-  private Rotation2d TOLERANCE = Rotation2d.fromDegrees(5);
 
   private boolean preMatchHomingOccured = false;
 
@@ -108,11 +104,13 @@ public class WristSubsystem extends LifecycleSubsystem {
         Rotation2d usedGoalAngle =
             clampAngle(ntAngle.get() == -1 ? goalAngle : Rotation2d.fromDegrees(ntAngle.get()));
 
-        slot = goalAngle.equals(RobotConfig.get().wrist().minAngle()) ? 1 : 0;
+        int slot = goalAngle.equals(RobotConfig.get().wrist().minAngle()) ? 1 : 0;
         Logger.recordOutput("Wrist/UsedGoalAngle", usedGoalAngle.getDegrees());
         Logger.recordOutput("Wrist/NTAngle", ntAngle.get());
 
         motor.setControl(positionRequest.withSlot(slot).withPosition(usedGoalAngle.getRotations()));
+            Logger.recordOutput(
+        "Wrist/MotorPidSlot", slot);
         break;
     }
 
@@ -124,7 +122,6 @@ public class WristSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Wrist/HomingState", homingState);
     Logger.recordOutput("Wrist/GoalAngle", goalAngle.getDegrees());
     Logger.recordOutput("Wrist/Temperature", motor.getDeviceTemp().getValue());
-    Logger.recordOutput("Wrist/MotorPidSlot", slot);
     Logger.recordOutput("Wrist/ControlMode", motor.getControlMode().toString());
   }
 
@@ -157,13 +154,15 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   public boolean atAngle(Rotation2d angle) {
-    return Math.abs(angle.getDegrees() - getAngle().getDegrees()) < TOLERANCE.getDegrees();
+    return atAngle(angle, RobotConfig.get().wrist().tolerance());
   }
 
-  // TODO: Rename this to atAngleForSpeaker()
-  public boolean atAngle(Rotation2d angle, double distance) {
-    setTolerance(getToleranceFromDistanceToSpeaker(distance));
-    return atAngle(angle);
+  private boolean atAngle(Rotation2d angle, Rotation2d tolerance) {
+    return Math.abs(angle.getDegrees() - getAngle().getDegrees()) < tolerance.getDegrees();
+  }
+
+  public boolean atAngleForSpeaker(Rotation2d angle, double distance) {
+    return atAngle(angle, getToleranceFromDistanceToSpeaker(distance));
   }
 
   public void startMidMatchHoming() {
@@ -186,18 +185,12 @@ public class WristSubsystem extends LifecycleSubsystem {
     return Rotation2d.fromDegrees(speakerDistanceToAngle.get(distance));
   }
 
-  // TODO: Make this a private method
-  public Rotation2d getToleranceFromDistanceToSpeaker(double distance) {
+  private Rotation2d getToleranceFromDistanceToSpeaker(double distance) {
     return distance > 8
         ? Rotation2d.fromDegrees(0.5)
         : distance < 0.85
             ? Rotation2d.fromDegrees(5.0)
             : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
-  }
-
-  // TODO: Delete this. The wrist tolerance should not be a concern of other subsystems.
-  public void setTolerance(Rotation2d tolerance) {
-    TOLERANCE = tolerance;
   }
 
   public Rotation2d getAngleFromDistanceToFloorSpot(double distance) {

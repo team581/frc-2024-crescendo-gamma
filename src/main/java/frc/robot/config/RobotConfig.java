@@ -62,6 +62,7 @@ public record RobotConfig(
       Rotation2d homingEndPosition,
       Rotation2d minAngle,
       Rotation2d maxAngle,
+      Rotation2d tolerance,
       Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance,
       Consumer<InterpolatingDoubleTreeMap> speakerShotAngles,
       Consumer<InterpolatingDoubleTreeMap> floorShotAngles) {}
