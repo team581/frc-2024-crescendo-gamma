@@ -109,8 +109,7 @@ public class WristSubsystem extends LifecycleSubsystem {
         Logger.recordOutput("Wrist/NTAngle", ntAngle.get());
 
         motor.setControl(positionRequest.withSlot(slot).withPosition(usedGoalAngle.getRotations()));
-            Logger.recordOutput(
-        "Wrist/MotorPidSlot", slot);
+        Logger.recordOutput("Wrist/MotorPidSlot", slot);
         break;
     }
 
