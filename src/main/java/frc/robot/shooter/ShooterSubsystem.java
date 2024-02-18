@@ -4,7 +4,6 @@
 
 package frc.robot.shooter;
 
-import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
@@ -16,7 +15,6 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ShooterSubsystem extends LifecycleSubsystem {
   private static final int IDLE_RPM = 1000;
-  private static final double PASSING_RPM = 1500; // Make this not horrible
   private static final double OUTTAKE_RPM = 2000; // TODO: adjust for desirable outtake speeds
   private static final double SUBWOOFER_SHOOTING_RPM = 5000;
   private static final double TOLERANCE_RPM = 100;
@@ -28,16 +26,12 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private double speakerDistance = 0;
   private double floorSpotDistance = 0;
   private double goalRPM = 0;
-  double usedGoalRPM = 0;
 
-  // TODO: Don't mark these as static
-  private static final InterpolatingDoubleTreeMap speakerDistanceToRPM =
-      new InterpolatingDoubleTreeMap();
-  private static final InterpolatingDoubleTreeMap floorSpotDistanceToRPM =
+  private final InterpolatingDoubleTreeMap speakerDistanceToRPM = new InterpolatingDoubleTreeMap();
+  private final InterpolatingDoubleTreeMap floorSpotDistanceToRPM =
       new InterpolatingDoubleTreeMap();
 
   private ShooterMode goalMode = ShooterMode.IDLE;
-  private final StaticBrake brakeRequest = new StaticBrake();
 
   public ShooterSubsystem(TalonFX leftMotor, TalonFX rightMotor) {
     super(SubsystemPriority.SHOOTER);
@@ -50,25 +44,6 @@ public class ShooterSubsystem extends LifecycleSubsystem {
 
     leftMotor.getConfigurator().apply(RobotConfig.get().shooter().leftMotorConfig());
     rightMotor.getConfigurator().apply(RobotConfig.get().shooter().rightMotorConfig());
-  }
-
-  // TODO: Move this code to the bottom of robotPeriodic()
-  @Override
-  public void enabledPeriodic() {
-    double overrideRPM = ntRPM.get();
-
-    Logger.recordOutput("Shooter/OverrideRPM", overrideRPM);
-    Logger.recordOutput("Shooter/UsedRPM", usedGoalRPM);
-
-    usedGoalRPM = overrideRPM == -1 ? goalRPM : overrideRPM;
-
-    if (goalMode == ShooterMode.INTAKING) {
-      rightMotor.setControl(brakeRequest);
-      leftMotor.setControl(brakeRequest);
-    } else {
-      rightMotor.setControl(velocityRequest.withVelocity((usedGoalRPM) / 60));
-      leftMotor.setControl(velocityRequest.withVelocity((usedGoalRPM - 500) / 60));
-    }
   }
 
   @Override
@@ -114,6 +89,17 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     Logger.recordOutput(
         "Shooter/RightMotor/SupplierCurrent", rightMotor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Shooter/AtGoal", atGoal(goalMode));
+
+    double overrideRPM = ntRPM.get();
+
+    double usedGoalRPM = overrideRPM == -1 ? goalRPM : overrideRPM;
+
+    Logger.recordOutput("Shooter/OverrideRPM", overrideRPM);
+    Logger.recordOutput("Shooter/UsedRPM", usedGoalRPM);
+
+
+    rightMotor.setControl(velocityRequest.withVelocity((usedGoalRPM) / 60));
+    leftMotor.setControl(velocityRequest.withVelocity((usedGoalRPM - 500) / 60));
   }
 
   public boolean atGoal(ShooterMode mode) {
