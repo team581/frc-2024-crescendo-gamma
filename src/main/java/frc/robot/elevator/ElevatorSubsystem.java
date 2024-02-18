@@ -27,10 +27,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private final LoggedDashboardNumber ntDistance =
       new LoggedDashboardNumber("Elevator/DistanceOverride", -1);
 
-  // TODO: Put in config
+  // TODO: Move this to config
   private static final double TOLERANCE = 0.0;
 
   // Homing
+  // TODO: This should be a variable, not a field
   double currentHeight = 0.0;
   private boolean preMatchHomingOccured = false;
   private double lowestSeenHeight = 0.0;
@@ -38,6 +39,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
   private double goalHeight = ElevatorPositions.STOWED;
 
+  // TODO: This should be a variable, not a field
   private int slot = 0;
 
   public ElevatorSubsystem(TalonFX motor) {
@@ -114,19 +116,23 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return homingState;
   }
 
+  // TODO: Remove this method, pre-match homing is already on by default
   public void startPreMatchHoming() {
     homingState = HomingState.PRE_MATCH_HOMING;
   }
 
+  // TODO: Rename to atDistance() or atPosition()
   public boolean atGoal(double distance) {
     return Math.abs(getHeight() - distance) < TOLERANCE;
   }
 
+  // TODO: Mark as static
   // Tune the radius in inches later
   private double rotationsToInches(Rotation2d rotations) {
     return rotations.getRadians() * (RobotConfig.get().elevator().rotationsToDistance());
   }
 
+  // TODO: Mark as static
   private Rotation2d inchesToRotations(double inches) {
     return Rotation2d.fromRadians(inches / (RobotConfig.get().elevator().rotationsToDistance()));
   }
@@ -135,4 +141,6 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return MathUtil.clamp(
         height, RobotConfig.get().elevator().minHeight(), RobotConfig.get().elevator().maxHeight());
   }
+
+  // TODO: Logging
 }

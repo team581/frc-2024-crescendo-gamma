@@ -17,7 +17,9 @@ import org.littletonrobotics.junction.Logger;
 
 public class ImuSubsystem extends LifecycleSubsystem {
   private final Pigeon2 imu;
+  // TODO: Delete this field
   private Rotation2d TOLERANCE = Rotation2d.fromDegrees(2.5);
+  // TODO: Don't mark as static
   private static final InterpolatingDoubleTreeMap distanceToAngleTolerance =
       new InterpolatingDoubleTreeMap();
 
@@ -53,6 +55,7 @@ public class ImuSubsystem extends LifecycleSubsystem {
     return Rotation2d.fromDegrees(imu.getRate());
   }
 
+  // TODO: Remove this unused method
   public Rotation2d getRoll() {
     return Rotation2d.fromDegrees(imu.getRoll().getValue());
   }
@@ -73,14 +76,17 @@ public class ImuSubsystem extends LifecycleSubsystem {
             : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
   }
 
+  // TODO: Delete this, other subsystems should not need to worry about managing the IMU's tolerances. That is an IMU concern.
   public void setTolerance(Rotation2d tolerance) {
     TOLERANCE = tolerance;
   }
 
+  // TODO: Delete this, other subsystems should not need to worry about managing the IMU's tolerances. That is an IMU concern.
   public Rotation2d getTolerance() {
     return TOLERANCE;
   }
 
+  // TODO: This should just calculate the tolerance here and should not store it
   public boolean atAngle(Rotation2d angle, double distance) {
     setTolerance(getAngleToleranceFromDistanceToSpeaker(distance));
     return atAngle(angle);

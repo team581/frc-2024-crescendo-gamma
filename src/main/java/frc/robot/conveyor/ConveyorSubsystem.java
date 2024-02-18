@@ -21,6 +21,8 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
 
     this.motor = motor;
     this.sensor = sensor;
+
+    // TODO: We don't actually set the motor config here
   }
 
   @Override
@@ -34,6 +36,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    // TODO: Move this logic to enabledPeriodic(). Stop using goalPercentage", just command the motor directly
     switch (goalState) {
       case IDLE:
         goalPercentage = 0.0;
@@ -55,6 +58,8 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         break;
     }
   }
+
+  // TODO: Logging
 
   public void setState(ConveyorState state) {
     goalState = state;

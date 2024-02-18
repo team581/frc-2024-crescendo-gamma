@@ -38,7 +38,9 @@ public class WristSubsystem extends LifecycleSubsystem {
       new InterpolatingDoubleTreeMap();
 
   private Rotation2d lowestSeenAngle = new Rotation2d();
+  // TODO: This should be a variable, not a field
   private int slot = 0;
+  // TODO: Delete this
   private Rotation2d TOLERANCE = Rotation2d.fromDegrees(5);
 
   private boolean preMatchHomingOccured = false;
@@ -158,7 +160,7 @@ public class WristSubsystem extends LifecycleSubsystem {
     return Math.abs(angle.getDegrees() - getAngle().getDegrees()) < TOLERANCE.getDegrees();
   }
 
-  // convert distance to tolerance
+  // TODO: Rename this to atAngleForSpeaker()
   public boolean atAngle(Rotation2d angle, double distance) {
     setTolerance(getToleranceFromDistanceToSpeaker(distance));
     return atAngle(angle);
@@ -184,6 +186,7 @@ public class WristSubsystem extends LifecycleSubsystem {
     return Rotation2d.fromDegrees(speakerDistanceToAngle.get(distance));
   }
 
+  // TODO: Make this a private method
   public Rotation2d getToleranceFromDistanceToSpeaker(double distance) {
     return distance > 8
         ? Rotation2d.fromDegrees(0.5)
@@ -192,6 +195,8 @@ public class WristSubsystem extends LifecycleSubsystem {
             : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
   }
 
+
+    // TODO: Delete this. The wrist tolerance should not be a concern of other subsystems.
   public void setTolerance(Rotation2d tolerance) {
     TOLERANCE = tolerance;
   }

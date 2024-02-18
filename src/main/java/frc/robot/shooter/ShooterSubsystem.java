@@ -30,6 +30,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private double goalRPM = 0;
   double usedGoalRPM = 0;
 
+  // TODO: Don't mark these as static
   private static final InterpolatingDoubleTreeMap speakerDistanceToRPM =
       new InterpolatingDoubleTreeMap();
   private static final InterpolatingDoubleTreeMap floorSpotDistanceToRPM =
@@ -51,6 +52,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     rightMotor.getConfigurator().apply(RobotConfig.get().shooter().rightMotorConfig());
   }
 
+  // TODO: Move this code to the bottom of robotPeriodic()
   @Override
   public void enabledPeriodic() {
     double overrideRPM = ntRPM.get();
