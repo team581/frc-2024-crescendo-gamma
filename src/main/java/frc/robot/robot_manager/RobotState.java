@@ -25,27 +25,6 @@ public enum RobotState {
   /** Outtaking via the intake. Game piece should be in queuer at start. */
   OUTTAKING(true, NoteLocation.INTAKE),
 
-  /**
-   * Move game piece from queuer to the intake, for handoff to conveyor. Transition to
-   * INTAKE_TO_CONVEYOR when done.
-   */
-  QUEUER_TO_INTAKE_FOR_CONVEYOR(true, NoteLocation.QUEUER),
-  /**
-   * Move game piece from conveyor to the intake, for handoff to queuer. Transition to
-   * INTAKE_TO_QUEUER when done.
-   */
-  CONVEYOR_TO_INTAKE_FOR_QUEUER(true, NoteLocation.CONVEYOR),
-  /**
-   * Move game piece from intake to the queuer, as final step of the handoff. Transition to
-   * IDLE_WITH_GP when done.
-   */
-  INTAKE_TO_QUEUER(true, NoteLocation.INTAKE),
-  /**
-   * , Move game piece from intake to the conveyor, as final step of the handoff. Transition to
-   * WAITING_AMP_SHOT when done.
-   */
-  INTAKE_TO_CONVEYOR(true, NoteLocation.INTAKE),
-
   /** Preparing for floor shot, waiting for driver to commit. */
   WAITING_FLOOR_SHOT(true, NoteLocation.QUEUER),
   /** Preparing for floor shot, should shoot when ready. */
@@ -74,6 +53,8 @@ public enum RobotState {
 
   /** Note in conveyor, waiting for driver to commit to amp score. */
   WAITING_AMP_SHOT(true, NoteLocation.CONVEYOR),
+  /** Get ready for amp shot, automatically go to AMP_SHOT when ready. */
+  PREPARE_AMP_SHOT(true, NoteLocation.CONVEYOR),
   /** Actively scoring in the amp. */
   AMP_SHOT(true, NoteLocation.CONVEYOR),
 

@@ -18,9 +18,9 @@ import org.littletonrobotics.junction.Logger;
 public class NoteManager extends LifecycleSubsystem {
   private final FlagManager<NoteFlag> flags = new FlagManager<>(NoteFlag.class);
 
-  private final QueuerSubsystem queuer;
-  private final IntakeSubsystem intake;
-  private final ConveyorSubsystem conveyor;
+  public final QueuerSubsystem queuer;
+  public final IntakeSubsystem intake;
+  public final ConveyorSubsystem conveyor;
 
   private NoteState state = NoteState.IDLE_NO_GP;
 
@@ -217,6 +217,10 @@ public class NoteManager extends LifecycleSubsystem {
     flags.check(NoteFlag.IDLE_IN_QUEUER);
   }
 
+  public void idleNoGPRequest() {
+    flags.check(NoteFlag.IDLE_NO_GP);
+  }
+
   public void ampScoreRequest() {
     flags.check(NoteFlag.AMP_SCORE);
   }
@@ -227,5 +231,9 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void outtakeRequest() {
     flags.check(NoteFlag.OUTTAKE);
+  }
+
+  public NoteState getState() {
+    return state;
   }
 }
