@@ -28,7 +28,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   }
 
   @Override
-  public void robotPeriodic() {
+  public void enabledPeriodic() {
     switch (goalState) {
       case IDLE:
         motor.disable();
@@ -45,7 +45,10 @@ public class QueuerSubsystem extends LifecycleSubsystem {
       default:
         break;
     }
+  }
 
+  @Override
+  public void robotPeriodic() {
     Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput("Queuer/State", goalState);
     Logger.recordOutput("Queuer/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
