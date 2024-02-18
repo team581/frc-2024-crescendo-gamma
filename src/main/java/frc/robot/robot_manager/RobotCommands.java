@@ -20,9 +20,9 @@ public class RobotCommands {
             robot.wrist,
             robot.elevator,
             robot.climber,
-            robot.conveyor,
-            robot.intake,
-            robot.queuer,
+            robot.noteManager.conveyor,
+            robot.noteManager.intake,
+            robot.noteManager.queuer,
             robot.shooter);
     requirements = requirementsList.toArray(new Subsystem[requirementsList.size()]);
   }
