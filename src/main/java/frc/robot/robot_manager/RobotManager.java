@@ -9,15 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.climber.ClimberMode;
 import frc.robot.climber.ClimberSubsystem;
-import frc.robot.conveyor.ConveyorState;
 import frc.robot.elevator.ElevatorPositions;
 import frc.robot.elevator.ElevatorSubsystem;
 import frc.robot.imu.ImuSubsystem;
-import frc.robot.intake.IntakeState;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.note_manager.NoteManager;
 import frc.robot.note_manager.NoteState;
-import frc.robot.queuer.QueuerState;
 import frc.robot.shooter.ShooterMode;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
@@ -236,16 +233,12 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case PREPARE_SPEAKER_SHOT:
-        double distance = speakerDistance;
-        imu.setTolerance(imu.getAngleToleranceFromDistanceToSpeaker(distance));
-        if (wrist.atAngle(wristAngleForSpeaker, distance)
+        if (wrist.atAngleForSpeaker(wristAngleForSpeaker, speakerDistance)
             && shooter.atGoal(ShooterMode.SPEAKER_SHOT)
             && noteManager.getState() == NoteState.IDLE_IN_QUEUER
-            && (Math.abs(speakerVisionTargets.angle().getDegrees())
-                < imu.getTolerance().getDegrees())
             && swerve.movingSlowEnoughForSpeakerShot()
-            && imu.getRobotAngularVelocity().getDegrees() < imu.getTolerance().getDegrees()
-            && imu.atAngle(robotAngleToSpeaker, distance)) {
+            && imu.belowVelocityForSpeaker(speakerDistance)
+            && imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance)) {
           state = RobotState.SPEAKER_SHOOT;
         }
         break;
@@ -259,14 +252,10 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case PREPARE_TRAP_OUTTAKE:
         if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
-            && elevator.atGoal(ElevatorPositions.TRAP_SHOT)) {
+            && elevator.atPosition(ElevatorPositions.TRAP_SHOT)) {
           state = RobotState.TRAP_OUTTAKE;
         }
         break;
-        // TODO: What happens if the note is not in the intake at start? (ex. in the conveyor)
-        // I believe it would instantly think it's done
-        // We need a PREPARE_OUTTAKING_INTAKE state, which passes the note to the intake/queuer/idk,
-        // so that the end condition here is correct
       case OUTTAKING:
         if (noteManager.getState() == NoteState.IDLE_NO_GP) {
           state = RobotState.IDLE_NO_GP;
@@ -274,17 +263,18 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case TRAP_OUTTAKE:
         if (noteManager.getState() == NoteState.IDLE_NO_GP
-            && elevator.atGoal(ElevatorPositions.TRAP_SHOT)) {
+            && elevator.atPosition(ElevatorPositions.TRAP_SHOT)) {
           state = RobotState.CLIMBER_HANGING;
         }
         break;
       case PREPARE_CLIMBER_RAISED:
-        if (climber.atGoal(ClimberMode.RAISED) && elevator.atGoal(ElevatorPositions.CLIMBING)) {
+        if (climber.atGoal(ClimberMode.RAISED) && elevator.atPosition(ElevatorPositions.CLIMBING)) {
           state = RobotState.CLIMBER_RAISED;
         }
         break;
       case PREPARE_CLIMBER_HANGING:
-        if (climber.atGoal(ClimberMode.HANGING) && elevator.atGoal(ElevatorPositions.CLIMBING)) {
+        if (climber.atGoal(ClimberMode.HANGING)
+            && elevator.atPosition(ElevatorPositions.CLIMBING)) {
           state = RobotState.CLIMBER_HANGING;
         }
         break;
@@ -298,7 +288,7 @@ public class RobotManager extends LifecycleSubsystem {
       case UNHOMED:
         wrist.startPreMatchHoming();
         climber.startHoming();
-        elevator.startPreMatchHoming();
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         noteManager.idleNoGPRequest();
         break;
