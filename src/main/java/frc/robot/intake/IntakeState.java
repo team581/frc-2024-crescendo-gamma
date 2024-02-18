@@ -6,10 +6,10 @@ package frc.robot.intake;
 
 public enum IntakeState {
   IDLE,
+  OUTTAKING,
   FROM_QUEUER,
   FROM_CONVEYOR,
   TO_QUEUER,
   TO_CONVEYOR,
-  TO_QUEUER_SHOOTING,
-  OUTTAKING;
+  TO_QUEUER_SHOOTING;
 }

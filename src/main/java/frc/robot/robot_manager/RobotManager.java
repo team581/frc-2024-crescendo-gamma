@@ -254,7 +254,7 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_TRAP_OUTTAKE:
         if (((intake.atGoal(IntakeState.PASS_NOTE_OUTTAKE)
                     && queuer.atGoal(QueuerState.PASS_TO_INTAKE)
-                    && conveyor.atGoal(ConveyorState.PASS_TO_CONVEYOR))
+                    && conveyor.atGoal(ConveyorState.INTAKE_TO_SELF))
                 || conveyor.atGoal(ConveyorState.WAITING_AMP_SHOT) && conveyor.hasNote())
             && elevator.atGoal(ElevatorPositions.TRAP_SHOT)) {
           state = RobotState.TRAP_OUTTAKE;
@@ -291,20 +291,19 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.INTAKE_TO_QUEUER;
         }
       case INTAKE_TO_QUEUER:
-        if (conveyor.atGoal(ConveyorState.PASS_TO_SHOOTER)
+        if (conveyor.atGoal(ConveyorState.INTAKE_TO_QUEUER)
             && intake.atGoal(IntakeState.INTAKING)
             && queuer.atGoal(QueuerState.IDLE)) {
           state = RobotState.IDLE_WITH_GP;
         }
       case QUEUER_TO_INTAKE_FOR_CONVEYOR:
         if (queuer.atGoal(QueuerState.PASS_TO_INTAKE)
-            && conveyor.atGoal(ConveyorState.PASS_TO_CONVEYOR)
+            && conveyor.atGoal(ConveyorState.INTAKE_TO_SELF)
             && intake.atGoal(IntakeState.PASS_NOTE_OUTTAKE)) {
           state = RobotState.INTAKE_TO_CONVEYOR;
         }
       case INTAKE_TO_CONVEYOR:
-        if (conveyor.atGoal(ConveyorState.PASS_TO_CONVEYOR)
-            && intake.atGoal(IntakeState.INTAKING)) {
+        if (conveyor.atGoal(ConveyorState.INTAKE_TO_SELF) && intake.atGoal(IntakeState.INTAKING)) {
           state = RobotState.WAITING_AMP_SHOT;
         }
       default:
@@ -362,7 +361,7 @@ public class RobotManager extends LifecycleSubsystem {
       case OUTTAKING:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
-        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.OUTTAKING);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -389,7 +388,7 @@ public class RobotManager extends LifecycleSubsystem {
       case INTAKE_TO_CONVEYOR:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -398,7 +397,7 @@ public class RobotManager extends LifecycleSubsystem {
       case QUEUER_TO_INTAKE_FOR_CONVEYOR:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
-        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.PASS_NOTE_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -407,7 +406,7 @@ public class RobotManager extends LifecycleSubsystem {
       case INTAKE_TO_QUEUER:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.IDLE);

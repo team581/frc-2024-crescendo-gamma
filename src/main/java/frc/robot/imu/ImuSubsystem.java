@@ -76,12 +76,14 @@ public class ImuSubsystem extends LifecycleSubsystem {
             : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
   }
 
-  // TODO: Delete this, other subsystems should not need to worry about managing the IMU's tolerances. That is an IMU concern.
+  // TODO: Delete this, other subsystems should not need to worry about managing the IMU's
+  // tolerances. That is an IMU concern.
   public void setTolerance(Rotation2d tolerance) {
     TOLERANCE = tolerance;
   }
 
-  // TODO: Delete this, other subsystems should not need to worry about managing the IMU's tolerances. That is an IMU concern.
+  // TODO: Delete this, other subsystems should not need to worry about managing the IMU's
+  // tolerances. That is an IMU concern.
   public Rotation2d getTolerance() {
     return TOLERANCE;
   }

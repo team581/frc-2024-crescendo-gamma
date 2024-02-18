@@ -149,7 +149,7 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case INTAKE_TO_QUEUER:
         intake.setState(IntakeState.TO_QUEUER);
-        conveyor.setState(ConveyorState.PASS_TO_SHOOTER);
+        conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
         break;
       case AMP_SCORING:
@@ -175,7 +175,7 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case INTAKE_TO_CONVEYOR:
         intake.setState(IntakeState.TO_CONVEYOR);
-        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         queuer.setState(QueuerState.IDLE);
         break;
       case QUEUER_TO_INTAKE_FOR_OUTTAKING:
@@ -185,12 +185,12 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case SHOOTER_OUTTAKING:
         intake.setState(IntakeState.TO_QUEUER);
-        conveyor.setState(ConveyorState.PASS_TO_SHOOTER);
+        conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
         break;
       case SHOOTING:
         intake.setState(IntakeState.TO_QUEUER_SHOOTING);
-        conveyor.setState(ConveyorState.PASS_TO_SHOOTER);
+        conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
         break;
       default:
