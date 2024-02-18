@@ -166,6 +166,7 @@ class CompConfig {
               0,
               0.0,
               0.0,
+              0.0,
               0.0),
           new IntakeConfig(
               16,

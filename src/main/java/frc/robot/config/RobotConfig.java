@@ -73,7 +73,8 @@ public record RobotConfig(
       double homingEndPosition,
       double minHeight,
       double maxHeight,
-      double rotationsToDistance) {}
+      double rotationsToDistance,
+      double tolerance) {}
 
   public record IMUConfig(
       int deviceID, Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance) {}
