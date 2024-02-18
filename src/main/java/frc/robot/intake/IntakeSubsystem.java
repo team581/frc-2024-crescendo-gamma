@@ -29,7 +29,6 @@ public class IntakeSubsystem extends LifecycleSubsystem {
 
   @Override
   public void enabledPeriodic() {
-
     switch (goalState) {
       case IDLE:
         motor.disable();
