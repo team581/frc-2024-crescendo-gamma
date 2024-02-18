@@ -24,6 +24,7 @@ import frc.robot.imu.ImuSubsystem;
 import frc.robot.intake.IntakeSubsystem;
 import frc.robot.lights.LightsSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
+import frc.robot.note_manager.NoteManager;
 import frc.robot.queuer.QueuerSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.robot_manager.RobotManager;
@@ -79,20 +80,10 @@ public class Robot extends LoggedRobot {
   private final VisionSubsystem vision = new VisionSubsystem();
   private final LocalizationSubsystem localization = new LocalizationSubsystem(swerve, imu, vision);
   private final SnapManager snaps = new SnapManager(swerve, driverController);
+  private final NoteManager noteManager = new NoteManager(queuer, intake, conveyor);
   private final RobotManager robotManager =
       new RobotManager(
-          wrist,
-          intake,
-          elevator,
-          queuer,
-          conveyor,
-          shooter,
-          localization,
-          vision,
-          climber,
-          swerve,
-          snaps,
-          imu);
+          wrist, elevator, shooter, localization, vision, climber, swerve, snaps, imu, noteManager);
   private final RobotCommands actions = new RobotCommands(robotManager);
   private final Autos autos = new Autos(swerve, localization, imu, actions);
   private final LightsSubsystem lightsSubsystem =

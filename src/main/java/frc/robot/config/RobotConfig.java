@@ -62,6 +62,7 @@ public record RobotConfig(
       Rotation2d homingEndPosition,
       Rotation2d minAngle,
       Rotation2d maxAngle,
+      Rotation2d tolerance,
       Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance,
       Consumer<InterpolatingDoubleTreeMap> speakerShotAngles,
       Consumer<InterpolatingDoubleTreeMap> floorShotAngles) {}
@@ -73,7 +74,8 @@ public record RobotConfig(
       double homingEndPosition,
       double minHeight,
       double maxHeight,
-      double rotationsToDistance) {}
+      double rotationsToDistance,
+      double tolerance) {}
 
   public record IMUConfig(
       int deviceID, Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance) {}

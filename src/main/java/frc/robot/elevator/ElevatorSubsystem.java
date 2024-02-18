@@ -27,20 +27,12 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private final LoggedDashboardNumber ntDistance =
       new LoggedDashboardNumber("Elevator/DistanceOverride", -1);
 
-  // TODO: Move this to config
-  private static final double TOLERANCE = 0.0;
-
   // Homing
-  // TODO: This should be a variable, not a field
-  double currentHeight = 0.0;
   private boolean preMatchHomingOccured = false;
   private double lowestSeenHeight = 0.0;
   private HomingState homingState = HomingState.PRE_MATCH_HOMING;
 
   private double goalHeight = ElevatorPositions.STOWED;
-
-  // TODO: This should be a variable, not a field
-  private int slot = 0;
 
   public ElevatorSubsystem(TalonFX motor) {
     super(SubsystemPriority.ELEVATOR);
@@ -52,7 +44,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void disabledPeriodic() {
-    currentHeight = getHeight();
+    double currentHeight = getHeight();
 
     if (currentHeight < lowestSeenHeight) {
       lowestSeenHeight = currentHeight;
@@ -81,23 +73,31 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
           }
         }
         break;
-
       case HOMED:
-        double usedGoalPosition =
-            clampHeight(ntDistance.get() == -1 ? goalHeight : ntDistance.get());
+        {
+          double usedGoalPosition =
+              clampHeight(ntDistance.get() == -1 ? goalHeight : ntDistance.get());
+          int slot = goalHeight == RobotConfig.get().elevator().minHeight() ? 1 : 0;
+          Logger.recordOutput("Elevator/UsedGoalPosition", usedGoalPosition);
 
-        slot = goalHeight == RobotConfig.get().elevator().minHeight() ? 1 : 0;
-        Logger.recordOutput("Elevator/UsedGoalPosition", usedGoalPosition);
+          motor.setControl(
+              positionRequest
+                  .withSlot(slot)
+                  .withPosition(inchesToRotations(usedGoalPosition).getRotations()));
 
-        motor.setControl(
-            positionRequest
-                .withSlot(slot)
-                .withPosition(inchesToRotations(usedGoalPosition).getRotations()));
-
-        break;
+          break;
+        }
       case MID_MATCH_HOMING:
         throw new IllegalStateException("Elevator can't do mid match homing");
     }
+
+    Logger.recordOutput("Elevator/Voltage", motor.getMotorVoltage().getValueAsDouble());
+    Logger.recordOutput("Elevator/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput("Elevator/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Elevator/Velocity", motor.getVelocity().getValueAsDouble());
+    Logger.recordOutput("Elevator/Height", getHeight());
+    Logger.recordOutput("Elevator/GoalHeight", goalHeight);
+    Logger.recordOutput("Elevator/Rotations", getRotations());
   }
 
   public void setGoalHeight(double newHeight) {
@@ -116,24 +116,16 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return homingState;
   }
 
-  // TODO: Remove this method, pre-match homing is already on by default
-  public void startPreMatchHoming() {
-    homingState = HomingState.PRE_MATCH_HOMING;
+  public boolean atPosition(double distance) {
+    return Math.abs(getHeight() - distance) < RobotConfig.get().elevator().tolerance();
   }
 
-  // TODO: Rename to atDistance() or atPosition()
-  public boolean atGoal(double distance) {
-    return Math.abs(getHeight() - distance) < TOLERANCE;
-  }
-
-  // TODO: Mark as static
-  // Tune the radius in inches later
-  private double rotationsToInches(Rotation2d rotations) {
+  // TODO: Tune the radius in inches later
+  private static double rotationsToInches(Rotation2d rotations) {
     return rotations.getRadians() * (RobotConfig.get().elevator().rotationsToDistance());
   }
 
-  // TODO: Mark as static
-  private Rotation2d inchesToRotations(double inches) {
+  private static Rotation2d inchesToRotations(double inches) {
     return Rotation2d.fromRadians(inches / (RobotConfig.get().elevator().rotationsToDistance()));
   }
 
@@ -141,6 +133,4 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return MathUtil.clamp(
         height, RobotConfig.get().elevator().minHeight(), RobotConfig.get().elevator().maxHeight());
   }
-
-  // TODO: Logging
 }
