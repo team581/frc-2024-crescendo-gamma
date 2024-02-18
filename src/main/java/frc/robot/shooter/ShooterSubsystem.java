@@ -97,7 +97,6 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Shooter/OverrideRPM", overrideRPM);
     Logger.recordOutput("Shooter/UsedRPM", usedGoalRPM);
 
-
     rightMotor.setControl(velocityRequest.withVelocity((usedGoalRPM) / 60));
     leftMotor.setControl(velocityRequest.withVelocity((usedGoalRPM - 500) / 60));
   }

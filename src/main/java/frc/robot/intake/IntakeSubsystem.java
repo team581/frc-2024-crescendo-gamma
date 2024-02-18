@@ -10,14 +10,13 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import org.littletonrobotics.junction.Logger;
 
 public class IntakeSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
   private VoltageOut voltageRequest = new VoltageOut(0.0);
   private IntakeState goalState = IntakeState.IDLE;
-  private double voltageUsed = 0.0;
-  private boolean hasNote = false;
 
   public IntakeSubsystem(TalonFX motor, DigitalInput sensor) {
     super(SubsystemPriority.INTAKE);
@@ -32,25 +31,52 @@ public class IntakeSubsystem extends LifecycleSubsystem {
   public void enabledPeriodic() {
     switch (goalState) {
       case IDLE:
-        voltageUsed = 0.0;
+        motor.disable();
         break;
       case OUTTAKING:
-        voltageUsed = 0.0;
+        if (hasNote()) {
+          motor.setControl(voltageRequest.withOutput(0));
+
+        } else {
+          motor.disable();
+        }
         break;
-      case PASS_NOTE_OUTTAKE:
-        voltageUsed = 0.0;
+      case FROM_QUEUER:
+      case FROM_CONVEYOR:
+        if (hasNote()) {
+          motor.disable();
+        } else {
+          motor.setControl(voltageRequest.withOutput(0));
+        }
         break;
-      case INTAKING:
-        voltageUsed = 0.0;
+      case TO_QUEUER:
+      case TO_CONVEYOR:
+        if (hasNote()) {
+          motor.setControl(voltageRequest.withOutput(0));
+        } else {
+          motor.disable();
+        }
+        break;
+      case TO_QUEUER_SHOOTING:
+        if (hasNote()) {
+          motor.setControl(voltageRequest.withOutput(0));
+        } else {
+          motor.disable();
+        }
         break;
       default:
         break;
     }
-    if (goalState == IntakeState.IDLE) {
-      motor.disable();
-    } else {
-      voltageRequest.withOutput(voltageUsed);
-    }
+  }
+
+  @Override
+  public void robotPeriodic() {
+    Logger.recordOutput("Intake/State", goalState);
+    Logger.recordOutput("Intake/HasNote", hasNote());
+    Logger.recordOutput("Intake/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Intake/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput("Intake/Velocity", motor.getVelocity().getValueAsDouble());
+    Logger.recordOutput("Intake/Voltage", motor.getMotorVoltage().getValueAsDouble());
   }
 
   public void setState(IntakeState state) {

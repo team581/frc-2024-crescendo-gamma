@@ -195,8 +195,7 @@ public class WristSubsystem extends LifecycleSubsystem {
             : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
   }
 
-
-    // TODO: Delete this. The wrist tolerance should not be a concern of other subsystems.
+  // TODO: Delete this. The wrist tolerance should not be a concern of other subsystems.
   public void setTolerance(Rotation2d tolerance) {
     TOLERANCE = tolerance;
   }

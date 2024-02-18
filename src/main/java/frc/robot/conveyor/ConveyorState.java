@@ -6,9 +6,9 @@ package frc.robot.conveyor;
 
 public enum ConveyorState {
   IDLE,
-  PASS_TO_SHOOTER,
+  INTAKE_TO_SELF,
+  INTAKE_TO_QUEUER,
   PASS_TO_INTAKE,
-  PASS_TO_CONVEYOR,
   WAITING_AMP_SHOT,
   AMP_SHOT;
 }
