@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import org.littletonrobotics.junction.Logger;
 
 public class QueuerSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
@@ -27,14 +28,30 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   }
 
   @Override
-  public void enabledPeriodic() {
-    if (goalState == QueuerState.IDLE) {
-      motor.disable();
-    } else if (goalState == QueuerState.PASS_TO_SHOOTER) {
-      voltageRequest.withOutput(0.0);
-    } else if (goalState == QueuerState.PASS_TO_INTAKE) {
-      voltageRequest.withOutput(0.0);
+  public void robotPeriodic() {
+    switch (goalState) {
+      case IDLE:
+        motor.disable();
+        break;
+      case INTAKING:
+        motor.setControl(voltageRequest.withOutput(0.0));
+        break;
+      case PASS_TO_INTAKE:
+        motor.setControl(voltageRequest.withOutput(0.0));
+        break;
+      case PASS_TO_SHOOTER:
+        motor.setControl(voltageRequest.withOutput(0.0));
+        break;
+      default:
+        break;
     }
+
+    Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
+    Logger.recordOutput("Queuer/State", goalState);
+    Logger.recordOutput("Queuer/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Queuer/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput("Queuer/Velocity", motor.getVelocity().getValueAsDouble());
+    Logger.recordOutput("Queuer/HasNote", hasNote());
   }
 
   public void setState(QueuerState state) {
