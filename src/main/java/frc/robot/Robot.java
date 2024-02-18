@@ -83,16 +83,7 @@ public class Robot extends LoggedRobot {
   private final NoteManager noteManager = new NoteManager(queuer, intake, conveyor);
   private final RobotManager robotManager =
       new RobotManager(
-          wrist,
-          elevator,
-          shooter,
-          localization,
-          vision,
-          climber,
-          swerve,
-          snaps,
-          imu,
-          noteManager);
+          wrist, elevator, shooter, localization, vision, climber, swerve, snaps, imu, noteManager);
   private final RobotCommands actions = new RobotCommands(robotManager);
   private final Autos autos = new Autos(swerve, localization, imu, actions);
   private final LightsSubsystem lightsSubsystem =
