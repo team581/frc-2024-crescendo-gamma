@@ -9,20 +9,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.climber.ClimberMode;
 import frc.robot.climber.ClimberSubsystem;
-import frc.robot.conveyor.ConveyorMode;
-import frc.robot.conveyor.ConveyorSubsystem;
+import frc.robot.conveyor.ConveyorState;
 import frc.robot.elevator.ElevatorPositions;
 import frc.robot.elevator.ElevatorSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.intake.IntakeState;
-import frc.robot.intake.IntakeSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
+import frc.robot.note_manager.NoteManager;
 import frc.robot.queuer.QueuerState;
-import frc.robot.queuer.QueuerSubsystem;
 import frc.robot.shooter.ShooterMode;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.FlagManager;
 import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -34,10 +33,8 @@ import org.littletonrobotics.junction.Logger;
 
 public class RobotManager extends LifecycleSubsystem {
   public final WristSubsystem wrist;
-  public final IntakeSubsystem intake;
+  public final NoteManager noteManager;
   public final ElevatorSubsystem elevator;
-  public final QueuerSubsystem queuer;
-  public final ConveyorSubsystem conveyor;
   public final ShooterSubsystem shooter;
   public final LocalizationSubsystem localization;
   public final VisionSubsystem vision;
@@ -48,47 +45,22 @@ public class RobotManager extends LifecycleSubsystem {
 
   private RobotState state = RobotState.UNHOMED;
 
-  // State request flags
-  private boolean homingFlag = false;
-  private boolean waitSpeakerShotFlag = false;
-  private boolean speakerShotFlag = false;
-  private boolean ampShotFlag = false;
-  private boolean passNoteToConveyorFlag = false;
-  private boolean passNoteToQueuerFlag = false;
-  private boolean trapShotFlag = false;
-  private boolean waitSubwooferShotFlag = false;
-  private boolean subwooferShotFlag = false;
-  private boolean groundIntakeFlag = false;
-  private boolean outtakeShooterFlag = false;
-  private boolean outtakeIntakeFlag = false;
-  private boolean stowFlag = false;
-  private boolean stowAfterIntakeFlag = false;
-  private boolean waitingClimberRaisedFlag = false;
-  private boolean raiseClimberFlag = false;
-  private boolean hangClimberFlag = false;
-  private boolean preloadNoteRequest = false;
-  private boolean waitFloorShotFlag = false;
-  private boolean floorShotFlag = false;
+  private final FlagManager<RobotFlag> flags = new FlagManager<>(RobotFlag.class);
 
   public RobotManager(
       WristSubsystem wrist,
-      IntakeSubsystem intake,
       ElevatorSubsystem elevator,
-      QueuerSubsystem queuer,
-      ConveyorSubsystem conveyor,
       ShooterSubsystem shooter,
       LocalizationSubsystem localization,
       VisionSubsystem vision,
       ClimberSubsystem climber,
       SwerveSubsystem swerve,
       SnapManager snaps,
-      ImuSubsystem imu) {
+      ImuSubsystem imu,
+      NoteManager noteManager) {
     super(SubsystemPriority.ROBOT_MANAGER);
     this.wrist = wrist;
-    this.intake = intake;
     this.elevator = elevator;
-    this.queuer = queuer;
-    this.conveyor = conveyor;
     this.shooter = shooter;
     this.localization = localization;
     this.vision = vision;
@@ -96,35 +68,18 @@ public class RobotManager extends LifecycleSubsystem {
     this.swerve = swerve;
     this.snaps = snaps;
     this.imu = imu;
+    this.noteManager = noteManager;
   }
 
   @Override
   public void robotPeriodic() {
     Logger.recordOutput("RobotManager/State", state);
-
-    Logger.recordOutput("RobotManager/HomingFlag", homingFlag);
-    Logger.recordOutput("RobotManager/Flags/WaitSpeakerShotFlag", waitSpeakerShotFlag);
-    Logger.recordOutput("RobotManager/Flags/SpeakerShotFlag", speakerShotFlag);
-    Logger.recordOutput("RobotManager/Flags/AmpShotFlag", ampShotFlag);
-    Logger.recordOutput("RobotManager/Flags/TrapShotFlag", trapShotFlag);
-    Logger.recordOutput("RobotManager/Flags/WaitSubwooferShotFlag", waitSubwooferShotFlag);
-    Logger.recordOutput("RobotManager/Flags/SubwooferShotFlag", subwooferShotFlag);
-    Logger.recordOutput("RobotManager/Flags/StowAfterIntakeFlag", stowAfterIntakeFlag);
-    Logger.recordOutput("RobotManager/Flags/IntakeFlag", groundIntakeFlag);
-    Logger.recordOutput("RobotManager/Flags/OuttakeIntakeFlag", outtakeIntakeFlag);
-    Logger.recordOutput("RobotManager/Flags/OuttakeShooterFlag", outtakeShooterFlag);
-    Logger.recordOutput("RobotManager/Flags/StowFlag", stowFlag);
-    Logger.recordOutput("RobotManager/Flags/WaitingClimberRaisedFlag", waitingClimberRaisedFlag);
-    Logger.recordOutput("RobotManager/Flags/RaiseClimberFlag", raiseClimberFlag);
-    Logger.recordOutput("RobotManager/Flags/HangClimberFlag", hangClimberFlag);
-    Logger.recordOutput("RobotManager/Flags/PreloadNoteRequest", preloadNoteRequest);
-    Logger.recordOutput("RobotManager/Flags/WaitFloorShotFlag", waitFloorShotFlag);
-    Logger.recordOutput("RobotManager/Flags/FloorShotFlag", floorShotFlag);
+    flags.log();
 
     DistanceAngle speakerVisionTargets = vision.getDistanceAngleSpeaker();
-    DistanceAngle floorShotVisionTargets = vision.getDistanceAngleFloorShot();
+    DistanceAngle floorSpotVisionTargets = vision.getDistanceAngleFloorSpot();
     double speakerDistance = speakerVisionTargets.distance();
-    double floorSpotDistance = floorShotVisionTargets.distance();
+    double floorSpotDistance = floorSpotVisionTargets.distance();
     Rotation2d wristAngleForSpeaker = wrist.getAngleFromDistanceToSpeaker(speakerDistance);
     Rotation2d wristAngleForFloorSpot = wrist.getAngleFromDistanceToFloorSpot(floorSpotDistance);
     Rotation2d robotAngleToSpeaker =
@@ -133,116 +88,92 @@ public class RobotManager extends LifecycleSubsystem {
     shooter.setSpeakerDistance(speakerDistance);
     Rotation2d robotAngleToFloorSpot =
         Rotation2d.fromDegrees(
-            imu.getRobotHeading().getDegrees() + floorShotVisionTargets.angle().getDegrees());
+            imu.getRobotHeading().getDegrees() + floorSpotVisionTargets.angle().getDegrees());
     shooter.setFloorSpotDistance(floorSpotDistance);
 
     // State transitions from requests
-    if (homingFlag) {
-      wrist.resetHoming();
-      state = RobotState.HOMING;
-    }
-    if (groundIntakeFlag) {
-      intake.setState(IntakeState.IDLE);
-      if (state.homed) {
-        state = RobotState.GROUND_INTAKING;
-      }
-    }
-    if (stowFlag) {
-      if (state.homed) {
-        if (state.hasNote) {
-          state = RobotState.IDLE_WITH_GP;
-        } else {
-          state = RobotState.IDLE_NO_GP;
-        }
-      }
-    }
-    if (stowAfterIntakeFlag) {
-      if (state.homed && state != RobotState.GROUND_INTAKING) {
-        if (state.hasNote) {
-          state = RobotState.IDLE_WITH_GP;
-        } else {
-          state = RobotState.IDLE_NO_GP;
-        }
-      }
-    }
-    if (waitingClimberRaisedFlag) {
-      if (state.homed) {
-        state = RobotState.WAITING_CLIMBER_RAISED;
-      }
-    }
-    if (raiseClimberFlag) {
-      if (state.homed) {
-        state = RobotState.PREPARE_CLIMBER_RAISED;
-      }
-    }
-    if (hangClimberFlag) {
-      if (state == RobotState.CLIMBER_RAISED) {
-        state = RobotState.PREPARE_CLIMBER_HANGING;
-      }
-    }
-    if (waitSpeakerShotFlag) {
-      if (state.homed) {
-        state = RobotState.WAITING_SPEAKER_SHOT;
-      }
-    }
-    if (waitSubwooferShotFlag) {
-      if (state.homed) {
-        state = RobotState.WAITING_SUBWOOFER_SHOT;
-      }
-    }
-    if (outtakeIntakeFlag) {
-      if (state.homed) {
-        state = RobotState.OUTTAKING_INTAKE;
-      }
-    }
-    if (outtakeShooterFlag) {
-      if (state.homed) {
-        state = RobotState.OUTTAKING_SHOOTER;
-      }
-    }
-    if (speakerShotFlag) {
-      if (state.homed) {
-        state = RobotState.PREPARE_SPEAKER_SHOT;
-      }
-    }
-    if (ampShotFlag) {
-      if (state.homed) {
-        state = RobotState.AMP_SHOT;
-      }
-    }
-    if (passNoteToQueuerFlag) {
-      if (state.homed) {
-        state = RobotState.CONVEYOR_TO_INTAKE_FOR_SHOOTER;
-      }
-    }
-    if (passNoteToConveyorFlag) {
-      if (state.homed) {
-        state = RobotState.QUEUER_TO_INTAKE_FOR_AMP;
-      }
-    }
-    if (trapShotFlag) {
-      if (state.homed) {
-        state = RobotState.TRAP_OUTTAKE;
-      }
-    }
-    if (subwooferShotFlag) {
-      if (state.homed) {
-        state = RobotState.PREPARE_SUBWOOFER_SHOT;
-      }
-    }
-    if (preloadNoteRequest) {
-      if (state.homed && !state.hasNote) {
-        state = RobotState.IDLE_WITH_GP;
-      }
-    }
-    if (waitFloorShotFlag) {
-      if (state.homed) {
-        state = RobotState.WAITING_FLOOR_SHOT;
-      }
-    }
-    if (floorShotFlag) {
-      if (state.homed) {
-        state = RobotState.PREPARE_FLOOR_SHOT;
+    for (RobotFlag flag : flags.getChecked()) {
+      switch (flag) {
+        case HOMING:
+          wrist.resetHoming();
+          climber.resetHoming();
+          state = RobotState.HOMING;
+          break;
+        case STOW:
+          if (state.homed) {
+            if (state.hasNote) {
+              state = RobotState.IDLE_WITH_GP;
+            } else {
+              state = RobotState.IDLE_NO_GP;
+            }
+          }
+          break;
+        case INTAKE:
+          intake.setState(IntakeState.IDLE);
+          if (state.homed) {
+            state = RobotState.GROUND_INTAKING;
+          }
+          break;
+        case WAITING_CLIMBER_RAISED:
+          if (state.homed) {
+            state = RobotState.WAITING_CLIMBER_RAISED;
+          }
+        case RAISE_CLIMBER:
+          if (state == RobotState.WAITING_CLIMBER_RAISED) {
+            state = RobotState.PREPARE_CLIMBER_RAISED;
+          }
+        case HANG_CLIMBER:
+          if (state == RobotState.CLIMBER_RAISED) {
+            state = RobotState.PREPARE_CLIMBER_HANGING;
+          }
+        case WAIT_SPEAKER_SHOT:
+          if (state.homed) {
+            state = RobotState.WAITING_SPEAKER_SHOT;
+          }
+        case WAIT_SUBWOOFER_SHOT:
+          if (state.homed) {
+            state = RobotState.WAITING_SUBWOOFER_SHOT;
+          }
+        case OUTTAKE:
+          if (state.homed && state.noteLocation != RobotState.OUTTAKING.noteLocation) {
+            state = RobotState.OUTTAKING;
+          }
+        case OUTTAKE_SHOOTER:
+          if (state.homed) {
+            state = RobotState.OUTTAKING_SHOOTER;
+          }
+        case SPEAKER_SHOT:
+          if (state.homed) {
+            state = RobotState.PREPARE_SPEAKER_SHOT;
+          }
+        case WAIT_AMP_SHOT:
+          if (state.homed) {
+            state = RobotState.WAITING_AMP_SHOT;
+          }
+        case AMP_SHOT:
+          if (state.homed) {
+            state = RobotState.AMP_SHOT;
+          }
+        case TRAP_SHOT:
+          if (state.homed) {
+            state = RobotState.TRAP_OUTTAKE;
+          }
+        case SUBWOOFER_SHOT:
+          if (state.homed) {
+            state = RobotState.PREPARE_SUBWOOFER_SHOT;
+          }
+        case PRELOAD_NOTE:
+          if (state.homed) {
+            state = RobotState.IDLE_WITH_GP;
+          }
+        case WAIT_FLOOR_SHOT:
+          if (state.homed) {
+            state = RobotState.WAITING_FLOOR_SHOT;
+          }
+        case FLOOR_SHOT:
+          if (state.homed) {
+            state = RobotState.PREPARE_FLOOR_SHOT;
+          }
       }
     }
 
@@ -274,29 +205,27 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case GROUND_INTAKING:
-        if (intake.atGoal(IntakeState.INTAKING) && queuer.getHasNote()) {
+        if (intake.atGoal(IntakeState.INTAKING) && queuer.hasNote()) {
           state = RobotState.IDLE_WITH_GP;
         }
         break;
       case PREPARE_FLOOR_SHOT:
         if (wrist.atAngle(wristAngleForFloorSpot)
             && shooter.atGoal(ShooterMode.FLOOR_SHOT)
-            && (Math.abs(floorShotVisionTargets.angle().getDegrees()) < 2.5)
+            && (Math.abs(floorSpotVisionTargets.angle().getDegrees()) < 2.5)
             && swerve.movingSlowEnoughForSpeakerShot()
-            && imu.getRobotAngularVelocity().getDegrees() < 2.5
-            && queuer.atGoal(QueuerState.IDLE)) {
+            && imu.getRobotAngularVelocity().getDegrees() < 2.5) {
           state = RobotState.FLOOR_SHOOT;
         }
         break;
       case PREPARE_SUBWOOFER_SHOT:
         if (wrist.atAngle(WristPositions.SUBWOOFER_SHOT)
-            && shooter.atGoal(ShooterMode.SUBWOOFER_SHOT)
-            && queuer.atGoal(QueuerState.IDLE)) {
+            && shooter.atGoal(ShooterMode.SUBWOOFER_SHOT)) {
           state = RobotState.SUBWOOFER_SHOOT;
         }
         break;
       case AMP_SHOT:
-        if (conveyor.atGoal(ConveyorMode.AMP_SHOT)) {
+        if (conveyor.atGoal(ConveyorState.AMP_SHOT)) {
           state = RobotState.IDLE_NO_GP;
         }
         break;
@@ -314,6 +243,7 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.SPEAKER_SHOOT;
         }
         break;
+      case OUTTAKING_SHOOTER:
       case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
       case SPEAKER_SHOOT:
@@ -324,14 +254,23 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_TRAP_OUTTAKE:
         if (((intake.atGoal(IntakeState.PASS_NOTE_OUTTAKE)
                     && queuer.atGoal(QueuerState.PASS_TO_INTAKE)
-                    && conveyor.atGoal(ConveyorMode.PASS_TO_CONVEYOR))
-                || conveyor.atGoal(ConveyorMode.WAITING_AMP_SHOT) && conveyor.hasNote())
+                    && conveyor.atGoal(ConveyorState.PASS_TO_CONVEYOR))
+                || conveyor.atGoal(ConveyorState.WAITING_AMP_SHOT) && conveyor.hasNote())
             && elevator.atGoal(ElevatorPositions.TRAP_SHOT)) {
           state = RobotState.TRAP_OUTTAKE;
         }
         break;
+        // TODO: What happens if the note is not in the intake at start? (ex. in the conveyor)
+        // I believe it would instantly think it's done
+        // We need a PREPARE_OUTTAKING_INTAKE state, which passes the note to the intake/queuer/idk,
+        // so that the end condition here is correct
+      case OUTTAKING:
+        if (intake.atGoal(IntakeState.OUTTAKING)) {
+          state = RobotState.IDLE_NO_GP;
+        }
+        break;
       case TRAP_OUTTAKE:
-        if (conveyor.atGoal(ConveyorMode.AMP_SHOT)
+        if (conveyor.atGoal(ConveyorState.AMP_SHOT)
             && elevator.atGoal(ElevatorPositions.TRAP_SHOT)) {
           state = RobotState.CLIMBER_HANGING;
         }
@@ -346,25 +285,26 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.CLIMBER_HANGING;
         }
         break;
-      case CONVEYOR_TO_INTAKE_FOR_SHOOTER:
-        if (conveyor.atGoal(ConveyorMode.PASS_TO_INTAKE)
+      case CONVEYOR_TO_INTAKE_FOR_QUEUER:
+        if (conveyor.atGoal(ConveyorState.PASS_TO_INTAKE)
             && intake.atGoal(IntakeState.PASS_NOTE_OUTTAKE)) {
-          state = RobotState.INTAKE_TO_QUEUER_FOR_SHOOTER;
+          state = RobotState.INTAKE_TO_QUEUER;
         }
-      case INTAKE_TO_QUEUER_FOR_SHOOTER:
-        if (conveyor.atGoal(ConveyorMode.PASS_TO_SHOOTER)
+      case INTAKE_TO_QUEUER:
+        if (conveyor.atGoal(ConveyorState.PASS_TO_SHOOTER)
             && intake.atGoal(IntakeState.INTAKING)
             && queuer.atGoal(QueuerState.IDLE)) {
           state = RobotState.IDLE_WITH_GP;
         }
-      case QUEUER_TO_INTAKE_FOR_AMP:
+      case QUEUER_TO_INTAKE_FOR_CONVEYOR:
         if (queuer.atGoal(QueuerState.PASS_TO_INTAKE)
-            && conveyor.atGoal(ConveyorMode.PASS_TO_CONVEYOR)
+            && conveyor.atGoal(ConveyorState.PASS_TO_CONVEYOR)
             && intake.atGoal(IntakeState.PASS_NOTE_OUTTAKE)) {
-          state = RobotState.INTAKE_TO_CONVEYOR_FOR_AMP;
+          state = RobotState.INTAKE_TO_CONVEYOR;
         }
-      case INTAKE_TO_CONVEYOR_FOR_AMP:
-        if (conveyor.atGoal(ConveyorMode.PASS_TO_CONVEYOR) && intake.atGoal(IntakeState.INTAKING)) {
+      case INTAKE_TO_CONVEYOR:
+        if (conveyor.atGoal(ConveyorState.PASS_TO_CONVEYOR)
+            && intake.atGoal(IntakeState.INTAKING)) {
           state = RobotState.WAITING_AMP_SHOT;
         }
       default:
@@ -378,7 +318,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.startPreMatchHoming();
         climber.startHoming();
         elevator.startPreMatchHoming();
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         queuer.setState(QueuerState.IDLE);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -387,7 +327,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.startMidMatchHoming();
         climber.startHoming();
         elevator.setGoalHeight(ElevatorPositions.STOWED);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         queuer.setState(QueuerState.IDLE);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -395,7 +335,7 @@ public class RobotManager extends LifecycleSubsystem {
       case IDLE_NO_GP:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -404,25 +344,25 @@ public class RobotManager extends LifecycleSubsystem {
       case IDLE_WITH_GP:
         wrist.setAngle(wristAngleForSpeaker);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
-        shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
+        shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         break;
       case GROUND_INTAKING:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.PASS_TO_INTAKE);
+        conveyor.setState(ConveyorState.PASS_TO_INTAKE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.INTAKING);
-        shooter.setGoalMode(ShooterMode.INTAKING);
+        shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         break;
-      case OUTTAKING_INTAKE:
+      case OUTTAKING:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
-        conveyor.setMode(ConveyorMode.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.OUTTAKING);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -431,43 +371,43 @@ public class RobotManager extends LifecycleSubsystem {
       case OUTTAKING_SHOOTER:
         wrist.setAngle(WristPositions.OUTTAKING_SHOOTER);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.OUTTAKE);
         climber.setGoalMode(ClimberMode.IDLE);
         break;
-      case CONVEYOR_TO_INTAKE_FOR_SHOOTER:
+      case CONVEYOR_TO_INTAKE_FOR_QUEUER:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.PASS_TO_INTAKE);
+        conveyor.setState(ConveyorState.PASS_TO_INTAKE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.PASS_NOTE_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         break;
-      case INTAKE_TO_CONVEYOR_FOR_AMP:
+      case INTAKE_TO_CONVEYOR:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         break;
-      case QUEUER_TO_INTAKE_FOR_AMP:
+      case QUEUER_TO_INTAKE_FOR_CONVEYOR:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
-        conveyor.setMode(ConveyorMode.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.PASS_NOTE_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         break;
-      case INTAKE_TO_QUEUER_FOR_SHOOTER:
+      case INTAKE_TO_QUEUER:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.PASS_TO_CONVEYOR);
+        conveyor.setState(ConveyorState.PASS_TO_CONVEYOR);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.INTAKING);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -477,7 +417,7 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_FLOOR_SHOT:
         wrist.setAngle(wristAngleForFloorSpot);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
@@ -489,7 +429,7 @@ public class RobotManager extends LifecycleSubsystem {
       case FLOOR_SHOOT:
         wrist.setAngle(wristAngleForFloorSpot);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
@@ -502,7 +442,7 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_SUBWOOFER_SHOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
@@ -511,7 +451,7 @@ public class RobotManager extends LifecycleSubsystem {
       case SUBWOOFER_SHOOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
@@ -521,7 +461,7 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_SPEAKER_SHOT:
         wrist.setAngle(wristAngleForSpeaker);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
@@ -533,7 +473,7 @@ public class RobotManager extends LifecycleSubsystem {
       case SPEAKER_SHOOT:
         wrist.setAngle(wristAngleForSpeaker);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
@@ -545,7 +485,7 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_AMP_SHOT:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.WAITING_AMP_SHOT);
+        conveyor.setState(ConveyorState.WAITING_AMP_SHOT);
         elevator.setGoalHeight(ElevatorPositions.AMP_OUTTAKE);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -554,7 +494,7 @@ public class RobotManager extends LifecycleSubsystem {
       case AMP_SHOT:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.AMP_SHOT);
+        conveyor.setState(ConveyorState.AMP_SHOT);
         elevator.setGoalHeight(ElevatorPositions.AMP_OUTTAKE);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -563,7 +503,7 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_CLIMBER_RAISED:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.WAITING_AMP_SHOT);
+        conveyor.setState(ConveyorState.WAITING_AMP_SHOT);
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -573,7 +513,7 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMBER_RAISED:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.AMP_SHOT);
+        conveyor.setState(ConveyorState.AMP_SHOT);
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -582,7 +522,7 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_CLIMBER_HANGING:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -591,16 +531,24 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMBER_HANGING:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.IDLE);
+        conveyor.setState(ConveyorState.IDLE);
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.HANGING);
         break;
+      case PREPARE_TRAP_OUTTAKE:
+        wrist.setAngle(WristPositions.STOWED);
+        queuer.setState(QueuerState.IDLE);
+        conveyor.setState(ConveyorState.AMP_SHOT);
+        elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
+        intake.setState(IntakeState.IDLE);
+        shooter.setGoalMode(ShooterMode.IDLE);
+        climber.setGoalMode(ClimberMode.HANGING);
       case TRAP_OUTTAKE:
         wrist.setAngle(WristPositions.STOWED);
         queuer.setState(QueuerState.IDLE);
-        conveyor.setMode(ConveyorMode.AMP_SHOT);
+        conveyor.setState(ConveyorState.AMP_SHOT);
         elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
         intake.setState(IntakeState.IDLE);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -612,102 +560,79 @@ public class RobotManager extends LifecycleSubsystem {
     }
 
     // Reset all flags
-    homingFlag = false;
-    waitSpeakerShotFlag = false;
-    speakerShotFlag = false;
-    ampShotFlag = false;
-    passNoteToConveyorFlag = false;
-    passNoteToQueuerFlag = false;
-    trapShotFlag = false;
-    waitSubwooferShotFlag = false;
-    subwooferShotFlag = false;
-    groundIntakeFlag = false;
-    outtakeShooterFlag = false;
-    outtakeIntakeFlag = false;
-    stowFlag = false;
-    stowAfterIntakeFlag = false;
-    waitingClimberRaisedFlag = false;
-    raiseClimberFlag = false;
-    hangClimberFlag = false;
-    preloadNoteRequest = false;
-    waitFloorShotFlag = false;
-    floorShotFlag = false;
+    flags.clear();
   }
 
   public void homingRequest() {
-    homingFlag = true;
-  }
-
-  public void waitSpeakerShotRequest() {
-    waitSpeakerShotFlag = true;
+    flags.check(RobotFlag.HOMING);
   }
 
   public void waitSubwooferShotRequest() {
-    waitSubwooferShotFlag = true;
-  }
-
-  public void speakerShotRequest() {
-    speakerShotFlag = true;
-  }
-
-  public void ampShotRequest() {
-    ampShotFlag = true;
-  }
-
-  public void passNoteToConveyorRequest() {
-    passNoteToConveyorFlag = true;
-  }
-
-  public void passNoteToQueuerRequest() {
-    passNoteToQueuerFlag = true;
-  }
-
-  public void trapShotRequest() {
-    trapShotFlag = true;
+    flags.check(RobotFlag.WAIT_SUBWOOFER_SHOT);
   }
 
   public void subwooferShotRequest() {
-    subwooferShotFlag = true;
+    flags.check(RobotFlag.SUBWOOFER_SHOT);
   }
 
-  public void groundIntakeRequest() {
-    groundIntakeFlag = true;
+  public void waitSpeakerShotRequest() {
+    flags.check(RobotFlag.WAIT_SPEAKER_SHOT);
   }
 
-  public void outtakeIntakeRequest() {
-    outtakeIntakeFlag = true;
+  public void speakerShotRequest() {
+    flags.check(RobotFlag.SPEAKER_SHOT);
   }
 
-  public void outtakeShooterRequest() {
-    outtakeShooterFlag = true;
+  public void waitAmpShotRequest() {
+    flags.check(RobotFlag.WAIT_AMP_SHOT);
   }
 
-  public void stowRequest() {
-    stowFlag = true;
-  }
-
-  public void waitingClimberRaisedRequest() {
-    waitingClimberRaisedFlag = true;
-  }
-
-  public void raiseClimberRequest() {
-    raiseClimberFlag = true;
-  }
-
-  public void hangClimberRequest() {
-    hangClimberFlag = true;
-  }
-
-  public void preloadNoteRequest() {
-    preloadNoteRequest = true;
+  public void ampShotRequest() {
+    flags.check(RobotFlag.AMP_SHOT);
   }
 
   public void waitFloorShotRequest() {
-    waitFloorShotFlag = true;
+    flags.check(RobotFlag.WAIT_FLOOR_SHOT);
   }
 
   public void floorShotRequest() {
-    floorShotFlag = true;
+    flags.check(RobotFlag.FLOOR_SHOT);
+  }
+
+  public void trapShotRequest() {
+    flags.check(RobotFlag.TRAP_SHOT);
+  }
+
+  public void intakeRequest() {
+    flags.check(RobotFlag.INTAKE);
+  }
+
+  public void outtakeRequest() {
+    flags.check(RobotFlag.OUTTAKE);
+  }
+
+  public void outtakeShooterRequest() {
+    flags.check(RobotFlag.OUTTAKE_SHOOTER);
+  }
+
+  public void stowRequest() {
+    flags.check(RobotFlag.STOW);
+  }
+
+  public void waitingRaiseClimberRequest() {
+    flags.check(RobotFlag.WAITING_CLIMBER_RAISED);
+  }
+
+  public void raiseClimberRequest() {
+    flags.check(RobotFlag.RAISE_CLIMBER);
+  }
+
+  public void hangClimberRequest() {
+    flags.check(RobotFlag.HANG_CLIMBER);
+  }
+
+  public void preloadNoteRequest() {
+    flags.check(RobotFlag.PRELOAD_NOTE);
   }
 
   public void confirmShotRequest() {
@@ -722,21 +647,39 @@ public class RobotManager extends LifecycleSubsystem {
     }
   }
 
-  public void getClimberRequest() {
-    if (state == RobotState.WAITING_CLIMBER_RAISED) {
-      raiseClimberRequest();
-    } else if (state == RobotState.CLIMBER_RAISED) {
-      hangClimberRequest();
-    } else if (state == RobotState.CLIMBER_HANGING) {
-      trapShotRequest();
-    } else {
-      // Start climb sequence
-      waitingClimberRaisedRequest();
+  public void getClimberForwardRequest() {
+    switch (state) {
+      case WAITING_CLIMBER_RAISED:
+        raiseClimberRequest();
+        break;
+      case CLIMBER_RAISED:
+        hangClimberRequest();
+        break;
+      case CLIMBER_HANGING:
+        trapShotRequest();
+        break;
+      default:
+        // Start climb sequence
+        waitingRaiseClimberRequest();
+        break;
     }
   }
 
-  public void stowAfterIntakeRequest() {
-    stowAfterIntakeFlag = true;
+  public void getClimberBackwardRequest() {
+    switch (state) {
+      case WAITING_CLIMBER_RAISED:
+        stowRequest();
+        break;
+      case CLIMBER_RAISED:
+        waitingRaiseClimberRequest();
+        break;
+      case CLIMBER_HANGING:
+        raiseClimberRequest();
+        break;
+      default:
+        // Do nothing if climb sequence isn't already started
+        break;
+    }
   }
 
   public Command waitForStateCommand(RobotState goalState) {

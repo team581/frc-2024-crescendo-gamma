@@ -9,7 +9,5 @@ public enum ShooterMode {
   OUTTAKE,
   SUBWOOFER_SHOT,
   SPEAKER_SHOT,
-  FLOOR_SHOT,
-  // Isnt really used
-  INTAKING;
+  FLOOR_SHOT;
 }

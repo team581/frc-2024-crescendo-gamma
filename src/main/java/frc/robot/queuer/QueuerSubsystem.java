@@ -16,7 +16,6 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   private final DigitalInput sensor;
   private final VoltageOut voltageRequest = new VoltageOut(0.0);
   private QueuerState goalState = QueuerState.IDLE;
-  private boolean hasNote = false;
 
   public QueuerSubsystem(TalonFX motor, DigitalInput sensor) {
     super(SubsystemPriority.QUEUER);
@@ -36,40 +35,13 @@ public class QueuerSubsystem extends LifecycleSubsystem {
     } else if (goalState == QueuerState.PASS_TO_INTAKE) {
       voltageRequest.withOutput(0.0);
     }
-
-    setHasNote(sensorHasNote());
   }
 
   public void setState(QueuerState state) {
     goalState = state;
   }
 
-  public boolean atGoal(QueuerState state) {
-    if (goalState != state) {
-      return false;
-    }
-
-    if (goalState == QueuerState.IDLE) {
-      return true;
-    }
-    if (hasNote) {
-      return true;
-    }
-    if (Math.abs(motor.getMotorVoltage().getValue()) > 0.0 && !hasNote) {
-      return true;
-    }
-    return false;
-  }
-
-  public boolean getHasNote() {
-    return hasNote;
-  }
-
-  public void setHasNote(boolean bool) {
-    hasNote = bool;
-  }
-
-  private boolean sensorHasNote() {
+  public boolean hasNote() {
     return sensor.get();
   }
 

@@ -5,7 +5,9 @@
 package frc.robot.util.scheduling;
 
 public enum SubsystemPriority {
-  AUTOS(31),
+  AUTOS(40),
+
+  NOTE_MANAGER(31),
   ROBOT_MANAGER(30),
 
   SNAPS(20),

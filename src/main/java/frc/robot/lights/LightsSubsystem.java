@@ -76,10 +76,10 @@ public class LightsSubsystem extends LifecycleSubsystem {
         case WAITING_SUBWOOFER_SHOT:
         case WAITING_AMP_SHOT:
         case WAITING_FLOOR_SHOT:
-        case INTAKE_TO_CONVEYOR_FOR_AMP:
-        case INTAKE_TO_QUEUER_FOR_SHOOTER:
-        case QUEUER_TO_INTAKE_FOR_AMP:
-        case CONVEYOR_TO_INTAKE_FOR_SHOOTER:
+        case INTAKE_TO_CONVEYOR:
+        case INTAKE_TO_QUEUER:
+        case QUEUER_TO_INTAKE_FOR_CONVEYOR:
+        case CONVEYOR_TO_INTAKE_FOR_QUEUER:
           color = Color.kOrange;
           blinkPattern = BlinkPattern.SOLID;
           break;
@@ -95,7 +95,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
           }
           break;
         case AMP_SHOT:
-        case OUTTAKING_INTAKE:
+        case OUTTAKING:
         case OUTTAKING_SHOOTER:
         case TRAP_OUTTAKE:
         case SUBWOOFER_SHOOT:

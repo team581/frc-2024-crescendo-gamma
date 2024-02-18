@@ -51,39 +51,13 @@ public class IntakeSubsystem extends LifecycleSubsystem {
     } else {
       voltageRequest.withOutput(voltageUsed);
     }
-    setHasNote(sensorHasNote());
   }
 
   public void setState(IntakeState state) {
     goalState = state;
   }
 
-  public boolean atGoal(IntakeState state) {
-    if (goalState != state) {
-      return false;
-    }
-
-    if (goalState == IntakeState.IDLE) {
-      return true;
-    }
-    if (hasNote) {
-      return true;
-    }
-    if (Math.abs(motor.getMotorVoltage().getValue()) > 0.0 && !hasNote) {
-      return true;
-    }
-    return false;
-  }
-
-  public boolean getHasNote() {
-    return hasNote;
-  }
-
-  public void setHasNote(boolean bool) {
-    hasNote = bool;
-  }
-
-  private boolean sensorHasNote() {
+  public boolean hasNote() {
     return sensor.get();
   }
 

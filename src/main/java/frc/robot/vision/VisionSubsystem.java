@@ -133,7 +133,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return distanceToTargetPose(goalPose, robotPose);
   }
 
-  public DistanceAngle getDistanceAngleFloorShot() {
+  public DistanceAngle getDistanceAngleFloorSpot() {
     Pose2d goalPose;
     if (FmsSubsystem.isRedAlliance()) {
       goalPose = RED_FLOOR_SPOT;
@@ -200,8 +200,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle());
 
-    Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
-    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
+    Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorSpot().distance());
+    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorSpot().angle());
   }
 
   public boolean isWorking() {

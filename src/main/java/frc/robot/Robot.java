@@ -206,37 +206,32 @@ public class Robot extends LoggedRobot {
     driverController.a().onTrue(snaps.getCommand(() -> SnapManager.getDownAngle()));
     driverController.b().onTrue(snaps.getCommand(() -> SnapManager.getAmpAngle()));
 
-    driverController
-        .leftTrigger()
-        .onTrue(actions.intakeFloorCommand())
-        .onFalse(actions.stowAfterIntakeCommand());
+    driverController.leftTrigger().onTrue(actions.intakeCommand()).onFalse(actions.stowCommand());
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
         .onFalse(actions.stowCommand());
-    driverController
-        .rightBumper()
-        .onTrue(actions.outtakeShooterCommand())
-        .onFalse(actions.stowCommand());
-    driverController
-        .leftBumper()
-        .onTrue(actions.outtakeIntakeCommand())
-        .onFalse(actions.stowCommand());
+    driverController.rightBumper().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
 
-    operatorController.povUp().onTrue(actions.getClimberCommand());
-
+    operatorController.povUp().onTrue(actions.getClimberForwardCommand());
+    operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
+    operatorController.a().onTrue(actions.stowCommand());
     operatorController
-        .x()
+        .leftTrigger()
         .onTrue(actions.waitSubwooferShotCommand())
         .onFalse(actions.stowCommand());
-    operatorController.a().onTrue(actions.stowCommand());
-    operatorController.b().onTrue(actions.waitForFloorShotCommand()).onFalse(actions.stowCommand());
     operatorController
-        .y()
-        .onFalse(actions.stowCommand())
-        .onTrue(actions.waitForSpeakerShotCommand());
-    operatorController.rightBumper().onTrue(actions.passToConveyorForAmpShotCommand());
-    operatorController.leftBumper().onTrue(actions.passToQueuerCommand());
+        .rightTrigger()
+        .onTrue(actions.waitForSpeakerShotCommand())
+        .onFalse(actions.stowCommand());
+    operatorController
+        .rightBumper()
+        .onTrue(actions.waitForAmpShotCommand())
+        .onFalse(actions.stowCommand());
+    operatorController
+        .leftBumper()
+        .onTrue(actions.waitForFloorShotCommand())
+        .onFalse(actions.stowCommand());
     operatorController.back().onTrue(actions.homeCommand());
   }
 }

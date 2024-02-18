@@ -13,8 +13,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
 
-  private ConveyorMode goalMode = ConveyorMode.IDLE;
-  private boolean holdingNote = false;
+  private ConveyorState goalState = ConveyorState.IDLE;
   private double goalPercentage = 0.00;
 
   public ConveyorSubsystem(TalonFX motor, DigitalInput sensor) {
@@ -26,18 +25,16 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void enabledPeriodic() {
-    if (goalMode == ConveyorMode.IDLE) {
+    if (goalState == ConveyorState.IDLE) {
       motor.disable();
     } else {
       motor.set(goalPercentage);
-
-      setHoldingNote(sensorHasNote());
     }
   }
 
   @Override
   public void robotPeriodic() {
-    switch (goalMode) {
+    switch (goalState) {
       case IDLE:
         goalPercentage = 0.0;
         break;
@@ -59,45 +56,15 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     }
   }
 
-  public void setMode(ConveyorMode mode) {
-    goalMode = mode;
+  public void setState(ConveyorState state) {
+    goalState = state;
   }
 
-  public ConveyorMode getMode() {
-    return goalMode;
-  }
-
-  public boolean atGoal(ConveyorMode mode) {
-    if (goalMode != mode) {
-      return false;
-    }
-
-    switch (goalMode) {
-      case IDLE:
-        return true;
-      case AMP_SHOT:
-      case PASS_TO_INTAKE:
-      case PASS_TO_SHOOTER:
-        return !holdingNote;
-      case PASS_TO_CONVEYOR:
-      case WAITING_AMP_SHOT:
-        return holdingNote;
-      default:
-        break;
-    }
-
-    return false;
-  }
-
-  public void setHoldingNote(boolean newValue) {
-    holdingNote = newValue;
+  public ConveyorState getMode() {
+    return goalState;
   }
 
   public boolean hasNote() {
-    return holdingNote;
-  }
-
-  private boolean sensorHasNote() {
     return sensor.get();
   }
 }

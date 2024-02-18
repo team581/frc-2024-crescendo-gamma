@@ -114,6 +114,10 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     return homingState;
   }
 
+  public void resetHoming() {
+    homingState = HomingState.NOT_HOMED;
+  }
+
   public void startHoming() {
     homingState = HomingState.MID_MATCH_HOMING;
   }

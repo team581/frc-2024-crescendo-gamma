@@ -4,68 +4,101 @@
 
 package frc.robot.robot_manager;
 
+import frc.robot.note_manager.NoteLocation;
+
 public enum RobotState {
-  UNHOMED(false, false),
-  HOMING(false, false),
+  /** Not homed. */
+  UNHOMED(false, NoteLocation.NONE, false),
+  /** Homing. */
+  HOMING(false, NoteLocation.NONE, false),
 
-  IDLE_NO_GP(false),
-  IDLE_WITH_GP(true),
+  /** Idling without a note. */
+  IDLE_NO_GP(false, NoteLocation.NONE),
+  /** Idling with a note in the queuer. */
+  IDLE_WITH_GP(true, NoteLocation.QUEUER),
 
-  GROUND_INTAKING(false),
+  /** Intaking a game piece. Transition to INTAKE_TO_QUEUER when done. */
+  GROUND_INTAKING(false, NoteLocation.NONE),
 
-  OUTTAKING_SHOOTER(true),
-  OUTTAKING_INTAKE(true),
+  /** Outtaking via the shooter. Game piece should be in queuer at start. */
+  OUTTAKING_SHOOTER(true, NoteLocation.QUEUER),
+  /** Outtaking via the intake. Game piece should be in queuer at start. */
+  OUTTAKING(true, NoteLocation.INTAKE),
 
-  QUEUER_TO_INTAKE_FOR_AMP(true),
-  CONVEYOR_TO_INTAKE_FOR_SHOOTER(true),
-  INTAKE_TO_QUEUER_FOR_SHOOTER(true),
-  INTAKE_TO_CONVEYOR_FOR_AMP(true),
+  /**
+   * Move game piece from queuer to the intake, for handoff to conveyor. Transition to
+   * INTAKE_TO_CONVEYOR when done.
+   */
+  QUEUER_TO_INTAKE_FOR_CONVEYOR(true, NoteLocation.QUEUER),
+  /**
+   * Move game piece from conveyor to the intake, for handoff to queuer. Transition to
+   * INTAKE_TO_QUEUER when done.
+   */
+  CONVEYOR_TO_INTAKE_FOR_QUEUER(true, NoteLocation.CONVEYOR),
+  /**
+   * Move game piece from intake to the queuer, as final step of the handoff. Transition to
+   * IDLE_WITH_GP when done.
+   */
+  INTAKE_TO_QUEUER(true, NoteLocation.INTAKE),
+  /**
+   * , Move game piece from intake to the conveyor, as final step of the handoff. Transition to
+   * WAITING_AMP_SHOT when done.
+   */
+  INTAKE_TO_CONVEYOR(true, NoteLocation.INTAKE),
 
-  WAITING_FLOOR_SHOT(true),
-  PREPARE_FLOOR_SHOT(true),
-  FLOOR_SHOOT(true),
+  /** Preparing for floor shot, waiting for driver to commit. */
+  WAITING_FLOOR_SHOT(true, NoteLocation.QUEUER),
+  /** Preparing for floor shot, should shoot when ready. */
+  PREPARE_FLOOR_SHOT(true, NoteLocation.QUEUER),
+  /** Actively doing the floor shot. */
+  FLOOR_SHOOT(true, NoteLocation.QUEUER),
 
   /**
    * Get ready for subwoofer shot, wait for driver/operator (?) to confirm, then go to
    * PREPARE_SUBWOOFER_SHOT.
    */
-  WAITING_SUBWOOFER_SHOT(true),
+  WAITING_SUBWOOFER_SHOT(true, NoteLocation.QUEUER),
   /** Get ready for subwoofer shot, automatically go to SUBWOOFER_SHOOT when ready. */
-  PREPARE_SUBWOOFER_SHOT(true),
-  SUBWOOFER_SHOOT(true),
+  PREPARE_SUBWOOFER_SHOT(true, NoteLocation.QUEUER),
+  /** Actively doing the subwoofer shot. */
+  SUBWOOFER_SHOOT(true, NoteLocation.QUEUER),
 
-  PREPARE_TRAP_OUTTAKE(true),
-  TRAP_OUTTAKE(true),
+  PREPARE_TRAP_OUTTAKE(true, NoteLocation.CONVEYOR),
+  TRAP_OUTTAKE(true, NoteLocation.CONVEYOR),
 
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
-  WAITING_SPEAKER_SHOT(true),
+  WAITING_SPEAKER_SHOT(true, NoteLocation.QUEUER),
   /** Get ready for speaker shot, automatically go to SPEAKER_SHOOT when ready. */
-  PREPARE_SPEAKER_SHOT(true),
-  SPEAKER_SHOOT(true),
+  PREPARE_SPEAKER_SHOT(true, NoteLocation.QUEUER),
+  SPEAKER_SHOOT(true, NoteLocation.QUEUER),
 
-  WAITING_AMP_SHOT(true),
-  AMP_SHOT(true),
+  /** Note in conveyor, waiting for driver to commit to amp score. */
+  WAITING_AMP_SHOT(true, NoteLocation.CONVEYOR),
+  /** Actively scoring in the amp. */
+  AMP_SHOT(true, NoteLocation.CONVEYOR),
 
   /** Arm moves to chain height, climber hooks are touching the chain */
-  WAITING_CLIMBER_RAISED(true),
+  WAITING_CLIMBER_RAISED(true, NoteLocation.CONVEYOR),
 
   /** On the ground, arm goes up */
-  PREPARE_CLIMBER_RAISED(true),
-  CLIMBER_RAISED(true),
+  PREPARE_CLIMBER_RAISED(true, NoteLocation.CONVEYOR),
+  CLIMBER_RAISED(true, NoteLocation.CONVEYOR),
 
   /** Actually climbing then hanging */
-  PREPARE_CLIMBER_HANGING(true),
-  CLIMBER_HANGING(true);
+  PREPARE_CLIMBER_HANGING(true, NoteLocation.CONVEYOR),
+  CLIMBER_HANGING(true, NoteLocation.CONVEYOR);
 
   public final boolean hasNote;
   public final boolean homed;
+  public final NoteLocation noteLocation;
 
-  RobotState(boolean hasNote) {
-    this(hasNote, true);
+  RobotState(boolean hasNote, NoteLocation noteLocation) {
+    this(hasNote, noteLocation, true);
   }
 
-  RobotState(boolean hasNote, boolean homed) {
+  RobotState(boolean hasNote, NoteLocation noteLocation, boolean homed) {
     this.hasNote = hasNote;
+    this.noteLocation = noteLocation;
     this.homed = homed;
   }
 }
