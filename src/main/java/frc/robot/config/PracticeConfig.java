@@ -35,8 +35,8 @@ class PracticeConfig {
           "practice",
           "581CANivore",
           new ShooterConfig(
+              17,
               18,
-              19,
               // Left motor
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
@@ -65,8 +65,8 @@ class PracticeConfig {
                 floorSpotDistanceToRPM.put(4.8, 2700.0);
               }),
           new ClimberConfig(
+              19,
               20,
-              21,
               0.0,
               4,
               0.0,
@@ -139,7 +139,7 @@ class PracticeConfig {
                 floorSpotDistanceToAngle.put(4.8, 50.0);
               }),
           new ElevatorConfig(
-              0,
+              21,
               new TalonFXConfiguration()
                   .withSlot0(
                       new Slot0Configs()
@@ -169,7 +169,7 @@ class PracticeConfig {
               0.0,
               0.0),
           new IntakeConfig(
-              16,
+              15,
               0,
               0.0,
               DebounceType.kBoth,
@@ -179,7 +179,7 @@ class PracticeConfig {
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))),
           new ConveyorConfig(
-              0,
+              2,
               0,
               0.0,
               DebounceType.kBoth,
@@ -188,7 +188,7 @@ class PracticeConfig {
                   .withSlot0(new Slot0Configs().withKP(0).withKV(0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(30))),
           new QueuerConfig(
-              0,
+              16,
               0,
               0.0,
               DebounceType.kBoth,
@@ -210,5 +210,5 @@ class PracticeConfig {
                 distanceToAngleTolerance.put(1.0, 2.5);
                 distanceToAngleTolerance.put(1.0, 2.5);
               }),
-          new LightsConfig(23));
+          new LightsConfig(3));
 }

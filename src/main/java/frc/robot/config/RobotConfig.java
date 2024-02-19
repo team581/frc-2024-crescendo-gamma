@@ -35,8 +35,8 @@ public record RobotConfig(
       Consumer<InterpolatingDoubleTreeMap> floorShotRpms) {}
 
   public record ClimberConfig(
-      int mainMotorID,
-      int followerMotorID,
+      int leftMotorID,
+      int rightMotorID,
       double accelerationTolerance,
       int currentTaps,
       double homingCurrentThreshold,

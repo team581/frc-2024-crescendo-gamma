@@ -56,9 +56,9 @@ public class Robot extends LoggedRobot {
 
   private final ClimberSubsystem climber =
       new ClimberSubsystem(
-          new TalonFX(RobotConfig.get().climber().mainMotorID(), RobotConfig.get().canivoreName()),
+          new TalonFX(RobotConfig.get().climber().leftMotorID(), RobotConfig.get().canivoreName()),
           new TalonFX(
-              RobotConfig.get().climber().followerMotorID(), RobotConfig.get().canivoreName()));
+              RobotConfig.get().climber().rightMotorID(), RobotConfig.get().canivoreName()));
   private final IntakeSubsystem intake =
       new IntakeSubsystem(
           new TalonFX(RobotConfig.get().intake().motorID(), RobotConfig.get().canivoreName()),
@@ -75,7 +75,7 @@ public class Robot extends LoggedRobot {
           new DigitalInput(RobotConfig.get().queuer().sensorID()));
   private final ConveyorSubsystem conveyor =
       new ConveyorSubsystem(
-          new TalonFX(RobotConfig.get().conveyor().motorID(), RobotConfig.get().canivoreName()),
+          new TalonFX(RobotConfig.get().conveyor().motorID(), "rio"),
           new DigitalInput(RobotConfig.get().conveyor().sensorID()));
   private final VisionSubsystem vision = new VisionSubsystem();
   private final LocalizationSubsystem localization = new LocalizationSubsystem(swerve, imu, vision);
@@ -88,7 +88,7 @@ public class Robot extends LoggedRobot {
   private final Autos autos = new Autos(swerve, localization, imu, actions);
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
-          new CANdle(RobotConfig.get().lights().deviceID(), RobotConfig.get().canivoreName()),
+          new CANdle(RobotConfig.get().lights().deviceID(), "rio"),
           robotManager,
           vision);
 

@@ -35,35 +35,29 @@ class CompConfig {
           "competition",
           "581CANivore",
           new ShooterConfig(
+              17,
               18,
-              19,
-              // Left Motor
+              // Left motor
               new TalonFXConfiguration()
-                  .withFeedback(
-                      new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
-                  .withSlot0(new Slot0Configs().withKP(5.5).withKV(0.0).withKS(13.0))
+                  .withSlot0(new Slot0Configs().withKP(5).withKV(0).withKS(4.5))
                   .withMotorOutput(
                       new MotorOutputConfigs()
-                          .withNeutralMode(NeutralModeValue.Coast)
                           .withInverted(InvertedValue.Clockwise_Positive)
-                          .withPeakReverseDutyCycle(0)),
-              // Right Motor
+                          .withNeutralMode(NeutralModeValue.Coast)),
+              // Right motor
               new TalonFXConfiguration()
-                  .withFeedback(
-                      new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
-                  .withSlot0(new Slot0Configs().withKP(5).withKV(0.0).withKS(13.0))
+                  .withSlot0(new Slot0Configs().withKP(5).withKV(0).withKS(5))
                   .withMotorOutput(
                       new MotorOutputConfigs()
-                          .withNeutralMode(NeutralModeValue.Coast)
                           .withInverted(InvertedValue.Clockwise_Positive)
-                          .withPeakReverseDutyCycle(0)),
+                          .withNeutralMode(NeutralModeValue.Coast)),
               speakerDistanceToRPM -> {
-                speakerDistanceToRPM.put(0.0, 4000.0);
-                speakerDistanceToRPM.put(3.0, 6000.0);
-                speakerDistanceToRPM.put(4.0, 6500.0);
-                speakerDistanceToRPM.put(6.0, 7000.0);
+                speakerDistanceToRPM.put(0.92, 4000.0);
+                speakerDistanceToRPM.put(6.0, 4000.0);
               },
               floorSpotDistanceToRPM -> {
                 floorSpotDistanceToRPM.put(1.6, 1700.0);
@@ -71,8 +65,8 @@ class CompConfig {
                 floorSpotDistanceToRPM.put(4.8, 2700.0);
               }),
           new ClimberConfig(
+              19,
               20,
-              21,
               0.0,
               4,
               0.0,
@@ -85,8 +79,7 @@ class CompConfig {
               0.0,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(8))
-                  .withFeedback(
-                      new FeedbackConfigs().withSensorToMechanismRatio(50.0 * 50.0 / 8.0 / 20.0))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(17.0 / 1.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
                   .withVoltage(
                       new VoltageConfigs()
@@ -99,17 +92,17 @@ class CompConfig {
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.47)
+                          .withKG(0.4)
                           .withKP(200.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.47)
+                          .withKG(0.4)
                           .withKP(200.0))
                   .withMotionMagic(
                       new MotionMagicConfigs()
-                          .withMotionMagicAcceleration(1.5)
-                          .withMotionMagicCruiseVelocity(2.0)
+                          .withMotionMagicAcceleration(2.0)
+                          .withMotionMagicCruiseVelocity(1.5)
                           .withMotionMagicJerk(0))
                   .withFeedback(
                       new FeedbackConfigs()
@@ -121,32 +114,32 @@ class CompConfig {
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Brake)),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
-              Rotation2d.fromDegrees(-14),
-              Rotation2d.fromDegrees(-13.5),
-              Rotation2d.fromDegrees(115),
+              Rotation2d.fromDegrees(-18),
+              Rotation2d.fromDegrees(-18),
+              Rotation2d.fromDegrees(95),
               Rotation2d.fromDegrees(2),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
-                distanceToAngleTolerance.put(8.0, 1.0);
+                distanceToAngleTolerance.put(8.0, 0.5);
               },
               speakerDistanceToAngle -> {
-                speakerDistanceToAngle.put(0.0, 0.0);
-                speakerDistanceToAngle.put(1.43, 6.0);
-                speakerDistanceToAngle.put(2.0, 17.0);
-                speakerDistanceToAngle.put(2.57, 23.0);
-                speakerDistanceToAngle.put(3.0, 26.0);
-                speakerDistanceToAngle.put(3.5, 30.0);
-                speakerDistanceToAngle.put(4.0, 32.0);
-                speakerDistanceToAngle.put(6.0, 34.0);
+                speakerDistanceToAngle.put(0.92, 0.0);
+                speakerDistanceToAngle.put(1.5, 5.0);
+                speakerDistanceToAngle.put(2.2, 17.0);
+                speakerDistanceToAngle.put(2.57, 18.6);
+                speakerDistanceToAngle.put(2.65, 20.0);
+                speakerDistanceToAngle.put(3.3, 23.0);
+                speakerDistanceToAngle.put(3.6, 24.0);
+                speakerDistanceToAngle.put(3.8, 26.0);
+                speakerDistanceToAngle.put(4.2, 26.0);
               },
               floorSpotDistanceToAngle -> {
                 floorSpotDistanceToAngle.put(1.6, 70.0);
-                floorSpotDistanceToAngle.put(3.4, 40.0);
-                floorSpotDistanceToAngle.put(4.8, 20.0);
-                floorSpotDistanceToAngle.put(15.0, 10.0);
+                floorSpotDistanceToAngle.put(3.4, 60.0);
+                floorSpotDistanceToAngle.put(4.8, 50.0);
               }),
           new ElevatorConfig(
-              0,
+              21,
               new TalonFXConfiguration()
                   .withSlot0(
                       new Slot0Configs()
@@ -163,8 +156,7 @@ class CompConfig {
                           .withMotionMagicAcceleration(2.0)
                           .withMotionMagicCruiseVelocity(1.5)
                           .withMotionMagicJerk(0))
-                  .withFeedback(
-                      new FeedbackConfigs().withSensorToMechanismRatio(50.0 / 8.0 * 24.0 / 15.0))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
                   .withMotorOutput(
                       new MotorOutputConfigs()
@@ -177,27 +169,7 @@ class CompConfig {
               0.0,
               0.0),
           new IntakeConfig(
-              16,
-              0,
-              0.0,
-              DebounceType.kBoth,
-              new TalonFXConfiguration()
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
-                  .withMotorOutput(
-                      new MotorOutputConfigs()
-                          .withInverted(InvertedValue.CounterClockwise_Positive))),
-          new ConveyorConfig(
-              0,
-              0,
-              0.0,
-              DebounceType.kBoth,
-              new TalonFXConfiguration()
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
-                  .withSlot0(new Slot0Configs().withKP(0).withKV(0))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(30))),
-          new QueuerConfig(
-              0,
+              15,
               0,
               0.0,
               DebounceType.kBoth,
@@ -206,17 +178,37 @@ class CompConfig {
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))),
+          new ConveyorConfig(
+              2,
+              1,
+              0.0,
+              DebounceType.kBoth,
+              new TalonFXConfiguration()
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
+                  .withSlot0(new Slot0Configs().withKP(0).withKV(0))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(30))),
+          new QueuerConfig(
+              16,
+              2,
+              0.0,
+              DebounceType.kBoth,
+              new TalonFXConfiguration()
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
+                  .withMotorOutput(
+                      new MotorOutputConfigs()
+                          .withInverted(InvertedValue.CounterClockwise_Positive))),
           new SwerveConfig(
-              new CurrentLimitsConfigs().withStatorCurrentLimit(60),
-              new CurrentLimitsConfigs().withStatorCurrentLimit(60),
-              new PhoenixPIDController(12, 0, 0.8),
-              true),
+              new CurrentLimitsConfigs().withStatorCurrentLimit(80),
+              new CurrentLimitsConfigs().withStatorCurrentLimit(80),
+              new PhoenixPIDController(-10, 0, -0.5),
+              false),
           new IMUConfig(
               1,
               distanceToAngleTolerance -> {
                 // TODO: tune distance and angle
                 distanceToAngleTolerance.put(1.0, 2.5);
-                distanceToAngleTolerance.put(10.0, 2.5);
+                distanceToAngleTolerance.put(1.0, 2.5);
               }),
-          new LightsConfig(23));
+          new LightsConfig(3));
 }
