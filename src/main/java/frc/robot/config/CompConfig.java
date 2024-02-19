@@ -16,6 +16,7 @@ import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
@@ -178,7 +179,8 @@ class CompConfig {
           new IntakeConfig(
               16,
               0,
-              // Top Motor
+              0.0,
+              DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
@@ -188,6 +190,8 @@ class CompConfig {
           new ConveyorConfig(
               0,
               0,
+              0.0,
+              DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withSlot0(new Slot0Configs().withKP(0).withKV(0))
@@ -195,6 +199,8 @@ class CompConfig {
           new QueuerConfig(
               0,
               0,
+              0.0,
+              DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))

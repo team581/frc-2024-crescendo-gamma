@@ -6,6 +6,7 @@ package frc.robot.conveyor;
 
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -16,6 +17,10 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
   private final VoltageOut voltageRequest = new VoltageOut(0.0);
+  private final Debouncer debouncer =
+      new Debouncer(
+          RobotConfig.get().conveyor().debounceTime(), RobotConfig.get().conveyor().debounceType());
+  private boolean debouncedSensor = false;
   private ConveyorState goalState = ConveyorState.IDLE;
 
   public ConveyorSubsystem(TalonFX motor, DigitalInput sensor) {
@@ -64,8 +69,10 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    debouncedSensor = debouncer.calculate(sensorHasNote());
     Logger.recordOutput("Conveyor/State", goalState);
-    Logger.recordOutput("Conveyor/HasNote", hasNote());
+    Logger.recordOutput("Conveyor/DebouncedHasNote", hasNote());
+    Logger.recordOutput("Conveyor/SensorHasNote", sensorHasNote());
     Logger.recordOutput("Conveyor/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
     Logger.recordOutput("Conveyor/Velocity", motor.getVelocity().getValueAsDouble());
@@ -81,6 +88,10 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
   }
 
   public boolean hasNote() {
+    return debouncedSensor;
+  }
+
+  private boolean sensorHasNote() {
     return sensor.get();
   }
 }

@@ -6,6 +6,7 @@ package frc.robot.intake;
 
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -16,6 +17,10 @@ public class IntakeSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
   private VoltageOut voltageRequest = new VoltageOut(0.0);
+  private final Debouncer debouncer =
+      new Debouncer(
+          RobotConfig.get().intake().debounceTime(), RobotConfig.get().intake().debounceType());
+  private boolean debouncedSensor = false;
   private IntakeState goalState = IntakeState.IDLE;
 
   public IntakeSubsystem(TalonFX motor, DigitalInput sensor) {
@@ -71,8 +76,10 @@ public class IntakeSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    debouncedSensor = debouncer.calculate(sensorHasNote());
     Logger.recordOutput("Intake/State", goalState);
-    Logger.recordOutput("Intake/HasNote", hasNote());
+    Logger.recordOutput("Intake/DebouncedHasNote", hasNote());
+    Logger.recordOutput("Intake/SensorHasNote", sensorHasNote());
     Logger.recordOutput("Intake/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Intake/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
     Logger.recordOutput("Intake/Velocity", motor.getVelocity().getValueAsDouble());
@@ -84,6 +91,10 @@ public class IntakeSubsystem extends LifecycleSubsystem {
   }
 
   public boolean hasNote() {
+    return debouncedSensor;
+  }
+
+  private boolean sensorHasNote() {
     return sensor.get();
   }
 

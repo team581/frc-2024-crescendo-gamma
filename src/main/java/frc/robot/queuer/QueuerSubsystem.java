@@ -6,6 +6,7 @@ package frc.robot.queuer;
 
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -17,6 +18,10 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   private final DigitalInput sensor;
   private final VoltageOut voltageRequest = new VoltageOut(0.0);
   private QueuerState goalState = QueuerState.IDLE;
+  private final Debouncer debouncer =
+      new Debouncer(
+          RobotConfig.get().queuer().debounceTime(), RobotConfig.get().queuer().debounceType());
+  private boolean debouncedSensor = false;
 
   public QueuerSubsystem(TalonFX motor, DigitalInput sensor) {
     super(SubsystemPriority.QUEUER);
@@ -61,12 +66,14 @@ public class QueuerSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    debouncedSensor = debouncer.calculate(sensorHasNote());
     Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput("Queuer/State", goalState);
     Logger.recordOutput("Queuer/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Queuer/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
     Logger.recordOutput("Queuer/Velocity", motor.getVelocity().getValueAsDouble());
-    Logger.recordOutput("Queuer/HasNote", hasNote());
+    Logger.recordOutput("Queuer/DebouncedHasNote", hasNote());
+    Logger.recordOutput("Queuer/SensorHasNote", sensorHasNote());
   }
 
   public void setState(QueuerState state) {
@@ -74,6 +81,10 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   }
 
   public boolean hasNote() {
+    return debouncedSensor;
+  }
+
+  private boolean sensorHasNote() {
     return sensor.get();
   }
 

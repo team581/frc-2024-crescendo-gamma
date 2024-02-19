@@ -7,6 +7,7 @@ package frc.robot.config;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import java.util.function.Consumer;
@@ -49,11 +50,26 @@ public record RobotConfig(
       TalonFXConfiguration leftMotorConfig,
       TalonFXConfiguration rightMotorConfig) {}
 
-  public record IntakeConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
+  public record IntakeConfig(
+      int motorID,
+      int sensorID,
+      double debounceTime,
+      DebounceType debounceType,
+      TalonFXConfiguration motorConfig) {}
 
-  public record ConveyorConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
+  public record ConveyorConfig(
+      int motorID,
+      int sensorID,
+      double debounceTime,
+      DebounceType debounceType,
+      TalonFXConfiguration motorConfig) {}
 
-  public record QueuerConfig(int motorID, int sensorID, TalonFXConfiguration motorConfig) {}
+  public record QueuerConfig(
+      int motorID,
+      int sensorID,
+      double debounceTime,
+      DebounceType debounceType,
+      TalonFXConfiguration motorConfig) {}
 
   public record WristConfig(
       int motorID,
