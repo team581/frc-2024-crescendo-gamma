@@ -4,10 +4,12 @@
 
 package frc.robot.config;
 
+import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -30,6 +32,17 @@ import frc.robot.config.RobotConfig.SwerveConfig;
 import frc.robot.config.RobotConfig.WristConfig;
 
 class CompConfig {
+  private static final ClosedLoopRampsConfigs CLOSED_LOOP_RAMP =
+      new ClosedLoopRampsConfigs()
+          .withDutyCycleClosedLoopRampPeriod(0.02)
+          .withTorqueClosedLoopRampPeriod(0.02)
+          .withVoltageClosedLoopRampPeriod(0.02);
+  private static final OpenLoopRampsConfigs OPEN_LOOP_RAMP =
+      new OpenLoopRampsConfigs()
+          .withDutyCycleOpenLoopRampPeriod(0.02)
+          .withTorqueOpenLoopRampPeriod(0.02)
+          .withVoltageOpenLoopRampPeriod(0.02);
+
   public static final RobotConfig competitionBot =
       new RobotConfig(
           "competition",
@@ -45,7 +58,9 @@ class CompConfig {
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
-                          .withNeutralMode(NeutralModeValue.Coast)),
+                          .withNeutralMode(NeutralModeValue.Coast))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP),
               // Right motor
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
@@ -54,7 +69,9 @@ class CompConfig {
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
-                          .withNeutralMode(NeutralModeValue.Coast)),
+                          .withNeutralMode(NeutralModeValue.Coast))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
                 speakerDistanceToRPM.put(0.92, 4000.0);
                 speakerDistanceToRPM.put(6.0, 4000.0);
@@ -84,8 +101,12 @@ class CompConfig {
                   .withVoltage(
                       new VoltageConfigs()
                           .withPeakForwardVoltage(12.0)
-                          .withPeakReverseVoltage(-2.0)),
-              new TalonFXConfiguration()),
+                          .withPeakReverseVoltage(-2.0))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP),
+              new TalonFXConfiguration()
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new WristConfig(
               14,
               new TalonFXConfiguration()
@@ -112,7 +133,9 @@ class CompConfig {
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
-                          .withNeutralMode(NeutralModeValue.Brake)),
+                          .withNeutralMode(NeutralModeValue.Brake))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
               Rotation2d.fromDegrees(-18),
               Rotation2d.fromDegrees(-18),
@@ -161,7 +184,9 @@ class CompConfig {
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
-                          .withNeutralMode(NeutralModeValue.Brake)),
+                          .withNeutralMode(NeutralModeValue.Brake))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
               0,
               0.0,
@@ -177,7 +202,9 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
-                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))),
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new ConveyorConfig(
               2,
               1,
@@ -186,7 +213,9 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withSlot0(new Slot0Configs().withKP(0).withKV(0))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(30))),
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(30))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new QueuerConfig(
               16,
               2,
@@ -197,7 +226,9 @@ class CompConfig {
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
                       new MotorOutputConfigs()
-                          .withInverted(InvertedValue.CounterClockwise_Positive))),
+                          .withInverted(InvertedValue.CounterClockwise_Positive))
+                  .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new SwerveConfig(
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),

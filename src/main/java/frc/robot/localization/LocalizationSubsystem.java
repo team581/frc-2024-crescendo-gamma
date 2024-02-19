@@ -7,6 +7,7 @@ package frc.robot.localization;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +23,9 @@ import frc.robot.vision.VisionSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class LocalizationSubsystem extends LifecycleSubsystem {
+  private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.5;
+  private static final boolean USE_SHOOT_WHILE_MOVE = true;
+
   private final SwerveSubsystem swerve;
   private final ImuSubsystem imu;
   private final SwerveDrivePoseEstimator poseEstimator;
@@ -63,9 +67,18 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
     Logger.recordOutput("Localization/EstimatedPose", getPose());
+    Logger.recordOutput("Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD));
+    Logger.recordOutput("Localization/AccelerationX", imu.getXAcceleration());
+    Logger.recordOutput("Localization/AccelerationY", imu.getYAcceleration());
+    Logger.recordOutput(
+        "Localization/VelocityX", swerve.getRobotRelativeSpeeds().vxMetersPerSecond);
+    Logger.recordOutput(
+        "Localization/VelocityY", swerve.getRobotRelativeSpeeds().vyMetersPerSecond);
+    Logger.recordOutput(
+        "Localization/VelocityTheta", swerve.getRobotRelativeSpeeds().omegaRadiansPerSecond);
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
 
-    vision.setRobotPose(getPose());
+    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD));
   }
 
   public Pose2d getPose() {
@@ -92,5 +105,24 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   public Command getZeroCommand() {
     return Commands.runOnce(
         () -> resetGyro(Rotation2d.fromDegrees(FmsSubsystem.isRedAlliance() ? 0 : 180)));
+  }
+
+  public Pose2d getExpectedPose(double lookAhead) {
+    if (!USE_SHOOT_WHILE_MOVE) {
+      return getPose();
+    }
+
+    var velocities = swerve.getRobotRelativeSpeeds();
+    var angularVelocity = imu.getRobotAngularVelocity();
+
+    var xDifference =
+        (velocities.vxMetersPerSecond + (imu.getXAcceleration() * lookAhead)) * lookAhead;
+    var yDifference =
+        (velocities.vyMetersPerSecond + (imu.getYAcceleration() * lookAhead)) * lookAhead;
+    var thetaDifference = new Rotation2d(angularVelocity.getRadians() * lookAhead);
+
+    return new Pose2d(
+        new Translation2d(xDifference + getPose().getX(), yDifference + getPose().getY()),
+        thetaDifference.plus(imu.getRobotHeading()));
   }
 }

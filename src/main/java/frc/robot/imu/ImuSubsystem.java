@@ -68,6 +68,14 @@ public class ImuSubsystem extends LifecycleSubsystem {
     return atAngle(angle, getAngleToleranceFromDistanceToSpeaker(distance));
   }
 
+  public double getYAcceleration() {
+    return imu.getAccelerationY().getValueAsDouble();
+  }
+
+  public double getXAcceleration() {
+    return imu.getAccelerationX().getValueAsDouble();
+  }
+
   private Rotation2d getAngleToleranceFromDistanceToSpeaker(double distance) {
     return distance > 1.0 // Minimum distance
         ? Rotation2d.fromDegrees(2.5) // Minimum tolerance
