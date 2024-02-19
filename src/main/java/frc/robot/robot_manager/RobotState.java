@@ -4,82 +4,80 @@
 
 package frc.robot.robot_manager;
 
-import frc.robot.note_manager.NoteLocation;
-
 public enum RobotState {
   /** Not homed. */
-  UNHOMED(false, NoteLocation.NONE, false),
+  UNHOMED(false, false),
   /** Homing. */
-  HOMING(false, NoteLocation.NONE, false),
+  HOMING(false, false),
 
   /** Idling without a note. */
-  IDLE_NO_GP(false, NoteLocation.NONE),
+  IDLE_NO_GP(false),
   /** Idling with a note in the queuer. */
-  IDLE_WITH_GP(true, NoteLocation.QUEUER),
+  IDLE_WITH_GP(true),
 
   /** Intaking a game piece. Transition to INTAKE_TO_QUEUER when done. */
-  GROUND_INTAKING(false, NoteLocation.NONE),
+  GROUND_INTAKING(false),
 
   /** Outtaking via the shooter. Game piece should be in queuer at start. */
-  OUTTAKING_SHOOTER(true, NoteLocation.QUEUER),
+  OUTTAKING_SHOOTER(true),
   /** Outtaking via the intake. Game piece should be in queuer at start. */
-  OUTTAKING(true, NoteLocation.INTAKE),
+  OUTTAKING(true),
 
   /** Preparing for floor shot, waiting for driver to commit. */
-  WAITING_FLOOR_SHOT(true, NoteLocation.QUEUER),
+  WAITING_FLOOR_SHOT(true),
   /** Preparing for floor shot, should shoot when ready. */
-  PREPARE_FLOOR_SHOT(true, NoteLocation.QUEUER),
+  PREPARE_FLOOR_SHOT(true),
   /** Actively doing the floor shot. */
-  FLOOR_SHOOT(true, NoteLocation.QUEUER),
+  FLOOR_SHOOT(true),
 
   /**
    * Get ready for subwoofer shot, wait for driver/operator (?) to confirm, then go to
    * PREPARE_SUBWOOFER_SHOT.
    */
-  WAITING_SUBWOOFER_SHOT(true, NoteLocation.QUEUER),
+  WAITING_SUBWOOFER_SHOT(true),
   /** Get ready for subwoofer shot, automatically go to SUBWOOFER_SHOOT when ready. */
-  PREPARE_SUBWOOFER_SHOT(true, NoteLocation.QUEUER),
+  PREPARE_SUBWOOFER_SHOT(true),
   /** Actively doing the subwoofer shot. */
-  SUBWOOFER_SHOOT(true, NoteLocation.QUEUER),
+  SUBWOOFER_SHOOT(true),
 
-  PREPARE_TRAP_OUTTAKE(true, NoteLocation.CONVEYOR),
-  TRAP_OUTTAKE(true, NoteLocation.CONVEYOR),
+  PREPARE_TRAP_OUTTAKE(true),
+  TRAP_OUTTAKE(true),
 
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
-  WAITING_SPEAKER_SHOT(true, NoteLocation.QUEUER),
+  WAITING_SPEAKER_SHOT(true),
   /** Get ready for speaker shot, automatically go to SPEAKER_SHOOT when ready. */
-  PREPARE_SPEAKER_SHOT(true, NoteLocation.QUEUER),
-  SPEAKER_SHOOT(true, NoteLocation.QUEUER),
+  PREPARE_SPEAKER_SHOT(true),
+  SPEAKER_SHOOT(true),
 
+  /** Note maybe in queuer, need to move it to conveyor, and then transition to WAITING_AMP_SHOT. */
+  PREPARE_WAITING_AMP_SHOT(true),
   /** Note in conveyor, waiting for driver to commit to amp score. */
-  WAITING_AMP_SHOT(true, NoteLocation.CONVEYOR),
+  WAITING_AMP_SHOT(true),
   /** Get ready for amp shot, automatically go to AMP_SHOT when ready. */
-  PREPARE_AMP_SHOT(true, NoteLocation.CONVEYOR),
+  PREPARE_AMP_SHOT(true),
   /** Actively scoring in the amp. */
-  AMP_SHOT(true, NoteLocation.CONVEYOR),
+  AMP_SHOT(true),
 
   /** Arm moves to chain height, climber hooks are touching the chain */
-  WAITING_CLIMBER_RAISED(true, NoteLocation.CONVEYOR),
+  WAITING_CLIMBER_RAISED(true),
 
   /** On the ground, arm goes up */
-  PREPARE_CLIMBER_RAISED(true, NoteLocation.CONVEYOR),
-  CLIMBER_RAISED(true, NoteLocation.CONVEYOR),
+  PREPARE_CLIMBER_RAISED(true),
+  CLIMBER_RAISED(true),
 
   /** Actually climbing then hanging */
-  PREPARE_CLIMBER_HANGING(true, NoteLocation.CONVEYOR),
-  CLIMBER_HANGING(true, NoteLocation.CONVEYOR);
+  PREPARE_CLIMBER_HANGING(true),
+  CLIMBER_HANGING(true);
 
   public final boolean hasNote;
   public final boolean homed;
-  public final NoteLocation noteLocation;
 
-  RobotState(boolean hasNote, NoteLocation noteLocation) {
-    this(hasNote, noteLocation, true);
+  RobotState(boolean hasNote) {
+    this(hasNote, true);
   }
 
-  RobotState(boolean hasNote, NoteLocation noteLocation, boolean homed) {
+  RobotState(boolean hasNote, boolean homed) {
     this.hasNote = hasNote;
-    this.noteLocation = noteLocation;
     this.homed = homed;
   }
 }

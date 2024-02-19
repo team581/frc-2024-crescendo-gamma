@@ -137,7 +137,7 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case OUTTAKE:
-          if (state.homed && state.noteLocation != RobotState.OUTTAKING.noteLocation) {
+          if (state.homed) {
             state = RobotState.OUTTAKING;
           }
           break;
@@ -153,7 +153,7 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case WAIT_AMP_SHOT:
           if (state.homed) {
-            state = RobotState.WAITING_AMP_SHOT;
+            state = RobotState.PREPARE_WAITING_AMP_SHOT;
           }
           break;
         case AMP_SHOT:
@@ -214,6 +214,11 @@ public class RobotManager extends LifecycleSubsystem {
             && elevator.getHomingState() == HomingState.HOMED
             && climber.getHomingState() == HomingState.HOMED) {
           state = RobotState.IDLE_NO_GP;
+        }
+        break;
+      case PREPARE_WAITING_AMP_SHOT:
+        if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR) {
+          state = RobotState.WAITING_AMP_SHOT;
         }
         break;
       case GROUND_INTAKING:
@@ -402,6 +407,13 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
+        break;
+      case PREPARE_WAITING_AMP_SHOT:
+        wrist.setAngle(WristPositions.STOWED);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
+        noteManager.ampWaitRequest();
         break;
       case WAITING_AMP_SHOT:
       case PREPARE_AMP_SHOT:
