@@ -393,7 +393,7 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
-        case SPEAKER_SHOOT:
+      case SPEAKER_SHOOT:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
@@ -403,8 +403,8 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
-        case WAITING_AMP_SHOT:
-        case PREPARE_AMP_SHOT:
+      case WAITING_AMP_SHOT:
+      case PREPARE_AMP_SHOT:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.AMP_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
