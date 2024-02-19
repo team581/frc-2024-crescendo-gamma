@@ -38,22 +38,26 @@ class CompConfig {
               19,
               // Left Motor
               new TalonFXConfiguration()
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0 / 1.5))
+                  .withFeedback(
+                      new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
                   .withSlot0(new Slot0Configs().withKP(5.5).withKV(0.0).withKS(13.0))
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withNeutralMode(NeutralModeValue.Coast)
-                          .withInverted(InvertedValue.Clockwise_Positive)),
+                          .withInverted(InvertedValue.Clockwise_Positive)
+                          .withPeakReverseDutyCycle(0)),
               // Right Motor
               new TalonFXConfiguration()
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0 / 1.5))
+                  .withFeedback(
+                      new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
                   .withSlot0(new Slot0Configs().withKP(5).withKV(0.0).withKS(13.0))
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withNeutralMode(NeutralModeValue.Coast)
-                          .withInverted(InvertedValue.Clockwise_Positive)),
+                          .withInverted(InvertedValue.Clockwise_Positive)
+                          .withPeakReverseDutyCycle(0)),
               speakerDistanceToRPM -> {
                 speakerDistanceToRPM.put(0.0, 4000.0);
                 speakerDistanceToRPM.put(3.0, 6000.0);
@@ -80,7 +84,8 @@ class CompConfig {
               0.0,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(8))
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(17.0 / 1.0))
+                  .withFeedback(
+                      new FeedbackConfigs().withSensorToMechanismRatio(50.0 * 50.0 / 8.0 / 20.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
                   .withVoltage(
                       new VoltageConfigs()
@@ -157,7 +162,8 @@ class CompConfig {
                           .withMotionMagicAcceleration(2.0)
                           .withMotionMagicCruiseVelocity(1.5)
                           .withMotionMagicJerk(0))
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(0))
+                  .withFeedback(
+                      new FeedbackConfigs().withSensorToMechanismRatio(50.0 / 8.0 * 24.0 / 15.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
                   .withMotorOutput(
                       new MotorOutputConfigs()

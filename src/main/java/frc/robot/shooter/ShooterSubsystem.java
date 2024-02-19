@@ -14,6 +14,7 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ShooterSubsystem extends LifecycleSubsystem {
+  private static final double SPIN_RATIO = 3.0 / 5.0;
   private static final int IDLE_RPM = 1000;
   private static final double OUTTAKE_RPM = 2000; // TODO: adjust for desirable outtake speeds
   private static final double SUBWOOFER_SHOOTING_RPM = 5000;
@@ -98,7 +99,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Shooter/UsedRPM", usedGoalRPM);
 
     rightMotor.setControl(velocityRequest.withVelocity((usedGoalRPM) / 60));
-    leftMotor.setControl(velocityRequest.withVelocity((usedGoalRPM - 500) / 60));
+    leftMotor.setControl(velocityRequest.withVelocity((usedGoalRPM * SPIN_RATIO) / 60));
   }
 
   public boolean atGoal(ShooterMode mode) {
