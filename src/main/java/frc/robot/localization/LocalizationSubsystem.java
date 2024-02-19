@@ -56,10 +56,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     try {
       var results = vision.getFilteredAprilTags();
       for (PoseWithTagID fiducial : results.tags()) {
-        // TODO: Get IMU heading at specific timestamp with latency, not heading right
-        // now
-
-        // TODO: Fix latency value causing pose estimator to never update
         poseEstimator.addVisionMeasurement(fiducial.robotPose().toPose2d(), results.latency());
       }
     } catch (Exception e) {
