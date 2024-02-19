@@ -88,9 +88,7 @@ public class Robot extends LoggedRobot {
   private final Autos autos = new Autos(swerve, localization, imu, actions);
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
-          new CANdle(RobotConfig.get().lights().deviceID(), "rio"),
-          robotManager,
-          vision);
+          new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision);
 
   public Robot() {
     // Log to a USB stick
