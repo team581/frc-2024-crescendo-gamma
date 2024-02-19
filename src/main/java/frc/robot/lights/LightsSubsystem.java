@@ -76,16 +76,13 @@ public class LightsSubsystem extends LifecycleSubsystem {
         case WAITING_SUBWOOFER_SHOT:
         case WAITING_AMP_SHOT:
         case WAITING_FLOOR_SHOT:
-        case INTAKE_TO_CONVEYOR:
-        case INTAKE_TO_QUEUER:
-        case QUEUER_TO_INTAKE_FOR_CONVEYOR:
-        case CONVEYOR_TO_INTAKE_FOR_QUEUER:
           color = Color.kOrange;
           blinkPattern = BlinkPattern.SOLID;
           break;
         case PREPARE_SPEAKER_SHOT:
         case PREPARE_SUBWOOFER_SHOT:
         case PREPARE_FLOOR_SHOT:
+        case PREPARE_AMP_SHOT:
           if (vision.isWorking()) {
             color = Color.kGreen;
             blinkPattern = BlinkPattern.BLINK_SLOW;
@@ -113,22 +110,27 @@ public class LightsSubsystem extends LifecycleSubsystem {
           }
           break;
         case UNHOMED:
-          color = Color.kRed;
-          blinkPattern = BlinkPattern.BLINK_SLOW;
-          break;
         case HOMING:
           color = Color.kRed;
           blinkPattern = BlinkPattern.BLINK_SLOW;
           break;
+        case WAITING_CLIMBER_RAISED:
+          color = Color.kCyan;
+          blinkPattern = BlinkPattern.SOLID;
+          break;
         case PREPARE_CLIMBER_HANGING:
         case PREPARE_CLIMBER_RAISED:
-          color = Color.kYellow;
+          color = Color.kCyan;
           blinkPattern = BlinkPattern.BLINK_SLOW;
           break;
         case CLIMBER_HANGING:
         case CLIMBER_RAISED:
-          color = Color.kYellow;
-          blinkPattern = BlinkPattern.SOLID;
+          color = Color.kCyan;
+          blinkPattern = BlinkPattern.BLINK_FAST;
+          break;
+        case PREPARE_TRAP_OUTTAKE:
+          color = Color.kGreen;
+          blinkPattern = BlinkPattern.BLINK_SLOW;
           break;
         default:
           color = Color.kWhite;
