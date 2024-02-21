@@ -8,6 +8,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -47,6 +48,12 @@ public class ClimberSubsystem extends LifecycleSubsystem {
   }
 
   @Override
+  public void enabledInit() {
+    leftMotor.setNeutralMode(NeutralModeValue.Brake);
+    rightMotor.setNeutralMode(NeutralModeValue.Brake);
+  }
+
+  @Override
   public void robotPeriodic() {
     double rawCurrent = leftMotor.getStatorCurrent().getValueAsDouble();
     double filteredCurrent = currentFilter.calculate(rawCurrent);
@@ -60,28 +67,30 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         leftMotor.setControl(voltageRequest.withOutput(CONFIG.homingVoltage()));
         rightMotor.setControl(followRequest);
         if (filteredCurrent > CONFIG.homingCurrentThreshold()) {
-          leftMotor.setPosition(0);
-          rightMotor.setPosition(0);
+          leftMotor.setPosition(
+              inchesToRotations(RobotConfig.get().climber().minDistance()).getRotations());
+          rightMotor.setPosition(
+              inchesToRotations(RobotConfig.get().climber().minDistance()).getRotations());
           homingState = HomingState.HOMED;
         }
         break;
       case HOMED:
         switch (goalMode) {
           case IDLE:
-            setGoalDistance(CONFIG.idlePosition());
+            setGoalDistance(ClimberPositions.IDLE);
             break;
           case RAISED:
-            setGoalDistance(CONFIG.raisedPosition());
+            setGoalDistance(ClimberPositions.RAISED);
             break;
           case HANGING:
-            setGoalDistance(CONFIG.hangingPosition());
+            setGoalDistance(ClimberPositions.HANGING);
             break;
           default:
             break;
         }
         double usedGoalDistance = clamp(ntDistance.get() == -1 ? goalDistance : ntDistance.get());
 
-        Logger.recordOutput("Climber/UsedGoalPosition", usedGoalDistance);
+        Logger.recordOutput("Climber/UsedGoalDistance", usedGoalDistance);
 
         leftMotor.setControl(
             positionRequest.withPosition(inchesToRotations(usedGoalDistance).getRotations()));
@@ -91,6 +100,39 @@ public class ClimberSubsystem extends LifecycleSubsystem {
       case PRE_MATCH_HOMING:
         throw new IllegalStateException("Climber can't do pre match homing");
     }
+
+    Logger.recordOutput("Climber/GoalMode", goalMode);
+    Logger.recordOutput("Climber/GoalDistance", goalDistance);
+    Logger.recordOutput("Climber/Left/Distance", getDistance(leftMotor));
+    Logger.recordOutput(
+        "Climber/Left/StatorCurrent", leftMotor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput(
+        "Climber/Left/SupplyCurrent", leftMotor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Climber/Left/Rotations", leftMotor.getPosition().getValueAsDouble());
+    Logger.recordOutput("Climber/Left/Voltage", leftMotor.getMotorVoltage().getValueAsDouble());
+    Logger.recordOutput(
+        "Climber/Left/VelocityRotations", leftMotor.getVelocity().getValueAsDouble());
+    Logger.recordOutput(
+        "Climber/Left/VelocityDistance",
+        rotationsToInches(Rotation2d.fromRotations(leftMotor.getVelocity().getValueAsDouble())));
+    Logger.recordOutput(
+        "Climber/Left/AccelerationRotations", leftMotor.getAcceleration().getValueAsDouble());
+    Logger.recordOutput("Climber/Left/Temperature", leftMotor.getDeviceTemp().getValueAsDouble());
+    Logger.recordOutput("Climber/Right/Distance", getDistance(rightMotor));
+    Logger.recordOutput(
+        "Climber/Right/StatorCurrent", rightMotor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput(
+        "Climber/Right/SupplyCurrent", rightMotor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Climber/Right/Rotations", rightMotor.getPosition().getValueAsDouble());
+    Logger.recordOutput("Climber/Right/Voltage", rightMotor.getMotorVoltage().getValueAsDouble());
+    Logger.recordOutput(
+        "Climber/Right/VelocityRotations", rightMotor.getVelocity().getValueAsDouble());
+    Logger.recordOutput(
+        "Climber/Right/VelocityDistance",
+        rotationsToInches(Rotation2d.fromRotations(rightMotor.getVelocity().getValueAsDouble())));
+    Logger.recordOutput(
+        "Climber/Right/AccelerationRotations", rightMotor.getAcceleration().getValueAsDouble());
+    Logger.recordOutput("Climber/Right/Temperature", rightMotor.getDeviceTemp().getValueAsDouble());
   }
 
   public boolean atGoal(ClimberMode goal) {
@@ -100,11 +142,14 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     if (goalMode == ClimberMode.IDLE) {
       return true;
     }
-    if (goal == goalMode
-        && Math.abs(
-                rotationsToInches(
-                    Rotation2d.fromRotations(leftMotor.getAcceleration().getValueAsDouble())))
-            < CONFIG.accelerationTolerance()) {
+
+    double leftAccelerationDistance =
+        rotationsToInches(Rotation2d.fromRotations(leftMotor.getAcceleration().getValueAsDouble()));
+    double rightAccelerationDistance =
+        rotationsToInches(
+            Rotation2d.fromRotations(rightMotor.getAcceleration().getValueAsDouble()));
+    if (Math.abs(leftAccelerationDistance) < CONFIG.accelerationTolerance()
+        && Math.abs(rightAccelerationDistance) < CONFIG.accelerationTolerance()) {
       return true;
     }
     return false;
@@ -122,8 +167,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     homingState = HomingState.MID_MATCH_HOMING;
   }
 
-  public double getDistance() {
-    return rotationsToInches(Rotation2d.fromRotations(leftMotor.getPosition().getValueAsDouble()));
+  public double getDistance(TalonFX motor) {
+    return rotationsToInches(Rotation2d.fromRotations(motor.getPosition().getValueAsDouble()));
   }
 
   private void setGoalDistance(double distance) {
@@ -134,16 +179,16 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     goalMode = mode;
   }
 
-  private static double clamp(double pos) {
-    return MathUtil.clamp(pos, CONFIG.minPosition(), CONFIG.maxPosition());
+  private static double clamp(double distance) {
+    return MathUtil.clamp(distance, CONFIG.minDistance(), CONFIG.maxDistance());
   }
 
   // Tune the radius in inches later
   private static double rotationsToInches(Rotation2d angle) {
-    return angle.getRadians() * (CONFIG.rotationsToDistance());
+    return angle.getRotations() * (CONFIG.rotationsToDistance());
   }
 
   private static Rotation2d inchesToRotations(double inches) {
-    return Rotation2d.fromRadians(inches / (CONFIG.rotationsToDistance()));
+    return Rotation2d.fromRotations(inches / (CONFIG.rotationsToDistance()));
   }
 }

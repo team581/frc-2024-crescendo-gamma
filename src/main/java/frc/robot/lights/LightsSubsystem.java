@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
-import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.VisionSubsystem;
@@ -54,7 +53,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
     RobotState state = robotManager.getState();
 
     if (DriverStation.isDisabled()) {
-      if (robotManager.wrist.getHomingState() == HomingState.PRE_MATCH_HOMING) {
+      if (!robotManager.getState().homed) {
         color = Color.kRed;
         blinkPattern = BlinkPattern.SOLID;
       } else if (!vision.isWorking()) {
@@ -74,6 +73,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
         case IDLE_WITH_GP:
         case WAITING_SPEAKER_SHOT:
         case WAITING_SUBWOOFER_SHOT:
+        case PREPARE_WAITING_AMP_SHOT:
         case WAITING_AMP_SHOT:
         case WAITING_FLOOR_SHOT:
           color = Color.kOrange;
@@ -120,6 +120,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
           break;
         case PREPARE_CLIMBER_HANGING:
         case PREPARE_CLIMBER_RAISED:
+        case PREPARE_WAITING_CLIMBER_RAISED:
           color = Color.kCyan;
           blinkPattern = BlinkPattern.BLINK_SLOW;
           break;

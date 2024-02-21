@@ -8,9 +8,9 @@ import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -64,25 +64,27 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   @Override
+  public void enabledInit() {
+    motor.setNeutralMode(NeutralModeValue.Brake);
+  }
+
+  @Override
   public void robotPeriodic() {
     switch (homingState) {
       case NOT_HOMED:
         motor.setControl(coastNeutralRequest);
         break;
       case PRE_MATCH_HOMING:
-        if (DriverStation.isDisabled()) {
-          motor.setControl(coastNeutralRequest);
-        } else {
-          motor.setControl(brakeNeutralRequest);
+        motor.disable();
 
-          if (!preMatchHomingOccured) {
-            Rotation2d homedAngle = getHomeAngleFromLowestSeen();
-            motor.setPosition(homedAngle.getRotations());
+        if (!preMatchHomingOccured) {
+          Rotation2d homedAngle = getHomeAngleFromLowestSeen();
+          motor.setPosition(homedAngle.getRotations());
 
-            preMatchHomingOccured = true;
-            homingState = HomingState.HOMED;
-          }
+          preMatchHomingOccured = true;
+          homingState = HomingState.HOMED;
         }
+
         break;
       case MID_MATCH_HOMING:
         throw new IllegalStateException("Wrist can't do mid match homing");
@@ -96,6 +98,7 @@ public class WristSubsystem extends LifecycleSubsystem {
 
         motor.setControl(positionRequest.withSlot(slot).withPosition(usedGoalAngle.getRotations()));
         Logger.recordOutput("Wrist/MotorPidSlot", slot);
+
         break;
     }
 

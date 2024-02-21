@@ -6,11 +6,10 @@ package frc.robot.elevator;
 
 public class ElevatorPositions {
   public static final double STOWED = 0;
-  public static final double OUTTAKING_CONVEYOR = 0.0;
-  public static final double AMP_OUTTAKE = 0.0;
+  public static final double AMP_OUTTAKE = 10;
 
-  public static final double CLIMBING = 0.0;
-  public static final double TRAP_SHOT = 0.0;
+  public static final double CLIMBING = 18;
+  public static final double TRAP_SHOT = 18;
 
   private ElevatorPositions() {}
 }

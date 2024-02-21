@@ -97,7 +97,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Elevator/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Elevator/Height", getHeight());
     Logger.recordOutput("Elevator/GoalHeight", goalHeight);
-    Logger.recordOutput("Elevator/Rotations", getRotations());
+    Logger.recordOutput("Elevator/Rotations", getRotations().getDegrees());
   }
 
   public void setGoalHeight(double newHeight) {
@@ -105,7 +105,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   }
 
   public double getHeight() {
-    return rotationsToInches(getRotations());
+    return rotationsToInches(Rotation2d.fromRotations(motor.getRotorPosition().getValueAsDouble()));
   }
 
   private Rotation2d getRotations() {
@@ -120,13 +120,12 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     return Math.abs(getHeight() - distance) < RobotConfig.get().elevator().tolerance();
   }
 
-  // TODO: Tune the radius in inches later
   private static double rotationsToInches(Rotation2d rotations) {
-    return rotations.getRadians() * (RobotConfig.get().elevator().rotationsToDistance());
+    return rotations.getRotations() * (RobotConfig.get().elevator().rotationsToDistance());
   }
 
   private static Rotation2d inchesToRotations(double inches) {
-    return Rotation2d.fromRadians(inches / (RobotConfig.get().elevator().rotationsToDistance()));
+    return Rotation2d.fromRotations(inches / (RobotConfig.get().elevator().rotationsToDistance()));
   }
 
   private static double clampHeight(double height) {

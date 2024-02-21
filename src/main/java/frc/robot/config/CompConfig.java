@@ -68,7 +68,7 @@ class CompConfig {
                   .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
                   .withMotorOutput(
                       new MotorOutputConfigs()
-                          .withInverted(InvertedValue.Clockwise_Positive)
+                          .withInverted(InvertedValue.CounterClockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Coast))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
@@ -89,24 +89,33 @@ class CompConfig {
               0.0,
               0.0,
               0.0,
-              0.0,
-              0.0,
-              0.0,
-              0.0,
-              1,
+              21.0,
+              0.22398,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(0))
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(17.0 / 1.0))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
                   .withVoltage(
                       new VoltageConfigs()
                           .withPeakForwardVoltage(12.0)
                           .withPeakReverseVoltage(-2.0))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
-                  .withOpenLoopRamps(OPEN_LOOP_RAMP),
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)
+                  .withMotorOutput(
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive)),
               new TalonFXConfiguration()
+                  .withSlot0(new Slot0Configs().withKP(0))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
+                  .withVoltage(
+                      new VoltageConfigs()
+                          .withPeakForwardVoltage(12.0)
+                          .withPeakReverseVoltage(-2.0))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
-                  .withOpenLoopRamps(OPEN_LOOP_RAMP)),
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)
+                  .withMotorOutput(
+                      new MotorOutputConfigs()
+                          .withInverted(InvertedValue.CounterClockwise_Positive))),
           new WristConfig(
               14,
               new TalonFXConfiguration()
@@ -126,21 +135,15 @@ class CompConfig {
                           .withMotionMagicCruiseVelocity(1.5)
                           .withMotionMagicJerk(0))
                   .withFeedback(
-                      new FeedbackConfigs()
-                          .withSensorToMechanismRatio(
-                              1 / ((12.0 / 50.0) * (20.0 / 84.0) * (12.0 / 72.0))))
+                      new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
-                  .withMotorOutput(
-                      new MotorOutputConfigs()
-                          .withInverted(InvertedValue.Clockwise_Positive)
-                          .withNeutralMode(NeutralModeValue.Brake))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
-              Rotation2d.fromDegrees(-18),
-              Rotation2d.fromDegrees(-18),
-              Rotation2d.fromDegrees(95),
-              Rotation2d.fromDegrees(2),
+              Rotation2d.fromDegrees(0),
+              Rotation2d.fromDegrees(0),
+              Rotation2d.fromDegrees(61),
+              Rotation2d.fromDegrees(1),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
                 distanceToAngleTolerance.put(8.0, 0.5);
@@ -177,9 +180,9 @@ class CompConfig {
                   .withMotionMagic(
                       new MotionMagicConfigs()
                           .withMotionMagicAcceleration(2.0)
-                          .withMotionMagicCruiseVelocity(1.5)
-                          .withMotionMagicJerk(0))
-                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(0))
+                          .withMotionMagicCruiseVelocity(1.5))
+                  .withFeedback(
+                      new FeedbackConfigs().withSensorToMechanismRatio(50.0 / 8.0 * 24.0 / 15.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
                   .withMotorOutput(
                       new MotorOutputConfigs()
@@ -190,24 +193,22 @@ class CompConfig {
               new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
               0,
               0.0,
-              0.0,
-              0.0,
-              0.0),
+              19.5,
+              0.39992,
+              0.75),
           new IntakeConfig(
               15,
-              0,
+              1,
               0.0,
               DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
-                  .withMotorOutput(
-                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new ConveyorConfig(
               2,
-              1,
+              2,
               0.0,
               DebounceType.kBoth,
               new TalonFXConfiguration()
@@ -218,15 +219,14 @@ class CompConfig {
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new QueuerConfig(
               16,
-              2,
+              0,
               0.0,
               DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
-                      new MotorOutputConfigs()
-                          .withInverted(InvertedValue.CounterClockwise_Positive))
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new SwerveConfig(

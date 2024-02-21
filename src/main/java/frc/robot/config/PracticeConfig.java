@@ -74,9 +74,6 @@ class PracticeConfig {
               0.0,
               0.0,
               0.0,
-              0.0,
-              0.0,
-              0.0,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(8))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(17.0 / 1.0))

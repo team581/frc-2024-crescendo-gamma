@@ -41,11 +41,8 @@ public record RobotConfig(
       int currentTaps,
       double homingCurrentThreshold,
       double homingVoltage,
-      double minPosition,
-      double maxPosition,
-      double idlePosition,
-      double raisedPosition,
-      double hangingPosition,
+      double minDistance,
+      double maxDistance,
       double rotationsToDistance,
       TalonFXConfiguration leftMotorConfig,
       TalonFXConfiguration rightMotorConfig) {}
