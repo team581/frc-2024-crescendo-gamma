@@ -89,16 +89,7 @@ public class WristSubsystem extends LifecycleSubsystem {
         }
         break;
       case MID_MATCH_HOMING:
-        if (preMatchHomingOccured) {
-          Rotation2d homingEndPosition = RobotConfig.get().wrist().homingEndPosition();
-          Rotation2d homedAngle =
-              Rotation2d.fromDegrees(
-                  homingEndPosition.getDegrees()
-                      + (getAngle().getDegrees() - lowestSeenAngle.getDegrees()));
-          motor.setPosition(homedAngle.getRotations());
-
-          homingState = HomingState.HOMED;
-        }
+        // TODO: Implement
         break;
       case HOMED:
         Rotation2d usedGoalAngle =

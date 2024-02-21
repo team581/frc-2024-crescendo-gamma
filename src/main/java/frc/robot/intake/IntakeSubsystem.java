@@ -41,7 +41,6 @@ public class IntakeSubsystem extends LifecycleSubsystem {
       case OUTTAKING:
         if (hasNote()) {
           motor.setControl(voltageRequest.withOutput(0));
-
         } else {
           motor.disable();
         }
