@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import frc.robot.config.RobotConfig;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.TimedDataBuffer;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
@@ -19,6 +20,8 @@ public class ImuSubsystem extends LifecycleSubsystem {
   private final Pigeon2 imu;
   private final InterpolatingDoubleTreeMap distanceToAngleTolerance =
       new InterpolatingDoubleTreeMap();
+  private final TimedDataBuffer robotHeadingLatency = new TimedDataBuffer(6);
+  private final TimedDataBuffer robotAngularVelocityLatency = new TimedDataBuffer(6);
 
   public ImuSubsystem(SwerveSubsystem swerve) {
     super(SubsystemPriority.IMU);
@@ -48,8 +51,16 @@ public class ImuSubsystem extends LifecycleSubsystem {
     return Rotation2d.fromDegrees(imu.getYaw().getValue());
   }
 
+  public Rotation2d getRobotHeading(double timestamp) {
+    return new Rotation2d().fromDegrees(robotHeadingLatency.lookupData(timestamp));
+  }
+
   public Rotation2d getRobotAngularVelocity() {
     return Rotation2d.fromDegrees(imu.getRate());
+  }
+
+  public Rotation2d getRobotAngularVelocity(double timestamp) {
+    return Rotation2d.fromDegrees(robotAngularVelocityLatency.lookupData(timestamp));
   }
 
   public void setAngle(Rotation2d zeroAngle) {

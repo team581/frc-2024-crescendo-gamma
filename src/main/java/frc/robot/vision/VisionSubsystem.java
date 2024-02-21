@@ -11,12 +11,15 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.fms.FmsSubsystem;
+import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.littletonrobotics.junction.Logger;
 
@@ -35,6 +38,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
   private static double currentTimestamp = 0;
   private static double previousTimestamp = 0;
 
+  InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
+
+  private final ImuSubsystem imu;
+
   private static Pose3d fixEvilPose(Pose3d pose) {
     return new Pose3d(
         new Translation3d(
@@ -42,67 +49,106 @@ public class VisionSubsystem extends LifecycleSubsystem {
         pose.getRotation());
   }
 
-  private static FastLimelightResults getFastResults() {
-    String jsonStr = LimelightHelpers.getJSONDump("");
-    Any json = JsonIterator.deserialize(jsonStr);
+  // TODO: Refactor this class to use Optional<T> for wrapping results. Stop
+  // including the valid
+  // property, just return Optional.empty(). Do proper error handling here instead
+  // of in every
+  // single place this method is called.
+  public static FastLimelightResults getFastResults() {
+    try {
+      double start = Timer.getFPGATimestamp();
+      String jsonStr = LimelightHelpers.getJSONDump("");
+      Any json = JsonIterator.deserialize(jsonStr);
 
-    Any results = json.get("Results");
+      Any results = json.get("Results");
 
-    double tl = results.get("tl").toDouble();
-    double ts = results.get("ts").toDouble();
-    previousTimestamp = currentTimestamp;
-    currentTimestamp = ts;
+      double ts = results.get("ts").toDouble();
 
-    if (previousTimestamp == currentTimestamp) {
-      // Vision data hasn't gotten updated
-    } else {
-      // Vision data is different
-      limelightTimer.reset();
-    }
+      previousTimestamp = currentTimestamp;
+      currentTimestamp = ts;
 
-    List<Any> fiducial = results.get("Fiducial").asList();
-
-    // do a for loop, just get thenumber arary things
-    // dont even do anything with them. we can figure out how to package them up later
-    // just focus on parsing
-
-    ArrayList<PoseWithTagID> tags = new ArrayList<>(fiducial.size());
-    for (Any fiducialEntry : fiducial) {
-      int fiducialID = fiducialEntry.get("fID").toInt();
-      List<Any> robotPoseFieldSpaceArray = fiducialEntry.get("t6r_fs").asList();
-      List<Any> cameraPoseTargetSpaceArray = fiducialEntry.get("t6r_ts").asList();
-
-      if (robotPoseFieldSpaceArray.size() < 6 || cameraPoseTargetSpaceArray.size() < 6) {
-        continue;
+      if (previousTimestamp == currentTimestamp) {
+        // Vision data hasn't changed
+      } else {
+        // Vision data is different
+        limelightTimer.reset();
       }
 
-      Pose3d robotPoseFieldSpace =
+      double v = results.get("v").toDouble();
+
+      boolean valid = v == 1;
+
+      if (!valid) {
+        // Results are invalid, don't return any actual data, to prevent accidentally
+        // using it when
+        // it's invalid. Ideally we just return Optional.empty() here
+        return new FastLimelightResults(-1, new Pose3d(), 10, false);
+      }
+
+      List<Any> megaTagPose = results.get("botpose").asList();
+
+      Pose3d robotPoseEvilSpace =
           new Pose3d(
               new Translation3d(
-                  robotPoseFieldSpaceArray.get(0).toDouble(),
-                  robotPoseFieldSpaceArray.get(1).toDouble(),
-                  robotPoseFieldSpaceArray.get(2).toDouble()),
+                  megaTagPose.get(0).toDouble(),
+                  megaTagPose.get(1).toDouble(),
+                  megaTagPose.get(2).toDouble()),
               new Rotation3d(
-                  Units.degreesToRadians(robotPoseFieldSpaceArray.get(3).toDouble()),
-                  Units.degreesToRadians(robotPoseFieldSpaceArray.get(4).toDouble()),
-                  Units.degreesToRadians(robotPoseFieldSpaceArray.get(5).toDouble())));
+                  Units.degreesToRadians(megaTagPose.get(3).toDouble()),
+                  Units.degreesToRadians(megaTagPose.get(4).toDouble()),
+                  Units.degreesToRadians(megaTagPose.get(5).toDouble())));
 
-      Pose3d cameraPoseTargetSpace =
-          new Pose3d(
-              new Translation3d(
-                  cameraPoseTargetSpaceArray.get(0).toDouble(),
-                  cameraPoseTargetSpaceArray.get(1).toDouble(),
-                  cameraPoseTargetSpaceArray.get(2).toDouble()),
-              new Rotation3d(
-                  Units.degreesToRadians(cameraPoseTargetSpaceArray.get(3).toDouble()),
-                  Units.degreesToRadians(cameraPoseTargetSpaceArray.get(4).toDouble()),
-                  Units.degreesToRadians(cameraPoseTargetSpaceArray.get(5).toDouble())));
+      List<Any> fiducial = results.get("Fiducial").asList();
+      ArrayList<Double> distances = new ArrayList<>(fiducial.size());
+      for (Any fiducialEntry : fiducial) {
+        List<Any> cameraPoseTargetSpaceArray = fiducialEntry.get("t6c_ts").asList();
 
-      tags.add(
-          new PoseWithTagID(fiducialID, fixEvilPose(robotPoseFieldSpace), cameraPoseTargetSpace));
+        if (cameraPoseTargetSpaceArray.size() != 6) {
+          continue;
+        }
+
+        Pose3d cameraPoseTargetSpace =
+            new Pose3d(
+                cameraPoseTargetSpaceArray.get(0).toDouble(),
+                cameraPoseTargetSpaceArray.get(1).toDouble(),
+                cameraPoseTargetSpaceArray.get(2).toDouble(),
+                new Rotation3d(
+                    Units.degreesToRadians(cameraPoseTargetSpaceArray.get(3).toDouble()),
+                    Units.degreesToRadians(cameraPoseTargetSpaceArray.get(4).toDouble()),
+                    Units.degreesToRadians(cameraPoseTargetSpaceArray.get(5).toDouble())));
+        double distance =
+            cameraPoseTargetSpace.getTranslation().getDistance(new Translation3d(0, 0, 0));
+        distances.add(distance);
+      }
+
+      double[] distanceArray = new double[distances.size()];
+      for (int i = 0; i < distances.size(); i++) {
+        distanceArray[i] = distances.get(i);
+      }
+
+      Logger.recordOutput("Vision/Distances", distanceArray);
+
+      double minDistance = Collections.min(distances);
+
+      double captureLatency = results.get("cl").toDouble() / 1000.0;
+      double pipelineLatency = results.get("tl").toDouble() / 1000.0;
+      double end = Timer.getFPGATimestamp();
+      double jsonParseLatency = (end - start);
+
+      double totalLatency = jsonParseLatency + captureLatency + pipelineLatency;
+
+      Pose3d robotPoseFieldSpace = fixEvilPose(robotPoseEvilSpace);
+
+      Logger.recordOutput("Vision/FilteredRobotPose", robotPoseFieldSpace);
+      Logger.recordOutput("Localization/Valid", valid);
+
+      return new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance, valid);
+    } catch (Exception e) {
+      // JSON string was empty or malformed, ideally we return Optional.empty() in
+      // this case, but
+      // returning an empty
+      return new FastLimelightResults(-1, new Pose3d(), 10.0, false);
     }
-
-    return new FastLimelightResults(tl, tags);
   }
 
   private static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
@@ -116,10 +162,16 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   private Pose2d robotPose = new Pose2d();
-  private boolean hasTags = false;
 
-  public VisionSubsystem() {
+  public VisionSubsystem(ImuSubsystem imu) {
     super(SubsystemPriority.VISION);
+    this.imu = imu;
+
+    distanceToDev.put(1.0, 0.4);
+    distanceToDev.put(5.0, 6.0);
+    distanceToDev.put(3.8, 2.5);
+    distanceToDev.put(4.5, 3.0);
+    distanceToDev.put(3.37, 2.45);
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
@@ -133,7 +185,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return distanceToTargetPose(goalPose, robotPose);
   }
 
-  public DistanceAngle getDistanceAngleFloorSpot() {
+  public DistanceAngle getDistanceAngleFloorShot() {
     Pose2d goalPose;
     if (FmsSubsystem.isRedAlliance()) {
       goalPose = RED_FLOOR_SPOT;
@@ -146,62 +198,37 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return distanceToTargetPose(goalPose, robotPose);
   }
 
+  public double getStandardDeviation(double distance) {
+
+    return distanceToDev.get(distance);
+  }
+
   public void setRobotPose(Pose2d pose) {
     robotPose = pose;
   }
 
-  public FastLimelightResults getFilteredAprilTags() {
-    FastLimelightResults results = getFastResults();
-    List<PoseWithTagID> allTargets = results.tags();
-    List<PoseWithTagID> goodTargets = new ArrayList<>();
-
-    for (int i = 0; i < allTargets.size(); i++) {
-      PoseWithTagID tag = allTargets.get(i);
-
-      Pose3d cameraPoseFromTarget = tag.cameraPoseTargetSpace();
-      double distanceToCamera =
-          cameraPoseFromTarget.getTranslation().getDistance(new Translation3d());
-      Logger.recordOutput("Vision/Tag" + tag.fiducialID() + "/DistanceToCamera", distanceToCamera);
-      goodTargets.add(tag);
-      /*if (distanceToCamera < 4.5) {
-        if (FmsSubsystem.isRedAlliance()) {
-          if (tag.fiducialID() == 3 || tag.fiducialID() == 4) {
-            goodTargets.add(tag);
-          }
-        } else {
-          if (tag.fiducialID() == 7 || tag.fiducialID() == 8) {
-            goodTargets.add(tag);
-          }
-        }
-      }*/
-    }
-
-    if (goodTargets.size() > 0) {
-      hasTags = true;
-    } else {
-      hasTags = false;
-    }
-
-    double latencyTotal = results.latency();
-
-    // TODO: Fix latency
-    return new FastLimelightResults(Timer.getFPGATimestamp(), goodTargets);
+  public boolean isResultValid(FastLimelightResults results) {
+    return (results.valid()
+        && isWorking()
+        && imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
+            < 3.0);
   }
 
   @Override
   public void robotPeriodic() {
-    try {
-      for (PoseWithTagID tag : getFilteredAprilTags().tags()) {
-        Logger.recordOutput("Vision/Tag" + tag.fiducialID() + "/RobotPose", tag.robotPose());
-      }
-    } catch (Exception e) {
-    }
-
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle());
 
-    Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorSpot().distance());
-    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorSpot().angle());
+    Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
+    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
+    Logger.recordOutput("Vision/Latency", getFastResults().latency());
+    Logger.recordOutput(
+        "Vision/TimestampWithLatency", Timer.getFPGATimestamp() - getFastResults().latency());
+    Logger.recordOutput("Vision/AngularVelocity", imu.getRobotAngularVelocity());
+    Logger.recordOutput(
+        "Vision/AngularVelocityWithLatency",
+        imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - getFastResults().latency()));
+    Logger.recordOutput("Vision/DistanceFromTag", getFastResults().distanceToTag());
   }
 
   public boolean isWorking() {

@@ -77,7 +77,7 @@ public class RobotManager extends LifecycleSubsystem {
     flags.log();
 
     DistanceAngle speakerVisionTargets = vision.getDistanceAngleSpeaker();
-    DistanceAngle floorSpotVisionTargets = vision.getDistanceAngleFloorSpot();
+    DistanceAngle floorSpotVisionTargets = vision.getDistanceAngleFloorShot();
     double speakerDistance = speakerVisionTargets.distance();
     double floorSpotDistance = floorSpotVisionTargets.distance();
     Rotation2d wristAngleForSpeaker = wrist.getAngleFromDistanceToSpeaker(speakerDistance);

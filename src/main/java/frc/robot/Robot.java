@@ -77,7 +77,7 @@ public class Robot extends LoggedRobot {
       new ConveyorSubsystem(
           new TalonFX(RobotConfig.get().conveyor().motorID(), "rio"),
           new DigitalInput(RobotConfig.get().conveyor().sensorID()));
-  private final VisionSubsystem vision = new VisionSubsystem();
+  private final VisionSubsystem vision = new VisionSubsystem(imu);
   private final LocalizationSubsystem localization = new LocalizationSubsystem(swerve, imu, vision);
   private final SnapManager snaps = new SnapManager(swerve, driverController);
   private final NoteManager noteManager = new NoteManager(queuer, intake, conveyor);
