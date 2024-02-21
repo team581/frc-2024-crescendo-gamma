@@ -45,7 +45,7 @@ public class RobotManager extends LifecycleSubsystem {
   // really care whether we're homed.
   private RobotState state = RobotState.IDLE_NO_GP;
 
-  private final FlagManager<RobotFlag> flags = new FlagManager<>(RobotFlag.class);
+  private final FlagManager<RobotFlag> flags = new FlagManager<>("RobotManager", RobotFlag.class);
 
   public RobotManager(
       WristSubsystem wrist,

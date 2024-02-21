@@ -11,20 +11,20 @@ import java.util.Set;
 import org.littletonrobotics.junction.Logger;
 
 public class FlagManager<T extends Enum<T>> {
-  private final Class<T> flag;
+  private final String loggerCategory;
   private final EnumSet<T> allMembers;
 
   private final Set<T> checked;
 
-  public FlagManager(Class<T> flag) {
-    this.flag = flag;
+  public FlagManager(String loggerCategory, Class<T> flag) {
+    this.loggerCategory = loggerCategory;
     this.allMembers = EnumSet.allOf(flag);
     this.checked = EnumSet.noneOf(flag);
   }
 
   public void log() {
     for (T flag : allMembers) {
-      Logger.recordOutput("RobotManager/Flags/" + flag.toString(), checked.contains(flag));
+      Logger.recordOutput(loggerCategory + "/Flags/" + flag.toString(), checked.contains(flag));
     }
   }
 
@@ -33,7 +33,7 @@ public class FlagManager<T extends Enum<T>> {
   }
 
   public List<T> getChecked() {
-    return new ArrayList<T>(checked);
+    return new ArrayList<>(checked);
   }
 
   public void clear() {
