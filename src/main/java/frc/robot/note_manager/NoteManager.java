@@ -54,6 +54,8 @@ public class NoteManager extends LifecycleSubsystem {
         case IDLE_IN_QUEUER:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             state = NoteState.CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE;
+          } else {
+            state = NoteState.IDLE_IN_QUEUER;
           }
           break;
         case IDLE_NO_GP:
@@ -65,21 +67,21 @@ public class NoteManager extends LifecycleSubsystem {
         case OUTTAKE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             state = NoteState.CONVEYOR_TO_INTAKE_FOR_OUTTAKING;
-          } else if (state == NoteState.IDLE_IN_QUEUER) {
+          } else {
             state = NoteState.QUEUER_TO_INTAKE_FOR_OUTTAKING;
           }
           break;
         case SHOOTER_OUTTAKE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_OUTTAKE;
-          } else if (state == NoteState.IDLE_IN_QUEUER) {
+          } else {
             state = NoteState.SHOOTER_OUTTAKING;
           }
           break;
         case SHOOTER_SCORE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_SCORE;
-          } else if (state == NoteState.IDLE_IN_QUEUER) {
+          } else {
             state = NoteState.SHOOTING;
           }
       }

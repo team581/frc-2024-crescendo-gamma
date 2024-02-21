@@ -41,7 +41,9 @@ public class RobotManager extends LifecycleSubsystem {
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
 
-  private RobotState state = RobotState.UNHOMED;
+  // TODO: Climber homing should be separate from robot manager homing. The robot manager should not
+  // really care whether we're homed.
+  private RobotState state = RobotState.IDLE_NO_GP;
 
   private final FlagManager<RobotFlag> flags = new FlagManager<>(RobotFlag.class);
 
