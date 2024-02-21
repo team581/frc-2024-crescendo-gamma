@@ -112,7 +112,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     }
 
     if (Math.abs(goalRPM - getRPM(rightMotor)) < TOLERANCE_RPM
-        && Math.abs(goalRPM - getRPM(leftMotor)) < TOLERANCE_RPM) {
+        && Math.abs((goalRPM * SPIN_RATIO) - getRPM(leftMotor)) < TOLERANCE_RPM) {
       return true;
     }
 

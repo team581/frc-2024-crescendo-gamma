@@ -165,14 +165,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
                   * ControllerHelpers.getExponent(
                       ControllerHelpers.getDeadbanded(controller.getRightX(), rightXDeadband), 2);
 
-          // TODO: Create a field for tracking if we are in shooting mode
-          // And add a method here to setShootingMode(boolean value)
-          // otherwise, every other state should set it to false
-          // Use state.shooting
-          // When we are in shooting mode, limit the max velocity to whatever MAX_SPEED_SHOOTING is
-          // This prevents the driver from accidentally going faster than shoot while move can
-          // handle
-
           if (RobotConfig.get().swerve().invertRotation()) {
             rightX = rightX * -1.0;
           }

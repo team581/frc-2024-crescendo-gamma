@@ -58,6 +58,11 @@ public enum RobotState {
   /** Actively scoring in the amp. */
   AMP_SHOT(true, false),
 
+  /**
+   * Ensures that the shooter is stowed before transitioning to WAITING_CLIMBER_RAISED and moving
+   * the elevator up.
+   */
+  PREPARE_WAITING_CLIMBER_RAISED(true, false),
   /** Arm moves to chain height, climber hooks are touching the chain */
   WAITING_CLIMBER_RAISED(true, false),
 
