@@ -89,8 +89,7 @@ public class WristSubsystem extends LifecycleSubsystem {
         }
         break;
       case MID_MATCH_HOMING:
-        // TODO: Implement
-        break;
+        throw new IllegalStateException("Wrist can't do mid match homing");
       case HOMED:
         Rotation2d usedGoalAngle =
             clampAngle(ntAngle.get() == -1 ? goalAngle : Rotation2d.fromDegrees(ntAngle.get()));
@@ -153,18 +152,6 @@ public class WristSubsystem extends LifecycleSubsystem {
 
   public boolean atAngleForSpeaker(Rotation2d angle, double distance) {
     return atAngle(angle, getToleranceFromDistanceToSpeaker(distance));
-  }
-
-  public void startMidMatchHoming() {
-    homingState = HomingState.MID_MATCH_HOMING;
-  }
-
-  public void startPreMatchHoming() {
-    homingState = HomingState.PRE_MATCH_HOMING;
-  }
-
-  public void resetHoming() {
-    homingState = HomingState.NOT_HOMED;
   }
 
   public HomingState getHomingState() {

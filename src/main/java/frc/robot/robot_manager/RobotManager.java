@@ -93,7 +93,6 @@ public class RobotManager extends LifecycleSubsystem {
     for (RobotFlag flag : flags.getChecked()) {
       switch (flag) {
         case HOMING:
-          wrist.resetHoming();
           climber.resetHoming();
           state = RobotState.HOMING;
           break;
@@ -192,12 +191,6 @@ public class RobotManager extends LifecycleSubsystem {
     // Automatic state transitions
     switch (state) {
       case UNHOMED:
-        if (wrist.getHomingState() == HomingState.HOMED
-            && climber.getHomingState() == HomingState.HOMED
-            && elevator.getHomingState() == HomingState.HOMED) {
-          state = RobotState.IDLE_NO_GP;
-        }
-        break;
       case IDLE_NO_GP:
       case IDLE_WITH_GP:
       case WAITING_SPEAKER_SHOT:
@@ -210,9 +203,7 @@ public class RobotManager extends LifecycleSubsystem {
         // Do nothing
         break;
       case HOMING:
-        if (wrist.getHomingState() == HomingState.HOMED
-            && elevator.getHomingState() == HomingState.HOMED
-            && climber.getHomingState() == HomingState.HOMED) {
+        if (climber.getHomingState() == HomingState.HOMED) {
           state = RobotState.IDLE_NO_GP;
         }
         break;
@@ -303,14 +294,14 @@ public class RobotManager extends LifecycleSubsystem {
     // State actions
     switch (state) {
       case UNHOMED:
-        wrist.startPreMatchHoming();
+        wrist.setAngle(WristPositions.STOWED);
         climber.startHoming();
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         noteManager.idleNoGPRequest();
         break;
       case HOMING:
-        wrist.startMidMatchHoming();
+        wrist.setAngle(WristPositions.STOWED);
         climber.startHoming();
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
