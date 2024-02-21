@@ -3,17 +3,17 @@
     {
       "groupId": "org.littletonrobotics.akit.junction",
       "artifactId": "wpilib-shim",
-      "version": "3.0.2"
+      "version": "3.1.0"
     },
     {
       "groupId": "org.littletonrobotics.akit.junction",
       "artifactId": "junction-core",
-      "version": "3.0.2"
+      "version": "3.1.0"
     },
     {
       "groupId": "org.littletonrobotics.akit.conduit",
       "artifactId": "conduit-api",
-      "version": "3.0.2"
+      "version": "3.1.0"
     }
   ],
   "fileName": "AdvantageKit.json",
@@ -31,10 +31,10 @@
     "artifactId": "conduit-wpilibio",
     "skipInvalidPlatforms": false,
     "isJar": false,
-    "version": "3.0.2"
+    "version": "3.1.0"
   }],
   "mavenUrls": [],
   "cppDependencies": [],
-  "version": "3.0.2",
+  "version": "3.1.0",
   "uuid": "d820cc26-74e3-11ec-90d6-0242ac120003"
 }
