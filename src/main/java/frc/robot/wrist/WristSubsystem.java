@@ -76,11 +76,7 @@ public class WristSubsystem extends LifecycleSubsystem {
           motor.setControl(brakeNeutralRequest);
 
           if (!preMatchHomingOccured) {
-            Rotation2d homingEndPosition = RobotConfig.get().wrist().homingEndPosition();
-            Rotation2d homedAngle =
-                Rotation2d.fromDegrees(
-                    homingEndPosition.getDegrees()
-                        + (getAngle().getDegrees() - lowestSeenAngle.getDegrees()));
+            Rotation2d homedAngle = getHomeAngleFromLowestSeen();
             motor.setPosition(homedAngle.getRotations());
 
             preMatchHomingOccured = true;
@@ -112,6 +108,14 @@ public class WristSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Wrist/GoalAngle", goalAngle.getDegrees());
     Logger.recordOutput("Wrist/Temperature", motor.getDeviceTemp().getValue());
     Logger.recordOutput("Wrist/ControlMode", motor.getControlMode().toString());
+    Logger.recordOutput("Wrist/LowestSeenAngle", lowestSeenAngle.getDegrees());
+    Logger.recordOutput("Wrist/HomingAngleOffset", getHomeAngleFromLowestSeen().getDegrees());
+  }
+
+  private Rotation2d getHomeAngleFromLowestSeen() {
+    return Rotation2d.fromDegrees(
+        RobotConfig.get().wrist().homingEndPosition().getDegrees()
+            + (getAngle().getDegrees() - lowestSeenAngle.getDegrees()));
   }
 
   public void setAngle(Rotation2d angle) {
