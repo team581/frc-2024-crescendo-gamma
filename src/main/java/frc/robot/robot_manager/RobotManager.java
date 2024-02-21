@@ -466,6 +466,8 @@ public class RobotManager extends LifecycleSubsystem {
         break;
     }
 
+    swerve.setShootingMode(state.shootingMode);
+
     // Reset all flags
     flags.clear();
   }

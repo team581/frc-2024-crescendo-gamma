@@ -27,10 +27,12 @@ import java.util.List;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveSubsystem extends LifecycleSubsystem {
+  private static final double MAX_SPEED_SHOOTING = Units.feetToMeters(5);
   // 6 meters per second desired top speed
   public static final double MaxSpeed = 4.75;
   // Half a rotation per second max angular velocity
   private static final double MaxAngularRate = Units.rotationsToRadians(4);
+  private boolean isShooting = false;
 
   private double leftXDeadband = 0.05; // TODO: tune deadband to one's desire
   private double rightXDeadband = 0.05;
@@ -163,6 +165,13 @@ public class SwerveSubsystem extends LifecycleSubsystem {
                   * ControllerHelpers.getExponent(
                       ControllerHelpers.getDeadbanded(controller.getRightX(), rightXDeadband), 2);
 
+          // TODO: Create a field for tracking if we are in shooting mode
+          // And add a method here to setShootingMode(boolean value)
+          // otherwise, every other state should set it to false
+          // Use state.shooting
+          // When we are in shooting mode, limit the max velocity to whatever MAX_SPEED_SHOOTING is
+          // This prevents the driver from accidentally going faster than shoot while move can handle
+
           if (RobotConfig.get().swerve().invertRotation()) {
             rightX = rightX * -1.0;
           }
@@ -174,8 +183,24 @@ public class SwerveSubsystem extends LifecycleSubsystem {
               new ChassisSpeeds(
                   -1.0 * leftY * MaxSpeed, leftX * MaxSpeed, -1.0 * rightX * MaxAngularRate);
 
+          Logger.recordOutput("Swerve/RawTeleopSpeeds", teleopSpeeds);
+
+          if (isShooting) {
+            double currentSpeed = Math.sqrt(Math.pow(teleopSpeeds.vxMetersPerSecond, 2) + Math.pow(teleopSpeeds.vyMetersPerSecond, 2));
+
+            var scaled = teleopSpeeds.times(currentSpeed / MAX_SPEED_SHOOTING);
+
+            teleopSpeeds = new ChassisSpeeds(scaled.vxMetersPerSecond, scaled.vyMetersPerSecond, teleopSpeeds.omegaRadiansPerSecond);
+          }
+
+          Logger.recordOutput("Swerve/UsedTeleopSpeeds", teleopSpeeds);
+
           setFieldRelativeSpeeds(teleopSpeeds, false);
         });
+  }
+
+  public void setShootingMode(boolean value) {
+    isShooting = value;
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -295,6 +320,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     double linearSpeed =
         Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
 
-    return linearSpeed < Units.feetToMeters(1);
+    return linearSpeed < MAX_SPEED_SHOOTING;
   }
 }
