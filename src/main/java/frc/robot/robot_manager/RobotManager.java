@@ -113,7 +113,7 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case WAITING_CLIMBER_RAISED:
           if (state.homed) {
-            state = RobotState.WAITING_CLIMBER_RAISED;
+            state = RobotState.PREPARE_WAITING_CLIMBER_RAISED;
           }
           break;
         case RAISE_CLIMBER:
@@ -217,7 +217,8 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case PREPARE_WAITING_AMP_SHOT:
-        if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR) {
+        if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
+            && wrist.atAngle(WristPositions.STOWED)) {
           state = RobotState.WAITING_AMP_SHOT;
         }
         break;
@@ -244,7 +245,8 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case PREPARE_AMP_SHOT:
-        if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR) {
+        if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
+            && wrist.atAngle(WristPositions.STOWED)) {
           state = RobotState.AMP_SHOT;
         }
         break;
@@ -263,13 +265,15 @@ public class RobotManager extends LifecycleSubsystem {
       case SUBWOOFER_SHOOT:
       case SPEAKER_SHOOT:
       case AMP_SHOT:
-        if (noteManager.getState() == NoteState.IDLE_NO_GP) {
+        if (noteManager.getState() == NoteState.IDLE_NO_GP
+            && wrist.atAngle(WristPositions.STOWED)) {
           state = RobotState.IDLE_NO_GP;
         }
         break;
       case PREPARE_TRAP_OUTTAKE:
         if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
-            && elevator.atPosition(ElevatorPositions.TRAP_SHOT)) {
+            && elevator.atPosition(ElevatorPositions.TRAP_SHOT)
+            && wrist.atAngle(WristPositions.STOWED)) {
           state = RobotState.TRAP_OUTTAKE;
         }
         break;
@@ -280,18 +284,27 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case TRAP_OUTTAKE:
         if (noteManager.getState() == NoteState.IDLE_NO_GP
-            && elevator.atPosition(ElevatorPositions.TRAP_SHOT)) {
+            && elevator.atPosition(ElevatorPositions.TRAP_SHOT)
+            && wrist.atAngle(WristPositions.STOWED)) {
           state = RobotState.CLIMBER_HANGING;
         }
         break;
+      case PREPARE_WAITING_CLIMBER_RAISED:
+        if (wrist.atAngle(WristPositions.STOWED)) {
+          state = RobotState.WAITING_CLIMBER_RAISED;
+        }
+        break;
       case PREPARE_CLIMBER_RAISED:
-        if (climber.atGoal(ClimberMode.RAISED) && elevator.atPosition(ElevatorPositions.CLIMBING)) {
+        if (climber.atGoal(ClimberMode.RAISED)
+            && elevator.atPosition(ElevatorPositions.CLIMBING)
+            && wrist.atAngle(WristPositions.STOWED)) {
           state = RobotState.CLIMBER_RAISED;
         }
         break;
       case PREPARE_CLIMBER_HANGING:
         if (climber.atGoal(ClimberMode.HANGING)
-            && elevator.atPosition(ElevatorPositions.CLIMBING)) {
+            && elevator.atPosition(ElevatorPositions.CLIMBING)
+            && wrist.atAngle(WristPositions.STOWED)) {
           state = RobotState.CLIMBER_HANGING;
         }
         break;
@@ -429,6 +442,13 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         noteManager.ampScoreRequest();
+        break;
+      case PREPARE_WAITING_CLIMBER_RAISED:
+        wrist.setAngle(WristPositions.STOWED);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.IDLE);
+        climber.setGoalMode(ClimberMode.RAISED);
+        noteManager.ampWaitRequest();
         break;
       case WAITING_CLIMBER_RAISED:
       case PREPARE_CLIMBER_RAISED:

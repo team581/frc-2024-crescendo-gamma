@@ -26,7 +26,7 @@ public enum RobotState {
   /** Preparing for floor shot, waiting for driver to commit. */
   WAITING_FLOOR_SHOT(true, false),
   /** Preparing for floor shot, should shoot when ready. */
-  PREPARE_FLOOR_SHOT(true,true),
+  PREPARE_FLOOR_SHOT(true, true),
   /** Actively doing the floor shot. */
   FLOOR_SHOOT(true, true),
 
@@ -44,9 +44,9 @@ public enum RobotState {
   TRAP_OUTTAKE(true, false),
 
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
-  WAITING_SPEAKER_SHOT(true,false),
+  WAITING_SPEAKER_SHOT(true, false),
   /** Get ready for speaker shot, automatically go to SPEAKER_SHOOT when ready. */
-  PREPARE_SPEAKER_SHOT(true,true),
+  PREPARE_SPEAKER_SHOT(true, true),
   SPEAKER_SHOOT(true, true),
 
   /** Note maybe in queuer, need to move it to conveyor, and then transition to WAITING_AMP_SHOT. */
@@ -58,6 +58,11 @@ public enum RobotState {
   /** Actively scoring in the amp. */
   AMP_SHOT(true, false),
 
+  /**
+   * Ensures that the shooter is stowed before transitioning to WAITING_CLIMBER_RAISED and moving
+   * the elevator up.
+   */
+  PREPARE_WAITING_CLIMBER_RAISED(true, false),
   /** Arm moves to chain height, climber hooks are touching the chain */
   WAITING_CLIMBER_RAISED(true, false),
 
