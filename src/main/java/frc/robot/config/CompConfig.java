@@ -54,7 +54,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
-                  .withSlot0(new Slot0Configs().withKP(5).withKV(0).withKS(4.5))
+                  .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
@@ -65,7 +65,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
-                  .withSlot0(new Slot0Configs().withKP(5).withKV(0).withKS(5))
+                  .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
@@ -93,7 +93,7 @@ class CompConfig {
               0.0,
               0.0,
               0.0,
-              0.0,
+              1,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(8))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(17.0 / 1.0))
@@ -113,13 +113,13 @@ class CompConfig {
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.4)
-                          .withKP(200.0))
+                          .withKG(0)
+                          .withKP(0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.4)
-                          .withKP(200.0))
+                          .withKG(0)
+                          .withKP(0))
                   .withMotionMagic(
                       new MotionMagicConfigs()
                           .withMotionMagicAcceleration(2.0)
