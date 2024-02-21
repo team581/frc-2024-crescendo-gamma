@@ -91,6 +91,8 @@ public class Robot extends LoggedRobot {
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision);
 
   public Robot() {
+    System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
+
     // Log to a USB stick
     Logger.addDataReceiver(new WPILOGWriter());
     if (RobotConfig.IS_DEVELOPMENT) {
