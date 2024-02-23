@@ -144,13 +144,9 @@ public class ClimberSubsystem extends LifecycleSubsystem {
       return true;
     }
 
-    double leftAccelerationDistance =
-        rotationsToInches(Rotation2d.fromRotations(leftMotor.getAcceleration().getValueAsDouble()));
-    double rightAccelerationDistance =
-        rotationsToInches(
-            Rotation2d.fromRotations(rightMotor.getAcceleration().getValueAsDouble()));
-    if (Math.abs(leftAccelerationDistance) < CONFIG.accelerationTolerance()
-        && Math.abs(rightAccelerationDistance) < CONFIG.accelerationTolerance()) {
+    double leftDistance = getDistance(leftMotor);
+    double rightDistance = getDistance(rightMotor);
+    if (Math.abs(leftDistance - goalDistance) < CONFIG.distanceTolerance() && Math.abs(rightDistance - goalDistance) < CONFIG.distanceTolerance()) {
       return true;
     }
     return false;
