@@ -4,7 +4,6 @@
 
 package frc.robot.intake;
 
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -16,7 +15,6 @@ import org.littletonrobotics.junction.Logger;
 public class IntakeSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
-  private VoltageOut voltageRequest = new VoltageOut(0.0);
   private final Debouncer debouncer =
       new Debouncer(
           RobotConfig.get().intake().debounceTime(), RobotConfig.get().intake().debounceType());
@@ -39,26 +37,26 @@ public class IntakeSubsystem extends LifecycleSubsystem {
         motor.disable();
         break;
       case OUTTAKING:
-        motor.setControl(voltageRequest.withOutput(-6));
+        motor.setVoltage(-6);
         break;
       case FROM_QUEUER:
-        motor.setControl(voltageRequest.withOutput(-2));
+        motor.setVoltage(-3);
         break;
       case FROM_CONVEYOR:
         if (hasNote()) {
           motor.disable();
         } else {
-          motor.setControl(voltageRequest.withOutput(-2));
+          motor.setVoltage(-2);
         }
         break;
       case TO_QUEUER:
-        motor.setControl(voltageRequest.withOutput(5));
+        motor.setVoltage(12);
         break;
       case TO_CONVEYOR:
-        motor.setControl(voltageRequest.withOutput(3));
+        motor.setVoltage(2);
         break;
       case TO_QUEUER_SHOOTING:
-        motor.setControl(voltageRequest.withOutput(8.0));
+        motor.setVoltage(12);
         break;
       default:
         break;

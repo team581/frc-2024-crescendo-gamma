@@ -4,7 +4,6 @@
 
 package frc.robot.queuer;
 
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -16,7 +15,6 @@ import org.littletonrobotics.junction.Logger;
 public class QueuerSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
-  private final VoltageOut voltageRequest = new VoltageOut(0.0);
   private QueuerState goalState = QueuerState.IDLE;
   private final Debouncer debouncer =
       new Debouncer(
@@ -42,14 +40,14 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         if (hasNote()) {
           motor.disable();
         } else {
-          motor.setControl(voltageRequest.withOutput(1.5));
+          motor.setVoltage(1.5);
         }
         break;
       case PASS_TO_INTAKE:
-        motor.setControl(voltageRequest.withOutput(-1));
+        motor.setVoltage(-1);
         break;
       case PASS_TO_SHOOTER:
-        motor.setControl(voltageRequest.withOutput(6));
+        motor.setVoltage(6);
         break;
       default:
         break;
