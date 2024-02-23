@@ -171,7 +171,7 @@ class CompConfig {
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               0,
               0.0,
-              20,
+              21,
               4.0,
               0.75),
           new IntakeConfig(
