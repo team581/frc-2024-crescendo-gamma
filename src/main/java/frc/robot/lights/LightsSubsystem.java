@@ -45,10 +45,10 @@ public class LightsSubsystem extends LifecycleSubsystem {
   }
 
   private Color getVisionLightsState() {
-    if (vision.getState() == VisionState.ONLINE) {
+    if (vision.getState() == VisionState.SEES_TAGS) {
       return Color.kGreen;
-    } else if (vision.getState() == VisionState.SEE_SPEAKER_TAGS) {
-      return Color.kGreen;
+    } else if (vision.getState() == VisionState.ONLINE) {
+      return Color.kYellow;
     } else {
       return Color.kRed;
     }
@@ -67,25 +67,20 @@ public class LightsSubsystem extends LifecycleSubsystem {
         state = new LightsState(Color.kGreen, BlinkPattern.SOLID);
       }
     } else {
-      state = robotState.lightsState;
-
-      // todo: switch statement that checks if ur scoring
-      // and makes a new lightstate with the blinkpattern frmo the one in robotstate
-      // but the color set by our function in here
-
       switch (robotState) {
-        case SPEAKER_SHOOT:
-        case SUBWOOFER_SHOOT:
-        case FLOOR_SHOOT:
         case PREPARE_SUBWOOFER_SHOT:
         case PREPARE_AMP_SHOT:
-        case AMP_SHOT:
         case PREPARE_FLOOR_SHOT:
         case PREPARE_SPEAKER_SHOT:
+        case WAITING_AMP_SHOT:
+        case WAITING_FLOOR_SHOT:
+        case WAITING_SPEAKER_SHOT:
+        case WAITING_SUBWOOFER_SHOT:
           state = new LightsState(getVisionLightsState(), robotState.lightsState.pattern());
           break;
-          default:
+        default:
           state = robotState.lightsState;
+          break;
       }
     }
 

@@ -15,12 +15,12 @@ public enum RobotState {
   HOMING(false, false, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
 
   /** Idling without a note. */
-  IDLE_NO_GP(false, false, new LightsState(Color.kOrange, BlinkPattern.BLINK_SLOW)),
+  IDLE_NO_GP(false, false, new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW)),
   /** Idling with a note in the queuer. */
-  IDLE_WITH_GP(true, false, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
+  IDLE_WITH_GP(true, false, new LightsState(Color.kOrangeRed, BlinkPattern.SOLID)),
 
   /** Intaking a game piece. Transition to INTAKE_TO_QUEUER when done. */
-  GROUND_INTAKING(false, false, new LightsState(Color.kOrange, BlinkPattern.BLINK_SLOW)),
+  GROUND_INTAKING(false, false, new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW)),
 
   /** Outtaking via the shooter. Game piece should be in queuer at start. */
   OUTTAKING_SHOOTER(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
@@ -28,11 +28,11 @@ public enum RobotState {
   OUTTAKING(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
 
   /** Preparing for floor shot, waiting for driver to commit. */
-  WAITING_FLOOR_SHOT(true, false, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
+  WAITING_FLOOR_SHOT(true, false, new LightsState(Color.kGreen, BlinkPattern.SOLID)),
   /** Preparing for floor shot, should shoot when ready. */
-  PREPARE_FLOOR_SHOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
+  PREPARE_FLOOR_SHOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
   /** Actively doing the floor shot. */
-  FLOOR_SHOOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
+  FLOOR_SHOOT(true, true, new LightsState(Color.kWhite, BlinkPattern.BLINK_SLOW)),
 
   /**
    * Get ready for subwoofer shot, wait for driver/operator (?) to confirm, then go to
@@ -40,9 +40,9 @@ public enum RobotState {
    */
   WAITING_SUBWOOFER_SHOT(true, false, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
   /** Get ready for subwoofer shot, automatically go to SUBWOOFER_SHOOT when ready. */
-  PREPARE_SUBWOOFER_SHOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
+  PREPARE_SUBWOOFER_SHOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
   /** Actively doing the subwoofer shot. */
-  SUBWOOFER_SHOOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
+  SUBWOOFER_SHOOT(true, true, new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
 
   PREPARE_TRAP_OUTTAKE(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
   TRAP_OUTTAKE(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
@@ -50,17 +50,17 @@ public enum RobotState {
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
   WAITING_SPEAKER_SHOT(true, false, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
   /** Get ready for speaker shot, automatically go to SPEAKER_SHOOT when ready. */
-  PREPARE_SPEAKER_SHOT(true, true, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
-  SPEAKER_SHOOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
+  PREPARE_SPEAKER_SHOT(true, true, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
+  SPEAKER_SHOOT(true, true, new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
 
   /** Note maybe in queuer, need to move it to conveyor, and then transition to WAITING_AMP_SHOT. */
-  PREPARE_WAITING_AMP_SHOT(true, false, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
+  PREPARE_WAITING_AMP_SHOT(true, false, new LightsState(Color.kGreen, BlinkPattern.SOLID)),
   /** Note in conveyor, waiting for driver to commit to amp score. */
-  WAITING_AMP_SHOT(true, false, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
+  WAITING_AMP_SHOT(true, false, new LightsState(Color.kGreen, BlinkPattern.SOLID)),
   /** Get ready for amp shot, automatically go to AMP_SHOT when ready. */
-  PREPARE_AMP_SHOT(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
+  PREPARE_AMP_SHOT(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
   /** Actively scoring in the amp. */
-  AMP_SHOT(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
+  AMP_SHOT(true, false, new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
 
   /**
    * Ensures that the shooter is stowed before transitioning to WAITING_CLIMBER_RAISED and moving
