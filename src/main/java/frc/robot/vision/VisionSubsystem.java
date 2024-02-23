@@ -137,8 +137,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
       Logger.recordOutput("Vision/FilteredRobotPose", robotPoseFieldSpace);
       Logger.recordOutput("Localization/Valid", valid);
 
-      return Optional.of(
-          new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance, valid));
+      return Optional.of(new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance));
     } catch (Exception e) {
       return Optional.empty();
     }
