@@ -118,7 +118,7 @@ class CompConfig {
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
                           .withKG(0.4)
-                          .withKP(150.0))
+                          .withKP(50.0))
                   // .withMotionMagic(
                   //     new MotionMagicConfigs()
                   //         .withMotionMagicAcceleration(2.0)
