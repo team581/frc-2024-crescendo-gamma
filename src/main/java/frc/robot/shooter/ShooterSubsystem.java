@@ -17,7 +17,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private static final int IDLE_RPM = 1000;
   private static final double OUTTAKE_RPM = 2000; // TODO: adjust for desirable outtake speeds
   private static final double SUBWOOFER_SHOOTING_RPM = 5000;
-  private static final double TOLERANCE_RPM = 100;
+  private static final double TOLERANCE_RPM = 500;
   private final TalonFX leftMotor;
   private final TalonFX rightMotor;
   private final VelocityTorqueCurrentFOC velocityRequest =
@@ -70,6 +70,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Shooter/DistanceToFloorSpot", floorSpotDistance);
     Logger.recordOutput("Shooter/Mode", goalMode);
     Logger.recordOutput("Shooter/GoalRPM", goalRPM);
+    Logger.recordOutput("Shooter/GoalRPMForRightMotor", goalRPM * SPIN_RATIO);
     Logger.recordOutput("Shooter/LeftMotor/Temperature", leftMotor.getDeviceTemp().getValue());
     Logger.recordOutput("Shooter/LeftMotor/RPM", getRPM(leftMotor));
     Logger.recordOutput(

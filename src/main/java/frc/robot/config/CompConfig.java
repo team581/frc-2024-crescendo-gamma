@@ -53,7 +53,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
-                  .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
+                  .withSlot0(new Slot0Configs().withKP(10).withKV(0).withKS(15))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
@@ -62,7 +62,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
-                  .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
+                  .withSlot0(new Slot0Configs().withKP(12).withKV(0).withKS(15))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
