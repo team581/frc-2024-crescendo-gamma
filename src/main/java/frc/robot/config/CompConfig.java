@@ -122,18 +122,18 @@ class CompConfig {
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0)
-                          .withKP(0))
+                          .withKG(0.4)
+                          .withKP(100.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0)
-                          .withKP(0))
-                  .withMotionMagic(
-                      new MotionMagicConfigs()
-                          .withMotionMagicAcceleration(2.0)
-                          .withMotionMagicCruiseVelocity(1.5)
-                          .withMotionMagicJerk(0))
+                          .withKG(0.4)
+                          .withKP(100.0))
+                  // .withMotionMagic(
+                  //     new MotionMagicConfigs()
+                  //         .withMotionMagicAcceleration(2.0)
+                  //         .withMotionMagicCruiseVelocity(1.5)
+                  //         .withMotionMagicJerk(0))
                   .withFeedback(
                       new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))

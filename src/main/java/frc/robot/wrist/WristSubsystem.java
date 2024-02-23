@@ -11,6 +11,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -77,7 +78,7 @@ public class WristSubsystem extends LifecycleSubsystem {
       case PRE_MATCH_HOMING:
         motor.disable();
 
-        if (!preMatchHomingOccured) {
+        if (DriverStation.isEnabled() && !preMatchHomingOccured) {
           Rotation2d homedAngle = getHomeAngleFromLowestSeen();
           motor.setPosition(homedAngle.getRotations());
 
