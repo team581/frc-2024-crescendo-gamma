@@ -37,13 +37,13 @@ public record RobotConfig(
   public record ClimberConfig(
       int leftMotorID,
       int rightMotorID,
-      double accelerationTolerance,
       int currentTaps,
       double homingCurrentThreshold,
       double homingVoltage,
       double minDistance,
       double maxDistance,
       double rotationsToDistance,
+      double distanceTolerance,
       TalonFXConfiguration leftMotorConfig,
       TalonFXConfiguration rightMotorConfig) {}
 
@@ -83,7 +83,6 @@ public record RobotConfig(
   public record ElevatorConfig(
       int motorID,
       TalonFXConfiguration motorConfig,
-      CurrentLimitsConfigs strictCurrentLimits,
       double homingEndPosition,
       double minHeight,
       double maxHeight,

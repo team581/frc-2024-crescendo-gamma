@@ -7,13 +7,11 @@ package frc.robot.config;
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -84,33 +82,25 @@ class CompConfig {
           new ClimberConfig(
               19,
               20,
-              0.0,
               4,
-              0.0,
-              0.0,
+              10,
+              0.5,
               0.0,
               21.0,
               0.22398,
+              1,
               new TalonFXConfiguration()
-                  .withSlot0(new Slot0Configs().withKP(0))
+                  .withSlot0(new Slot0Configs().withKP(10))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
-                  .withVoltage(
-                      new VoltageConfigs()
-                          .withPeakForwardVoltage(12.0)
-                          .withPeakReverseVoltage(-2.0))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive)),
               new TalonFXConfiguration()
-                  .withSlot0(new Slot0Configs().withKP(0))
+                  .withSlot0(new Slot0Configs().withKP(10))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
-                  .withVoltage(
-                      new VoltageConfigs()
-                          .withPeakForwardVoltage(12.0)
-                          .withPeakReverseVoltage(-2.0))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)
                   .withMotorOutput(
@@ -123,12 +113,12 @@ class CompConfig {
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
                           .withKG(0.4)
-                          .withKP(100.0))
+                          .withKP(150.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
                           .withKG(0.4)
-                          .withKP(100.0))
+                          .withKP(150.0))
                   // .withMotionMagic(
                   //     new MotionMagicConfigs()
                   //         .withMotionMagicAcceleration(2.0)
@@ -167,39 +157,27 @@ class CompConfig {
           new ElevatorConfig(
               21,
               new TalonFXConfiguration()
-                  .withSlot0(
-                      new Slot0Configs()
-                          .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.0)
-                          .withKP(0.0))
-                  .withSlot1(
-                      new Slot1Configs()
-                          .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.0)
-                          .withKP(0.0))
-                  .withMotionMagic(
-                      new MotionMagicConfigs()
-                          .withMotionMagicAcceleration(2.0)
-                          .withMotionMagicCruiseVelocity(1.5))
+                  .withSlot0(new Slot0Configs().withKP(20))
+                  .withSlot1(new Slot1Configs().withKP(20))
                   .withFeedback(
-                      new FeedbackConfigs().withSensorToMechanismRatio(50.0 / 8.0 * 24.0 / 15.0))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
+                      new FeedbackConfigs()
+                          .withSensorToMechanismRatio((50.0 / 8.0) * (24.0 / 15.0)))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withMotorOutput(
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Brake))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
-              new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
               0,
               0.0,
-              19.5,
-              0.39992,
+              20,
+              4.0,
               0.75),
           new IntakeConfig(
               15,
               1,
-              0.0,
+              0.04,
               DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))

@@ -67,13 +67,13 @@ class PracticeConfig {
           new ClimberConfig(
               19,
               20,
-              0.0,
               4,
               0.0,
               0.0,
               0.0,
               0.0,
               0.0,
+              1,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(8))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(17.0 / 1.0))
@@ -159,7 +159,6 @@ class PracticeConfig {
                       new MotorOutputConfigs()
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Brake)),
-              new CurrentLimitsConfigs().withSupplyCurrentLimit(40),
               0,
               0.0,
               0.0,
