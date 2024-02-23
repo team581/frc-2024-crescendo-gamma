@@ -6,7 +6,6 @@ package frc.robot.climber;
 
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StrictFollower;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
@@ -27,7 +26,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
   private LinearFilter currentFilter = LinearFilter.movingAverage(CONFIG.currentTaps());
   private double goalDistance = 0.0;
   private PositionVoltage positionRequest = new PositionVoltage(goalDistance);
-  private VoltageOut voltageRequest = new VoltageOut(0.0);
 
   private ClimberMode goalMode = ClimberMode.IDLE;
   private HomingState homingState = HomingState.NOT_HOMED;
@@ -61,7 +59,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         rightMotor.disable();
         break;
       case MID_MATCH_HOMING:
-        leftMotor.setControl(voltageRequest.withOutput(CONFIG.homingVoltage()));
+        leftMotor.setVoltage(CONFIG.homingVoltage());
         rightMotor.setControl(followRequest);
         if (filteredCurrent > CONFIG.homingCurrentThreshold()) {
           leftMotor.setPosition(

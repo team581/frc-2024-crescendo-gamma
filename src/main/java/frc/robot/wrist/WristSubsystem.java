@@ -17,12 +17,9 @@ import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class WristSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
-  private final LoggedDashboardNumber ntAngle =
-      new LoggedDashboardNumber("Wrist/AngleOverride", -1);
   private final PositionVoltage positionRequest =
       new PositionVoltage(WristPositions.STOWED.getRotations()).withEnableFOC(true);
 
@@ -90,14 +87,10 @@ public class WristSubsystem extends LifecycleSubsystem {
       case MID_MATCH_HOMING:
         throw new IllegalStateException("Wrist can't do mid match homing");
       case HOMED:
-        Rotation2d usedGoalAngle =
-            clampAngle(ntAngle.get() == -1 ? goalAngle : Rotation2d.fromDegrees(ntAngle.get()));
-
         int slot = goalAngle.equals(RobotConfig.get().wrist().minAngle()) ? 1 : 0;
-        Logger.recordOutput("Wrist/UsedGoalAngle", usedGoalAngle.getDegrees());
-        Logger.recordOutput("Wrist/NTAngle", ntAngle.get());
 
-        motor.setControl(positionRequest.withSlot(slot).withPosition(usedGoalAngle.getRotations()));
+        motor.setControl(
+            positionRequest.withSlot(slot).withPosition(clampAngle(goalAngle).getRotations()));
         Logger.recordOutput("Wrist/MotorPidSlot", slot);
 
         break;
