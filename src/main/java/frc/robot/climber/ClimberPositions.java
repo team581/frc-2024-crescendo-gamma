@@ -4,8 +4,6 @@
 
 package frc.robot.climber;
 
-import frc.robot.config.RobotConfig;
-
 public class ClimberPositions {
   public static final double IDLE = 1;
   public static final double RAISED = 20;

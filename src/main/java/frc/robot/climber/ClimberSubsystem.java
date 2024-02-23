@@ -146,7 +146,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
 
     double leftDistance = getDistance(leftMotor);
     double rightDistance = getDistance(rightMotor);
-    if (Math.abs(leftDistance - goalDistance) < CONFIG.distanceTolerance() && Math.abs(rightDistance - goalDistance) < CONFIG.distanceTolerance()) {
+    if (Math.abs(leftDistance - goalDistance) < CONFIG.distanceTolerance()
+        && Math.abs(rightDistance - goalDistance) < CONFIG.distanceTolerance()) {
       return true;
     }
     return false;
