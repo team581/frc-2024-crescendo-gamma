@@ -208,7 +208,7 @@ public class Robot extends LoggedRobot {
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
     operatorController.a().onTrue(actions.stowCommand());
     operatorController
-        .leftTrigger()
+        .y()
         .onTrue(actions.waitSubwooferShotCommand())
         .onFalse(actions.stowCommand());
     operatorController
