@@ -19,7 +19,6 @@ import frc.robot.imu.ImuSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import frc.robot.vision.FastLimelightResults;
 import frc.robot.vision.LimelightHelpers;
 import frc.robot.vision.VisionSubsystem;
 import org.littletonrobotics.junction.Logger;

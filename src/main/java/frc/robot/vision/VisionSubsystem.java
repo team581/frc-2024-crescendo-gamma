@@ -4,16 +4,8 @@
 
 package frc.robot.vision;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import org.littletonrobotics.junction.Logger;
-
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -26,6 +18,11 @@ import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
   private static final Timer limelightTimer = new Timer();
@@ -53,8 +50,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
         pose.getRotation());
   }
 
-  private Optional<FastLimelightResults> storedResults =
-      Optional.empty();
+  private Optional<FastLimelightResults> storedResults = Optional.empty();
 
   private static Optional<FastLimelightResults> getFastResults() {
     try {
@@ -141,7 +137,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
       Logger.recordOutput("Vision/FilteredRobotPose", robotPoseFieldSpace);
       Logger.recordOutput("Localization/Valid", valid);
 
-      return Optional.of(new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance, valid));
+      return Optional.of(
+          new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance, valid));
     } catch (Exception e) {
       return Optional.empty();
     }
@@ -218,15 +215,15 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
-    if (storedResults.isPresent()){
+    if (storedResults.isPresent()) {
       var data = storedResults.get();
-    Logger.recordOutput("Vision/Latency", data.latency());
-    Logger.recordOutput(
-        "Vision/TimestampWithLatency", Timer.getFPGATimestamp() - data.latency());
-    Logger.recordOutput(
-        "Vision/AngularVelocityWithLatency",
-        imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - data.latency()));
-    Logger.recordOutput("Vision/DistanceFromTag", data.distanceToTag());}
+      Logger.recordOutput("Vision/Latency", data.latency());
+      Logger.recordOutput("Vision/TimestampWithLatency", Timer.getFPGATimestamp() - data.latency());
+      Logger.recordOutput(
+          "Vision/AngularVelocityWithLatency",
+          imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - data.latency()));
+      Logger.recordOutput("Vision/DistanceFromTag", data.distanceToTag());
+    }
   }
 
   public Optional<FastLimelightResults> getResults() {
