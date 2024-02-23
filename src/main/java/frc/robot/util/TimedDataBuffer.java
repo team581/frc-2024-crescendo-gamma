@@ -12,6 +12,10 @@ public class TimedDataBuffer {
 
   public TimedDataBuffer(int size) {
     this.size = size;
+
+    for (int i = 0; i < size; i++) {
+      dataSet.add(new TimeData(0, 0));
+    }
   }
 
   public void addData(double time, double data) {
