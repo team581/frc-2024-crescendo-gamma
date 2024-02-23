@@ -7,7 +7,9 @@ package frc.robot.climber;
 import frc.robot.config.RobotConfig;
 
 public class ClimberPositions {
-  public static final double IDLE = RobotConfig.get().climber().minDistance();
-  public static final double RAISED = 0;
-  public static final double HANGING = 0;
+  public static final double IDLE = 1;
+  public static final double RAISED = 20;
+  public static final double HANGING = 0.5;
+
+  private ClimberPositions() {}
 }
