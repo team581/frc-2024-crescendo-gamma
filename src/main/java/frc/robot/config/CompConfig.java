@@ -177,7 +177,7 @@ class CompConfig {
           new IntakeConfig(
               15,
               1,
-              0.04,
+              0.2,
               DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
@@ -187,7 +187,7 @@ class CompConfig {
           new ConveyorConfig(
               2,
               2,
-              0.0,
+              0,
               DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
