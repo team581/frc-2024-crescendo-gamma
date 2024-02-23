@@ -54,9 +54,7 @@ class CompConfig {
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
                   .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
                   .withMotorOutput(
-                      new MotorOutputConfigs()
-                          .withInverted(InvertedValue.Clockwise_Positive)
-                          .withNeutralMode(NeutralModeValue.Coast))
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               // Right motor
@@ -64,10 +62,6 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(120))
                   .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
-                  .withMotorOutput(
-                      new MotorOutputConfigs()
-                          .withInverted(InvertedValue.CounterClockwise_Positive)
-                          .withNeutralMode(NeutralModeValue.Coast))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
@@ -102,10 +96,7 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(40))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
-                  .withOpenLoopRamps(OPEN_LOOP_RAMP)
-                  .withMotorOutput(
-                      new MotorOutputConfigs()
-                          .withInverted(InvertedValue.CounterClockwise_Positive))),
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new WristConfig(
               14,
               new TalonFXConfiguration()
@@ -119,11 +110,6 @@ class CompConfig {
                           .withGravityType(GravityTypeValue.Arm_Cosine)
                           .withKG(0.4)
                           .withKP(50.0))
-                  // .withMotionMagic(
-                  //     new MotionMagicConfigs()
-                  //         .withMotionMagicAcceleration(2.0)
-                  //         .withMotionMagicCruiseVelocity(1.5)
-                  //         .withMotionMagicJerk(0))
                   .withFeedback(
                       new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(40))
@@ -158,7 +144,7 @@ class CompConfig {
               21,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(20))
-                  .withSlot1(new Slot1Configs().withKP(20))
+                  .withSlot1(new Slot1Configs().withKP(10))
                   .withFeedback(
                       new FeedbackConfigs()
                           .withSensorToMechanismRatio((50.0 / 8.0) * (24.0 / 15.0)))
@@ -191,8 +177,7 @@ class CompConfig {
               DebounceType.kBoth,
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
-                  .withSlot0(new Slot0Configs().withKP(0).withKV(0))
-                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(30))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new QueuerConfig(
@@ -220,4 +205,6 @@ class CompConfig {
                 distanceToAngleTolerance.put(1.0, 2.5);
               }),
           new LightsConfig(3));
+
+  private CompConfig() {}
 }
