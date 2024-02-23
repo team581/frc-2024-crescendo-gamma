@@ -1,13 +1,13 @@
 {
   "SwerveOptions": {
-    "HorizontalTrackSizeInches": 23,
+    "HorizontalTrackSizeInches": 22.75,
     "HasVerifiedSteer": true,
     "HasVerifiedDrive": true,
-    "IsLeftSideInverted": false,
+    "IsLeftSideInverted": true,
     "SwerveModuleType": 4,
-    "VerticalTrackSizeInches": 20.5,
+    "VerticalTrackSizeInches": 20.25,
     "IsValidConfiguration": true,
-    "IsRightSideInverted": true,
+    "IsRightSideInverted": false,
     "WheelRadiusInches": 2,
     "Gyro": {
       "Model": "Pigeon 2",
@@ -59,7 +59,7 @@
         "Name": "FrontLeftDrive",
         "CANbusFriendly": "581CANivore"
       },
-      "EncoderOffset": 0.39990234375,
+      "EncoderOffset": 0.40283203125,
       "DriveMotorSelectionState": 1
     },
     {
@@ -91,7 +91,7 @@
         "Name": "FrontRightDrive",
         "CANbusFriendly": "581CANivore"
       },
-      "EncoderOffset": -0.185791015625,
+      "EncoderOffset": -0.1845703125,
       "DriveMotorSelectionState": 1
     },
     {
@@ -123,7 +123,7 @@
         "Name": "BackLeftDrive",
         "CANbusFriendly": "581CANivore"
       },
-      "EncoderOffset": 0.1826171875,
+      "EncoderOffset": 0.184326171875,
       "DriveMotorSelectionState": 1
     },
     {
@@ -155,7 +155,7 @@
         "Name": "BackRightDrive",
         "CANbusFriendly": "581CANivore"
       },
-      "EncoderOffset": -0.32763671875,
+      "EncoderOffset": -0.3271484375,
       "DriveMotorSelectionState": 1
     }
   ]
