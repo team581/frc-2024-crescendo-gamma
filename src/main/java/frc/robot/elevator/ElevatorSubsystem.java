@@ -97,7 +97,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Elevator/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Elevator/Height", getHeight());
     Logger.recordOutput("Elevator/GoalHeight", goalHeight);
-    Logger.recordOutput("Elevator/Rotations", getRotations().getDegrees());
+    Logger.recordOutput("Elevator/Rotations", getMechanismRotations().getRotations());
   }
 
   public void setGoalHeight(double newHeight) {
@@ -105,10 +105,10 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   }
 
   public double getHeight() {
-    return rotationsToInches(Rotation2d.fromRotations(motor.getRotorPosition().getValueAsDouble()));
+    return rotationsToInches(getMechanismRotations());
   }
 
-  private Rotation2d getRotations() {
+  private Rotation2d getMechanismRotations() {
     return Rotation2d.fromRotations(motor.getPosition().getValueAsDouble());
   }
 
