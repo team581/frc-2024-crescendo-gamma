@@ -8,7 +8,7 @@ public enum ConveyorState {
   IDLE,
   INTAKE_TO_SELF,
   INTAKE_TO_QUEUER,
-  PASS_TO_INTAKE,
+  QUEUER_TO_INTAKE,
   WAITING_AMP_SHOT,
   AMP_SHOT;
 }

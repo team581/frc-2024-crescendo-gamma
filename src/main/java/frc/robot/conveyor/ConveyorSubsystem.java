@@ -43,24 +43,17 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         if (hasNote()) {
           motor.disable();
         } else {
-          motor.setControl(voltageRequest.withOutput(0));
+          motor.setControl(voltageRequest.withOutput(-4));
         }
         break;
       case INTAKE_TO_QUEUER:
-        motor.setControl(voltageRequest.withOutput(0));
-      case PASS_TO_INTAKE:
-        if (hasNote()) {
-          motor.setControl(voltageRequest.withOutput(0));
-        } else {
-          motor.disable();
-        }
+        motor.setControl(voltageRequest.withOutput(3));
+        break;
+      case QUEUER_TO_INTAKE:
+        motor.setControl(voltageRequest.withOutput(-3));
         break;
       case AMP_SHOT:
-        if (hasNote()) {
-          motor.setControl(voltageRequest.withOutput(0));
-        } else {
-          motor.disable();
-        }
+        motor.setControl(voltageRequest.withOutput(-3));
         break;
       default:
         break;

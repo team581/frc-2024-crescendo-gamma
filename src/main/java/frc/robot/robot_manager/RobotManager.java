@@ -109,6 +109,10 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case INTAKE:
           if (state.homed) {
+            // Reset note manager state so that we don't instantly think we're done intaking
+            // Need to force set the state, rather than doing a state request, due to order of
+            // subsystems executing
+            noteManager.evilStateOverride(NoteState.IDLE_NO_GP);
             state = RobotState.GROUND_INTAKING;
           }
           break;
@@ -190,6 +194,8 @@ public class RobotManager extends LifecycleSubsystem {
       }
     }
 
+    Logger.recordOutput("RobotManager/StateAfterFlags", state);
+
     // Automatic state transitions
     switch (state) {
       case UNHOMED:
@@ -202,6 +208,7 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_CLIMBER_RAISED:
       case CLIMBER_RAISED:
       case CLIMBER_HANGING:
+      case OUTTAKING:
         // Do nothing
         break;
       case HOMING:
@@ -270,11 +277,6 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.TRAP_OUTTAKE;
         }
         break;
-      case OUTTAKING:
-        if (noteManager.getState() == NoteState.IDLE_NO_GP) {
-          state = RobotState.IDLE_NO_GP;
-        }
-        break;
       case TRAP_OUTTAKE:
         if (noteManager.getState() == NoteState.IDLE_NO_GP
             && elevator.atPosition(ElevatorPositions.TRAP_SHOT)
@@ -288,6 +290,9 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case PREPARE_CLIMBER_RAISED:
+        Logger.recordOutput("Debug/Climber", climber.atGoal(ClimberMode.RAISED));
+        Logger.recordOutput("Debug/Elevator", elevator.atPosition(ElevatorPositions.CLIMBING));
+        Logger.recordOutput("Debug/Wrist", wrist.atAngle(WristPositions.STOWED));
         if (climber.atGoal(ClimberMode.RAISED)
             && elevator.atPosition(ElevatorPositions.CLIMBING)
             && wrist.atAngle(WristPositions.STOWED)) {
@@ -306,15 +311,11 @@ public class RobotManager extends LifecycleSubsystem {
         break;
     }
 
+    Logger.recordOutput("RobotManager/StateAfterTransitions", state);
+
     // State actions
     switch (state) {
       case UNHOMED:
-        wrist.setAngle(WristPositions.STOWED);
-        climber.startHoming();
-        elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
-        noteManager.idleNoGPRequest();
-        break;
       case HOMING:
         wrist.setAngle(WristPositions.STOWED);
         climber.startHoming();
@@ -437,13 +438,13 @@ public class RobotManager extends LifecycleSubsystem {
         noteManager.ampScoreRequest();
         break;
       case PREPARE_WAITING_CLIMBER_RAISED:
+      case WAITING_CLIMBER_RAISED:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.RAISED);
         noteManager.ampWaitRequest();
         break;
-      case WAITING_CLIMBER_RAISED:
       case PREPARE_CLIMBER_RAISED:
       case CLIMBER_RAISED:
         wrist.setAngle(WristPositions.STOWED);
