@@ -4,7 +4,6 @@
 
 package frc.robot.conveyor;
 
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -16,11 +15,10 @@ import org.littletonrobotics.junction.Logger;
 public class ConveyorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
-  private final VoltageOut voltageRequest = new VoltageOut(0.0);
-  private final Debouncer debouncer =
-      new Debouncer(
-          RobotConfig.get().conveyor().debounceTime(), RobotConfig.get().conveyor().debounceType());
-  private boolean debouncedSensor = false;
+  private final Debouncer handoffDebouncer = RobotConfig.get().conveyor().handoffDebouncer();
+  private final Debouncer scoringDebouncer = RobotConfig.get().conveyor().scoringDebouncer();
+  private boolean handoffDebouncedSensor = false;
+  private boolean scoringDebouncedSensor = false;
   private ConveyorState goalState = ConveyorState.IDLE;
 
   public ConveyorSubsystem(TalonFX motor, DigitalInput sensor) {
@@ -43,20 +41,20 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         if (hasNote()) {
           motor.disable();
         } else {
-          motor.setControl(voltageRequest.withOutput(-6));
+          motor.setVoltage(-8);
         }
         break;
       case INTAKE_TO_QUEUER:
-        motor.setControl(voltageRequest.withOutput(3));
+        motor.setVoltage(3);
         break;
       case QUEUER_TO_INTAKE:
-        motor.setControl(voltageRequest.withOutput(-3));
+        motor.setVoltage(-3);
         break;
       case CONVEYOR_TO_INTAKE:
-        motor.setControl(voltageRequest.withOutput(3));
+        motor.setVoltage(3);
         break;
       case AMP_SHOT:
-        motor.setControl(voltageRequest.withOutput(-3));
+        motor.setVoltage(-12);
         break;
       default:
         break;
@@ -65,9 +63,11 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    debouncedSensor = debouncer.calculate(sensorHasNote());
+    scoringDebouncedSensor = scoringDebouncer.calculate(sensorHasNote());
+    handoffDebouncedSensor = handoffDebouncer.calculate(sensorHasNote());
     Logger.recordOutput("Conveyor/State", goalState);
-    Logger.recordOutput("Conveyor/DebouncedHasNote", hasNote());
+    Logger.recordOutput("Conveyor/DebouncedScoringHasNote", scoringDebouncedSensor);
+    Logger.recordOutput("Conveyor/DebouncedHandoffHasNote", handoffDebouncedSensor);
     Logger.recordOutput("Conveyor/SensorHasNote", sensorHasNote());
     Logger.recordOutput("Conveyor/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
@@ -84,7 +84,12 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
   }
 
   public boolean hasNote() {
-    return debouncedSensor;
+    switch (goalState) {
+      case AMP_SHOT:
+        return scoringDebouncedSensor;
+      default:
+        return handoffDebouncedSensor;
+    }
   }
 
   private boolean sensorHasNote() {
