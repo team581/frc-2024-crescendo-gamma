@@ -16,7 +16,6 @@ import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ElevatorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
@@ -24,8 +23,6 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
   private final PositionVoltage positionRequest = new PositionVoltage(ElevatorPositions.STOWED);
-  private final LoggedDashboardNumber ntDistance =
-      new LoggedDashboardNumber("Elevator/DistanceOverride", -1);
 
   // Homing
   private boolean preMatchHomingOccured = false;
@@ -74,19 +71,14 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         }
         break;
       case HOMED:
-        {
-          double usedGoalPosition =
-              clampHeight(ntDistance.get() == -1 ? goalHeight : ntDistance.get());
-          int slot = goalHeight == RobotConfig.get().elevator().minHeight() ? 1 : 0;
-          Logger.recordOutput("Elevator/UsedGoalPosition", usedGoalPosition);
+        int slot = goalHeight == RobotConfig.get().elevator().minHeight() ? 1 : 0;
 
-          motor.setControl(
-              positionRequest
-                  .withSlot(slot)
-                  .withPosition(inchesToRotations(usedGoalPosition).getRotations()));
+        motor.setControl(
+            positionRequest
+                .withSlot(slot)
+                .withPosition(inchesToRotations(clampHeight(goalHeight)).getRotations()));
 
-          break;
-        }
+        break;
       case MID_MATCH_HOMING:
         throw new IllegalStateException("Elevator can't do mid match homing");
     }

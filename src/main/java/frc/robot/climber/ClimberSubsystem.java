@@ -18,7 +18,6 @@ import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ClimberSubsystem extends LifecycleSubsystem {
   private static final ClimberConfig CONFIG = RobotConfig.get().climber();
@@ -26,8 +25,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
   private final TalonFX rightMotor;
   private StrictFollower followRequest;
   private LinearFilter currentFilter = LinearFilter.movingAverage(CONFIG.currentTaps());
-  private final LoggedDashboardNumber ntDistance =
-      new LoggedDashboardNumber("Climber/PositionOverride", -1);
   private double goalDistance = 0.0;
   private PositionVoltage positionRequest = new PositionVoltage(goalDistance);
   private VoltageOut voltageRequest = new VoltageOut(0.0);
@@ -88,12 +85,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
           default:
             break;
         }
-        double usedGoalDistance = clamp(ntDistance.get() == -1 ? goalDistance : ntDistance.get());
-
-        Logger.recordOutput("Climber/UsedGoalDistance", usedGoalDistance);
-
         leftMotor.setControl(
-            positionRequest.withPosition(inchesToRotations(usedGoalDistance).getRotations()));
+            positionRequest.withPosition(inchesToRotations(clamp(goalDistance)).getRotations()));
         rightMotor.setControl(followRequest);
 
         break;
