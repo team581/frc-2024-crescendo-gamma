@@ -39,19 +39,23 @@ public class IntakeSubsystem extends LifecycleSubsystem {
         motor.disable();
         break;
       case OUTTAKING:
-        motor.setControl(voltageRequest.withOutput(-0.5 * 12.0));
+        motor.setControl(voltageRequest.withOutput(-6));
         break;
       case FROM_QUEUER:
+        motor.setControl(voltageRequest.withOutput(-2));
+        break;
       case FROM_CONVEYOR:
         if (hasNote()) {
           motor.disable();
         } else {
-          motor.setControl(voltageRequest.withOutput(-0.4 * 12.0));
+          motor.setControl(voltageRequest.withOutput(-2));
         }
         break;
       case TO_QUEUER:
+        motor.setControl(voltageRequest.withOutput(5));
+        break;
       case TO_CONVEYOR:
-        motor.setControl(voltageRequest.withOutput(0.6 * 12.0));
+        motor.setControl(voltageRequest.withOutput(3));
         break;
       case TO_QUEUER_SHOOTING:
         motor.setControl(voltageRequest.withOutput(8.0));
