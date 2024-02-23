@@ -7,7 +7,7 @@ package frc.robot.wrist;
 import edu.wpi.first.math.geometry.Rotation2d;
 
 public class WristPositions {
-  public static final Rotation2d STOWED = Rotation2d.fromDegrees(0);
+  public static final Rotation2d STOWED = Rotation2d.fromDegrees(30);
 
   public static final Rotation2d OUTTAKING_SHOOTER = Rotation2d.fromDegrees(0);
   public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(55);
