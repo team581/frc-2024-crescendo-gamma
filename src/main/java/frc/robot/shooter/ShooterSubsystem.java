@@ -11,7 +11,6 @@ import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 public class ShooterSubsystem extends LifecycleSubsystem {
   private static final double SPIN_RATIO = 3.0 / 5.0;
@@ -21,7 +20,6 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private static final double TOLERANCE_RPM = 100;
   private final TalonFX leftMotor;
   private final TalonFX rightMotor;
-  private final LoggedDashboardNumber ntRPM = new LoggedDashboardNumber("Shooter/RPMOverride", -1);
   private final VelocityTorqueCurrentFOC velocityRequest =
       new VelocityTorqueCurrentFOC(0).withSlot(0).withLimitReverseMotion(true);
   private double speakerDistance = 0;
@@ -77,7 +75,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     Logger.recordOutput(
         "Shooter/LeftMotor/POutput", leftMotor.getClosedLoopProportionalOutput().getValue());
     Logger.recordOutput(
-        "Shooter/LeftMotor/SupplierCurrent", leftMotor.getSupplyCurrent().getValueAsDouble());
+        "Shooter/LeftMotor/SupplyCurrent", leftMotor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Shooter/LeftMotor/StatorCurrent", leftMotor.getStatorCurrent().getValue());
     Logger.recordOutput("Shooter/LeftMotor/Voltage", leftMotor.getMotorVoltage().getValue());
     Logger.recordOutput(
@@ -88,18 +86,11 @@ public class ShooterSubsystem extends LifecycleSubsystem {
     Logger.recordOutput(
         "Shooter/RightMotor/POutput", rightMotor.getClosedLoopProportionalOutput().getValue());
     Logger.recordOutput(
-        "Shooter/RightMotor/SupplierCurrent", rightMotor.getSupplyCurrent().getValueAsDouble());
+        "Shooter/RightMotor/SupplyCurrent", rightMotor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Shooter/AtGoal", atGoal(goalMode));
 
-    double overrideRPM = ntRPM.get();
-
-    double usedGoalRPM = overrideRPM == -1 ? goalRPM : overrideRPM;
-
-    Logger.recordOutput("Shooter/OverrideRPM", overrideRPM);
-    Logger.recordOutput("Shooter/UsedRPM", usedGoalRPM);
-
-    rightMotor.setControl(velocityRequest.withVelocity((usedGoalRPM) / 60));
-    leftMotor.setControl(velocityRequest.withVelocity((usedGoalRPM * SPIN_RATIO) / 60));
+    leftMotor.setControl(velocityRequest.withVelocity((goalRPM) / 60));
+    rightMotor.setControl(velocityRequest.withVelocity((goalRPM * SPIN_RATIO) / 60));
   }
 
   public boolean atGoal(ShooterMode mode) {
@@ -111,8 +102,8 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       return true;
     }
 
-    if (Math.abs(goalRPM - getRPM(rightMotor)) < TOLERANCE_RPM
-        && Math.abs((goalRPM * SPIN_RATIO) - getRPM(leftMotor)) < TOLERANCE_RPM) {
+    if (Math.abs((goalRPM * SPIN_RATIO) - getRPM(rightMotor)) < TOLERANCE_RPM
+        && Math.abs(goalRPM - getRPM(leftMotor)) < TOLERANCE_RPM) {
       return true;
     }
 
