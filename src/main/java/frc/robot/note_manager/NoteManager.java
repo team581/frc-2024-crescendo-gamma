@@ -47,7 +47,8 @@ public class NoteManager extends LifecycleSubsystem {
         case AMP_WAIT:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             // Do nothing, you are already idling with the note in the conveyor
-          } else if(state == NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL || state == NoteState.INTAKE_TO_CONVEYOR){
+          } else if (state == NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL
+              || state == NoteState.INTAKE_TO_CONVEYOR) {
             // Do nothing, we are already in the handoff process
           } else {
             state = NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR;
