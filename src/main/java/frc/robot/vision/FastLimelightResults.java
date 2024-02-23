@@ -7,4 +7,4 @@ package frc.robot.vision;
 import edu.wpi.first.math.geometry.Pose3d;
 
 public record FastLimelightResults(
-    double latency, Pose3d robotPose, double distanceToTag, boolean valid) {}
+    double latency, Pose3d robotPose, double distanceToTag) {}

@@ -60,10 +60,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     poseEstimator.update(
         imu.getRobotHeading(), swerve.getModulePositions().toArray(new SwerveModulePosition[4]));
 
-    FastLimelightResults results = VisionSubsystem.getFastResults();
-    Pose2d visionPose = results.robotPose().toPose2d();
-    double limelightStandardDeviation = vision.getStandardDeviation(results.distanceToTag());
-    if (vision.isResultValid(results)) {
+    var maybeResults = vision.getResults();
+
+    if (maybeResults.isPresent()) {
+      var results = maybeResults.get();
+      Pose2d visionPose = results.robotPose().toPose2d();
+      double limelightStandardDeviation = vision.getStandardDeviation(results.latency());
+
       double timestamp = Timer.getFPGATimestamp() - results.latency();
 
       if (timestamp != lastAddedVisionTimestamp) {

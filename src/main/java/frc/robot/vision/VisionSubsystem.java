@@ -4,8 +4,16 @@
 
 package frc.robot.vision;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.littletonrobotics.junction.Logger;
+
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -18,10 +26,6 @@ import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
   private static final Timer limelightTimer = new Timer();
@@ -49,12 +53,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
         pose.getRotation());
   }
 
-  // TODO: Refactor this class to use Optional<T> for wrapping results. Stop
-  // including the valid
-  // property, just return Optional.empty(). Do proper error handling here instead
-  // of in every
-  // single place this method is called.
-  public static FastLimelightResults getFastResults() {
+  private Optional<FastLimelightResults> storedResults =
+      Optional.empty();
+
+  private static Optional<FastLimelightResults> getFastResults() {
     try {
       double start = Timer.getFPGATimestamp();
       String jsonStr = LimelightHelpers.getJSONDump("");
@@ -79,10 +81,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
       boolean valid = v == 1;
 
       if (!valid) {
-        // Results are invalid, don't return any actual data, to prevent accidentally
-        // using it when
-        // it's invalid. Ideally we just return Optional.empty() here
-        return new FastLimelightResults(-1, new Pose3d(), 10, false);
+        return Optional.empty();
       }
 
       List<Any> megaTagPose = results.get("botpose").asList();
@@ -142,12 +141,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
       Logger.recordOutput("Vision/FilteredRobotPose", robotPoseFieldSpace);
       Logger.recordOutput("Localization/Valid", valid);
 
-      return new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance, valid);
+      return Optional.of(new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance, valid));
     } catch (Exception e) {
-      // JSON string was empty or malformed, ideally we return Optional.empty() in
-      // this case, but
-      // returning an empty
-      return new FastLimelightResults(-1, new Pose3d(), 10.0, false);
+      return Optional.empty();
     }
   }
 
@@ -169,9 +165,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     distanceToDev.put(1.0, 0.4);
     distanceToDev.put(5.0, 6.0);
-    distanceToDev.put(3.8, 2.5);
+    distanceToDev.put(3.8, 2.6);
     distanceToDev.put(4.5, 3.0);
     distanceToDev.put(3.37, 2.45);
+    distanceToDev.put(7.0, 10.0);
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
@@ -208,30 +205,43 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   public boolean isResultValid(FastLimelightResults results) {
-    return (results.valid()
-        && isWorking()
+    return (getState() == VisionState.ONLINE
         && imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
             < 3.0);
   }
 
   @Override
   public void robotPeriodic() {
+    storedResults = getFastResults();
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle());
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
-    Logger.recordOutput("Vision/Latency", getFastResults().latency());
+    if (storedResults.isPresent()){
+      var data = storedResults.get();
+    Logger.recordOutput("Vision/Latency", data.latency());
     Logger.recordOutput(
-        "Vision/TimestampWithLatency", Timer.getFPGATimestamp() - getFastResults().latency());
-    Logger.recordOutput("Vision/AngularVelocity", imu.getRobotAngularVelocity());
+        "Vision/TimestampWithLatency", Timer.getFPGATimestamp() - data.latency());
     Logger.recordOutput(
         "Vision/AngularVelocityWithLatency",
-        imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - getFastResults().latency()));
-    Logger.recordOutput("Vision/DistanceFromTag", getFastResults().distanceToTag());
+        imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - data.latency()));
+    Logger.recordOutput("Vision/DistanceFromTag", data.distanceToTag());}
   }
 
-  public boolean isWorking() {
-    return !limelightTimer.hasElapsed(5);
+  public Optional<FastLimelightResults> getResults() {
+    return storedResults;
+  }
+
+  public VisionState getState() {
+    if (!limelightTimer.hasElapsed(5)) {
+      return VisionState.ONLINE;
+    }
+
+    if (storedResults.isPresent()) {
+      return VisionState.SEES_TAGS;
+    }
+
+    return VisionState.OFFLINE;
   }
 }
