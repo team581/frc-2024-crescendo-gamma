@@ -45,6 +45,7 @@ public class NoteManager extends LifecycleSubsystem {
           }
           break;
         case AMP_WAIT:
+        case TRAP_WAIT:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             // Do nothing, you are already idling with the note in the conveyor
           } else if (state == NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL
@@ -52,6 +53,11 @@ public class NoteManager extends LifecycleSubsystem {
             // Do nothing, we are already in the handoff process
           } else {
             state = NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR;
+          }
+          break;
+        case TRAP_SCORE:
+          if (state == NoteState.IDLE_IN_CONVEYOR) {
+            state = NoteState.TRAP_SCORING;
           }
           break;
         case IDLE_IN_QUEUER:
@@ -108,6 +114,7 @@ public class NoteManager extends LifecycleSubsystem {
         // Do nothing
         break;
       case AMP_SCORING:
+      case TRAP_SCORING:
         if (!conveyor.hasNote()) {
           state = NoteState.IDLE_NO_GP;
         }
@@ -184,6 +191,11 @@ public class NoteManager extends LifecycleSubsystem {
         conveyor.setState(ConveyorState.AMP_SHOT);
         queuer.setState(QueuerState.IDLE);
         break;
+      case TRAP_SCORING:
+        intake.setState(IntakeState.IDLE);
+        conveyor.setState(ConveyorState.TRAP_SHOT_PULSE);
+        queuer.setState(QueuerState.IDLE);
+        break;
       case CONVEYOR_TO_INTAKE_FOR_OUTTAKING:
       case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE:
       case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL:
@@ -252,6 +264,14 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void ampScoreRequest() {
     flags.check(NoteFlag.AMP_SCORE);
+  }
+
+  public void trapShotRequest() {
+    flags.check(NoteFlag.TRAP_SCORE);
+  }
+
+  public void trapWaitRequest() {
+    flags.check(NoteFlag.TRAP_WAIT);
   }
 
   public void ampWaitRequest() {

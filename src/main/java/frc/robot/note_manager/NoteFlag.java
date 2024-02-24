@@ -12,5 +12,7 @@ public enum NoteFlag {
   IDLE_NO_GP,
   AMP_SCORE,
   AMP_WAIT,
+  TRAP_WAIT,
+  TRAP_SCORE,
   OUTTAKE;
 }
