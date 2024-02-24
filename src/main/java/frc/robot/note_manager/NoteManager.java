@@ -222,7 +222,7 @@ public class NoteManager extends LifecycleSubsystem {
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
         break;
       case QUEUER_TO_CONVEYOR_FOR_IDLE:
-        intake.setState(IntakeState.IDLE);
+        intake.setState(IntakeState.QUEUER_TO_CONVEYOR);
         conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         queuer.setState(QueuerState.PASS_TO_CONVEYOR);
         break;

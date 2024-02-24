@@ -379,7 +379,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case PREPARE_IDLE_WITH_GP_FROM_CONVEYOR:
       case PREPARE_WAITING_AMP_SHOT:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
@@ -387,14 +387,14 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case WAITING_AMP_SHOT:
       case PREPARE_AMP_SHOT:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.AMP_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         noteManager.ampWaitRequest();
         break;
       case AMP_SHOT:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.AMP_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
