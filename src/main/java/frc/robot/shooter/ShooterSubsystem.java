@@ -96,8 +96,9 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       leftMotor.disable();
       rightMotor.disable();
     } else {
-    leftMotor.setControl(velocityRequest.withVelocity((goalRPM) / 60));
-    rightMotor.setControl(velocityRequest.withVelocity((goalRPM * SPIN_RATIO) / 60));}
+      leftMotor.setControl(velocityRequest.withVelocity((goalRPM) / 60));
+      rightMotor.setControl(velocityRequest.withVelocity((goalRPM * SPIN_RATIO) / 60));
+    }
   }
 
   public boolean atGoal(ShooterMode mode) {
