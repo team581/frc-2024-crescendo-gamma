@@ -51,11 +51,7 @@ public class RobotCommands {
   }
 
   public Command homeCommand() {
-    return Commands.runOnce(() -> robot.homingRequest(), requirements)
-        .andThen(
-            Commands.race(
-                robot.waitForStateCommand(RobotState.IDLE_NO_GP),
-                robot.waitForStateCommand(RobotState.IDLE_WITH_GP)));
+    return Commands.runOnce(() -> robot.climber.startHoming(), robot.climber);
   }
 
   public Command waitForSpeakerShotCommand() {

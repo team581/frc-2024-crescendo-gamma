@@ -20,7 +20,6 @@ import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.FlagManager;
-import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.DistanceAngle;
@@ -41,8 +40,6 @@ public class RobotManager extends LifecycleSubsystem {
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
 
-  // TODO: Climber homing should be separate from robot manager homing. The robot manager should not
-  // really care whether we're homed.
   private RobotState state = RobotState.IDLE_NO_GP;
 
   private final FlagManager<RobotFlag> flags = new FlagManager<>("RobotManager", RobotFlag.class);
@@ -94,41 +91,29 @@ public class RobotManager extends LifecycleSubsystem {
     // State transitions from requests
     for (RobotFlag flag : flags.getChecked()) {
       switch (flag) {
-        case HOMING:
-          climber.resetHoming();
-          state = RobotState.HOMING;
-          break;
         case STOW:
-          if (state.homed) {
-            if (state.hasNote) {
-              if (state == RobotState.WAITING_AMP_SHOT) {
-                state = RobotState.PREPARE_IDLE_WITH_GP_FROM_CONVEYOR;
-              } else {
-                state = RobotState.IDLE_WITH_GP;
-              }
+          if (state.hasNote) {
+            if (state == RobotState.WAITING_AMP_SHOT) {
+              state = RobotState.PREPARE_IDLE_WITH_GP_FROM_CONVEYOR;
             } else {
-              state = RobotState.IDLE_NO_GP;
+              state = RobotState.IDLE_WITH_GP;
             }
+          } else {
+            state = RobotState.IDLE_NO_GP;
           }
           break;
         case INTAKE:
-          if (state.homed) {
-            // Reset note manager state so that we don't instantly think we're done intaking
-            // Need to force set the state, rather than doing a state request, due to order of
-            // subsystems executing
-            noteManager.evilStateOverride(NoteState.IDLE_NO_GP);
-            state = RobotState.GROUND_INTAKING;
-          }
+          // Reset note manager state so that we don't instantly think we're done intaking
+          // Need to force set the state, rather than doing a state request, due to order of
+          // subsystems executing
+          noteManager.evilStateOverride(NoteState.IDLE_NO_GP);
+          state = RobotState.GROUND_INTAKING;
           break;
         case CLIMB_1_LINEUP_OUTER:
-          if (state.homed) {
-            state = RobotState.CLIMB_1_LINEUP_OUTER;
-          }
+          state = RobotState.CLIMB_1_LINEUP_OUTER;
           break;
         case CLIMB_2_LINEUP_INNER:
-          if (state.homed) {
-            state = RobotState.CLIMB_2_LINEUP_INNER;
-          }
+          state = RobotState.CLIMB_2_LINEUP_INNER;
           break;
         case CLIMB_3_LINEUP_FINAL:
           if (state == RobotState.CLIMB_2_LINEUP_INNER) {
@@ -141,64 +126,40 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case CLIMB_5_HANGING_TRAP_SCORE:
-          if (state.homed) {
-            state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
-          }
+          state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
           break;
         case WAIT_SPEAKER_SHOT:
-          if (state.homed) {
-            state = RobotState.WAITING_SPEAKER_SHOT;
-          }
+          state = RobotState.WAITING_SPEAKER_SHOT;
           break;
         case WAIT_SUBWOOFER_SHOT:
-          if (state.homed) {
-            state = RobotState.WAITING_SUBWOOFER_SHOT;
-          }
+          state = RobotState.WAITING_SUBWOOFER_SHOT;
           break;
         case OUTTAKE:
-          if (state.homed) {
-            state = RobotState.OUTTAKING;
-          }
+          state = RobotState.OUTTAKING;
           break;
         case OUTTAKE_SHOOTER:
-          if (state.homed) {
-            state = RobotState.OUTTAKING_SHOOTER;
-          }
+          state = RobotState.OUTTAKING_SHOOTER;
           break;
         case SPEAKER_SHOT:
-          if (state.homed) {
-            state = RobotState.PREPARE_SPEAKER_SHOT;
-          }
+          state = RobotState.PREPARE_SPEAKER_SHOT;
           break;
         case WAIT_AMP_SHOT:
-          if (state.homed) {
-            state = RobotState.PREPARE_WAITING_AMP_SHOT;
-          }
+          state = RobotState.PREPARE_WAITING_AMP_SHOT;
           break;
         case AMP_SHOT:
-          if (state.homed) {
-            state = RobotState.AMP_SHOT;
-          }
+          state = RobotState.AMP_SHOT;
           break;
         case SUBWOOFER_SHOT:
-          if (state.homed) {
-            state = RobotState.PREPARE_SUBWOOFER_SHOT;
-          }
+          state = RobotState.PREPARE_SUBWOOFER_SHOT;
           break;
         case PRELOAD_NOTE:
-          if (state.homed) {
-            state = RobotState.IDLE_WITH_GP;
-          }
+          state = RobotState.IDLE_WITH_GP;
           break;
         case WAIT_FLOOR_SHOT:
-          if (state.homed) {
-            state = RobotState.WAITING_FLOOR_SHOT;
-          }
+          state = RobotState.WAITING_FLOOR_SHOT;
           break;
         case FLOOR_SHOT:
-          if (state.homed) {
-            state = RobotState.PREPARE_FLOOR_SHOT;
-          }
+          state = RobotState.PREPARE_FLOOR_SHOT;
           break;
       }
     }
@@ -207,7 +168,6 @@ public class RobotManager extends LifecycleSubsystem {
 
     // Automatic state transitions
     switch (state) {
-      case UNHOMED:
       case IDLE_NO_GP:
       case IDLE_WITH_GP:
       case WAITING_SPEAKER_SHOT:
@@ -216,11 +176,6 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_SUBWOOFER_SHOT:
       case OUTTAKING:
         // Do nothing
-        break;
-      case HOMING:
-        if (climber.getHomingState() == HomingState.HOMED) {
-          state = RobotState.IDLE_NO_GP;
-        }
         break;
       case PREPARE_IDLE_WITH_GP_FROM_CONVEYOR:
         if (elevator.atPosition(ElevatorPositions.STOWED)) {
@@ -317,14 +272,6 @@ public class RobotManager extends LifecycleSubsystem {
 
     // State actions
     switch (state) {
-      case UNHOMED:
-      case HOMING:
-        wrist.setAngle(WristPositions.STOWED);
-        climber.startHoming();
-        elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
-        noteManager.idleNoGPRequest();
-        break;
       case IDLE_NO_GP:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
@@ -499,10 +446,6 @@ public class RobotManager extends LifecycleSubsystem {
 
     // Reset all flags
     flags.clear();
-  }
-
-  public void homingRequest() {
-    flags.check(RobotFlag.HOMING);
   }
 
   public void waitSubwooferShotRequest() {

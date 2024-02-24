@@ -10,11 +10,6 @@ import frc.robot.lights.LightsState;
 import java.util.Optional;
 
 public enum RobotState {
-  /** Not homed. */
-  UNHOMED(false, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
-  /** Homing. */
-  HOMING(false, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
-
   /** Idling without a note. */
   IDLE_NO_GP(false, false, new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW)),
   /** Idling with a note in the conveyor, going to stow everything. */
@@ -103,31 +98,24 @@ public enum RobotState {
       new LightsState(Color.kViolet, BlinkPattern.BLINK_FAST));
 
   public final boolean hasNote;
-  public final boolean homed;
   public final boolean shootingMode;
   public final LightsState lightsState;
   public final Optional<LightsState> lightsOnExit;
 
   RobotState(boolean hasNote, boolean shootingMode, LightsState lights, LightsState lightsOnExit) {
-    this(hasNote, true, shootingMode, lights, Optional.of(lightsOnExit));
+    this(hasNote, shootingMode, lights, Optional.of(lightsOnExit));
   }
 
   RobotState(boolean hasNote, boolean shootingMode, LightsState lights) {
-    this(hasNote, true, shootingMode, lights, Optional.empty());
-  }
-
-  RobotState(boolean hasNote, boolean homed, boolean shootingMode, LightsState lights) {
-    this(hasNote, homed, shootingMode, lights, Optional.empty());
+    this(hasNote, shootingMode, lights, Optional.empty());
   }
 
   RobotState(
       boolean hasNote,
-      boolean homed,
       boolean shootingMode,
       LightsState lights,
       Optional<LightsState> lightsOnExit) {
     this.hasNote = hasNote;
-    this.homed = homed;
     this.shootingMode = shootingMode;
     this.lightsState = lights;
     this.lightsOnExit = lightsOnExit;
