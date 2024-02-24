@@ -53,6 +53,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     double rawCurrent = leftMotor.getStatorCurrent().getValueAsDouble();
     double filteredCurrent = currentFilter.calculate(rawCurrent);
 
+    setGoalDistance(goalMode.position);
+
     switch (homingState) {
       case NOT_HOMED:
         leftMotor.disable();
@@ -70,19 +72,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         }
         break;
       case HOMED:
-        switch (goalMode) {
-          case IDLE:
-            setGoalDistance(ClimberPositions.IDLE);
-            break;
-          case RAISED:
-            setGoalDistance(ClimberPositions.RAISED);
-            break;
-          case HANGING:
-            setGoalDistance(ClimberPositions.HANGING);
-            break;
-          default:
-            break;
-        }
         leftMotor.setControl(
             positionRequest.withPosition(inchesToRotations(clamp(goalDistance)).getRotations()));
         rightMotor.setControl(followRequest);

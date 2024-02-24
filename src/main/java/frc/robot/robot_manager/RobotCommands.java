@@ -94,8 +94,8 @@ public class RobotCommands {
   }
 
   public Command trapShotCommand() {
-    return Commands.runOnce(() -> robot.trapShotRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.CLIMBER_HANGING));
+    return Commands.runOnce(() -> robot.climb5HangingTrapScoreRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.CLIMB_4_HANGING));
   }
 
   public Command getClimberForwardCommand() {

@@ -60,13 +60,6 @@ public enum RobotState {
       new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST),
       new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
 
-  PREPARE_TRAP_OUTTAKE(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
-  TRAP_OUTTAKE(
-      true,
-      false,
-      new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST),
-      new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
-
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
   WAITING_SPEAKER_SHOT(true, false, new LightsState(Color.kOrange, BlinkPattern.SOLID)),
   /** Get ready for speaker shot, automatically go to SPEAKER_SHOOT when ready. */
@@ -90,22 +83,27 @@ public enum RobotState {
       new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST),
       new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
 
-  /**
-   * Ensures that the shooter is stowed before transitioning to WAITING_CLIMBER_RAISED and moving
-   * the elevator up.
-   */
-  PREPARE_WAITING_CLIMBER_RAISED(
-      true, false, new LightsState(Color.kCyan, BlinkPattern.BLINK_SLOW)),
-  /** Arm moves to chain height, climber hooks are touching the chain */
-  WAITING_CLIMBER_RAISED(true, false, new LightsState(Color.kCyan, BlinkPattern.SOLID)),
+  /** Hooks move to top of the robot so we can start to grab the chain. */
+  CLIMB_1_LINEUP_OUTER(true, false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
 
-  /** On the ground, arm goes up */
-  PREPARE_CLIMBER_RAISED(true, false, new LightsState(Color.kCyan, BlinkPattern.BLINK_SLOW)),
-  CLIMBER_RAISED(true, false, new LightsState(Color.kCyan, BlinkPattern.BLINK_FAST)),
+  /** Climber moves down a little, so you can fully grab the chain. */
+  CLIMB_2_LINEUP_INNER(true, false, new LightsState(Color.kYellow, BlinkPattern.SOLID)),
 
-  /** Actually climbing then hanging */
-  PREPARE_CLIMBER_HANGING(true, false, new LightsState(Color.kCyan, BlinkPattern.BLINK_SLOW)),
-  CLIMBER_HANGING(true, false, new LightsState(Color.kCyan, BlinkPattern.BLINK_FAST));
+  PREPARE_CLIMB_3_LINEUP_FINAL(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
+  /** Elevator goes up and we do final alignment before climbing. */
+  CLIMB_3_LINEUP_FINAL(true, false, new LightsState(Color.kGreen, BlinkPattern.SOLID)),
+
+  PREPARE_CLIMB_4_HANGING(true, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
+  /** Hooks go all the way down, we are fully hanging. */
+  CLIMB_4_HANGING(true, false, new LightsState(Color.kBlue, BlinkPattern.SOLID)),
+
+  PREPARE_CLIMB_5_HANGING_TRAP_SCORE(
+      true, false, new LightsState(Color.kIndigo, BlinkPattern.BLINK_SLOW)),
+  CLIMB_5_HANGING_TRAP_SCORE(
+      true,
+      false,
+      new LightsState(Color.kIndigo, BlinkPattern.BLINK_FAST),
+      new LightsState(Color.kViolet, BlinkPattern.BLINK_FAST));
 
   public final boolean hasNote;
   public final boolean homed;
