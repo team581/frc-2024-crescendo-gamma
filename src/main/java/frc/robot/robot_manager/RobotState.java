@@ -81,7 +81,6 @@ public enum RobotState {
   /** Climber moves down a little, so you can fully grab the chain. */
   CLIMB_2_LINEUP_INNER(true, false, new LightsState(Color.kYellow, BlinkPattern.SOLID)),
 
-  PREPARE_CLIMB_3_LINEUP_FINAL(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
   /** Elevator goes up and we do final alignment before climbing. */
   CLIMB_3_LINEUP_FINAL(true, false, new LightsState(Color.kGreen, BlinkPattern.SOLID)),
 

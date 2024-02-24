@@ -117,7 +117,7 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case CLIMB_3_LINEUP_FINAL:
           if (state == RobotState.CLIMB_2_LINEUP_INNER) {
-            state = RobotState.PREPARE_CLIMB_3_LINEUP_FINAL;
+            state = RobotState.CLIMB_3_LINEUP_FINAL;
           }
           break;
         case CLIMB_4_HANGING:
@@ -239,12 +239,6 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_2_LINEUP_INNER:
       case CLIMB_3_LINEUP_FINAL:
       case CLIMB_4_HANGING:
-        break;
-      case PREPARE_CLIMB_3_LINEUP_FINAL:
-        if (climber.atGoal(ClimberMode.LINEUP_OUTER)
-            && elevator.atPosition(ElevatorPositions.STOWED)) {
-          state = RobotState.CLIMB_3_LINEUP_FINAL;
-        }
         break;
       case PREPARE_CLIMB_4_HANGING:
         if (climber.atGoal(ClimberMode.HANGING)
@@ -398,22 +392,21 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.LINEUP_OUTER);
-        noteManager.ampWaitRequest();
+        noteManager.trapWaitRequest();
         break;
       case CLIMB_2_LINEUP_INNER:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.LINEUP_INNER);
-        noteManager.ampWaitRequest();
+        noteManager.trapWaitRequest();
         break;
-      case PREPARE_CLIMB_3_LINEUP_FINAL:
       case CLIMB_3_LINEUP_FINAL:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.LINEUP_INNER);
-        noteManager.ampWaitRequest();
+        noteManager.trapWaitRequest();
         break;
       case PREPARE_CLIMB_4_HANGING:
       case CLIMB_4_HANGING:
@@ -421,14 +414,14 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.HANGING);
-        noteManager.ampWaitRequest();
+        noteManager.trapWaitRequest();
         break;
       case PREPARE_CLIMB_5_HANGING_TRAP_SCORE:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.HANGING);
-        noteManager.ampWaitRequest();
+        noteManager.trapWaitRequest();
         break;
       case CLIMB_5_HANGING_TRAP_SCORE:
         wrist.setAngle(WristPositions.STOWED);
@@ -540,7 +533,6 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_2_LINEUP_INNER:
         climb3LineupFinalRequest();
         break;
-      case PREPARE_CLIMB_3_LINEUP_FINAL:
       case CLIMB_3_LINEUP_FINAL:
         climb4HangingRequest();
         break;
