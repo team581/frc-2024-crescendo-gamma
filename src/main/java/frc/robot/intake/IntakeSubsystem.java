@@ -80,7 +80,14 @@ public class IntakeSubsystem extends LifecycleSubsystem {
   }
 
   public boolean hasNote() {
-    return debouncedSensor;
+    switch (goalState) {
+      case TO_QUEUER:
+      case TO_QUEUER_SHOOTING:
+        // Bypass debouncer when we are sending game piece to queuer
+        return sensorHasNote();
+      default:
+        return debouncedSensor;
+    }
   }
 
   private boolean sensorHasNote() {
