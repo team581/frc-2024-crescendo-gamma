@@ -598,12 +598,11 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_2_LINEUP_INNER:
         climb3LineupFinalRequest();
         break;
-        case PREPARE_CLIMB_3_LINEUP_FINAL:
+      case PREPARE_CLIMB_3_LINEUP_FINAL:
       case CLIMB_3_LINEUP_FINAL:
-
         climb4HangingRequest();
         break;
-              case PREPARE_CLIMB_4_HANGING:
+      case PREPARE_CLIMB_4_HANGING:
       case CLIMB_4_HANGING:
         climb5HangingTrapScoreRequest();
         break;
