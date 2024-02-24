@@ -76,10 +76,10 @@ public class LightsSubsystem extends LifecycleSubsystem {
         lightsOnExit = Optional.of(previousState.lightsOnExit.get());
       }
 
-      if (lightsOnExitTimer.hasElapsed(1.5)) {
+      if (lightsOnExitTimer.hasElapsed(0.5)) {
         lightsOnExit = Optional.empty();
-        lightsOnExitTimer.reset();
         lightsOnExitTimer.stop();
+        lightsOnExitTimer.reset();
       }
 
       if (lightsOnExit.isPresent()) {
@@ -112,23 +112,17 @@ public class LightsSubsystem extends LifecycleSubsystem {
         offDuration = SLOW_BLINK_DURATION * 2;
       }
 
+      if (state.color() == Color.kWhite) {
+        LimelightHelpers.setLEDMode_ForceBlink("");
+      } else {
+        LimelightHelpers.setLEDMode_ForceOff("");
+      }
+
       if (time >= offDuration) {
         blinkTimer.reset();
         candle.setLEDs(0, 0, 0);
-
-        if (state.color() != Color.kWhite) {
-          LimelightHelpers.setLEDMode_ForceOff("");
-
-          // do the limelight blinky stuff  (turned off)
-        }
-
       } else if (time >= onDuration) {
         candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
-
-        if (state.color() == Color.kWhite) {
-          LimelightHelpers.setLEDMode_ForceBlink("");
-          // do the limelight blinky stuff (turned on)
-        }
       }
     }
 
