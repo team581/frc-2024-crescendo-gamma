@@ -129,6 +129,7 @@ public class RobotManager extends LifecycleSubsystem {
           if (state.homed) {
             state = RobotState.CLIMB_2_LINEUP_INNER;
           }
+          break;
         case CLIMB_3_LINEUP_FINAL:
           if (state == RobotState.CLIMB_2_LINEUP_INNER) {
             state = RobotState.PREPARE_CLIMB_3_LINEUP_FINAL;
@@ -287,7 +288,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case PREPARE_CLIMB_3_LINEUP_FINAL:
         if (climber.atGoal(ClimberMode.LINEUP_OUTER)
-            && elevator.atPosition(ElevatorPositions.CLIMBING)) {
+            && elevator.atPosition(ElevatorPositions.STOWED)) {
           state = RobotState.CLIMB_3_LINEUP_FINAL;
         }
         break;
@@ -597,9 +598,12 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_2_LINEUP_INNER:
         climb3LineupFinalRequest();
         break;
+        case PREPARE_CLIMB_3_LINEUP_FINAL:
       case CLIMB_3_LINEUP_FINAL:
+
         climb4HangingRequest();
         break;
+              case PREPARE_CLIMB_4_HANGING:
       case CLIMB_4_HANGING:
         climb5HangingTrapScoreRequest();
         break;
