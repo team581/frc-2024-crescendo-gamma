@@ -70,6 +70,8 @@ public class NoteManager extends LifecycleSubsystem {
           }
           break;
         case IDLE_NO_GP:
+          // TODO: This logic needs to be moved to robot manager, if we do it here it's just going
+          // to get overwritten by RobotManager
           if (state == NoteState.INTAKE_TO_QUEUER && intake.hasNote()) {
             // Do nothing, we are intaking and have partially intaked the note, so we should keep
             // trying
