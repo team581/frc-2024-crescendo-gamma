@@ -8,6 +8,7 @@ import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -37,6 +38,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     motor.getConfigurator().apply(RobotConfig.get().elevator().motorConfig());
 
     this.motor = motor;
+  }
+
+  @Override
+  public void enabledInit() {
+    motor.setNeutralMode(NeutralModeValue.Brake);
   }
 
   @Override
