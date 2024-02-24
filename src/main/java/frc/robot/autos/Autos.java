@@ -81,8 +81,6 @@ public class Autos extends LifecycleSubsystem {
             .withTimeout(3)
             .andThen(actions.outtakeCommand().withTimeout(1)));
     NamedCommands.registerCommand("intakeFloor", actions.intakeCommand());
-    NamedCommands.registerCommand("stowDown", actions.stowCommand());
-    NamedCommands.registerCommand("home", actions.homeCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {
