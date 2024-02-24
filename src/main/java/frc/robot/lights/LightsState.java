@@ -2,8 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.vision;
+package frc.robot.lights;
 
-import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.wpilibj.util.Color;
 
-public record FastLimelightResults(double latency, Pose3d robotPose, double distanceToTag) {}
+public record LightsState(Color color, BlinkPattern pattern) {}

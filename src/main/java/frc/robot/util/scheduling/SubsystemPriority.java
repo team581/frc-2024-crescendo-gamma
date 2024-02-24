@@ -5,6 +5,9 @@
 package frc.robot.util.scheduling;
 
 public enum SubsystemPriority {
+  // Vision must run before **everything** to ensure that the cached data is fresh
+  VISION(50),
+
   AUTOS(40),
 
   NOTE_MANAGER(31),
@@ -18,7 +21,6 @@ public enum SubsystemPriority {
   SHOOTER(10),
   ELEVATOR(10),
   WRIST(10),
-  VISION(10),
   LOCALIZATION(10),
   LIGHTS(10),
   INTAKE(10),

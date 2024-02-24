@@ -19,7 +19,6 @@ import frc.robot.imu.ImuSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import frc.robot.vision.FastLimelightResults;
 import frc.robot.vision.LimelightHelpers;
 import frc.robot.vision.VisionSubsystem;
 import org.littletonrobotics.junction.Logger;
@@ -60,10 +59,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     poseEstimator.update(
         imu.getRobotHeading(), swerve.getModulePositions().toArray(new SwerveModulePosition[4]));
 
-    FastLimelightResults results = VisionSubsystem.getFastResults();
-    Pose2d visionPose = results.robotPose().toPose2d();
-    double limelightStandardDeviation = vision.getStandardDeviation(results.distanceToTag());
-    if (vision.isResultValid(results)) {
+    var maybeResults = vision.getResults();
+
+    if (maybeResults.isPresent()) {
+      var results = maybeResults.get();
+      Pose2d visionPose = results.robotPose().toPose2d();
+      double limelightStandardDeviation = vision.getStandardDeviation(results.latency());
+
       double timestamp = Timer.getFPGATimestamp() - results.latency();
 
       if (timestamp != lastAddedVisionTimestamp) {

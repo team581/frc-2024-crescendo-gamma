@@ -14,8 +14,8 @@ import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import frc.robot.vision.VisionState;
 import frc.robot.vision.VisionSubsystem;
-import org.littletonrobotics.junction.Logger;
 
 public class LightsSubsystem extends LifecycleSubsystem {
 
@@ -27,8 +27,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
   private final VisionSubsystem vision;
   private final Timer blinkTimer = new Timer();
 
-  private Color color = Color.kWhite;
-  private BlinkPattern blinkPattern = BlinkPattern.SOLID;
+  private LightsState state = new LightsState(Color.kWhite, BlinkPattern.SOLID);
 
   public LightsSubsystem(CANdle candle, RobotManager robotManager, VisionSubsystem vision) {
     super(SubsystemPriority.LIGHTS);
@@ -45,114 +44,59 @@ public class LightsSubsystem extends LifecycleSubsystem {
     candle.configAllSettings(config);
   }
 
+  private Color getVisionLightsState() {
+    if (vision.getState() == VisionState.SEES_TAGS) {
+      return Color.kGreen;
+    } else if (vision.getState() == VisionState.ONLINE) {
+      return Color.kYellow;
+    } else {
+      return Color.kRed;
+    }
+  }
+
   @Override
   public void robotPeriodic() {
-    Logger.recordOutput("Lights/Color", color.toString());
-    Logger.recordOutput("Lights/BlinkPattern", blinkPattern);
-
-    RobotState state = robotManager.getState();
+    RobotState robotState = robotManager.getState();
 
     if (DriverStation.isDisabled()) {
       if (!robotManager.getState().homed) {
-        color = Color.kRed;
-        blinkPattern = BlinkPattern.SOLID;
-      } else if (!vision.isWorking()) {
-        color = Color.kYellow;
-        blinkPattern = BlinkPattern.BLINK_SLOW;
+        state = new LightsState(Color.kRed, BlinkPattern.SOLID);
+      } else if (vision.getState() == VisionState.OFFLINE) {
+        state = new LightsState(Color.kYellow, BlinkPattern.BLINK_SLOW);
       } else {
-        color = Color.kGreen;
-        blinkPattern = BlinkPattern.SOLID;
+        state = new LightsState(Color.kGreen, BlinkPattern.SOLID);
       }
     } else {
-      switch (state) {
-        case IDLE_NO_GP:
-        case GROUND_INTAKING:
-          color = Color.kOrange;
-          blinkPattern = BlinkPattern.BLINK_SLOW;
-          break;
-        case IDLE_WITH_GP:
-        case WAITING_SPEAKER_SHOT:
-        case WAITING_SUBWOOFER_SHOT:
-        case PREPARE_WAITING_AMP_SHOT:
+      switch (robotState) {
+        case PREPARE_SUBWOOFER_SHOT:
+        case PREPARE_AMP_SHOT:
+        case PREPARE_FLOOR_SHOT:
+        case PREPARE_SPEAKER_SHOT:
         case WAITING_AMP_SHOT:
         case WAITING_FLOOR_SHOT:
-          color = Color.kOrange;
-          blinkPattern = BlinkPattern.SOLID;
-          break;
-        case PREPARE_SPEAKER_SHOT:
-        case PREPARE_SUBWOOFER_SHOT:
-        case PREPARE_FLOOR_SHOT:
-        case PREPARE_AMP_SHOT:
-          if (vision.isWorking()) {
-            color = Color.kGreen;
-            blinkPattern = BlinkPattern.BLINK_SLOW;
-          } else {
-            color = Color.kRed;
-            blinkPattern = BlinkPattern.BLINK_SLOW;
-          }
-          break;
-        case AMP_SHOT:
-        case OUTTAKING:
-        case OUTTAKING_SHOOTER:
-        case TRAP_OUTTAKE:
-        case SUBWOOFER_SHOOT:
-          color = Color.kGreen;
-          blinkPattern = BlinkPattern.BLINK_FAST;
-          break;
-        case SPEAKER_SHOOT:
-        case FLOOR_SHOOT:
-          if (vision.isWorking()) {
-            color = Color.kGreen;
-            blinkPattern = BlinkPattern.BLINK_FAST;
-          } else {
-            color = Color.kRed;
-            blinkPattern = BlinkPattern.BLINK_FAST;
-          }
-          break;
-        case UNHOMED:
-        case HOMING:
-          color = Color.kRed;
-          blinkPattern = BlinkPattern.BLINK_SLOW;
-          break;
-        case WAITING_CLIMBER_RAISED:
-          color = Color.kCyan;
-          blinkPattern = BlinkPattern.SOLID;
-          break;
-        case PREPARE_CLIMBER_HANGING:
-        case PREPARE_CLIMBER_RAISED:
-        case PREPARE_WAITING_CLIMBER_RAISED:
-          color = Color.kCyan;
-          blinkPattern = BlinkPattern.BLINK_SLOW;
-          break;
-        case CLIMBER_HANGING:
-        case CLIMBER_RAISED:
-          color = Color.kCyan;
-          blinkPattern = BlinkPattern.BLINK_FAST;
-          break;
-        case PREPARE_TRAP_OUTTAKE:
-          color = Color.kGreen;
-          blinkPattern = BlinkPattern.BLINK_SLOW;
+        case WAITING_SPEAKER_SHOT:
+        case WAITING_SUBWOOFER_SHOT:
+          state = new LightsState(getVisionLightsState(), robotState.lightsState.pattern());
           break;
         default:
-          color = Color.kWhite;
-          blinkPattern = BlinkPattern.SOLID;
+          state = robotState.lightsState;
           break;
       }
     }
 
-    Color8Bit color8Bit = new Color8Bit(color);
+    Color8Bit color8Bit = new Color8Bit(state.color());
 
-    if (blinkPattern == BlinkPattern.SOLID) {
+    if (state.pattern() == BlinkPattern.SOLID) {
       candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
     } else {
       double time = blinkTimer.get();
       double onDuration = 0;
       double offDuration = 0;
 
-      if (blinkPattern == BlinkPattern.BLINK_FAST) {
+      if (state.pattern() == BlinkPattern.BLINK_FAST) {
         onDuration = FAST_BLINK_DURATION;
         offDuration = FAST_BLINK_DURATION * 2;
-      } else if (blinkPattern == BlinkPattern.BLINK_SLOW) {
+      } else if (state.pattern() == BlinkPattern.BLINK_SLOW) {
         onDuration = SLOW_BLINK_DURATION;
         offDuration = SLOW_BLINK_DURATION * 2;
       }
