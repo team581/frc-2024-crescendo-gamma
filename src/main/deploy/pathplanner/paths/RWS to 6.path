@@ -53,23 +53,6 @@
           ]
         }
       }
-    },
-    {
-      "name": "cancel intaking",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "cancelIntaking"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
