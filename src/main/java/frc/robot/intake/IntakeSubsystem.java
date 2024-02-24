@@ -43,11 +43,7 @@ public class IntakeSubsystem extends LifecycleSubsystem {
         motor.setVoltage(-3);
         break;
       case FROM_CONVEYOR:
-        if (hasNote()) {
-          motor.disable();
-        } else {
-          motor.setVoltage(-2);
-        }
+        motor.setVoltage(-8);
         break;
       case TO_QUEUER:
         motor.setVoltage(12);
