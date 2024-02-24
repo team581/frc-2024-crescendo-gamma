@@ -96,7 +96,8 @@ public enum RobotState {
       true,
       false,
       new LightsState(Color.kBlue, BlinkPattern.BLINK_FAST),
-      new LightsState(Color.kIndigo, BlinkPattern.BLINK_FAST));
+      new LightsState(Color.kIndigo, BlinkPattern.BLINK_FAST)),
+  CLIMB_6_HANGING_ELEVATOR_SHAKE(true, false, new LightsState(Color.kRed, BlinkPattern.BLINK_FAST));
 
   public final boolean hasNote;
   public final boolean shootingMode;

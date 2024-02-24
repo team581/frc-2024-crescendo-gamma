@@ -138,6 +138,7 @@ class PracticeConfig {
               }),
           new ElevatorConfig(
               21,
+              0.10,
               new TalonFXConfiguration()
                   .withSlot0(
                       new Slot0Configs()

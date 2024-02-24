@@ -135,10 +135,15 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case CLIMB_5_HANGING_TRAP_SCORE:
-          if (state == RobotState.CLIMB_4_HANGING) {
+          if (state == RobotState.CLIMB_4_HANGING
+              || state == RobotState.CLIMB_6_HANGING_ELEVATOR_SHAKE) {
             state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
           }
           break;
+        case CLIMB_6_HANGING_ELEVATOR_SHAKE:
+          if (state == RobotState.CLIMB_5_HANGING_TRAP_SCORE) {
+            state = RobotState.CLIMB_6_HANGING_ELEVATOR_SHAKE;
+          }
         case WAIT_SPEAKER_SHOT:
           state = RobotState.WAITING_SPEAKER_SHOT;
           break;
@@ -251,6 +256,7 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_2_LINEUP_INNER:
       case CLIMB_3_LINEUP_FINAL:
       case CLIMB_4_HANGING:
+      case CLIMB_6_HANGING_ELEVATOR_SHAKE:
         break;
       case PREPARE_CLIMB_4_HANGING:
         if (climber.atGoal(ClimberMode.HANGING)
@@ -445,10 +451,18 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_5_HANGING_TRAP_SCORE:
         wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
+        elevator.setPulsing(false);
         shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.trapShotRequest();
         break;
+      case CLIMB_6_HANGING_ELEVATOR_SHAKE:
+        wrist.setAngle(WristPositions.CLIMBING);
+        elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
+        elevator.setPulsing(true);
+        shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
+        climber.setGoalMode(ClimberMode.HANGING);
+        noteManager.trapShotRequest();
       default:
         // Should never happen
         break;
@@ -548,6 +562,10 @@ public class RobotManager extends LifecycleSubsystem {
     flags.check(RobotFlag.CLIMB_5_HANGING_TRAP_SCORE);
   }
 
+  public void climb6HangingElevatorShakeRequest() {
+    flags.check(RobotFlag.CLIMB_6_HANGING_ELEVATOR_SHAKE);
+  }
+
   public void getClimberForwardRequest() {
     switch (state) {
       case CLIMB_1_LINEUP_OUTER:
@@ -562,6 +580,9 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_CLIMB_4_HANGING:
       case CLIMB_4_HANGING:
         climb5HangingTrapScoreRequest();
+        break;
+      case CLIMB_5_HANGING_TRAP_SCORE:
+        climb6HangingElevatorShakeRequest();
         break;
       default:
         // Start climb sequence
@@ -586,6 +607,9 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case CLIMB_5_HANGING_TRAP_SCORE:
         climb4HangingRequest();
+      case CLIMB_6_HANGING_ELEVATOR_SHAKE:
+        climb5HangingTrapScoreRequest();
+        break;
       default:
         // Do nothing if climb sequence isn't started
         break;

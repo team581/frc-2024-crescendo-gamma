@@ -84,6 +84,7 @@ public record RobotConfig(
 
   public record ElevatorConfig(
       int motorID,
+      double pulseDuration,
       TalonFXConfiguration motorConfig,
       double homingEndPosition,
       double minHeight,

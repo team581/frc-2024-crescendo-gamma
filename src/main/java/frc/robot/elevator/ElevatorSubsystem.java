@@ -12,6 +12,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.HomingState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -24,6 +25,8 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
   private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
   private final PositionVoltage positionRequest = new PositionVoltage(ElevatorPositions.STOWED);
+  private final Timer timer = new Timer();
+  private boolean pulsing = false;
 
   // Homing
   private boolean preMatchHomingOccured = false;
@@ -38,6 +41,7 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     motor.getConfigurator().apply(RobotConfig.get().elevator().motorConfig());
 
     this.motor = motor;
+    timer.start();
   }
 
   @Override
@@ -56,6 +60,10 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    if (goalHeight != ElevatorPositions.TRAP_SHOT) {
+      setPulsing(false);
+    }
+
     switch (homingState) {
       case NOT_HOMED:
         motor.setControl(coastNeutralRequest);
@@ -77,14 +85,26 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         }
         break;
       case HOMED:
-        int slot = goalHeight == RobotConfig.get().elevator().minHeight() ? 1 : 0;
+        {
+          int slot = goalHeight == RobotConfig.get().elevator().minHeight() ? 1 : 0;
+          double height = clampHeight(goalHeight);
 
-        motor.setControl(
-            positionRequest
-                .withSlot(slot)
-                .withPosition(inchesToRotations(clampHeight(goalHeight)).getRotations()));
+          if (pulsing && timer.hasElapsed(RobotConfig.get().elevator().pulseDuration())) {
+            if (timer.hasElapsed(RobotConfig.get().elevator().pulseDuration() * 2.0)) {
+              height = clampHeight(height - 4);
+              timer.reset();
+            } else {
+              // Do nothing, height stays the same
+            }
+          }
 
-        break;
+          motor.setControl(
+              positionRequest
+                  .withSlot(slot)
+                  .withPosition(inchesToRotations(height).getRotations()));
+
+          break;
+        }
       case MID_MATCH_HOMING:
         throw new IllegalStateException("Elevator can't do mid match homing");
     }
@@ -96,6 +116,10 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Elevator/Height", getHeight());
     Logger.recordOutput("Elevator/GoalHeight", goalHeight);
     Logger.recordOutput("Elevator/Rotations", getMechanismRotations().getRotations());
+  }
+
+  public void setPulsing(boolean shouldPulse) {
+    pulsing = shouldPulse;
   }
 
   public void setGoalHeight(double newHeight) {

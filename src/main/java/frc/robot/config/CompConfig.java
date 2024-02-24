@@ -144,6 +144,7 @@ class CompConfig {
               }),
           new ElevatorConfig(
               21,
+              0.10,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(20))
                   .withSlot1(new Slot1Configs().withKP(10))
