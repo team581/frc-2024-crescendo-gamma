@@ -8,8 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
-import frc.robot.robot_manager.RobotCommands;
-import frc.robot.robot_manager.RobotManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -18,20 +16,12 @@ import org.littletonrobotics.junction.Logger;
 
 public class AutoClimbManager extends LifecycleSubsystem {
   private final LocalizationSubsystem localization;
-  private final RobotCommands actions;
-  private final RobotManager robot;
   private final SwerveSubsystem swerve;
 
-  public AutoClimbManager(
-      LocalizationSubsystem localization,
-      RobotCommands actions,
-      RobotManager robot,
-      SwerveSubsystem swerve) {
+  public AutoClimbManager(LocalizationSubsystem localization, SwerveSubsystem swerve) {
     super(SubsystemPriority.CLIMBER);
 
     this.localization = localization;
-    this.actions = actions;
-    this.robot = robot;
     this.swerve = swerve;
   }
 
