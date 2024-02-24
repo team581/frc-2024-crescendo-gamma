@@ -3,11 +3,11 @@
     "HorizontalTrackSizeInches": 22.75,
     "HasVerifiedSteer": true,
     "HasVerifiedDrive": true,
-    "IsLeftSideInverted": true,
+    "IsLeftSideInverted": false,
     "SwerveModuleType": 4,
     "VerticalTrackSizeInches": 20.25,
     "IsValidConfiguration": true,
-    "IsRightSideInverted": false,
+    "IsRightSideInverted": true,
     "WheelRadiusInches": 2,
     "Gyro": {
       "Model": "Pigeon 2",

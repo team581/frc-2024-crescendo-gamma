@@ -99,7 +99,9 @@ public record RobotConfig(
       CurrentLimitsConfigs steerMotorCurrentLimits,
       CurrentLimitsConfigs driveMotorCurrentLimits,
       PhoenixPIDController snapController,
-      boolean invertRotation) {}
+      boolean invertRotation,
+      boolean invertX,
+      boolean invertY) {}
 
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;

@@ -161,20 +161,27 @@ public class SwerveSubsystem extends LifecycleSubsystem {
               ControllerHelpers.getExponent(
                   ControllerHelpers.getDeadbanded(controller.getLeftX(), leftXDeadband), 1.5);
           double rightX =
-              -1.0
-                  * ControllerHelpers.getExponent(
-                      ControllerHelpers.getDeadbanded(controller.getRightX(), rightXDeadband), 2);
+              ControllerHelpers.getExponent(
+                  ControllerHelpers.getDeadbanded(controller.getRightX(), rightXDeadband), 2);
 
           if (RobotConfig.get().swerve().invertRotation()) {
-            rightX = rightX * -1.0;
+            rightX *= -1.0;
           }
+
+          if (RobotConfig.get().swerve().invertX()) {
+            leftX *= -1.0;
+          }
+
+          if (RobotConfig.get().swerve().invertY()) {
+            leftY *= -1.0;
+          }
+
           Logger.recordOutput("Swerve/Controller/FinalLeftX", leftX);
           Logger.recordOutput("Swerve/Controller/FinalRightX", rightX);
           Logger.recordOutput("Swerve/Controller/FinalLeftY", leftY);
 
           ChassisSpeeds teleopSpeeds =
-              new ChassisSpeeds(
-                  -1.0 * leftY * MaxSpeed, leftX * MaxSpeed, -1.0 * rightX * MaxAngularRate);
+              new ChassisSpeeds(-1.0 * leftY * MaxSpeed, leftX * MaxSpeed, rightX * MaxAngularRate);
 
           Logger.recordOutput("Swerve/RawTeleopSpeeds", teleopSpeeds);
 

@@ -196,7 +196,9 @@ class CompConfig {
           new SwerveConfig(
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
-              new PhoenixPIDController(-10, 0, -0.5),
+              new PhoenixPIDController(10, 0, 0.5),
+              true,
+              false,
               false),
           new IMUConfig(
               1,
