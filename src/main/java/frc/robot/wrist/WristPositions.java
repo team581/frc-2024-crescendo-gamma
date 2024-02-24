@@ -10,7 +10,7 @@ public class WristPositions {
   public static final Rotation2d STOWED = Rotation2d.fromDegrees(30);
 
   public static final Rotation2d OUTTAKING_SHOOTER = Rotation2d.fromDegrees(0);
-  public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(55);
+  public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(58.1);
 
   private WristPositions() {}
 }
