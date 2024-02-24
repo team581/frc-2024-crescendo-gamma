@@ -59,13 +59,13 @@ public class LightsSubsystem extends LifecycleSubsystem {
     RobotState robotState = robotManager.getState();
 
     if (DriverStation.isDisabled()) {
-      if (!robotManager.getState().homed) {
-        state = new LightsState(Color.kRed, BlinkPattern.SOLID);
-      } else if (vision.getState() == VisionState.OFFLINE) {
-        state = new LightsState(Color.kYellow, BlinkPattern.BLINK_SLOW);
-      } else {
-        state = new LightsState(Color.kGreen, BlinkPattern.SOLID);
-      }
+      state =
+          new LightsState(
+              getVisionLightsState(),
+              vision.getState() == VisionState.OFFLINE
+                  ? BlinkPattern.BLINK_SLOW
+                  : BlinkPattern.SOLID);
+
     } else {
       switch (robotState) {
         case PREPARE_SUBWOOFER_SHOT:
