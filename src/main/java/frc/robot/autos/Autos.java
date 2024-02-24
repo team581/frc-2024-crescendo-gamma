@@ -60,7 +60,7 @@ public class Autos extends LifecycleSubsystem {
             new PIDConstants(4.0, 0.0, 0.0),
             new PIDConstants(4.0, 0.0, 0.0),
             SwerveSubsystem.MaxSpeed,
-            0.4,
+            0.387,
             new ReplanningConfig()),
         () -> false,
         swerve);
