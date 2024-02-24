@@ -276,8 +276,7 @@ public class RobotManager extends LifecycleSubsystem {
       case SUBWOOFER_SHOOT:
       case SPEAKER_SHOOT:
       case AMP_SHOT:
-        if (noteManager.getState() == NoteState.IDLE_NO_GP
-            && wrist.atAngle(WristPositions.STOWED)) {
+        if (noteManager.getState() == NoteState.IDLE_NO_GP) {
           state = RobotState.IDLE_NO_GP;
         }
         break;
