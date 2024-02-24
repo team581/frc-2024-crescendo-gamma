@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 11.314433327954802,
-        "y": 6.50630407643794
+        "x": 10.407613539756861,
+        "y": 6.5988314570013475
       },
       "prevControl": {
-        "x": 9.761154598297038,
-        "y": 6.656017688935075
+        "x": 8.854334810099097,
+        "y": 6.7485450694984825
       },
       "nextControl": null,
       "isLocked": false,
@@ -54,8 +54,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0.0,
+      "name": "intake",
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -65,7 +65,18 @@
               "data": {
                 "name": "intakeFloor"
               }
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "eager speaker shot",
+      "waypointRelativePos": 1.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
             {
               "type": "named",
               "data": {
@@ -89,7 +100,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red",
+  "folder": "Red 2",
   "previewStartingState": {
     "rotation": -0.5135369995191652,
     "velocity": 0

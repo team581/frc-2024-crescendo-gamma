@@ -40,7 +40,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         if (hasNote()) {
           motor.disable();
         } else {
-          motor.setVoltage(1.5);
+          motor.setVoltage(1);
         }
         break;
       case PASS_TO_INTAKE:
@@ -48,7 +48,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         motor.setVoltage(-1);
         break;
       case PASS_TO_SHOOTER:
-        motor.setVoltage(6);
+        motor.setVoltage(12);
         break;
       default:
         break;

@@ -14,8 +14,11 @@ import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import frc.robot.vision.LimelightHelpers;
 import frc.robot.vision.VisionState;
 import frc.robot.vision.VisionSubsystem;
+import java.util.Optional;
+import org.littletonrobotics.junction.Logger;
 
 public class LightsSubsystem extends LifecycleSubsystem {
 
@@ -26,8 +29,11 @@ public class LightsSubsystem extends LifecycleSubsystem {
   private final RobotManager robotManager;
   private final VisionSubsystem vision;
   private final Timer blinkTimer = new Timer();
+  private final Timer lightsOnExitTimer = new Timer();
 
   private LightsState state = new LightsState(Color.kWhite, BlinkPattern.SOLID);
+  private Optional<LightsState> lightsOnExit = Optional.empty();
+  private RobotState previousState = RobotState.IDLE_NO_GP;
 
   public LightsSubsystem(CANdle candle, RobotManager robotManager, VisionSubsystem vision) {
     super(SubsystemPriority.LIGHTS);
@@ -44,7 +50,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
     candle.configAllSettings(config);
   }
 
-  private Color getVisionLightsState() {
+  private Color getVisionLightsColor() {
     if (vision.getState() == VisionState.SEES_TAGS) {
       return Color.kGreen;
     } else if (vision.getState() == VisionState.ONLINE_NO_TAGS) {
@@ -57,34 +63,45 @@ public class LightsSubsystem extends LifecycleSubsystem {
   @Override
   public void robotPeriodic() {
     RobotState robotState = robotManager.getState();
-
     if (DriverStation.isDisabled()) {
       state =
           new LightsState(
-              getVisionLightsState(),
+              getVisionLightsColor(),
               vision.getState() == VisionState.OFFLINE
                   ? BlinkPattern.BLINK_SLOW
                   : BlinkPattern.SOLID);
-
     } else {
-      switch (robotState) {
-        case PREPARE_SUBWOOFER_SHOT:
-        case PREPARE_AMP_SHOT:
-        case PREPARE_FLOOR_SHOT:
-        case PREPARE_SPEAKER_SHOT:
-        case WAITING_AMP_SHOT:
-        case WAITING_FLOOR_SHOT:
-        case WAITING_SPEAKER_SHOT:
-        case WAITING_SUBWOOFER_SHOT:
-          state = new LightsState(getVisionLightsState(), robotState.lightsState.pattern());
-          break;
-        default:
-          state = robotState.lightsState;
-          break;
+      if (previousState != robotState && previousState.lightsOnExit.isPresent()) {
+        lightsOnExitTimer.start();
+        lightsOnExit = Optional.of(previousState.lightsOnExit.get());
+      }
+
+      if (lightsOnExitTimer.hasElapsed(0.5)) {
+        lightsOnExit = Optional.empty();
+        lightsOnExitTimer.stop();
+        lightsOnExitTimer.reset();
+      }
+
+      if (lightsOnExit.isPresent()) {
+        state = lightsOnExit.get();
+      } else if (robotState.lightsState.color() == null) {
+        // Use vision color
+        state = new LightsState(getVisionLightsColor(), robotState.lightsState.pattern());
+      } else {
+        state = robotState.lightsState;
       }
     }
 
+    Logger.recordOutput("Lights/Color", state.color().toString());
+    Logger.recordOutput("Lights/Pattern", state.pattern());
+
     Color8Bit color8Bit = new Color8Bit(state.color());
+
+    if (state.color() == Color.kWhite) {
+      LimelightHelpers.setLEDMode_ForceBlink("");
+    } else {
+      LimelightHelpers.setLEDMode_ForceOff("");
+    }
 
     if (state.pattern() == BlinkPattern.SOLID) {
       candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
@@ -108,5 +125,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
         candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
       }
     }
+
+    previousState = robotState;
   }
 }

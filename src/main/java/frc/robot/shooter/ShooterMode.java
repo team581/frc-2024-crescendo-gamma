@@ -5,6 +5,7 @@
 package frc.robot.shooter;
 
 public enum ShooterMode {
+  FULLY_STOPPED,
   IDLE,
   OUTTAKE,
   SUBWOOFER_SHOT,

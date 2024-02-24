@@ -58,6 +58,7 @@ public record RobotConfig(
   public record ConveyorConfig(
       int motorID,
       int sensorID,
+      double pulseDuration,
       Debouncer handoffDebouncer,
       Debouncer scoringDebouncer,
       TalonFXConfiguration motorConfig) {}

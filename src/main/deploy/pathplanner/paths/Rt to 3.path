@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 15.83,
-        "y": 6.7197679069965925
+        "x": 15.809510185420372,
+        "y": 6.66457363474727
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.593202844805694,
-        "y": 6.75945985518049
+        "x": 15.572713030226065,
+        "y": 6.704265582931167
       },
       "isLocked": false,
       "linkedName": "Red Right"
@@ -38,7 +38,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
+      "name": "intake and warmup",
       "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
@@ -48,6 +48,12 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "eagerSpeakerShot"
               }
             }
           ]
@@ -67,7 +73,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red",
+  "folder": "Red Starts",
   "previewStartingState": {
     "rotation": -60.14999999999998,
     "velocity": 0

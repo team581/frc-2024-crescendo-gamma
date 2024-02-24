@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.715077470156466,
-        "y": 2.133955295913651
+        "x": 12.08,
+        "y": 2.1564795529591056
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.45602286004572,
-        "y": 1.9959878079756161
+        "x": 11.820945389889255,
+        "y": 2.01851206502107
       },
       "isLocked": false,
-      "linkedName": "RVL to 8"
+      "linkedName": "Red LWS"
     },
     {
       "anchor": {
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "sequential",
         "data": {
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red",
+  "folder": "Red 8",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

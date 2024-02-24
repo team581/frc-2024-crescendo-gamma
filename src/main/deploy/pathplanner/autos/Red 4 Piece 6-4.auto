@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.14,
-      "y": 1.53
+      "x": 15.8,
+      "y": 4.42
     },
-    "rotation": 90.0
+    "rotation": 59.06
   },
   "command": {
     "type": "sequential",
@@ -14,19 +14,25 @@
         {
           "type": "named",
           "data": {
-            "name": "home"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "preloadNote"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Red VL to LWS"
+            "pathName": "RL to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "6 to CWS"
           }
         },
         {
@@ -38,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LWS to 8"
+            "pathName": "CWS to 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "8 to LWS"
+            "pathName": "5 to RWS"
           }
         },
         {
@@ -56,25 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LWS to 7"
+            "pathName": "RWS to 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "7 to LWS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "LWS to 6"
+            "pathName": "4 to RWS"
           }
         },
         {
@@ -86,6 +80,6 @@
       ]
     }
   },
-  "folder": "Red 4 or more",
+  "folder": "Red",
   "choreoAuto": false
 }

@@ -178,6 +178,7 @@ class PracticeConfig {
           new ConveyorConfig(
               2,
               0,
+              0.3,
               new Debouncer(0),
               new Debouncer(0),
               new TalonFXConfiguration()

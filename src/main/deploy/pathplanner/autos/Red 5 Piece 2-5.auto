@@ -14,12 +14,6 @@
         {
           "type": "named",
           "data": {
-            "name": "home"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "preloadNote"
           }
         },
@@ -60,6 +54,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "4 to RWS"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "speakerShot"
@@ -68,7 +68,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4 to 5"
+            "pathName": "RWS to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5 to RWS"
           }
         },
         {
@@ -80,6 +86,6 @@
       ]
     }
   },
-  "folder": "Red 4 or more",
+  "folder": "Red",
   "choreoAuto": false
 }

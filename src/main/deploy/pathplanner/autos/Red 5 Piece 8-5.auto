@@ -2,31 +2,19 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7699999999999996,
-      "y": 4.42
+      "x": 15.78,
+      "y": 4.44
     },
-    "rotation": 121.03999999999999
+    "rotation": 59.23
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "preloadNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "blue_Left to 1"
+            "pathName": "RL to LWS"
           }
         },
         {
@@ -38,7 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_1 to 2"
+            "pathName": "LWS to 8"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LWS to 8"
           }
         },
         {
@@ -50,7 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_2 to 3"
+            "pathName": "LWS to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "7 to LWS"
           }
         },
         {
@@ -62,7 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_3 to 4"
+            "pathName": "LWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "6 to CWS"
           }
         },
         {
@@ -74,6 +80,6 @@
       ]
     }
   },
-  "folder": "Blue",
+  "folder": "Red",
   "choreoAuto": false
 }

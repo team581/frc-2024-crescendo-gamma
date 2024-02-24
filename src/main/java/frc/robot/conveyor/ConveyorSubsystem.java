@@ -7,6 +7,7 @@ package frc.robot.conveyor;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -17,6 +18,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
   private final DigitalInput sensor;
   private final Debouncer handoffDebouncer = RobotConfig.get().conveyor().handoffDebouncer();
   private final Debouncer scoringDebouncer = RobotConfig.get().conveyor().scoringDebouncer();
+  private final Timer timer = new Timer();
   private boolean handoffDebouncedSensor = false;
   private boolean scoringDebouncedSensor = false;
   private ConveyorState goalState = ConveyorState.IDLE;
@@ -28,6 +30,8 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
 
     this.motor = motor;
     this.sensor = sensor;
+
+    timer.start();
   }
 
   @Override
@@ -57,6 +61,17 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
       case AMP_SHOT:
         motor.setVoltage(-12);
         break;
+      case TRAP_SHOT_PULSE:
+        if (timer.hasElapsed(RobotConfig.get().conveyor().pulseDuration())) {
+          if (timer.hasElapsed(RobotConfig.get().conveyor().pulseDuration() * 2.0)) {
+            motor.disable();
+            timer.reset();
+          } else {
+            motor.setVoltage(-12);
+          }
+        } else {
+          motor.disable();
+        }
       default:
         break;
     }
@@ -74,6 +89,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
     Logger.recordOutput("Conveyor/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Conveyor/Voltage", motor.getMotorVoltage().getValueAsDouble());
+    Logger.recordOutput("Conveyor/Timer", timer.get());
   }
 
   public void setState(ConveyorState state) {

@@ -40,6 +40,11 @@ public class RobotCommands {
         .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP));
   }
 
+  public Command intakeSlowCommand() {
+    return Commands.runOnce(() -> robot.intakeSlowRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP));
+  }
+
   public Command outtakeCommand() {
     return Commands.runOnce(() -> robot.outtakeRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP));
@@ -51,11 +56,7 @@ public class RobotCommands {
   }
 
   public Command homeCommand() {
-    return Commands.runOnce(() -> robot.homingRequest(), requirements)
-        .andThen(
-            Commands.race(
-                robot.waitForStateCommand(RobotState.IDLE_NO_GP),
-                robot.waitForStateCommand(RobotState.IDLE_WITH_GP)));
+    return Commands.runOnce(() -> robot.climber.startHoming(), robot.climber);
   }
 
   public Command waitForSpeakerShotCommand() {

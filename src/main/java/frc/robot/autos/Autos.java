@@ -53,14 +53,13 @@ public class Autos extends LifecycleSubsystem {
         localization::resetPose,
         swerve::getRobotRelativeSpeeds,
         (robotRelativeSpeeds) -> {
-          robotRelativeSpeeds.omegaRadiansPerSecond *= -1.0;
           swerve.setRobotRelativeSpeeds(robotRelativeSpeeds, true);
         },
         new HolonomicPathFollowerConfig(
             new PIDConstants(4.0, 0.0, 0.0),
             new PIDConstants(4.0, 0.0, 0.0),
             SwerveSubsystem.MaxSpeed,
-            0.4,
+            0.387,
             new ReplanningConfig()),
         () -> false,
         swerve);
@@ -73,16 +72,15 @@ public class Autos extends LifecycleSubsystem {
         actions
             .waitForIdle()
             .andThen(actions.speakerShotCommand().withTimeout(3))
-            .andThen(actions.outtakeCommand().withTimeout(1)));
+            .andThen(actions.outtakeShooterCommand().withTimeout(1)));
     NamedCommands.registerCommand(
         "subwooferShot",
         actions
             .subwooferShotCommand()
             .withTimeout(3)
-            .andThen(actions.outtakeCommand().withTimeout(1)));
+            .andThen(actions.outtakeShooterCommand().withTimeout(1)));
     NamedCommands.registerCommand("intakeFloor", actions.intakeCommand());
-    NamedCommands.registerCommand("stowDown", actions.stowCommand());
-    NamedCommands.registerCommand("home", actions.homeCommand());
+    NamedCommands.registerCommand("outtakeShooter", actions.outtakeShooterCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {

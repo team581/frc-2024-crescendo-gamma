@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.08,
-        "y": 2.1564795529591056
+        "x": 8.9076570993142,
+        "y": 7.513199390398782
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.93911811023622,
-        "y": 0.6438140716281429
+        "x": 9.309486742703267,
+        "y": 7.316395795330026
       },
       "isLocked": false,
-      "linkedName": "Red LWS"
+      "linkedName": "Red 4"
     },
     {
       "anchor": {
-        "x": 8.438239268478538,
-        "y": 2.390547117094235
+        "x": 10.407613539756861,
+        "y": 6.5988314570013475
       },
       "prevControl": {
-        "x": 9.178563881127765,
-        "y": 2.066741681483364
+        "x": 10.036553341636465,
+        "y": 6.774695109528652
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 7"
+      "linkedName": "RWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 0.15,
+      "name": "cancel intaking and warmup",
+      "waypointRelativePos": 0.1499999999999999,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "cancelIntaking"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "eagerSpeakerShot"
               }
             }
           ]
@@ -57,11 +63,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.17712613523253,
+    "rotation": -12.319999999999993,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red 7",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Red 4",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

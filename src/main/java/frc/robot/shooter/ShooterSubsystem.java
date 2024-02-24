@@ -63,6 +63,8 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       case IDLE:
         goalRPM = IDLE_RPM;
         break;
+      case FULLY_STOPPED:
+        goalRPM = 0;
       default:
         break;
     }
@@ -90,8 +92,12 @@ public class ShooterSubsystem extends LifecycleSubsystem {
         "Shooter/RightMotor/SupplyCurrent", rightMotor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Shooter/AtGoal", atGoal(goalMode));
 
+    if (goalMode == ShooterMode.FULLY_STOPPED) {
+      leftMotor.disable();
+      rightMotor.disable();
+    } else {
     leftMotor.setControl(velocityRequest.withVelocity((goalRPM) / 60));
-    rightMotor.setControl(velocityRequest.withVelocity((goalRPM * SPIN_RATIO) / 60));
+    rightMotor.setControl(velocityRequest.withVelocity((goalRPM * SPIN_RATIO) / 60));}
   }
 
   public boolean atGoal(ShooterMode mode) {
@@ -99,7 +105,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       return false;
     }
 
-    if (goalMode == ShooterMode.IDLE) {
+    if (goalMode == ShooterMode.IDLE || goalMode == ShooterMode.FULLY_STOPPED) {
       return true;
     }
 

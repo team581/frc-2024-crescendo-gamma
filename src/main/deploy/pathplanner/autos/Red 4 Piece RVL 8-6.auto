@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.84,
-      "y": 4.39
+      "x": 15.14,
+      "y": 1.53
     },
-    "rotation": 56.54
+    "rotation": 90.0
   },
   "command": {
     "type": "sequential",
@@ -14,31 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "home"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "preloadNote"
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "RL to WS"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "1 to RM"
+            "pathName": "RVL to LWS"
           }
         },
         {
@@ -50,13 +32,43 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RM to 2"
+            "pathName": "LWS to 8"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2 to RM"
+            "pathName": "8 to LWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LWS to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "7 to LWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LWS to 6"
           }
         },
         {
@@ -68,6 +80,6 @@
       ]
     }
   },
-  "folder": "Red 3 or less",
+  "folder": "Red",
   "choreoAuto": false
 }

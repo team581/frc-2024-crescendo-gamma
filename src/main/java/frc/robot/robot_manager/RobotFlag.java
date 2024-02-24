@@ -5,7 +5,6 @@
 package frc.robot.robot_manager;
 
 public enum RobotFlag {
-  HOMING,
   WAIT_SPEAKER_SHOT,
   SPEAKER_SHOT,
   WAIT_AMP_SHOT,
@@ -13,6 +12,7 @@ public enum RobotFlag {
   WAIT_SUBWOOFER_SHOT,
   SUBWOOFER_SHOT,
   INTAKE,
+  INTAKE_SLOW,
   OUTTAKE_SHOOTER,
   OUTTAKE,
   STOW,
