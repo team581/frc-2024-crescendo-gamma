@@ -60,7 +60,7 @@ public class Autos extends LifecycleSubsystem {
             new PIDConstants(4.0, 0.0, 0.0),
             new PIDConstants(4.0, 0.0, 0.0),
             SwerveSubsystem.MaxSpeed,
-            0.4,
+            0.387,
             new ReplanningConfig()),
         () -> false,
         swerve);
@@ -81,7 +81,7 @@ public class Autos extends LifecycleSubsystem {
             .withTimeout(3)
             .andThen(actions.outtakeShooterCommand().withTimeout(1)));
     NamedCommands.registerCommand("intakeFloor", actions.intakeCommand());
-    NamedCommands.registerCommand("outtakeShooter", actions.outtakeShooterCommand());
+     NamedCommands.registerCommand("outtakeShooter", actions.outtakeShooterCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {
