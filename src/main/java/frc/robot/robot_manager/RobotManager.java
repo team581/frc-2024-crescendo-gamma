@@ -428,7 +428,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.HANGING);
-        noteManager.ampScoreRequest();
+        noteManager.trapShotRequest();
         break;
       default:
         // Should never happen
