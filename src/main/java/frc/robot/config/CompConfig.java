@@ -151,6 +151,7 @@ class CompConfig {
                       new FeedbackConfigs()
                           .withSensorToMechanismRatio((50.0 / 8.0) * (24.0 / 15.0)))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(20))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
@@ -168,6 +169,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(20))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new ConveyorConfig(
@@ -179,6 +181,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(20))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new QueuerConfig(
@@ -189,6 +192,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
+                  .withCurrentLimits(new CurrentLimitsConfigs().withStatorCurrentLimit(20))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
