@@ -62,11 +62,11 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         break;
       case TRAP_SHOT_PULSE:
         if (timer.hasElapsed(RobotConfig.get().conveyor().pulseDuration())) {
-          motor.setVoltage(-12);
-
           if (timer.hasElapsed(RobotConfig.get().conveyor().pulseDuration() * 2.0)) {
             motor.disable();
             timer.reset();
+          } else {
+            motor.setVoltage(-12);
           }
         } else {
           motor.disable();
@@ -88,6 +88,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
     Logger.recordOutput("Conveyor/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Conveyor/Voltage", motor.getMotorVoltage().getValueAsDouble());
+    Logger.recordOutput("Conveyor/Timer", timer.get());
   }
 
   public void setState(ConveyorState state) {

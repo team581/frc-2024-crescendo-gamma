@@ -109,14 +109,10 @@ public class NoteManager extends LifecycleSubsystem {
       case IDLE_NO_GP:
       case IDLE_IN_CONVEYOR:
       case IDLE_IN_QUEUER:
+      case TRAP_SCORING:
         // Do nothing
         break;
       case AMP_SCORING:
-      case TRAP_SCORING:
-        if (!conveyor.hasNote()) {
-          state = NoteState.IDLE_NO_GP;
-        }
-        break;
       case SHOOTING:
       case SHOOTER_OUTTAKING:
         if (!queuer.hasNote() && !intake.hasNote()) {
