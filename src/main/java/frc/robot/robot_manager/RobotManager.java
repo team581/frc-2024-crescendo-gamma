@@ -338,7 +338,7 @@ public class RobotManager extends LifecycleSubsystem {
         noteManager.idleInQueuerRequest();
         break;
       case GROUND_INTAKING:
-        wrist.setAngle(wristAngleForSpeaker);
+        wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
