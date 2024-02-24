@@ -215,10 +215,7 @@ public class Robot extends LoggedRobot {
         .rightTrigger()
         .onTrue(actions.waitForSpeakerShotCommand())
         .onFalse(actions.stowCommand());
-    operatorController
-        .rightBumper()
-        .onTrue(actions.waitForAmpShotCommand())
-        .onFalse(actions.stowCommand());
+    operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
     operatorController
         .leftBumper()
         .onTrue(actions.waitForFloorShotCommand())
