@@ -76,10 +76,10 @@ public class LightsSubsystem extends LifecycleSubsystem {
         lightsOnExit = Optional.of(previousState.lightsOnExit.get());
       }
 
-      if (lightsOnExitTimer.hasElapsed(1.5)) {
+      if (lightsOnExitTimer.hasElapsed(0.5)) {
         lightsOnExit = Optional.empty();
-        lightsOnExitTimer.reset();
         lightsOnExitTimer.stop();
+        lightsOnExitTimer.reset();
       }
 
       if (lightsOnExit.isPresent()) {
