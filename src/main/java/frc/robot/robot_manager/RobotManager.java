@@ -113,20 +113,26 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.CLIMB_1_LINEUP_OUTER;
           break;
         case CLIMB_2_LINEUP_INNER:
-          state = RobotState.CLIMB_2_LINEUP_INNER;
+          if (state == RobotState.CLIMB_1_LINEUP_OUTER
+              || state == RobotState.CLIMB_3_LINEUP_FINAL) {
+            state = RobotState.CLIMB_2_LINEUP_INNER;
+          }
           break;
         case CLIMB_3_LINEUP_FINAL:
-          if (state == RobotState.CLIMB_2_LINEUP_INNER) {
+          if (state == RobotState.CLIMB_2_LINEUP_INNER || state == RobotState.CLIMB_4_HANGING) {
             state = RobotState.CLIMB_3_LINEUP_FINAL;
           }
           break;
         case CLIMB_4_HANGING:
-          if (state == RobotState.CLIMB_3_LINEUP_FINAL) {
+          if (state == RobotState.CLIMB_3_LINEUP_FINAL
+              || state == RobotState.CLIMB_5_HANGING_TRAP_SCORE) {
             state = RobotState.PREPARE_CLIMB_4_HANGING;
           }
           break;
         case CLIMB_5_HANGING_TRAP_SCORE:
-          state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
+          if (state == RobotState.CLIMB_4_HANGING) {
+            state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
+          }
           break;
         case WAIT_SPEAKER_SHOT:
           state = RobotState.WAITING_SPEAKER_SHOT;
@@ -388,45 +394,45 @@ public class RobotManager extends LifecycleSubsystem {
         noteManager.ampScoreRequest();
         break;
       case CLIMB_1_LINEUP_OUTER:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
+        shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.LINEUP_OUTER);
         noteManager.trapWaitRequest();
         break;
       case CLIMB_2_LINEUP_INNER:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
+        shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.LINEUP_INNER);
         noteManager.trapWaitRequest();
         break;
       case CLIMB_3_LINEUP_FINAL:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
-        shooter.setGoalMode(ShooterMode.IDLE);
+        shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.LINEUP_INNER);
         noteManager.trapWaitRequest();
         break;
       case PREPARE_CLIMB_4_HANGING:
       case CLIMB_4_HANGING:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.CLIMBING);
-        shooter.setGoalMode(ShooterMode.IDLE);
+        shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.trapWaitRequest();
         break;
       case PREPARE_CLIMB_5_HANGING_TRAP_SCORE:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
-        shooter.setGoalMode(ShooterMode.IDLE);
+        shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.trapWaitRequest();
         break;
       case CLIMB_5_HANGING_TRAP_SCORE:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(WristPositions.CLIMBING);
         elevator.setGoalHeight(ElevatorPositions.TRAP_SHOT);
-        shooter.setGoalMode(ShooterMode.IDLE);
+        shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.trapShotRequest();
         break;

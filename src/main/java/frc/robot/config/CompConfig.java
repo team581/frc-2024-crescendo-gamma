@@ -84,7 +84,7 @@ class CompConfig {
               10,
               0.5,
               0.0,
-              21.0,
+              22.0,
               0.22398,
               1,
               new TalonFXConfiguration()
@@ -157,7 +157,7 @@ class CompConfig {
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               0,
               0.0,
-              21,
+              22,
               4.0,
               0.75),
           new IntakeConfig(
@@ -173,7 +173,7 @@ class CompConfig {
           new ConveyorConfig(
               2,
               2,
-              0.3,
+              0.10,
               new Debouncer(0.05, DebounceType.kBoth),
               new Debouncer(0.25, DebounceType.kBoth),
               new TalonFXConfiguration()
