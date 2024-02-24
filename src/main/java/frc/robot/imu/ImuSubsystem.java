@@ -89,10 +89,6 @@ public class ImuSubsystem extends LifecycleSubsystem {
   }
 
   private Rotation2d getAngleToleranceFromDistanceToSpeaker(double distance) {
-    return distance > 1.0 // Minimum distance
-        ? Rotation2d.fromDegrees(2.5) // Minimum tolerance
-        : distance < 1.0 // Max distance
-            ? Rotation2d.fromDegrees(2.5) // max tolerance
-            : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
+    return Rotation2d.fromDegrees(2.5);
   }
 }
