@@ -116,18 +116,16 @@ public class LightsSubsystem extends LifecycleSubsystem {
         blinkTimer.reset();
         candle.setLEDs(0, 0, 0);
 
-        if (state.color() != Color.kWhite) {
-          LimelightHelpers.setLEDMode_ForceOff("");
 
-          // do the limelight blinky stuff  (turned off)
-        }
 
       } else if (time >= onDuration) {
         candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
 
         if (state.color() == Color.kWhite) {
           LimelightHelpers.setLEDMode_ForceBlink("");
-          // do the limelight blinky stuff (turned on)
+        }
+         if (state.color() != Color.kWhite) {
+          LimelightHelpers.setLEDMode_ForceOff("");
         }
       }
     }
