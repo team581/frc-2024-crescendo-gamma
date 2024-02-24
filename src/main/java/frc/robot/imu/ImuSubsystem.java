@@ -72,7 +72,8 @@ public class ImuSubsystem extends LifecycleSubsystem {
   }
 
   public boolean belowVelocityForSpeaker(double distance) {
-    return atAngle(getRobotAngularVelocity(), getAngleToleranceFromDistanceToSpeaker(distance));
+    return getRobotAngularVelocity().getDegrees()
+        < getAngleToleranceFromDistanceToSpeaker(distance).getDegrees();
   }
 
   public boolean atAngleForSpeaker(Rotation2d angle, double distance) {
