@@ -201,7 +201,10 @@ public class Robot extends LoggedRobot {
     driverController.a().onTrue(snaps.getCommand(() -> SnapManager.getDownAngle()));
     driverController.b().onTrue(snaps.getCommand(() -> SnapManager.getAmpAngle()));
 
-    driverController.leftTrigger().onTrue(actions.intakeCommand()).onFalse(actions.stowCommand());
+    driverController
+        .leftTrigger()
+        .onTrue(actions.intakeCommand())
+        .onFalse(actions.intakeSlowCommand());
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())

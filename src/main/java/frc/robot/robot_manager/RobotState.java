@@ -19,7 +19,9 @@ public enum RobotState {
   IDLE_WITH_GP(true, false, new LightsState(Color.kOrangeRed, BlinkPattern.SOLID)),
 
   /** Intaking a game piece. Transition to INTAKE_TO_QUEUER when done. */
-  GROUND_INTAKING(
+  INTAKING(false, false, new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW)),
+
+  INTAKING_SLOW(
       false,
       false,
       new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW),

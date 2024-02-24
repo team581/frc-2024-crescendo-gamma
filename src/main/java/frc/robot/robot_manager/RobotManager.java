@@ -107,7 +107,12 @@ public class RobotManager extends LifecycleSubsystem {
           // Need to force set the state, rather than doing a state request, due to order of
           // subsystems executing
           noteManager.evilStateOverride(NoteState.IDLE_NO_GP);
-          state = RobotState.GROUND_INTAKING;
+          state = RobotState.INTAKING;
+          break;
+        case INTAKE_SLOW:
+          if (state != RobotState.IDLE_WITH_GP) {
+            state = RobotState.INTAKING_SLOW;
+          }
           break;
         case CLIMB_1_LINEUP_OUTER:
           state = RobotState.CLIMB_1_LINEUP_OUTER;
@@ -188,7 +193,8 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.WAITING_AMP_SHOT;
         }
         break;
-      case GROUND_INTAKING:
+      case INTAKING:
+      case INTAKING_SLOW:
         if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
           state = RobotState.IDLE_WITH_GP;
         }
@@ -287,12 +293,19 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.IDLE);
         noteManager.idleInQueuerRequest();
         break;
-      case GROUND_INTAKING:
+      case INTAKING:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         noteManager.intakeRequest();
+        break;
+      case INTAKING_SLOW:
+        wrist.setAngle(WristPositions.STOWED);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
+        noteManager.intakeSlowRequest();
         break;
       case OUTTAKING:
         wrist.setAngle(wristAngleForSpeaker);
@@ -475,6 +488,10 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void intakeRequest() {
     flags.check(RobotFlag.INTAKE);
+  }
+
+  public void intakeSlowRequest() {
+    flags.check(RobotFlag.INTAKE_SLOW);
   }
 
   public void outtakeRequest() {

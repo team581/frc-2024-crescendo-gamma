@@ -70,17 +70,13 @@ public class NoteManager extends LifecycleSubsystem {
           }
           break;
         case IDLE_NO_GP:
-          // TODO: This logic needs to be moved to robot manager, if we do it here it's just going
-          // to get overwritten by RobotManager
-          if (state == NoteState.INTAKE_TO_QUEUER && intake.hasNote()) {
-            // Do nothing, we are intaking and have partially intaked the note, so we should keep
-            // trying
-          } else {
-            state = NoteState.IDLE_NO_GP;
-          }
+          state = NoteState.IDLE_NO_GP;
           break;
         case INTAKE:
           state = NoteState.INTAKE_TO_QUEUER;
+          break;
+        case INTAKE_SLOW:
+          state = NoteState.INTAKE_SLOW_TO_QUEUER;
           break;
         case OUTTAKE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
@@ -128,6 +124,7 @@ public class NoteManager extends LifecycleSubsystem {
         }
         break;
       case INTAKE_TO_QUEUER:
+      case INTAKE_SLOW_TO_QUEUER:
         if (queuer.hasNote() && !intake.hasNote()) {
           state = NoteState.IDLE_IN_QUEUER;
         }
@@ -185,6 +182,11 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case INTAKE_TO_QUEUER:
         intake.setState(IntakeState.TO_QUEUER);
+        conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
+        queuer.setState(QueuerState.INTAKING);
+        break;
+      case INTAKE_SLOW_TO_QUEUER:
+        intake.setState(IntakeState.TO_QUEUER_SLOW);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
         break;
@@ -246,6 +248,10 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void intakeRequest() {
     flags.check(NoteFlag.INTAKE);
+  }
+
+  public void intakeSlowRequest() {
+    flags.check(NoteFlag.INTAKE_SLOW);
   }
 
   public void shooterScoreRequest() {
