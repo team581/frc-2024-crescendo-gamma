@@ -112,21 +112,17 @@ public class LightsSubsystem extends LifecycleSubsystem {
         offDuration = SLOW_BLINK_DURATION * 2;
       }
 
+      if (state.color() == Color.kWhite) {
+        LimelightHelpers.setLEDMode_ForceBlink("");
+      } else {
+        LimelightHelpers.setLEDMode_ForceOff("");
+      }
+
       if (time >= offDuration) {
         blinkTimer.reset();
         candle.setLEDs(0, 0, 0);
-
-
-
       } else if (time >= onDuration) {
         candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
-
-        if (state.color() == Color.kWhite) {
-          LimelightHelpers.setLEDMode_ForceBlink("");
-        }
-         if (state.color() != Color.kWhite) {
-          LimelightHelpers.setLEDMode_ForceOff("");
-        }
       }
     }
 
