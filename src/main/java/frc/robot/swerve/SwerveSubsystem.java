@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -24,6 +25,7 @@ import frc.robot.util.ControllerHelpers;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import java.util.List;
+import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveSubsystem extends LifecycleSubsystem {
@@ -101,6 +103,11 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   private final SwerveModule backRight = drivetrain.getModule(3);
   private ChassisSpeeds fieldRelativeSpeeds = new ChassisSpeeds();
   private boolean closedLoop = false;
+
+  // TODO: tune
+  private final PIDController xPid = new PIDController(0.5, 0, 0);
+  private final PIDController yPid = new PIDController(0.5, 0, 0);
+  private final PIDController omegaPid = new PIDController(0.5, 0, 0);
 
   public SwerveSubsystem(CommandXboxController driveController) {
     super(SubsystemPriority.SWERVE);
@@ -328,5 +335,41 @@ public class SwerveSubsystem extends LifecycleSubsystem {
         Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
 
     return linearSpeed < MAX_SPEED_SHOOTING;
+  }
+
+  private boolean atLocation(Pose2d target, Pose2d current) {
+    // Return true once at location
+    double translationTolerance = 0.1;
+    double omegaTolerance = 5;
+    return Math.abs(current.getX() - target.getX()) <= translationTolerance
+        && Math.abs(current.getY() - target.getY()) <= translationTolerance
+        && Math.abs(current.getRotation().getDegrees() - target.getRotation().getDegrees())
+            <= omegaTolerance;
+  }
+
+  public Command driveToPoseCommand(Supplier<Pose2d> targetSupplier, Supplier<Pose2d> currentPose) {
+    return run(() -> {
+          var target = targetSupplier.get();
+          var pose = currentPose.get();
+          Logger.recordOutput("AutoClimb/Pose", pose);
+          double vx = xPid.calculate(pose.getX(), target.getX());
+          double vy = yPid.calculate(pose.getY(), target.getY());
+          double vomega =
+              omegaPid.calculate(
+                  Rotation2d.fromDegrees(drivetrain.getPigeon2().getYaw().getValueAsDouble())
+                      .getRadians(),
+                  target.getRotation().getRadians());
+
+          var newSpeeds = new ChassisSpeeds(vx, vy, vomega);
+          Logger.recordOutput("AutoClimb/ChassisSpeeds", newSpeeds);
+          setFieldRelativeSpeeds(newSpeeds, true);
+        })
+        .until(
+            () -> {
+              var target = targetSupplier.get();
+
+              Logger.recordOutput("AutoClimb/AtLocation", atLocation(target, currentPose.get()));
+              return atLocation(target, currentPose.get());
+            });
   }
 }
