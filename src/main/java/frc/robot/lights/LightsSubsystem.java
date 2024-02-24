@@ -16,6 +16,7 @@ import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.VisionState;
 import frc.robot.vision.VisionSubsystem;
+import org.littletonrobotics.junction.Logger;
 
 public class LightsSubsystem extends LifecycleSubsystem {
 
@@ -44,7 +45,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
     candle.configAllSettings(config);
   }
 
-  private Color getVisionLightsState() {
+  private Color getVisionLightsColor() {
     if (vision.getState() == VisionState.SEES_TAGS) {
       return Color.kGreen;
     } else if (vision.getState() == VisionState.ONLINE_NO_TAGS) {
@@ -61,28 +62,20 @@ public class LightsSubsystem extends LifecycleSubsystem {
     if (DriverStation.isDisabled()) {
       state =
           new LightsState(
-              getVisionLightsState(),
+              getVisionLightsColor(),
               vision.getState() == VisionState.OFFLINE
                   ? BlinkPattern.BLINK_SLOW
                   : BlinkPattern.SOLID);
 
+    } else if (robotState.lightsState.color() == null) {
+      // Use vision color
+      state = new LightsState(getVisionLightsColor(), robotState.lightsState.pattern());
     } else {
-      switch (robotState) {
-        case PREPARE_SUBWOOFER_SHOT:
-        case PREPARE_AMP_SHOT:
-        case PREPARE_FLOOR_SHOT:
-        case PREPARE_SPEAKER_SHOT:
-        case WAITING_AMP_SHOT:
-        case WAITING_FLOOR_SHOT:
-        case WAITING_SPEAKER_SHOT:
-        case WAITING_SUBWOOFER_SHOT:
-          state = new LightsState(getVisionLightsState(), robotState.lightsState.pattern());
-          break;
-        default:
-          state = robotState.lightsState;
-          break;
-      }
+      state = robotState.lightsState;
     }
+
+    Logger.recordOutput("Lights/Color", state.color().toString());
+    Logger.recordOutput("Lights/Pattern", state.pattern());
 
     Color8Bit color8Bit = new Color8Bit(state.color());
 
