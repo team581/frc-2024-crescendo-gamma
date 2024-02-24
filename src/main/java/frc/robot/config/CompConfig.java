@@ -173,6 +173,7 @@ class CompConfig {
           new ConveyorConfig(
               2,
               2,
+              0.3,
               new Debouncer(0.05, DebounceType.kBoth),
               new Debouncer(0.25, DebounceType.kBoth),
               new TalonFXConfiguration()
