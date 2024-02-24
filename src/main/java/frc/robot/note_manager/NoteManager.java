@@ -140,6 +140,11 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE:
         if (!conveyor.hasNote() && intake.hasNote()) {
+          state = NoteState.CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL;
+        }
+        break;
+      case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL:
+        if (!intake.hasNote()) {
           state = NoteState.INTAKE_TO_QUEUER;
         }
         break;
@@ -176,6 +181,7 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case CONVEYOR_TO_INTAKE_FOR_OUTTAKING:
       case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE:
+      case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL:
         intake.setState(IntakeState.FROM_CONVEYOR);
         conveyor.setState(ConveyorState.CONVEYOR_TO_INTAKE);
         queuer.setState(QueuerState.IDLE);

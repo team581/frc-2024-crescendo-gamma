@@ -101,7 +101,11 @@ public class RobotManager extends LifecycleSubsystem {
         case STOW:
           if (state.homed) {
             if (state.hasNote) {
-              state = RobotState.IDLE_WITH_GP;
+              if (state == RobotState.WAITING_AMP_SHOT) {
+                state = RobotState.PREPARE_IDLE_WITH_GP_FROM_CONVEYOR;
+              } else {
+                state = RobotState.IDLE_WITH_GP;
+              }
             } else {
               state = RobotState.IDLE_NO_GP;
             }
@@ -214,6 +218,11 @@ public class RobotManager extends LifecycleSubsystem {
       case HOMING:
         if (climber.getHomingState() == HomingState.HOMED) {
           state = RobotState.IDLE_NO_GP;
+        }
+        break;
+      case PREPARE_IDLE_WITH_GP_FROM_CONVEYOR:
+        if (elevator.atPosition(ElevatorPositions.STOWED)) {
+          state = RobotState.IDLE_WITH_GP;
         }
         break;
       case PREPARE_WAITING_AMP_SHOT:
@@ -329,6 +338,13 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         noteManager.idleNoGPRequest();
+        break;
+      case PREPARE_IDLE_WITH_GP_FROM_CONVEYOR:
+        wrist.setAngle(WristPositions.STOWED);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.IDLE);
+        climber.setGoalMode(ClimberMode.IDLE);
+        noteManager.ampWaitRequest();
         break;
       case IDLE_WITH_GP:
         wrist.setAngle(wristAngleForSpeaker);
