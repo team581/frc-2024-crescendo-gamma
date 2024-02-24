@@ -52,7 +52,7 @@ public class ImuSubsystem extends LifecycleSubsystem {
   }
 
   public Rotation2d getRobotHeading(double timestamp) {
-    return new Rotation2d().fromDegrees(robotHeadingLatency.lookupData(timestamp));
+    return Rotation2d.fromDegrees(robotHeadingLatency.lookupData(timestamp));
   }
 
   public Rotation2d getRobotAngularVelocity() {
