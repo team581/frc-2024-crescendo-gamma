@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.Autos;
+import frc.robot.climber.AutoClimbManager;
 import frc.robot.climber.ClimberSubsystem;
 import frc.robot.config.RobotConfig;
 import frc.robot.conveyor.ConveyorSubsystem;
@@ -89,6 +90,8 @@ public class Robot extends LoggedRobot {
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision);
+  private final AutoClimbManager autoClimbManager =
+      new AutoClimbManager(localization, actions, robotManager, swerve);
 
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
@@ -205,6 +208,7 @@ public class Robot extends LoggedRobot {
     driverController.rightBumper().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());
+    operatorController.povDown().whileTrue(autoClimbManager.getClimbSequenceCommand());
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
     operatorController.a().onTrue(actions.stowCommand());
     operatorController
