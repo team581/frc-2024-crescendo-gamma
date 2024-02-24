@@ -14,8 +14,10 @@ import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import frc.robot.vision.LimelightHelpers;
 import frc.robot.vision.VisionState;
 import frc.robot.vision.VisionSubsystem;
+import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class LightsSubsystem extends LifecycleSubsystem {
@@ -27,8 +29,11 @@ public class LightsSubsystem extends LifecycleSubsystem {
   private final RobotManager robotManager;
   private final VisionSubsystem vision;
   private final Timer blinkTimer = new Timer();
+  private final Timer lightsOnExitTimer = new Timer();
 
   private LightsState state = new LightsState(Color.kWhite, BlinkPattern.SOLID);
+  private Optional<LightsState> lightsOnExit = Optional.empty();
+  private RobotState previousState = RobotState.IDLE_NO_GP;
 
   public LightsSubsystem(CANdle candle, RobotManager robotManager, VisionSubsystem vision) {
     super(SubsystemPriority.LIGHTS);
@@ -58,7 +63,6 @@ public class LightsSubsystem extends LifecycleSubsystem {
   @Override
   public void robotPeriodic() {
     RobotState robotState = robotManager.getState();
-
     if (DriverStation.isDisabled()) {
       state =
           new LightsState(
@@ -66,12 +70,26 @@ public class LightsSubsystem extends LifecycleSubsystem {
               vision.getState() == VisionState.OFFLINE
                   ? BlinkPattern.BLINK_SLOW
                   : BlinkPattern.SOLID);
-
-    } else if (robotState.lightsState.color() == null) {
-      // Use vision color
-      state = new LightsState(getVisionLightsColor(), robotState.lightsState.pattern());
     } else {
-      state = robotState.lightsState;
+      if (previousState != robotState && previousState.lightsOnExit.isPresent()) {
+        lightsOnExitTimer.start();
+        lightsOnExit = Optional.of(previousState.lightsOnExit.get());
+      }
+
+      if (lightsOnExitTimer.hasElapsed(1.5)) {
+        lightsOnExit = Optional.empty();
+        lightsOnExitTimer.reset();
+        lightsOnExitTimer.stop();
+      }
+
+      if (lightsOnExit.isPresent()) {
+        state = lightsOnExit.get();
+      } else if (robotState.lightsState.color() == null) {
+        // Use vision color
+        state = new LightsState(getVisionLightsColor(), robotState.lightsState.pattern());
+      } else {
+        state = robotState.lightsState;
+      }
     }
 
     Logger.recordOutput("Lights/Color", state.color().toString());
@@ -97,9 +115,23 @@ public class LightsSubsystem extends LifecycleSubsystem {
       if (time >= offDuration) {
         blinkTimer.reset();
         candle.setLEDs(0, 0, 0);
+
+        if (state.color() != Color.kWhite) {
+          LimelightHelpers.setLEDMode_ForceOff("");
+
+          // do the limelight blinky stuff  (turned off)
+        }
+
       } else if (time >= onDuration) {
         candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
+
+        if (state.color() == Color.kWhite) {
+          LimelightHelpers.setLEDMode_ForceBlink("");
+          // do the limelight blinky stuff (turned on)
+        }
       }
     }
+
+    previousState = robotState;
   }
 }
