@@ -99,21 +99,29 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   }
 
   public Pose2d getOdometryPose() {
-
     return odometry.getPoseMeters();
   }
 
   public void resetPose(Pose2d pose) {
-    imu.setAngle(pose.getRotation());
-    poseEstimator.resetPosition(
-        pose.getRotation(), swerve.getModulePositions().toArray(new SwerveModulePosition[4]), pose);
-    odometry.resetPosition(
-        pose.getRotation(), swerve.getModulePositions().toArray(new SwerveModulePosition[4]), pose);
+    resetPose(pose, pose);
   }
 
-  public void resetGyro(Rotation2d gyroAngle) {
-    Pose2d pose = new Pose2d(getPose().getTranslation(), gyroAngle);
-    resetPose(pose);
+  public void resetPose(Pose2d estimatedPose, Pose2d odometryPose) {
+    imu.setAngle(odometryPose.getRotation());
+    poseEstimator.resetPosition(
+        estimatedPose.getRotation(),
+        swerve.getModulePositions().toArray(new SwerveModulePosition[4]),
+        estimatedPose);
+    odometry.resetPosition(
+        odometryPose.getRotation(),
+        swerve.getModulePositions().toArray(new SwerveModulePosition[4]),
+        odometryPose);
+  }
+
+  private void resetGyro(Rotation2d gyroAngle) {
+    Pose2d estimatedPose = new Pose2d(getPose().getTranslation(), gyroAngle);
+    Pose2d odometryPose = new Pose2d(getOdometryPose().getTranslation(), gyroAngle);
+    resetPose(estimatedPose, odometryPose);
   }
 
   public Command getZeroCommand() {
