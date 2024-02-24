@@ -1,0 +1,90 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 10.407613539756861,
+        "y": 6.5988314570013475
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.021709931419863,
+        "y": 6.217002794005588
+      },
+      "isLocked": false,
+      "linkedName": "RWS"
+    },
+    {
+      "anchor": {
+        "x": 8.794984505969012,
+        "y": 4.082585725171451
+      },
+      "prevControl": {
+        "x": 8.14603372765369,
+        "y": 4.738437703549533
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red 6"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.75,
+      "rotationDegrees": 90.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloorLow"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "cancel intaking",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "cancelIntaking"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.7,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red 6",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}
