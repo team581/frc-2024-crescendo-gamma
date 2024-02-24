@@ -134,6 +134,7 @@ class CompConfig {
                 speakerDistanceToAngle.put(1.25, 58.1);
                 speakerDistanceToAngle.put(2.0, 48.0);
                 speakerDistanceToAngle.put(3.6, 33.4);
+                speakerDistanceToAngle.put(4.4, 30.0);
                 speakerDistanceToAngle.put(4.9, 29.0);
                 speakerDistanceToAngle.put(5.3, 23.5);
               },

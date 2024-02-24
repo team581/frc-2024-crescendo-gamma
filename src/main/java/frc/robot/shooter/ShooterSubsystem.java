@@ -17,7 +17,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private static final int IDLE_RPM = 1000;
   private static final double OUTTAKE_RPM = 2000; // TODO: adjust for desirable outtake speeds
   private static final double SUBWOOFER_SHOOTING_RPM = 3000;
-  private static final double TOLERANCE_RPM = 500;
+  private static final double TOLERANCE_RPM = 250;
   private final TalonFX leftMotor;
   private final TalonFX rightMotor;
   private final VelocityTorqueCurrentFOC velocityRequest =
