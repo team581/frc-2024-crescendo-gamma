@@ -16,7 +16,7 @@ public class ControllerHelpers {
     return newJoystickVal;
   }
 
-  public static double getSign(double num) {
+  private static double getSign(double num) {
     return num >= 0 ? 1 : -1;
   }
 
