@@ -14,12 +14,6 @@
         {
           "type": "named",
           "data": {
-            "name": "home"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "preloadNote"
           }
         },
@@ -32,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RL to WS"
+            "pathName": "RL to 1"
           }
         },
         {
@@ -72,6 +66,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of 4 to RWS"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "speakerShot"
@@ -80,6 +80,6 @@
       ]
     }
   },
-  "folder": "Red 4 or more",
+  "folder": "Red",
   "choreoAuto": false
 }

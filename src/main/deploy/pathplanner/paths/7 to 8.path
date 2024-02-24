@@ -3,36 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.027992554465351,
-        "y": 5.539403662393951
+        "x": 8.438239268478538,
+        "y": 2.390547117094235
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.192677528212199,
-        "y": 5.526891121437723
+        "x": 9.137055626111252,
+        "y": 1.9740792481584968
       },
       "isLocked": false,
-      "linkedName": "Red 2 to Subwoofer"
+      "linkedName": "Red 7"
     },
     {
       "anchor": {
-        "x": 15.176305334892739,
-        "y": 5.539403662393951
+        "x": 8.524796037592075,
+        "y": 0.7416586233172466
       },
       "prevControl": {
-        "x": 14.996086693725973,
-        "y": 5.541266145081389
+        "x": 9.930432816865634,
+        "y": 0.7536134112268223
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Subwoofer Mid"
+      "linkedName": "Red 8"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.7,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red",
+  "folder": "Red MidlinePiecesFromTop",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

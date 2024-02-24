@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.08,
-        "y": 2.1564795529591056
+        "x": 10.407613539756861,
+        "y": 6.5988314570013475
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.93911811023622,
-        "y": 0.6438140716281429
+        "x": 10.021709931419863,
+        "y": 6.217002794005588
       },
       "isLocked": false,
-      "linkedName": "Red LWS"
+      "linkedName": "RWS"
     },
     {
       "anchor": {
-        "x": 8.438239268478538,
-        "y": 2.390547117094235
+        "x": 8.794984505969012,
+        "y": 4.082585725171451
       },
       "prevControl": {
-        "x": 9.178563881127765,
-        "y": 2.066741681483364
+        "x": 8.14603372765369,
+        "y": 4.738437703549533
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 7"
+      "linkedName": "Red 6"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.75,
+      "rotationDegrees": 90.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +47,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "intakeFloorLow"
               }
             }
           ]
@@ -57,11 +63,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.17712613523253,
+    "rotation": 90.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red 7",
+  "folder": "Red 6",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.08,
-        "y": 2.1564795529591056
+        "x": 8.9076570993142,
+        "y": 7.513199390398782
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.93911811023622,
-        "y": 0.6438140716281429
+        "x": 9.391441198882399,
+        "y": 7.364918973837948
       },
       "isLocked": false,
-      "linkedName": "Red LWS"
+      "linkedName": "Red 4"
     },
     {
       "anchor": {
-        "x": 8.438239268478538,
-        "y": 2.390547117094235
+        "x": 12.546376428752858,
+        "y": 5.869390398780798
       },
       "prevControl": {
-        "x": 9.178563881127765,
-        "y": 2.066741681483364
+        "x": 11.881320802641605,
+        "y": 6.049276606553215
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 7"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 0.15,
+      "name": "cancel intaking",
+      "waypointRelativePos": 0.1499999999999999,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "eagerSpeakerShot"
               }
             }
           ]
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.17712613523253,
+    "rotation": -5.706332241310961,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red 7",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Red 4",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }
