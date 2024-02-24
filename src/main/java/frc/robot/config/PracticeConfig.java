@@ -199,6 +199,8 @@ class PracticeConfig {
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
               new PhoenixPIDController(-10, 0, -0.5),
+              false,
+              false,
               false),
           new IMUConfig(
               1,
