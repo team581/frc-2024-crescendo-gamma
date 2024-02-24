@@ -53,7 +53,6 @@ public class Autos extends LifecycleSubsystem {
         localization::resetPose,
         swerve::getRobotRelativeSpeeds,
         (robotRelativeSpeeds) -> {
-          robotRelativeSpeeds.omegaRadiansPerSecond *= -1.0;
           swerve.setRobotRelativeSpeeds(robotRelativeSpeeds, true);
         },
         new HolonomicPathFollowerConfig(

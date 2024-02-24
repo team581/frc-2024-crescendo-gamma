@@ -40,7 +40,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         if (hasNote()) {
           motor.disable();
         } else {
-          motor.setVoltage(1.5);
+          motor.setVoltage(1);
         }
         break;
       case PASS_TO_INTAKE:

@@ -5,7 +5,7 @@
 package frc.robot.climber;
 
 public enum ClimberMode {
-  IDLE(1),
+  IDLE(10),
   LINEUP_OUTER(20),
   LINEUP_INNER(16),
   HANGING(0.2);
