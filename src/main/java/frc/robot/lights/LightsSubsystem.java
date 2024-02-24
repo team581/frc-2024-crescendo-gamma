@@ -97,6 +97,12 @@ public class LightsSubsystem extends LifecycleSubsystem {
 
     Color8Bit color8Bit = new Color8Bit(state.color());
 
+    if (state.color() == Color.kWhite) {
+      LimelightHelpers.setLEDMode_ForceBlink("");
+    } else {
+      LimelightHelpers.setLEDMode_ForceOff("");
+    }
+
     if (state.pattern() == BlinkPattern.SOLID) {
       candle.setLEDs(color8Bit.red, color8Bit.green, color8Bit.blue);
     } else {
@@ -110,12 +116,6 @@ public class LightsSubsystem extends LifecycleSubsystem {
       } else if (state.pattern() == BlinkPattern.BLINK_SLOW) {
         onDuration = SLOW_BLINK_DURATION;
         offDuration = SLOW_BLINK_DURATION * 2;
-      }
-
-      if (state.color() == Color.kWhite) {
-        LimelightHelpers.setLEDMode_ForceBlink("");
-      } else {
-        LimelightHelpers.setLEDMode_ForceOff("");
       }
 
       if (time >= offDuration) {
