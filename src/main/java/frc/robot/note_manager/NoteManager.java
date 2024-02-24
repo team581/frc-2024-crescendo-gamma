@@ -64,7 +64,12 @@ public class NoteManager extends LifecycleSubsystem {
           }
           break;
         case IDLE_NO_GP:
-          state = NoteState.IDLE_NO_GP;
+          if (state == NoteState.INTAKE_TO_QUEUER && intake.hasNote()) {
+            // Do nothing, we are intaking and have partially intaked the note, so we should keep
+            // trying
+          } else {
+            state = NoteState.IDLE_NO_GP;
+          }
           break;
         case INTAKE:
           state = NoteState.INTAKE_TO_QUEUER;
