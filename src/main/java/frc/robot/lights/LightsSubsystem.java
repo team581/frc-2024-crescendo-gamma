@@ -47,7 +47,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
   private Color getVisionLightsState() {
     if (vision.getState() == VisionState.SEES_TAGS) {
       return Color.kGreen;
-    } else if (vision.getState() == VisionState.ONLINE) {
+    } else if (vision.getState() == VisionState.ONLINE_NO_TAGS) {
       return Color.kYellow;
     } else {
       return Color.kRed;

@@ -6,6 +6,6 @@ package frc.robot.vision;
 
 public enum VisionState {
   OFFLINE,
-  ONLINE,
+  ONLINE_NO_TAGS,
   SEES_TAGS;
 }

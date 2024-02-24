@@ -201,7 +201,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   public boolean isResultValid(FastLimelightResults results) {
-    return (getState() == VisionState.ONLINE
+    return (getState() == VisionState.ONLINE_NO_TAGS
         && imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
             < 3.0);
   }
@@ -230,14 +230,14 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   public VisionState getState() {
-    if (!limelightTimer.hasElapsed(5)) {
-      return VisionState.ONLINE;
+    if (limelightTimer.hasElapsed(5)) {
+      return VisionState.OFFLINE;
     }
 
     if (storedResults.isPresent()) {
       return VisionState.SEES_TAGS;
     }
 
-    return VisionState.OFFLINE;
+    return VisionState.ONLINE_NO_TAGS;
   }
 }
