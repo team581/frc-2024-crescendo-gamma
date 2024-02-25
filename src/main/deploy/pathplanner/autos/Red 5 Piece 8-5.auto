@@ -30,15 +30,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "8 to LWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "7 to LWS"
+            "pathName": "7 to CWS"
           }
         },
         {
@@ -62,7 +62,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LWS to 6"
+            "pathName": "CWS to 6"
           }
         },
         {
