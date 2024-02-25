@@ -7,6 +7,7 @@ package frc.robot.shooter;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -61,7 +62,11 @@ public class ShooterSubsystem extends LifecycleSubsystem {
         goalRPM = OUTTAKE_RPM;
         break;
       case IDLE:
-        goalRPM = IDLE_RPM;
+        if (DriverStation.isAutonomous()) {
+          goalRPM = speakerDistanceToRPM.get(speakerDistance);
+        } else {
+          goalRPM = IDLE_RPM;
+        }
         break;
       case FULLY_STOPPED:
         goalRPM = 0;
