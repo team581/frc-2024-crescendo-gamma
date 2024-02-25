@@ -24,7 +24,7 @@ import frc.robot.vision.VisionSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class LocalizationSubsystem extends LifecycleSubsystem {
-  private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.5;
+  private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.1;
   private static final boolean USE_SHOOT_WHILE_MOVE = false;
 
   private final SwerveSubsystem swerve;
