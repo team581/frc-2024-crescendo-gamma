@@ -65,13 +65,12 @@ public class Autos extends LifecycleSubsystem {
         swerve);
 
     NamedCommands.registerCommand("preloadNote", actions.preloadNoteCommand());
-    NamedCommands.registerCommand(
-        "eagerSpeakerShot", actions.waitForIdle().andThen(actions.speakerShotCommand()));
+    NamedCommands.registerCommand("eagerSpeakerShot", actions.speakerShotCommand());
     NamedCommands.registerCommand(
         "speakerShot",
         actions
-            .waitForIdle()
-            .andThen(actions.speakerShotCommand().withTimeout(3))
+            .speakerShotCommand()
+            .withTimeout(5)
             .andThen(actions.outtakeShooterCommand().withTimeout(1)));
     NamedCommands.registerCommand(
         "subwooferShot",
