@@ -70,6 +70,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
         break;
       case FULLY_STOPPED:
         goalRPM = 0;
+        break;
       default:
         break;
     }
