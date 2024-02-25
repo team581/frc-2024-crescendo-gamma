@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "startingPose": {
     "position": {
       "x": 0.7699999999999996,
@@ -27,6 +27,18 @@
           "type": "path",
           "data": {
             "pathName": "blue_RL to Shot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_Shot to 1"
           }
         },
         {

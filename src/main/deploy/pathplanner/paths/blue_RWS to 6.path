@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.960668529337056,
-        "y": 6.3871917703835415
+        "x": 7.359178562357125,
+        "y": 6.783957327914656
       },
       "isLocked": false,
       "linkedName": "blue_RWS"
@@ -68,6 +68,9 @@
   },
   "reversed": false,
   "folder": "Blue 6",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": -168.6576285323328,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

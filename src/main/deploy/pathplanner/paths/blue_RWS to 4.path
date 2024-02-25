@@ -62,6 +62,9 @@
   },
   "reversed": false,
   "folder": "Blue 4",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": -169.41622234310134,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }
