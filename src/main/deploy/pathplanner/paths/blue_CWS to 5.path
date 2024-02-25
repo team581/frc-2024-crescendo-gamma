@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.92912410464821,
-        "y": 7.022519481838964
+        "x": 4.38330861061722,
+        "y": 4.893612903225807
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.515319278638556,
-        "y": 7.308326136652274
+        "x": 4.380127508255015,
+        "y": 7.69236728473457
       },
       "isLocked": false,
-      "linkedName": "Blue 3"
+      "linkedName": "Blue CWS"
     },
     {
       "anchor": {
-        "x": 7.737986283972566,
-        "y": 7.465328930657861
+        "x": 7.790371856743713,
+        "y": 5.911514351028702
       },
       "prevControl": {
-        "x": 6.522548641097281,
-        "y": 7.364918973837947
+        "x": 7.319979171958343,
+        "y": 6.580931165862331
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 4"
+      "linkedName": "Blue 5"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.35,
+      "name": "intake",
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 153.1692714085845,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 3",
-  "previewStartingState": null,
+  "folder": "Blue 5",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

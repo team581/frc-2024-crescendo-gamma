@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.92912410464821,
-        "y": 7.022519481838964
+        "x": 1.9848998632971657,
+        "y": 4.256243685617038
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.515319278638556,
-        "y": 7.308326136652274
+        "x": 2.3022519685054146,
+        "y": 4.2711943103848
       },
       "isLocked": false,
-      "linkedName": "Blue 3"
+      "linkedName": "blue_RL to shot"
     },
     {
       "anchor": {
-        "x": 7.737986283972566,
-        "y": 7.465328930657861
+        "x": 2.4426237209972026,
+        "y": 4.256243685617038
       },
       "prevControl": {
-        "x": 6.522548641097281,
-        "y": 7.364918973837947
+        "x": 2.438201519695129,
+        "y": 4.253335589983982
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 4"
+      "linkedName": "Blue 1"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.35,
+      "name": "intake",
+      "waypointRelativePos": 0,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 165.67366646038832,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 3",
-  "previewStartingState": null,
-  "useDefaultConstraints": true
+  "folder": "Blue Starts",
+  "previewStartingState": {
+    "rotation": 139.0686938797885,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
 }

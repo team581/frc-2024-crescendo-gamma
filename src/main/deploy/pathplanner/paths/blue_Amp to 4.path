@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.92912410464821,
-        "y": 7.022519481838964
+        "x": 1.3999999999999986,
+        "y": 7.3013852865268785
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.515319278638556,
-        "y": 7.308326136652274
+        "x": 1.4438090899256757,
+        "y": 7.685076254182699
       },
       "isLocked": false,
-      "linkedName": "Blue 3"
+      "linkedName": "Blue Amp"
+    },
+    {
+      "anchor": {
+        "x": 2.9864179799434556,
+        "y": 7.691684737799667
+      },
+      "prevControl": {
+        "x": 2.336672691652881,
+        "y": 7.689940262310716
+      },
+      "nextControl": {
+        "x": 3.8138761326478487,
+        "y": 7.693906347546655
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,8 +36,8 @@
         "y": 7.465328930657861
       },
       "prevControl": {
-        "x": 6.522548641097281,
-        "y": 7.364918973837947
+        "x": 7.047550214084502,
+        "y": 7.5257342596624595
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +48,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.35,
+      "name": "intake",
+      "waypointRelativePos": 1.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -61,7 +77,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 3",
-  "previewStartingState": null,
-  "useDefaultConstraints": true
+  "folder": "Blue Starts",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
 }

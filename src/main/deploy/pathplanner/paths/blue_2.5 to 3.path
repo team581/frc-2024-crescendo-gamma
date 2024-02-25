@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.92912410464821,
-        "y": 7.022519481838964
+        "x": 2.1740927638792584,
+        "y": 6.666088671312085
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.515319278638556,
-        "y": 7.308326136652274
+        "x": 2.3783487739900355,
+        "y": 6.7457414388681425
       },
       "isLocked": false,
-      "linkedName": "Blue 3"
+      "linkedName": "Blue 2.5"
     },
     {
       "anchor": {
-        "x": 7.737986283972566,
-        "y": 7.465328930657861
+        "x": 2.92912410464821,
+        "y": 7.022519481838964
       },
       "prevControl": {
-        "x": 6.522548641097281,
-        "y": 7.364918973837947
+        "x": 2.6261970939283046,
+        "y": 6.842837393551367
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 4"
+      "linkedName": "Blue 3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.35,
+      "name": "intake and warmup",
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -42,6 +42,12 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "eagerSpeakerShot"
               }
             }
           ]
@@ -57,11 +63,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 210.7922780019571,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 3",
+  "folder": "Blue 2",
   "previewStartingState": null,
   "useDefaultConstraints": true
 }

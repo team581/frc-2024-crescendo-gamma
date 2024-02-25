@@ -3,43 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8197967995936004,
-        "y": 5.6301920243840495
+        "x": 0.7405205432445925,
+        "y": 4.4216921716639215
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.116106172212344,
-        "y": 5.538042672085345
+        "x": 1.519274924753356,
+        "y": 3.7327269697335175
       },
       "isLocked": false,
-      "linkedName": "Blue 2"
+      "linkedName": "Blue Left"
     },
     {
       "anchor": {
-        "x": 2.92912410464821,
-        "y": 7.022519481838964
+        "x": 3.8666360172701957,
+        "y": 3.0498562357125656
       },
       "prevControl": {
-        "x": 2.1865932435811217,
-        "y": 6.769673152149269
+        "x": 3.2373975182386214,
+        "y": 2.585908990246027
+      },
+      "nextControl": {
+        "x": 4.870786893571948,
+        "y": 3.7902321564644073
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.745015494030987,
+        "y": 4.082585725171451
+      },
+      "prevControl": {
+        "x": 5.804696977392117,
+        "y": 3.9387691135383216
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 6"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": 210.95999999999998,
+      "waypointRelativePos": 1,
+      "rotationDegrees": 180,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0,
+      "name": "intake",
+      "waypointRelativePos": 1.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -48,12 +64,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "eagerSpeakerShot"
               }
             }
           ]
@@ -69,14 +79,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 210.95999999999998,
+    "rotation": 180,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 2",
+  "folder": "Blue Starts",
   "previewStartingState": {
-    "rotation": 180.51353699951918,
+    "rotation": 120.94398904862032,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

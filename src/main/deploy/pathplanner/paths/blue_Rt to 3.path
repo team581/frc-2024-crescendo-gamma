@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8197967995936004,
-        "y": 5.6301920243840495
+        "x": 0.7304898145796273,
+        "y": 6.66457363474727
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.116106172212344,
-        "y": 5.538042672085345
+        "x": 0.9672869697739337,
+        "y": 6.704265582931167
       },
       "isLocked": false,
-      "linkedName": "Blue 2"
+      "linkedName": "Blue Right"
     },
     {
       "anchor": {
@@ -20,18 +20,18 @@
         "y": 7.022519481838964
       },
       "prevControl": {
-        "x": 2.1865932435811217,
-        "y": 6.769673152149269
+        "x": 1.8151841503682995,
+        "y": 6.3728768097536195
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue 3"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": 210.95999999999998,
+      "waypointRelativePos": 0.05,
+      "rotationDegrees": 240.14999999999998,
       "rotateFast": false
     }
   ],
@@ -39,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "intake and warmup",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -62,21 +62,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
+    "maxVelocity": 3,
     "maxAcceleration": 3,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 210.95999999999998,
+    "rotation": 208.1199404626917,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 2",
+  "folder": "Blue Starts",
   "previewStartingState": {
-    "rotation": 180.51353699951918,
+    "rotation": 240.14999999999998,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
