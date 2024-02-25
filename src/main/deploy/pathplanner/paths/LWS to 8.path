@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.08,
-        "y": 2.1564795529591056
+        "x": 12.45171297942596,
+        "y": 2.2939339598679194
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.820945389889255,
-        "y": 2.01851206502107
+        "x": 11.351615951231903,
+        "y": 1.77690220980442
       },
       "isLocked": false,
       "linkedName": "Red LWS"
     },
     {
       "anchor": {
-        "x": 8.524796037592075,
-        "y": 0.7416586233172466
+        "x": 8.41956311912624,
+        "y": 0.7006634493268988
       },
       "prevControl": {
-        "x": 8.801295402590807,
-        "y": 0.8474046228092457
+        "x": 8.753476250952502,
+        "y": 0.7999446278892559
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
+      "name": "intake and warmup",
       "waypointRelativePos": 0.45,
       "command": {
         "type": "sequential",
@@ -43,6 +43,12 @@
               "data": {
                 "name": "intakeFloor"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "eagerSpeakerShot"
+              }
             }
           ]
         }
@@ -50,18 +56,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 17.886892475032653,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red 8",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "previewStartingState": {
+    "rotation": 40.122887261030954,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }
