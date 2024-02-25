@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 14.555100136702833,
+        "y": 4.256243685617038
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 14.237748031494585,
+        "y": 4.2711943103848
+      },
+      "isLocked": false,
+      "linkedName": "RL to shot"
+    },
+    {
+      "anchor": {
+        "x": 14.097376279002797,
+        "y": 4.256243685617038
+      },
+      "prevControl": {
+        "x": 14.10179848030487,
+        "y": 4.253335589983982
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red 1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.7,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 14.32633353961168,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red Starts",
+  "previewStartingState": {
+    "rotation": 40.93130612021149,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
