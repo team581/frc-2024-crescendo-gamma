@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 14.36590723612074,
+        "y": 6.666088671312085
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 14.161651226009964,
+        "y": 6.7457414388681425
+      },
+      "isLocked": false,
+      "linkedName": "Red 2.5"
+    },
+    {
+      "anchor": {
+        "x": 13.61087589535179,
+        "y": 7.022519481838964
+      },
+      "prevControl": {
+        "x": 13.913802906071695,
+        "y": 6.842837393551367
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red 3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake and warmup",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "eagerSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.7,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -30.792278001957108,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red 2",
+  "previewStartingState": null,
+  "useDefaultConstraints": true
+}
