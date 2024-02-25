@@ -7,7 +7,6 @@ package frc.robot.robot_manager;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lights.BlinkPattern;
 import frc.robot.lights.LightsState;
-import java.util.Optional;
 
 public enum RobotState {
   /** Idling without a note. */
@@ -21,11 +20,7 @@ public enum RobotState {
   /** Intaking a game piece. Transition to INTAKE_TO_QUEUER when done. */
   INTAKING(false, false, new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW)),
 
-  INTAKING_SLOW(
-      false,
-      false,
-      new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW),
-      new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
+  INTAKING_SLOW(false, false, new LightsState(Color.kOrangeRed, BlinkPattern.BLINK_SLOW)),
 
   /** Outtaking via the shooter. Game piece should be in queuer at start. */
   OUTTAKING_SHOOTER(true, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
@@ -37,32 +32,20 @@ public enum RobotState {
   /** Preparing for floor shot, should shoot when ready. */
   PREPARE_FLOOR_SHOT(true, true, new LightsState(null, BlinkPattern.SOLID)),
   /** Actively doing the floor shot. */
-  FLOOR_SHOOT(
-      true,
-      true,
-      new LightsState(null, BlinkPattern.BLINK_FAST),
-      new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
+  FLOOR_SHOOT(true, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Get ready for subwoofer shot, wait for drive to confirm, then go to PREPARE_SUBWOOFER_SHOT. */
   WAITING_SUBWOOFER_SHOT(true, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Get ready for subwoofer shot, automatically go to SUBWOOFER_SHOOT when ready. */
   PREPARE_SUBWOOFER_SHOT(true, true, new LightsState(null, BlinkPattern.SOLID)),
   /** Actively doing the subwoofer shot. */
-  SUBWOOFER_SHOOT(
-      true,
-      true,
-      new LightsState(null, BlinkPattern.BLINK_FAST),
-      new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
+  SUBWOOFER_SHOOT(true, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
   WAITING_SPEAKER_SHOT(true, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Get ready for speaker shot, automatically go to SPEAKER_SHOOT when ready. */
   PREPARE_SPEAKER_SHOT(true, true, new LightsState(null, BlinkPattern.SOLID)),
-  SPEAKER_SHOOT(
-      true,
-      true,
-      new LightsState(null, BlinkPattern.BLINK_FAST),
-      new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
+  SPEAKER_SHOOT(true, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Note maybe in queuer, need to move it to conveyor, and then transition to WAITING_AMP_SHOT. */
   PREPARE_WAITING_AMP_SHOT(true, false, new LightsState(null, BlinkPattern.SOLID)),
@@ -71,11 +54,7 @@ public enum RobotState {
   /** Get ready for amp shot, automatically go to AMP_SHOT when ready. */
   PREPARE_AMP_SHOT(true, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Actively scoring in the amp. */
-  AMP_SHOT(
-      true,
-      false,
-      new LightsState(null, BlinkPattern.BLINK_FAST),
-      new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST)),
+  AMP_SHOT(true, false, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Hooks move to top of the robot so we can start to grab the chain. */
   CLIMB_1_LINEUP_OUTER(true, false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
@@ -92,34 +71,16 @@ public enum RobotState {
 
   PREPARE_CLIMB_5_HANGING_TRAP_SCORE(
       true, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
-  CLIMB_5_HANGING_TRAP_SCORE(
-      true,
-      false,
-      new LightsState(Color.kBlue, BlinkPattern.BLINK_FAST),
-      new LightsState(Color.kIndigo, BlinkPattern.BLINK_FAST)),
+  CLIMB_5_HANGING_TRAP_SCORE(true, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_FAST)),
   CLIMB_6_HANGING_ELEVATOR_SHAKE(true, false, new LightsState(Color.kRed, BlinkPattern.BLINK_FAST));
 
   public final boolean hasNote;
   public final boolean shootingMode;
   public final LightsState lightsState;
-  public final Optional<LightsState> lightsOnExit;
-
-  RobotState(boolean hasNote, boolean shootingMode, LightsState lights, LightsState lightsOnExit) {
-    this(hasNote, shootingMode, lights, Optional.of(lightsOnExit));
-  }
 
   RobotState(boolean hasNote, boolean shootingMode, LightsState lights) {
-    this(hasNote, shootingMode, lights, Optional.empty());
-  }
-
-  RobotState(
-      boolean hasNote,
-      boolean shootingMode,
-      LightsState lights,
-      Optional<LightsState> lightsOnExit) {
     this.hasNote = hasNote;
     this.shootingMode = shootingMode;
     this.lightsState = lights;
-    this.lightsOnExit = lightsOnExit;
   }
 }
