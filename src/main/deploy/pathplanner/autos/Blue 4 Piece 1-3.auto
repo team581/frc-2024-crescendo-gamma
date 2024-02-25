@@ -5,7 +5,7 @@
       "x": 0.7699999999999996,
       "y": 4.42
     },
-    "rotation": 121.03999999999999
+    "rotation": 119.50999999999999
   },
   "command": {
     "type": "sequential",
@@ -51,24 +51,6 @@
           "type": "path",
           "data": {
             "pathName": "blue_2 to 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "blue_3 to 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "blue_Copy of 4 to RWS"
           }
         },
         {

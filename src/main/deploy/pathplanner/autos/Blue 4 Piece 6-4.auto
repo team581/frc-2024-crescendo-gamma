@@ -2,10 +2,10 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 0.7699999999999996,
+      "x": 0.7399999999999984,
       "y": 4.42
     },
-    "rotation": 121.03999999999999
+    "rotation": 120.94
   },
   "command": {
     "type": "sequential",
@@ -26,7 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_RL to Shot"
+            "pathName": "blue_RL to LWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_6 to CWS"
           }
         },
         {
@@ -38,7 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_1 to 2"
+            "pathName": "blue_CWS to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_5 to RWS"
           }
         },
         {
@@ -50,25 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_2 to 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
+            "pathName": "blue_RWS to 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_3 to 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "blue_Copy of 4 to RWS"
+            "pathName": "blue_4 to RWS"
           }
         },
         {

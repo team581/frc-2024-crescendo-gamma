@@ -2,10 +2,10 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 0.7699999999999996,
-      "y": 4.42
+      "x": 1.3999999999999986,
+      "y": 1.53
     },
-    "rotation": 121.03999999999999
+    "rotation": 90
   },
   "command": {
     "type": "sequential",
@@ -18,15 +18,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "blue_RL to Shot"
+            "pathName": "blue_RVL to LWS"
           }
         },
         {
@@ -38,7 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_1 to 2"
+            "pathName": "blue_LWS to 8"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_8 to LWS"
           }
         },
         {
@@ -50,7 +50,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_2 to 3"
+            "pathName": "blue_LWS to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_7 to LWS"
           }
         },
         {
@@ -62,13 +68,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_3 to 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "blue_Copy of 4 to RWS"
+            "pathName": "blue_LWS to 6"
           }
         },
         {

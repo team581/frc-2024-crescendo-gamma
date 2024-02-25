@@ -2,31 +2,19 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 0.7699999999999996,
-      "y": 4.42
+      "x": 0.7599999999999998,
+      "y": 4.44
     },
-    "rotation": 121.03999999999999
+    "rotation": 120.77000000000001
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "preloadNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "blue_RL to Shot"
+            "pathName": "blue_RL to LWS"
           }
         },
         {
@@ -38,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_1 to 2"
+            "pathName": "blue_LWS to 8"
           }
         },
         {
@@ -50,7 +38,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_2 to 3"
+            "pathName": "blue_8 to LWS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_LWS to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_7 to LWS"
           }
         },
         {
@@ -62,13 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_3 to 4"
+            "pathName": "blue_LWS to 6"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_Copy of 4 to RWS"
+            "pathName": "blue_6 to CWS"
           }
         },
         {

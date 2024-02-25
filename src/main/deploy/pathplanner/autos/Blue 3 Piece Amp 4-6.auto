@@ -2,10 +2,10 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 0.7699999999999996,
-      "y": 4.42
+      "x": 1.3999999999999986,
+      "y": 7.3
     },
-    "rotation": 121.03999999999999
+    "rotation": 180
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,19 @@
         {
           "type": "named",
           "data": {
-            "name": "subwooferShot"
+            "name": "outtakeShooter"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_RL to Shot"
+            "pathName": "blue_Amp to 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "blue_4 to RWS"
           }
         },
         {
@@ -38,37 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_1 to 2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
+            "pathName": "blue_RWS to 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_2 to 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "blue_3 to 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "blue_Copy of 4 to RWS"
+            "pathName": "blue_5 to RWS"
           }
         },
         {
