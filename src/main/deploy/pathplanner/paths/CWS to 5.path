@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.156691389382779,
-        "y": 4.893612903225807
+        "x": 12.045660655321312,
+        "y": 4.607057150114301
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.159872491744984,
-        "y": 7.69236728473457
+        "x": 12.048841757683517,
+        "y": 7.405811531623064
       },
       "isLocked": false,
       "linkedName": "Red CWS"
@@ -50,8 +50,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
