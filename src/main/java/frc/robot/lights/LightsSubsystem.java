@@ -63,6 +63,13 @@ public class LightsSubsystem extends LifecycleSubsystem {
   @Override
   public void robotPeriodic() {
     RobotState robotState = robotManager.getState();
+
+    var nextLightsOnExit = previousState.lightsOnExit;
+
+    if (previousState == RobotState.INTAKING && robotState == RobotState.IDLE_WITH_GP) {
+      nextLightsOnExit = RobotState.INTAKING_SLOW.lightsOnExit;
+    }
+
     if (DriverStation.isDisabled()) {
       state =
           new LightsState(
@@ -71,9 +78,9 @@ public class LightsSubsystem extends LifecycleSubsystem {
                   ? BlinkPattern.BLINK_SLOW
                   : BlinkPattern.SOLID);
     } else {
-      if (previousState != robotState && previousState.lightsOnExit.isPresent()) {
+      if (previousState != robotState && nextLightsOnExit.isPresent()) {
         lightsOnExitTimer.start();
-        lightsOnExit = Optional.of(previousState.lightsOnExit.get());
+        lightsOnExit = Optional.of(nextLightsOnExit.get());
       }
 
       if (lightsOnExitTimer.hasElapsed(0.5)) {
