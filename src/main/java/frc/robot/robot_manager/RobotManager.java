@@ -306,14 +306,14 @@ public class RobotManager extends LifecycleSubsystem {
         noteManager.idleInQueuerRequest();
         break;
       case INTAKING:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
         noteManager.intakeRequest();
         break;
       case INTAKING_SLOW:
-        wrist.setAngle(WristPositions.STOWED);
+        wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.IDLE);
