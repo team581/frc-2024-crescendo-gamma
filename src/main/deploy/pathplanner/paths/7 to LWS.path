@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.438239268478538,
-        "y": 2.390547117094235
+        "x": 8.317921767843536,
+        "y": 2.2939339598679194
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.438239268478538,
-        "y": 1.8905471170942345
+        "x": 9.558295148590298,
+        "y": 1.5325217170434338
       },
       "isLocked": false,
       "linkedName": "Red 7"
     },
     {
       "anchor": {
-        "x": 12.08,
-        "y": 2.1564795529591056
+        "x": 12.45171297942596,
+        "y": 2.2939339598679194
       },
       "prevControl": {
-        "x": 10.96399745999492,
-        "y": 1.02580289560579
+        "x": 12.32852222504445,
+        "y": 1.2923484886969772
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,18 +32,18 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 40.4203882301044,
+    "rotation": 9.973704032034586,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red 7",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

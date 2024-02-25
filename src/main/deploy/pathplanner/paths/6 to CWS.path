@@ -3,43 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.794984505969012,
-        "y": 4.082585725171451
+        "x": 8.466561341122683,
+        "y": 4.076685293370587
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.382913893827787,
-        "y": 3.7558557277114555
+        "x": 10.547053594107188,
+        "y": 4.215371094742189
       },
       "isLocked": false,
       "linkedName": "Red 6"
     },
     {
       "anchor": {
-        "x": 12.156691389382779,
-        "y": 4.893612903225807
+        "x": 12.045660655321312,
+        "y": 4.607057150114301
       },
       "prevControl": {
-        "x": 11.812311404622811,
-        "y": 4.435123698247398
+        "x": 11.116111760223522,
+        "y": 4.3071099822199646
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red CWS"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 8.01,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -51,7 +45,7 @@
   "reversed": false,
   "folder": "Red 6",
   "previewStartingState": {
-    "rotation": 90.0,
+    "rotation": -2.178485881140043,
     "velocity": 0
   },
   "useDefaultConstraints": true
