@@ -28,8 +28,8 @@
     "Blue",
     "Red"
   ],
-  "defaultMaxVel": 4.7,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 5.2,
+  "defaultMaxAccel": 5.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.1
