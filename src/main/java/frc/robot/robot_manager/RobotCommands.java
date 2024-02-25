@@ -81,7 +81,11 @@ public class RobotCommands {
 
   public Command speakerShotCommand() {
     return Commands.runOnce(() -> robot.speakerShotRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP));
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .finallyDo(
+            () -> {
+              robot.snaps.setEnabled(false);
+            });
   }
 
   public Command ampShotCommand() {
@@ -109,12 +113,5 @@ public class RobotCommands {
 
   public Command preloadNoteCommand() {
     return Commands.runOnce(() -> robot.preloadNoteRequest(), requirements);
-  }
-
-  public Command waitForIdle() {
-    return Commands.waitUntil(
-        () ->
-            robot.getState() == RobotState.IDLE_NO_GP
-                || robot.getState() == RobotState.IDLE_WITH_GP);
   }
 }
