@@ -15,6 +15,7 @@ public enum AutoSelection {
   FIVE_PIECE_2_5("Red 5 Piece 2-5", ""),
   FIVE_PIECE_3_6("Red 5 Piece 3-6", ""),
   FIVE_PIECE_8_5("Red 5 Piece 8-5", ""),
+  FIVE_PIECE_RVL_8_5("Red 5 Piece RVL 8-5", ""),
   SIX_PIECE_1_5("Red 6 Piece 1-5", ""),
   SIX_PIECE_1_5_TEST("Red 6 Piece 1-5 Test", "");
 
