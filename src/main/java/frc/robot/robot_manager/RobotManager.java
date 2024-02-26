@@ -463,6 +463,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.trapShotRequest();
+        break;
       default:
         // Should never happen
         break;
