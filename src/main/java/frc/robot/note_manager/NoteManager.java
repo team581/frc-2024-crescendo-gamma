@@ -208,6 +208,7 @@ public class NoteManager extends LifecycleSubsystem {
         queuer.setState(QueuerState.IDLE);
         break;
       case OUTTAKING:
+      case QUEUER_TO_INTAKE_FOR_OUTTAKING:
         intake.setState(IntakeState.OUTTAKING);
         conveyor.setState(ConveyorState.QUEUER_TO_INTAKE);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
@@ -222,11 +223,6 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.TO_CONVEYOR);
         conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         queuer.setState(QueuerState.IDLE);
-        break;
-      case QUEUER_TO_INTAKE_FOR_OUTTAKING:
-        intake.setState(IntakeState.OUTTAKING);
-        conveyor.setState(ConveyorState.QUEUER_TO_INTAKE);
-        queuer.setState(QueuerState.PASS_TO_INTAKE);
         break;
       case SHOOTER_OUTTAKING:
         intake.setState(IntakeState.TO_QUEUER);
