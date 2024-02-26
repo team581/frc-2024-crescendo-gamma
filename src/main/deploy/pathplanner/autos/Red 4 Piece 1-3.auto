@@ -12,21 +12,21 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "preloadNote"
+            "pathName": "RL to Shot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "subwooferShot"
+            "name": "speakerShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RL to Shot"
+            "pathName": "Shot to 1"
           }
         },
         {
