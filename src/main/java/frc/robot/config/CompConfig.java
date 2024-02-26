@@ -53,7 +53,7 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
-                          .withSupplyCurrentLimit(100)
+                          .withSupplyCurrentLimit(80)
                           .withSupplyCurrentLimitEnable(true))
                   .withSlot0(new Slot0Configs().withKP(10).withKV(0).withKS(15))
                   .withMotorOutput(
@@ -98,8 +98,8 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
-                          .withStatorCurrentLimit(40)
-                          .withStatorCurrentLimitEnable(true))
+                          .withSupplyCurrentLimit(80)
+                          .withSupplyCurrentLimitEnable(true))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)
                   .withMotorOutput(
@@ -109,8 +109,8 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
-                          .withStatorCurrentLimit(40)
-                          .withStatorCurrentLimitEnable(true))
+                          .withSupplyCurrentLimit(40)
+                          .withSupplyCurrentLimitEnable(true))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new WristConfig(
@@ -176,8 +176,8 @@ class CompConfig {
                           .withSupplyCurrentLimitEnable(true))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
-                          .withStatorCurrentLimit(20)
-                          .withStatorCurrentLimitEnable(true))
+                          .withSupplyCurrentLimit(20)
+                          .withSupplyCurrentLimitEnable(true))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
@@ -196,7 +196,7 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
-                          .withSupplyCurrentLimit(20)
+                          .withSupplyCurrentLimit(50)
                           .withSupplyCurrentLimitEnable(true))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
