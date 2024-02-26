@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.28826568453137,
+        "y": 2.2939339598679194
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.95644602489205,
+        "y": 3.8543159766319537
+      },
+      "isLocked": false,
+      "linkedName": "Red 7"
+    },
+    {
+      "anchor": {
+        "x": 11.840069088138176,
+        "y": 4.551695707391415
+      },
+      "prevControl": {
+        "x": 10.63273812547625,
+        "y": 3.9526223012446025
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red CWS"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "warmup",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "eagerSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 9.973704032034586,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red 7",
+  "previewStartingState": {
+    "rotation": 30.30946884229176,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
