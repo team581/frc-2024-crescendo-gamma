@@ -15,9 +15,7 @@ import org.littletonrobotics.junction.Logger;
 public class IntakeSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
-  private final Debouncer debouncer =
-      new Debouncer(
-          RobotConfig.get().intake().debounceTime(), RobotConfig.get().intake().debounceType());
+  private final Debouncer debouncer = RobotConfig.get().intake().debouncer();
   private boolean debouncedSensor = false;
   private IntakeState goalState = IntakeState.IDLE;
 

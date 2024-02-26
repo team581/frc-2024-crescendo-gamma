@@ -16,9 +16,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
   private QueuerState goalState = QueuerState.IDLE;
-  private final Debouncer debouncer =
-      new Debouncer(
-          RobotConfig.get().queuer().debounceTime(), RobotConfig.get().queuer().debounceType());
+  private final Debouncer debouncer = RobotConfig.get().queuer().debouncer();
   private boolean debouncedSensor = false;
 
   public QueuerSubsystem(TalonFX motor, DigitalInput sensor) {

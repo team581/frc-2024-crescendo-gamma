@@ -51,8 +51,7 @@ public record RobotConfig(
   public record IntakeConfig(
       int motorID,
       int sensorID,
-      double debounceTime,
-      DebounceType debounceType,
+      Debouncer debouncer,
       TalonFXConfiguration motorConfig) {}
 
   public record ConveyorConfig(
@@ -66,8 +65,7 @@ public record RobotConfig(
   public record QueuerConfig(
       int motorID,
       int sensorID,
-      double debounceTime,
-      DebounceType debounceType,
+      Debouncer debouncer,
       TalonFXConfiguration motorConfig) {}
 
   public record WristConfig(

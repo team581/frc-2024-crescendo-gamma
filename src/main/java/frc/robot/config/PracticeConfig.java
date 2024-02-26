@@ -169,8 +169,7 @@ class PracticeConfig {
           new IntakeConfig(
               15,
               0,
-              0.0,
-              DebounceType.kBoth,
+              new Debouncer(0.0, DebounceType.kBoth),
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
@@ -189,8 +188,7 @@ class PracticeConfig {
           new QueuerConfig(
               16,
               0,
-              0.0,
-              DebounceType.kBoth,
+              new Debouncer(0.0, DebounceType.kBoth),
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(new CurrentLimitsConfigs().withSupplyCurrentLimit(20))
