@@ -144,6 +144,7 @@ public class RobotManager extends LifecycleSubsystem {
           if (state == RobotState.CLIMB_5_HANGING_TRAP_SCORE) {
             state = RobotState.CLIMB_6_HANGING_ELEVATOR_SHAKE;
           }
+          break;
         case WAIT_SPEAKER_SHOT:
           state = RobotState.WAITING_SPEAKER_SHOT;
           break;
@@ -602,6 +603,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case CLIMB_5_HANGING_TRAP_SCORE:
         climb4HangingRequest();
+        break;
       case CLIMB_6_HANGING_ELEVATOR_SHAKE:
         climb5HangingTrapScoreRequest();
         break;
