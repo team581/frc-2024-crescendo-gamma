@@ -12,7 +12,7 @@
         "y": 0.6159537719075443
       },
       "isLocked": false,
-      "linkedName": "Red LWS"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -79,7 +79,7 @@
             {
               "type": "named",
               "data": {
-                "name": "eagerSpeakerShot"
+                "name": "SpeakerShotNoTimeout"
               }
             }
           ]

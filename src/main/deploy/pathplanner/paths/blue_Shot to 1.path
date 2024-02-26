@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
@@ -12,7 +12,7 @@
         "y": 4.2711943103848
       },
       "isLocked": false,
-      "linkedName": "blue_RL to shot"
+      "linkedName": "blue RL to shot"
     },
     {
       "anchor": {
