@@ -19,6 +19,8 @@ public class LifecycleSubsystem extends SubsystemBase {
   private final Stopwatch stopwatch = Stopwatch.getInstance();
   private final String loggerName;
 
+  protected final String subsystemName;
+
   private LifecycleStage previousStage = null;
 
   public LifecycleSubsystem(SubsystemPriority priority) {
@@ -27,9 +29,9 @@ public class LifecycleSubsystem extends SubsystemBase {
     LifecycleSubsystemManager.getInstance().registerSubsystem(this);
 
     String name = this.getClass().getSimpleName();
-    name = name.substring(name.lastIndexOf('.') + 1);
+    subsystemName = name.substring(name.lastIndexOf('.') + 1);
     // First string concat causes lag spike. This shifts lag spike to code init.
-    loggerName = "Scheduler/LifecycleSubsystem/" + name + ".periodic()";
+    loggerName = "Scheduler/LifecycleSubsystem/" + subsystemName + ".periodic()";
 
     robotInit();
   }

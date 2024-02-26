@@ -10,9 +10,9 @@ import frc.robot.intake.IntakeState;
 import frc.robot.intake.IntakeSubsystem;
 import frc.robot.queuer.QueuerState;
 import frc.robot.queuer.QueuerSubsystem;
-import frc.robot.util.FlagManager;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import frc.robot.util.state_machines.FlagManager;
 import org.littletonrobotics.junction.Logger;
 
 public class NoteManager extends LifecycleSubsystem {
