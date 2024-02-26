@@ -5,6 +5,7 @@
 package frc.robot.swerve;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
@@ -59,6 +60,9 @@ public class SwerveSubsystem extends LifecycleSubsystem {
       };
   public static final SwerveDriveKinematics KINEMATICS =
       new SwerveDriveKinematics(MODULE_LOCATIONS);
+  private final double TimeConstant = 0.2;
+  private final double AccelerationLimit = 3.2;
+  private Translation2d previousVelocity = new Translation2d();
 
   /**
    * Helper for applying current limits to swerve modules, since the CTR swerve builder API doesn't
@@ -73,6 +77,13 @@ public class SwerveSubsystem extends LifecycleSubsystem {
         .getSteerMotor()
         .getConfigurator()
         .apply(RobotConfig.get().swerve().steerMotorCurrentLimits());
+    module
+        .getDriveMotor()
+        .getConfigurator()
+        .apply(
+            new TorqueCurrentConfigs()
+                .withPeakForwardTorqueCurrent(100)
+                .withPeakReverseTorqueCurrent(-100));
   }
 
   private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
@@ -192,6 +203,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
           Logger.recordOutput("Swerve/RawTeleopSpeeds", teleopSpeeds);
 
+          // teleopSpeeds = accelerationLimitChassisSpeeds(teleopSpeeds);
+
           if (isShooting) {
             double currentSpeed =
                 Math.sqrt(
@@ -211,6 +224,32 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
           setFieldRelativeSpeeds(teleopSpeeds, false);
         });
+  }
+
+  private ChassisSpeeds accelerationLimitChassisSpeeds(ChassisSpeeds speeds) {
+
+    Translation2d velocity = new Translation2d(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond);
+    double maxVelocitychange = AccelerationLimit * TimeConstant;
+
+    Translation2d velocityChange = (velocity.minus(previousVelocity));
+    double velocityChangeAngle =
+        Math.atan2(velocityChange.getY(), velocityChange.getX()); // Radians
+    Translation2d limitedVelocityVectorChange = velocityChange;
+    Translation2d limitedVelocityVector = velocity;
+
+    double acceleration = velocity.getNorm() - previousVelocity.getNorm();
+    Logger.recordOutput("Swerve/Acceleration", acceleration);
+
+    if (velocityChange.getNorm() > maxVelocitychange && acceleration > 0) {
+      limitedVelocityVectorChange =
+          new Translation2d(maxVelocitychange, new Rotation2d(velocityChangeAngle));
+      limitedVelocityVector = previousVelocity.plus(limitedVelocityVectorChange);
+    }
+
+    previousVelocity = limitedVelocityVector;
+
+    return new ChassisSpeeds(
+        limitedVelocityVector.getX(), limitedVelocityVector.getY(), speeds.omegaRadiansPerSecond);
   }
 
   public void setShootingMode(boolean value) {
