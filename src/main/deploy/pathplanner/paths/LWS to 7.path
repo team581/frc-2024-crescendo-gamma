@@ -8,31 +8,49 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.560804165608332,
-        "y": 0.8862448564897132
+        "x": 10.984455168910339,
+        "y": 1.3609474218948445
       },
       "isLocked": false,
       "linkedName": "Red LWS"
     },
     {
       "anchor": {
-        "x": 8.317921767843536,
+        "x": 8.28826568453137,
         "y": 2.2939339598679194
       },
       "prevControl": {
-        "x": 8.923665227330456,
-        "y": 1.8870607061214129
+        "x": 9.065737363474726,
+        "y": 2.0637658115316238
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red 7"
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -31.99763045664671,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.55,
+      "maxWaypointRelativePos": 0.9,
+      "constraints": {
+        "maxVelocity": 4.2,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
+      "name": "intake",
       "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
@@ -42,12 +60,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "eagerSpeakerShot"
               }
             }
           ]
@@ -63,7 +75,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.17712613523253,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,

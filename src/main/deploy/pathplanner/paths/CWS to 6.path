@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.045660655321312,
-        "y": 4.607057150114301
+        "x": 11.840069088138176,
+        "y": 4.551695707391415
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.80246532893066,
-        "y": 4.148260096520193
+        "x": 10.596873761747524,
+        "y": 4.092898653797308
       },
       "isLocked": false,
       "linkedName": "Red CWS"
     },
     {
       "anchor": {
-        "x": 8.466561341122683,
-        "y": 4.076685293370587
+        "x": 8.071899415798832,
+        "y": 4.24646380492761
       },
       "prevControl": {
-        "x": 9.70821742443485,
-        "y": 4.13897332994666
+        "x": 9.313555499110999,
+        "y": 4.308751841503684
       },
       "nextControl": null,
       "isLocked": false,
@@ -63,11 +63,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -1.025517813860505,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red 6",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 13.131074706592676,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }
