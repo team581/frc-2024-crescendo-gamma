@@ -57,6 +57,10 @@ class CompConfig {
                       new CurrentLimitsConfigs()
                           .withSupplyCurrentLimit(80)
                           .withSupplyCurrentLimitEnable(true))
+                  .withTorqueCurrent(
+                      new TorqueCurrentConfigs()
+                          .withPeakForwardTorqueCurrent(200)
+                          .withPeakReverseTorqueCurrent(0))
                   .withSlot0(new Slot0Configs().withKP(10).withKV(0).withKS(15))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
@@ -69,6 +73,10 @@ class CompConfig {
                       new CurrentLimitsConfigs()
                           .withSupplyCurrentLimit(100)
                           .withSupplyCurrentLimitEnable(true))
+                  .withTorqueCurrent(
+                      new TorqueCurrentConfigs()
+                          .withPeakForwardTorqueCurrent(200)
+                          .withPeakReverseTorqueCurrent(0))
                   .withSlot0(new Slot0Configs().withKP(12).withKV(0).withKS(15))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
