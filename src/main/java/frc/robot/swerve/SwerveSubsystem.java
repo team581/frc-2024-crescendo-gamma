@@ -336,9 +336,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
     DriveRequestType driveType;
 
-    // TODO: remove this after tuning swerve pid
-    closedLoop = true;
-
     if (closedLoop) {
       driveType = DriveRequestType.Velocity;
     } else {
