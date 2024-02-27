@@ -240,10 +240,14 @@ class CompConfig {
           new SwerveConfig(
               new CurrentLimitsConfigs()
                   .withSupplyCurrentLimit(20)
-                  .withSupplyCurrentLimitEnable(true),
+                  .withStatorCurrentLimit(150)
+                  .withSupplyCurrentLimitEnable(true)
+                  .withStatorCurrentLimitEnable(true),
               new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(40)
-                  .withSupplyCurrentLimitEnable(true),
+                  .withSupplyCurrentLimit(80)
+                  .withStatorCurrentLimit(150)
+                  .withSupplyCurrentLimitEnable(true)
+                  .withStatorCurrentLimitEnable(true),
               new TorqueCurrentConfigs()
                   .withPeakForwardTorqueCurrent(80)
                   .withPeakReverseTorqueCurrent(-80),
