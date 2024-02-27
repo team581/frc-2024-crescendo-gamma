@@ -212,10 +212,10 @@ public class Robot extends LoggedRobot {
     driverController.rightBumper().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());
-    operatorController.povLeft().whileTrue(autoClimbManager.getClimbSequenceCommand());
-    operatorController.povRight().whileTrue(ampAlignManager.getAlignForAmpCommand());
-
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
+    // operatorController.povLeft().whileTrue(autoClimbManager.getClimbSequenceCommand());
+    // operatorController.povRight().whileTrue(ampAlignManager.getAlignForAmpCommand());
+
     operatorController.a().onTrue(actions.stowCommand());
     operatorController
         .y()
@@ -226,10 +226,10 @@ public class Robot extends LoggedRobot {
         .onTrue(actions.waitForSpeakerShotCommand())
         .onFalse(actions.stowCommand());
     operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
-    operatorController
-        .leftBumper()
-        .onTrue(actions.waitForFloorShotCommand())
-        .onFalse(actions.stowCommand());
+    // operatorController
+    //     .leftBumper()
+    //     .onTrue(actions.waitForFloorShotCommand())
+    //     .onFalse(actions.stowCommand());
     operatorController.back().onTrue(actions.homeCommand());
   }
 }

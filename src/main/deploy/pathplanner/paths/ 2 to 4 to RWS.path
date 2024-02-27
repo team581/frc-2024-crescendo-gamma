@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RWS"
+      "linkedName": "Red RWS"
     }
   ],
   "rotationTargets": [
@@ -80,7 +80,7 @@
             {
               "type": "named",
               "data": {
-                "name": "eagerSpeakerShot"
+                "name": "SpeakerShotNoTimeout"
               }
             }
           ]
