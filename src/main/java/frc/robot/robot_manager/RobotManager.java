@@ -293,7 +293,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case PREPARE_CLIMB_5_HANGING_TRAP_SCORE:
         if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
-            && elevator.atPosition(ElevatorPositions.TRAP_SHOT)) {
+            && elevator.atPosition(ElevatorPositions.TRAP_SHOT) && climber.atGoal(ClimberMode.HANGING)) {
           state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
         }
         break;
