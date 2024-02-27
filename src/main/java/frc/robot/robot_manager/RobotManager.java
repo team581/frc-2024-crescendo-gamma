@@ -608,7 +608,8 @@ public class RobotManager extends LifecycleSubsystem {
         climb5HangingTrapScoreRequest();
         break;
       case CLIMB_5_HANGING_TRAP_SCORE:
-        climb6HangingElevatorShakeRequest();
+        // climb6HangingElevatorShakeRequest();
+        // TODO: Test climb 6, for now, do nothing
         break;
       case CLIMB_6_HANGING_ELEVATOR_SHAKE:
         // Do nothing, already at end of climb sequence
@@ -637,9 +638,9 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_5_HANGING_TRAP_SCORE:
         climb4HangingRequest();
         break;
-        case CLIMB_6_HANGING_ELEVATOR_SHAKE:
-          climb5HangingTrapScoreRequest();
-          break;
+      case CLIMB_6_HANGING_ELEVATOR_SHAKE:
+        climb5HangingTrapScoreRequest();
+        break;
       default:
         // Do nothing if climb sequence isn't started
         break;
