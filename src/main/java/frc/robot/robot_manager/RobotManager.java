@@ -315,42 +315,42 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleNoGPRequest();
         break;
       case IDLE_WITH_GP:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
         break;
       case INTAKING:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeRequest();
         break;
       case INTAKING_SLOW:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeSlowRequest();
         break;
       case OUTTAKING:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.outtakeRequest();
         break;
       case OUTTAKING_SHOOTER:
         wrist.setAngle(WristPositions.OUTTAKING_SHOOTER);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.OUTTAKE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterOuttakeRequest();
         break;
       case WAITING_FLOOR_SHOT:
@@ -358,7 +358,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(wristAngleForFloorSpot);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeSlowRequest();
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
@@ -368,7 +368,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(wristAngleForFloorSpot);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
@@ -379,14 +379,14 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeSlowRequest();
         break;
       case SUBWOOFER_SHOOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
         break;
       case WAITING_SPEAKER_SHOT:
@@ -394,7 +394,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeSlowRequest();
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
@@ -404,7 +404,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
@@ -415,7 +415,7 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(WristPositions.FULLY_STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.ampWaitRequest();
         break;
       case WAITING_AMP_SHOT:
@@ -423,14 +423,14 @@ public class RobotManager extends LifecycleSubsystem {
         wrist.setAngle(WristPositions.FULLY_STOWED);
         elevator.setGoalHeight(ElevatorPositions.AMP_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.ampWaitRequest();
         break;
       case AMP_SHOT:
         wrist.setAngle(WristPositions.STOWED);
         elevator.setGoalHeight(ElevatorPositions.AMP_OUTTAKE);
         shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
         noteManager.ampScoreRequest();
         break;
       case CLIMB_1_LINEUP_OUTER:

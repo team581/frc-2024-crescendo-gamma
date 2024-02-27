@@ -27,7 +27,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
   private double goalDistance = 0.0;
   private PositionVoltage positionRequest = new PositionVoltage(goalDistance);
 
-  private ClimberMode goalMode = ClimberMode.IDLE;
+  private ClimberMode goalMode = ClimberMode.STOWED;
   private HomingState homingState = HomingState.NOT_HOMED;
 
   public ClimberSubsystem(TalonFX leftMotor, TalonFX rightMotor) {
@@ -120,7 +120,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     if (goalMode != goal) {
       return false;
     }
-    if (goalMode == ClimberMode.IDLE) {
+    if (goalMode == ClimberMode.STOWED) {
       return true;
     }
 
