@@ -178,6 +178,11 @@ public class RobotManager extends LifecycleSubsystem {
         case FLOOR_SHOT:
           state = RobotState.PREPARE_FLOOR_SHOT;
           break;
+        case STOP_SHOOTING:
+          if (state != RobotState.AMP_SHOT) {
+            state = RobotState.IDLE_WITH_GP;
+          }
+          break;
       }
     }
 
@@ -522,6 +527,10 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void stowRequest() {
     flags.check(RobotFlag.STOW);
+  }
+
+  public void stopShootingRequest() {
+    flags.check(RobotFlag.STOP_SHOOTING);
   }
 
   public void preloadNoteRequest() {

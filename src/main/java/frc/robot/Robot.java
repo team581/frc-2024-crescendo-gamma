@@ -208,7 +208,7 @@ public class Robot extends LoggedRobot {
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
-        .onFalse(actions.stowCommand());
+        .onFalse(actions.stopShootingCommand());
     driverController.rightBumper().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());

@@ -114,4 +114,8 @@ public class RobotCommands {
   public Command preloadNoteCommand() {
     return Commands.runOnce(() -> robot.preloadNoteRequest(), requirements);
   }
+
+  public Command stopShootingCommand() {
+    return Commands.runOnce(() -> robot.stopShootingRequest()), requirements);
+  }
 }
