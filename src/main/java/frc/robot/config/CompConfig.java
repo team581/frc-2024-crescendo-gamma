@@ -236,10 +236,10 @@ class CompConfig {
               new CurrentLimitsConfigs()
                   .withSupplyCurrentLimit(40)
                   .withSupplyCurrentLimitEnable(true),
-              new PhoenixPIDController(10, 0, 0.5),
               new TorqueCurrentConfigs()
                   .withPeakForwardTorqueCurrent(80)
                   .withPeakReverseTorqueCurrent(-80),
+              new PhoenixPIDController(10, 0, 0.5),
               true,
               true,
               true),
