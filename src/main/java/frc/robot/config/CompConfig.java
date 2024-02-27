@@ -92,7 +92,7 @@ class CompConfig {
               10,
               -0.5,
               0.0,
-              22.0,
+              23.0,
               0.22398,
               1,
               new TalonFXConfiguration()
