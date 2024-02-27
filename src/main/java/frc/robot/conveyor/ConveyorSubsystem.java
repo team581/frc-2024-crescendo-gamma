@@ -41,6 +41,8 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         motor.disable();
         break;
       case INTAKE_TO_SELF:
+        motor.setVoltage(-8);
+        break;
       case WAITING_AMP_SHOT:
         if (hasNote()) {
           motor.disable();
