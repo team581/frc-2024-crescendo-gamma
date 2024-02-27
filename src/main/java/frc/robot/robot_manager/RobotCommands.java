@@ -116,6 +116,6 @@ public class RobotCommands {
   }
 
   public Command stopShootingCommand() {
-    return Commands.runOnce(() -> robot.stopShootingRequest()), requirements);
+    return Commands.runOnce(() -> robot.stopShootingRequest(), requirements);
   }
 }
