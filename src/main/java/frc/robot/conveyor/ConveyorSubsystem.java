@@ -71,6 +71,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         } else {
           motor.disable();
         }
+        break;
       default:
         break;
     }
