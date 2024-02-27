@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rt to 3"
+            "pathName": "Red Rt to 3"
           }
         },
         {
@@ -44,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3 to 4"
+            "pathName": "Red 3 to 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "4 to RWS"
+            "pathName": "Red 4 to RWS"
           }
         },
         {
@@ -62,13 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RWS to 5"
+            "pathName": "Red RWS to 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "5 to RWS"
+            "pathName": "Red 5 to RWS"
           }
         },
         {
@@ -80,13 +80,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RWS to 6"
+            "pathName": "Red RWS to 6"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "6 to CWS"
+            "pathName": "Red 6 to CWS"
           }
         },
         {

@@ -32,13 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Amp to 4"
+            "pathName": "Red Amp to 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "4 to RWS"
+            "pathName": "Red 4 to RWS"
           }
         },
         {
@@ -50,13 +50,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RWS to 5"
+            "pathName": "Red RWS to 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "5 to RWS"
+            "pathName": "Red 5 to RWS"
           }
         },
         {
