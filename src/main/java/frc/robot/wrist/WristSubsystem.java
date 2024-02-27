@@ -6,7 +6,6 @@ package frc.robot.wrist;
 
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.StaticBrake;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -23,7 +22,6 @@ public class WristSubsystem extends LifecycleSubsystem {
   private final PositionVoltage positionRequest =
       new PositionVoltage(WristPositions.STOWED.getRotations()).withEnableFOC(true);
 
-  private final StaticBrake brakeNeutralRequest = new StaticBrake();
   private final CoastOut coastNeutralRequest = new CoastOut();
 
   private HomingState homingState = HomingState.PRE_MATCH_HOMING;

@@ -206,7 +206,6 @@ class PracticeConfig {
           new IMUConfig(
               1,
               distanceToAngleTolerance -> {
-                // TODO: tune distance and angle
                 distanceToAngleTolerance.put(1.0, 2.5);
                 distanceToAngleTolerance.put(1.0, 2.5);
               }),

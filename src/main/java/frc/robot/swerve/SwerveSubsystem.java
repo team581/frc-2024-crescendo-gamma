@@ -37,7 +37,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   private static final double MaxAngularRate = Units.rotationsToRadians(4);
   private boolean isShooting = false;
 
-  private double leftXDeadband = 0.05; // TODO: tune deadband to one's desire
+  private double leftXDeadband = 0.05;
   private double rightXDeadband = 0.05;
   private double leftYDeadband = 0.05;
 
