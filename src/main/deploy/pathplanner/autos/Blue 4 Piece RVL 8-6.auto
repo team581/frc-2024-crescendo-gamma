@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_RVL to LWS"
+            "pathName": "Blue RVL to LWS"
           }
         },
         {
@@ -38,13 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_LWS to 8"
+            "pathName": "Blue LWS to 8"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_8 to LWS"
+            "pathName": "Blue 8 to LWS"
           }
         },
         {
@@ -56,13 +56,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_LWS to 7"
+            "pathName": "Blue LWS to 7"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_7 to LWS"
+            "pathName": "Blue 7 to LWS"
           }
         },
         {
@@ -74,7 +74,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_LWS to 6"
+            "pathName": "Blue LWS to 6"
           }
         },
         {

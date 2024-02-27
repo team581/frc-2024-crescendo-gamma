@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_RL to Shot"
+            "pathName": "Blue RL to Shot"
           }
         },
         {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_Shot to 1"
+            "pathName": "Blue Shot to 1"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_1 to 2.5"
+            "pathName": "Blue 1 to 2.5"
           }
         },
         {
@@ -62,7 +62,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_2.5 to 3"
+            "pathName": "Blue 2.5 to 3"
           }
         },
         {
@@ -74,13 +74,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_3 to 4"
+            "pathName": "Blue 3 to 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_4 to RWS"
+            "pathName": "Blue 4 to RWS"
           }
         },
         {
@@ -92,13 +92,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "blue_RWS to 5"
+            "pathName": "Blue RWS to 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "blue_5 to RWS"
+            "pathName": "Blue 5 to RWS"
           }
         },
         {
