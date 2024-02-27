@@ -237,8 +237,8 @@ class CompConfig {
                   .withSupplyCurrentLimitEnable(true),
               new PhoenixPIDController(10, 0, 0.5),
               true,
-              false,
-              false),
+              true,
+              true),
           new IMUConfig(
               1,
               distanceToAngleTolerance -> {

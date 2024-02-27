@@ -144,13 +144,19 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   private static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
-    return new DistanceAngle(
+    double distance =
         Math.sqrt(
             (Math.pow(target.getY() - current.getY(), 2))
-                + (Math.pow(target.getX() - current.getX(), 2))),
+                + (Math.pow(target.getX() - current.getX(), 2)));
+    Rotation2d angle =
         new Rotation2d(
-            Math.atan((target.getY() - current.getY()) / (target.getX() - current.getX()))
-                - current.getRotation().getRadians()));
+                Math.atan((target.getY() - current.getY()) / (target.getX() - current.getX()))
+                    - current.getRotation().getRadians())
+            .plus(Rotation2d.fromDegrees(180));
+
+    angle = angle.minus(target.getRotation());
+
+    return new DistanceAngle(distance, angle);
   }
 
   private Pose2d robotPose = new Pose2d();
@@ -174,6 +180,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     } else {
       goalPose = BLUE_SPEAKER;
     }
+
+    Logger.recordOutput("Vision/SpeakerPose", goalPose);
 
     return distanceToTargetPose(goalPose, robotPose);
   }
