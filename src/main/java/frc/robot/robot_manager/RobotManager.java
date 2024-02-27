@@ -194,12 +194,6 @@ public class RobotManager extends LifecycleSubsystem {
       case OUTTAKING:
         // Do nothing
         break;
-      case AMP_SHOT:
-        // The conveyor sensor sometimes doesn't see the note, even when it's pretty far into the
-        // conveyor
-        // So we are temporarily turning off the automatic stow functionality. The operator will
-        // have to manually stow.
-        break;
       case PREPARE_IDLE_WITH_GP_FROM_CONVEYOR:
         if (elevator.atPosition(ElevatorPositions.STOWED)) {
           state = RobotState.IDLE_WITH_GP;
@@ -256,6 +250,7 @@ public class RobotManager extends LifecycleSubsystem {
       case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
       case SPEAKER_SHOOT:
+      case AMP_SHOT:
         if (noteManager.getState() == NoteState.IDLE_NO_GP) {
           state = RobotState.IDLE_NO_GP;
         }
