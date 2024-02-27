@@ -65,9 +65,9 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         rightMotor.setControl(followRequest);
         if (filteredCurrent > CONFIG.homingCurrentThreshold()) {
           leftMotor.setPosition(
-              inchesToRotations(RobotConfig.get().climber().maxDistance()).getRotations());
+              inchesToRotations(RobotConfig.get().climber().minDistance()).getRotations());
           rightMotor.setPosition(
-              inchesToRotations(RobotConfig.get().climber().maxDistance()).getRotations());
+              inchesToRotations(RobotConfig.get().climber().minDistance()).getRotations());
           homingState = HomingState.HOMED;
         }
         break;
