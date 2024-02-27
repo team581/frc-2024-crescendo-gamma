@@ -18,14 +18,14 @@ import org.littletonrobotics.junction.Logger;
 public class SnapManager extends LifecycleSubsystem {
   public static Rotation2d getSourceAngle() {
     return FmsSubsystem.isRedAlliance()
-        ? Rotation2d.fromDegrees(0)
-        : Rotation2d.fromDegrees(60.0 + 180.0);
+        ? Rotation2d.fromDegrees(60.0)
+        : Rotation2d.fromDegrees(180.0 - 60.0);
   }
 
   public static Rotation2d getStageLeftAngle() {
     return FmsSubsystem.isRedAlliance()
-        ? Rotation2d.fromDegrees(-60)
-        : Rotation2d.fromDegrees(-60 + 180.0);
+        ? Rotation2d.fromDegrees(-60 )
+        : Rotation2d.fromDegrees(-60+ 180);
   }
 
   public static Rotation2d getStageRightAngle() {
@@ -37,13 +37,7 @@ public class SnapManager extends LifecycleSubsystem {
   public static Rotation2d getAmpAngle() {
     return FmsSubsystem.isRedAlliance()
         ? Rotation2d.fromDegrees(-90)
-        : Rotation2d.fromDegrees(-90.0 + 180.0);
-  }
-
-  public static Rotation2d getDownAngle() {
-    return FmsSubsystem.isRedAlliance()
-        ? Rotation2d.fromDegrees(90)
-        : Rotation2d.fromDegrees(180.0 + 180.0);
+        : Rotation2d.fromDegrees(-90.0);
   }
 
   private final SwerveSubsystem swerve;
