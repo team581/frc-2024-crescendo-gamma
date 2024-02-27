@@ -637,9 +637,9 @@ public class RobotManager extends LifecycleSubsystem {
       case CLIMB_5_HANGING_TRAP_SCORE:
         climb4HangingRequest();
         break;
-        // case CLIMB_6_HANGING_ELEVATOR_SHAKE:
-        //   climb5HangingTrapScoreRequest();
-        //   break;
+        case CLIMB_6_HANGING_ELEVATOR_SHAKE:
+          climb5HangingTrapScoreRequest();
+          break;
       default:
         // Do nothing if climb sequence isn't started
         break;
