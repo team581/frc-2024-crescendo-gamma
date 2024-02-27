@@ -28,6 +28,7 @@ import frc.robot.config.RobotConfig.LightsConfig;
 import frc.robot.config.RobotConfig.QueuerConfig;
 import frc.robot.config.RobotConfig.ShooterConfig;
 import frc.robot.config.RobotConfig.SwerveConfig;
+import frc.robot.config.RobotConfig.VisionConfig;
 import frc.robot.config.RobotConfig.WristConfig;
 
 class PracticeConfig {
@@ -209,5 +210,6 @@ class PracticeConfig {
                 distanceToAngleTolerance.put(1.0, 2.5);
                 distanceToAngleTolerance.put(1.0, 2.5);
               }),
-          new LightsConfig(3));
+          new LightsConfig(3),
+          new VisionConfig(8));
 }

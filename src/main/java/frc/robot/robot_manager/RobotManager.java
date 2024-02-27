@@ -216,6 +216,7 @@ public class RobotManager extends LifecycleSubsystem {
             && shooter.atGoal(ShooterMode.FLOOR_SHOT)
             && noteManager.getState() == NoteState.IDLE_IN_QUEUER
             && Math.abs(robotAngleToFloorSpot.getDegrees()) < 2.5
+            && localization.atSafeJitter()
             && swerve.movingSlowEnoughForSpeakerShot()
             && Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 2.5) {
           state = RobotState.FLOOR_SHOOT;
@@ -238,6 +239,7 @@ public class RobotManager extends LifecycleSubsystem {
         if (wrist.atAngleForSpeaker(wristAngleForSpeaker, speakerDistance)
             && shooter.atGoal(ShooterMode.SPEAKER_SHOT)
             && noteManager.getState() == NoteState.IDLE_IN_QUEUER
+            && localization.atSafeJitter()
             && swerve.movingSlowEnoughForSpeakerShot()
             && imu.belowVelocityForSpeaker(speakerDistance)
             && imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance)) {

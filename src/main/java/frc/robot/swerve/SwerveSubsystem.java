@@ -369,7 +369,10 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   }
 
   public boolean movingSlowEnoughForSpeakerShot() {
-    var speeds = getRobotRelativeSpeeds();
+    return movingSlowEnoughForSpeakerShot(getRobotRelativeSpeeds());
+  }
+
+  public boolean movingSlowEnoughForSpeakerShot(ChassisSpeeds speeds) {
     double linearSpeed =
         Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
 

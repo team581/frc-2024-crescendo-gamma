@@ -25,7 +25,8 @@ public record RobotConfig(
     QueuerConfig queuer,
     SwerveConfig swerve,
     IMUConfig imu,
-    LightsConfig lights) {
+    LightsConfig lights,
+    VisionConfig vision) {
 
   public record ShooterConfig(
       int leftMotorID,
@@ -102,6 +103,8 @@ public record RobotConfig(
       boolean invertRotation,
       boolean invertX,
       boolean invertY) {}
+
+  public record VisionConfig(int translationHistoryArraySize) {}
 
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;
