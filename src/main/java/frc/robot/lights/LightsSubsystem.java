@@ -23,6 +23,7 @@ import org.littletonrobotics.junction.Logger;
 public class LightsSubsystem extends LifecycleSubsystem {
   private static final LightsState FLASH_LIGHTS =
       new LightsState(Color.kWhite, BlinkPattern.BLINK_FAST);
+  private static final double DRIVER_SIGNAL_BLINK_DURATION = 1;
   private static final double FAST_BLINK_DURATION = 0.08;
   private static final double SLOW_BLINK_DURATION = 0.25;
 
@@ -102,7 +103,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
         lightsOnExitTimer.start();
       }
 
-      if (lightsOnExitTimer.hasElapsed(0.5)) {
+      if (lightsOnExitTimer.hasElapsed(DRIVER_SIGNAL_BLINK_DURATION)) {
         lightsOnExit = Optional.empty();
         lightsOnExitTimer.stop();
         lightsOnExitTimer.reset();
