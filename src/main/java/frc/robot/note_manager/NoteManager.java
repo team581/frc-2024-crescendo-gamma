@@ -125,7 +125,7 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case INTAKE_TO_QUEUER:
       case INTAKE_SLOW_TO_QUEUER:
-        if (queuer.hasNote() && !intake.hasNote()) {
+        if (queuer.hasNote()) {
           state = NoteState.IDLE_IN_QUEUER;
         }
         break;
@@ -178,7 +178,7 @@ public class NoteManager extends LifecycleSubsystem {
       case IDLE_IN_QUEUER:
         intake.setState(IntakeState.IDLE);
         conveyor.setState(ConveyorState.IDLE);
-        queuer.setState(QueuerState.IDLE);
+        queuer.setState(QueuerState.INTAKING);
         break;
       case INTAKE_TO_QUEUER:
         intake.setState(IntakeState.TO_QUEUER);
