@@ -12,6 +12,7 @@ import com.ctre.phoenix6.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -236,6 +237,9 @@ class CompConfig {
                   .withSupplyCurrentLimit(40)
                   .withSupplyCurrentLimitEnable(true),
               new PhoenixPIDController(10, 0, 0.5),
+              new TorqueCurrentConfigs()
+                  .withPeakForwardTorqueCurrent(80)
+                  .withPeakReverseTorqueCurrent(-80),
               true,
               true,
               true),

@@ -5,7 +5,6 @@
 package frc.robot.swerve;
 
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
@@ -81,10 +80,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     module
         .getDriveMotor()
         .getConfigurator()
-        .apply(
-            new TorqueCurrentConfigs()
-                .withPeakForwardTorqueCurrent(100)
-                .withPeakReverseTorqueCurrent(-100));
+        .apply(RobotConfig.get().swerve().driveMotorTorqueCurrentLimits());
   }
 
   private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();

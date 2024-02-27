@@ -6,6 +6,7 @@ package frc.robot.config;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -92,6 +93,7 @@ public record RobotConfig(
   public record SwerveConfig(
       CurrentLimitsConfigs steerMotorCurrentLimits,
       CurrentLimitsConfigs driveMotorCurrentLimits,
+      TorqueCurrentConfigs driveMotorTorqueCurrentLimits,
       PhoenixPIDController snapController,
       boolean invertRotation,
       boolean invertX,

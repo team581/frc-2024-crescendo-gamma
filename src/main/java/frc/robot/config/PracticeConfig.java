@@ -11,6 +11,7 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import com.ctre.phoenix6.signals.GravityTypeValue;
@@ -199,6 +200,9 @@ class PracticeConfig {
           new SwerveConfig(
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
               new CurrentLimitsConfigs().withStatorCurrentLimit(80),
+              new TorqueCurrentConfigs()
+                  .withPeakForwardTorqueCurrent(80)
+                  .withPeakReverseTorqueCurrent(-80),
               new PhoenixPIDController(-10, 0, -0.5),
               false,
               false,
