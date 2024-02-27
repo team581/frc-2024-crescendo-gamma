@@ -24,8 +24,8 @@ public class SnapManager extends LifecycleSubsystem {
 
   public static Rotation2d getStageLeftAngle() {
     return FmsSubsystem.isRedAlliance()
-        ? Rotation2d.fromDegrees(-60 )
-        : Rotation2d.fromDegrees(-60+ 180);
+        ? Rotation2d.fromDegrees(-60)
+        : Rotation2d.fromDegrees(-60 + 180);
   }
 
   public static Rotation2d getStageRightAngle() {
