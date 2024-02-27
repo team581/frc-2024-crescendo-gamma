@@ -80,7 +80,7 @@
             {
               "type": "named",
               "data": {
-                "name": "SpeakerShotNoTimeout"
+                "name": "speakerShotNoTimeout"
               }
             }
           ]

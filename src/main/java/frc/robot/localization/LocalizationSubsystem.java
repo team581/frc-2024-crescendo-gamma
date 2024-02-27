@@ -9,14 +9,17 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.TimedDataBuffer;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.LimelightHelpers;
@@ -33,6 +36,10 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   private final SwerveDriveOdometry odometry;
   private final VisionSubsystem vision;
   private double lastAddedVisionTimestamp = 0;
+
+  private final TimedDataBuffer xHistory = new TimedDataBuffer(8);
+  private final TimedDataBuffer yHistory =
+      new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
 
   public LocalizationSubsystem(SwerveSubsystem swerve, ImuSubsystem imu, VisionSubsystem vision) {
     super(SubsystemPriority.LOCALIZATION);
@@ -92,6 +99,9 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     Logger.recordOutput(
         "Localization/VelocityTheta", swerve.getRobotRelativeSpeeds().omegaRadiansPerSecond);
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
+
+    xHistory.addData(Timer.getFPGATimestamp(), getPose().getX());
+    yHistory.addData(Timer.getFPGATimestamp(), getPose().getY());
 
     vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD));
   }
@@ -155,5 +165,19 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     }
 
     return expectedPose;
+  }
+
+  public boolean atSafeJitter() {
+    // Get first value of X & Y from history
+    double xDifference =
+        Math.abs(xHistory.lookupData(-Double.POSITIVE_INFINITY) - getPose().getX());
+    double yDifference =
+        Math.abs(yHistory.lookupData(-Double.POSITIVE_INFINITY) - getPose().getY());
+
+    ChassisSpeeds speeds = new ChassisSpeeds(xDifference, yDifference, 0);
+
+    // This doesn't check angular velocity, because we trust that to be correct & not have jitter
+    // X & Y from pose estimator have the jitter
+    return swerve.movingSlowEnoughForSpeakerShot(speeds);
   }
 }
