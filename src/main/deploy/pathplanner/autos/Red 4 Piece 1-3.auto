@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "homeClimber"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "RL to Shot"

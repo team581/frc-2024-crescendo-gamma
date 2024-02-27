@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "homeClimber"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "blue_RL to LWS"
