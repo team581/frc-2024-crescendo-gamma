@@ -333,7 +333,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
         climber.setGoalMode(ClimberMode.IDLE);
-        noteManager.idleInQueuerRequest();
+        noteManager.intakeSlowRequest();
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -354,7 +354,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoalMode(ClimberMode.IDLE);
-        noteManager.idleInQueuerRequest();
+        noteManager.intakeSlowRequest();
         break;
       case SUBWOOFER_SHOOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
@@ -369,7 +369,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoalMode(ClimberMode.IDLE);
-        noteManager.idleInQueuerRequest();
+        noteManager.intakeSlowRequest();
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
