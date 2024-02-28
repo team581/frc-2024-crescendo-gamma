@@ -168,10 +168,12 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   public boolean atSafeJitter() {
     // Get first value of X & Y from history
+    Stopwatch.getInstance().start("Localization/SafeJitterLookup");
     double xDifference =
         Math.abs(xHistory.lookupData(-Double.POSITIVE_INFINITY) - getPose().getX());
     double yDifference =
         Math.abs(yHistory.lookupData(-Double.POSITIVE_INFINITY) - getPose().getY());
+    Stopwatch.getInstance().stop("Localization/SafeJitterLookup");
 
     ChassisSpeeds speeds = new ChassisSpeeds(xDifference, yDifference, 0);
 
