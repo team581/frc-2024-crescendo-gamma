@@ -19,6 +19,7 @@ import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.Stopwatch;
 import frc.robot.util.TimedDataBuffer;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -75,8 +76,11 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
       double timestamp = Timer.getFPGATimestamp() - results.latency();
 
-      if (timestamp != lastAddedVisionTimestamp) {
+      if (timestamp == lastAddedVisionTimestamp) {
         // Don't add the same vision pose over and over
+        Stopwatch.getInstance().skip("Localization/AddVisionPoseDuration");
+      } else {
+        Stopwatch.getInstance().start("Localization/AddVisionPoseDuration");
         poseEstimator.addVisionMeasurement(
             visionPose,
             timestamp,
@@ -85,6 +89,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
                 limelightStandardDeviation,
                 limelightStandardDeviation));
         lastAddedVisionTimestamp = timestamp;
+        Stopwatch.getInstance().stop("Localization/AddVisionPoseDuration");
       }
     }
 
