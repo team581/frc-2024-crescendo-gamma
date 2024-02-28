@@ -72,27 +72,28 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     Stopwatch.getInstance().stop("Localization/UpdatePoseEstimatorDuration");
 
     var maybeResults = vision.getResults();
+    var timestamp = Timer.getFPGATimestamp();
 
     if (maybeResults.isPresent()) {
       var results = maybeResults.get();
       Pose2d visionPose = results.robotPose().toPose2d();
       double limelightStandardDeviation = vision.getStandardDeviation(results.latency());
 
-      double timestamp = Timer.getFPGATimestamp() - results.latency();
+      double visionTimestamp = timestamp - results.latency();
 
-      if (timestamp == lastAddedVisionTimestamp) {
+      if (visionTimestamp == lastAddedVisionTimestamp) {
         // Don't add the same vision pose over and over
         Stopwatch.getInstance().skip("Localization/AddVisionPoseDuration");
       } else {
         Stopwatch.getInstance().start("Localization/AddVisionPoseDuration");
         poseEstimator.addVisionMeasurement(
             visionPose,
-            timestamp,
+            visionTimestamp,
             VecBuilder.fill(
                 limelightStandardDeviation,
                 limelightStandardDeviation,
                 limelightStandardDeviation));
-        lastAddedVisionTimestamp = timestamp;
+        lastAddedVisionTimestamp = visionTimestamp;
         Stopwatch.getInstance().stop("Localization/AddVisionPoseDuration");
       }
     } else {
@@ -103,8 +104,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Localization/EstimatedPose", getPose());
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
 
-    xHistory.addData(Timer.getFPGATimestamp(), getPose().getX());
-    yHistory.addData(Timer.getFPGATimestamp(), getPose().getY());
+    xHistory.addData(timestamp, getPose().getX());
+    yHistory.addData(timestamp, getPose().getY());
 
     vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD));
   }
