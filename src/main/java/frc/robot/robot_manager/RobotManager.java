@@ -218,7 +218,6 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_FLOOR_SHOT:
         if (wrist.atAngle(wristAngleForFloorSpot)
             && shooter.atGoal(ShooterMode.FLOOR_SHOT)
-            && noteManager.getState() == NoteState.IDLE_IN_QUEUER
             && Math.abs(robotAngleToFloorSpot.getDegrees()) < 2.5
             && localization.atSafeJitter()
             && swerve.movingSlowEnoughForSpeakerShot()
@@ -243,7 +242,6 @@ public class RobotManager extends LifecycleSubsystem {
         {
           boolean wristAtGoal = wrist.atAngleForSpeaker(wristAngleForSpeaker, speakerDistance);
           boolean shooterAtGoal = shooter.atGoal(ShooterMode.SPEAKER_SHOT);
-          boolean noteManagerAtIdle = noteManager.getState() == NoteState.IDLE_IN_QUEUER;
           boolean poseJitterSafe = localization.atSafeJitter();
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
@@ -251,7 +249,6 @@ public class RobotManager extends LifecycleSubsystem {
 
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/ShooterAtGoal", shooterAtGoal);
-          Logger.recordOutput("RobotManager/SpeakerShot/NoteManagerAtIdle", noteManagerAtIdle);
           Logger.recordOutput("RobotManager/SpeakerShot/PoseJitterSafe", poseJitterSafe);
           Logger.recordOutput("RobotManager/SpeakerShot/SwerveSlowEnough", swerveSlowEnough);
           Logger.recordOutput(
@@ -260,7 +257,6 @@ public class RobotManager extends LifecycleSubsystem {
 
           if (wristAtGoal
               && shooterAtGoal
-              && noteManagerAtIdle
               && poseJitterSafe
               && swerveSlowEnough
               && angularVelocitySlowEnough
