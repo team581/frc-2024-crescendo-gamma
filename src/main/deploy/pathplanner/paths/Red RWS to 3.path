@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 11.469111506223014,
+        "y": 6.404841757683515
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.793845567691136,
+        "y": 6.661330962661925
+      },
+      "isLocked": false,
+      "linkedName": "Red RWS"
+    },
+    {
+      "anchor": {
+        "x": 13.61087589535179,
+        "y": 7.022519481838964
+      },
+      "prevControl": {
+        "x": 10.156393700787403,
+        "y": 7.70642570485141
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red 3"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red 3",
+  "previewStartingState": {
+    "rotation": -13.679674715533352,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
