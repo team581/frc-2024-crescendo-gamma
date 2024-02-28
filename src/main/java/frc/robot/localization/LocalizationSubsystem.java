@@ -61,11 +61,10 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    SwerveModulePosition[] modulePositions = swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
-    odometry.update(
-        imu.getRobotHeading(), modulePositions);
-    poseEstimator.update(
-        imu.getRobotHeading(), modulePositions);
+    SwerveModulePosition[] modulePositions =
+        swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
+    odometry.update(imu.getRobotHeading(), modulePositions);
+    poseEstimator.update(imu.getRobotHeading(), modulePositions);
 
     var maybeResults = vision.getResults();
 
