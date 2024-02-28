@@ -262,7 +262,7 @@ class CompConfig {
                 distanceToAngleTolerance.put(1.0, 2.5);
               }),
           new LightsConfig(3),
-          new VisionConfig(8));
+          new VisionConfig(4));
 
   private CompConfig() {}
 }
