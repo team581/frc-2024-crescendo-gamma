@@ -5,7 +5,7 @@
       "x": 15.77,
       "y": 4.42
     },
-    "rotation": 58.96
+    "rotation": 60.49
   },
   "command": {
     "type": "sequential",
@@ -24,15 +24,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Red RL to Shot"
+            "pathName": "Red Left to Shot"
           }
         },
         {
@@ -44,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 1 to 2"
+            "pathName": "Red Shot to 1"
           }
         },
         {
@@ -56,7 +50,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 2 to 3"
+            "pathName": "Red 1 to 2.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 2.5 to 3"
           }
         },
         {
@@ -74,13 +80,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Copy of 4 to RWS"
+            "pathName": "Red 4 to RWS"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RWS to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 to RWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RWS to 6"
           }
         }
       ]
