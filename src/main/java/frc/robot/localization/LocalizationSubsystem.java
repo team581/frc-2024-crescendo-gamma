@@ -91,6 +91,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
         lastAddedVisionTimestamp = timestamp;
         Stopwatch.getInstance().stop("Localization/AddVisionPoseDuration");
       }
+    } else {
+      Stopwatch.getInstance().skip("Localization/AddVisionPoseDuration");
     }
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
