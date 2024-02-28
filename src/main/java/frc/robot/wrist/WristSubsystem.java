@@ -149,7 +149,8 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   public boolean atAngleForSpeaker(double distance) {
-    return atAngle(getAngleFromDistanceToSpeaker(distance), getToleranceFromDistanceToSpeaker(distance));
+    return atAngle(
+        getAngleFromDistanceToSpeaker(distance), getToleranceFromDistanceToSpeaker(distance));
   }
 
   public HomingState getHomingState() {
