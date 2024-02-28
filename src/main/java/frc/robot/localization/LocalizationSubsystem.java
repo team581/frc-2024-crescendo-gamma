@@ -59,13 +59,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
             swerve.getModulePositions().toArray(new SwerveModulePosition[4]));
   }
 
-  // TODO: to flip to blue alliance the imu yaw might have to be inverted
   @Override
   public void robotPeriodic() {
+    SwerveModulePosition[] modulePositions = swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
     odometry.update(
-        imu.getRobotHeading(), swerve.getModulePositions().toArray(new SwerveModulePosition[4]));
+        imu.getRobotHeading(), modulePositions);
     poseEstimator.update(
-        imu.getRobotHeading(), swerve.getModulePositions().toArray(new SwerveModulePosition[4]));
+        imu.getRobotHeading(), modulePositions);
 
     var maybeResults = vision.getResults();
 
