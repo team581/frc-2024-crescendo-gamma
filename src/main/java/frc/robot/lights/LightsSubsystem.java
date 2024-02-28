@@ -90,11 +90,6 @@ public class LightsSubsystem extends LifecycleSubsystem {
             lightsOnExit = Optional.of(FLASH_LIGHTS);
           }
           break;
-        case CLIMB_5_HANGING_TRAP_SCORE:
-          if (robotState == RobotState.IDLE_NO_GP) {
-            lightsOnExit = Optional.of(new LightsState(Color.kIndigo, BlinkPattern.BLINK_FAST));
-          }
-          break;
         default:
           break;
       }

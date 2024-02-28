@@ -10,6 +10,7 @@ public class ElevatorPositions {
 
   public static final double CLIMBING = 22;
   public static final double TRAP_SHOT = 22;
+  public static final double CLIMBING_FINISHED = 16;
 
   private ElevatorPositions() {}
 }

@@ -72,7 +72,7 @@ public enum RobotState {
   PREPARE_CLIMB_5_HANGING_TRAP_SCORE(
       true, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
   CLIMB_5_HANGING_TRAP_SCORE(true, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_FAST)),
-  CLIMB_6_HANGING_ELEVATOR_SHAKE(true, false, new LightsState(Color.kRed, BlinkPattern.BLINK_FAST));
+  CLIMB_6_HANGING_FINISHED(false, false, new LightsState(Color.kIndigo, BlinkPattern.SOLID));
 
   public final boolean hasNote;
   public final boolean shootingMode;
