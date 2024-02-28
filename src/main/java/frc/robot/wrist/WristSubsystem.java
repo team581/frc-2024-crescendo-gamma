@@ -148,8 +148,8 @@ public class WristSubsystem extends LifecycleSubsystem {
     return Math.abs(angle.getDegrees() - getAngle().getDegrees()) < tolerance.getDegrees();
   }
 
-  public boolean atAngleForSpeaker(Rotation2d angle, double distance) {
-    return atAngle(angle, getToleranceFromDistanceToSpeaker(distance));
+  public boolean atAngleForSpeaker(double distance) {
+    return atAngle(getAngleFromDistanceToSpeaker(distance), getToleranceFromDistanceToSpeaker(distance));
   }
 
   public HomingState getHomingState() {

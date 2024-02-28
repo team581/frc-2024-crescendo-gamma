@@ -240,7 +240,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case PREPARE_SPEAKER_SHOT:
         {
-          boolean wristAtGoal = wrist.atAngleForSpeaker(wristAngleForSpeaker, speakerDistance);
+          boolean wristAtGoal = wrist.atAngleForSpeaker(speakerDistance);
           boolean shooterAtGoal = shooter.atGoal(ShooterMode.SPEAKER_SHOT);
           boolean poseJitterSafe = localization.atSafeJitter();
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
