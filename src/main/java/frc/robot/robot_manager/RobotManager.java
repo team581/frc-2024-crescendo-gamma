@@ -135,8 +135,7 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case CLIMB_5_HANGING_TRAP_SCORE:
-          if (state == RobotState.CLIMB_4_HANGING
-              || state == RobotState.CLIMB_6_HANGING_FINISHED) {
+          if (state == RobotState.CLIMB_4_HANGING || state == RobotState.CLIMB_6_HANGING_FINISHED) {
             state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
           }
           break;
@@ -292,8 +291,8 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case PREPARE_CLIMB_5_HANGING_TRAP_SCORE:
-        if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
-            && elevator.atPosition(ElevatorPositions.TRAP_SHOT) && climber.atGoal(ClimberMode.HANGING)) {
+        if (elevator.atPosition(ElevatorPositions.TRAP_SHOT)
+            && climber.atGoal(ClimberMode.HANGING)) {
           state = RobotState.CLIMB_5_HANGING_TRAP_SCORE;
         }
         break;
@@ -476,6 +475,11 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.trapShotRequest();
+        // No matter what, try doing the trap score
+        // If the handoff isn't completed at this point, there's no way to finish it while the
+        // elevator is up
+        // So, just try scoring regardless of robot state
+        noteManager.evilStateOverride(NoteState.TRAP_SCORING);
         break;
       case CLIMB_6_HANGING_FINISHED:
         wrist.setAngle(WristPositions.FULLY_STOWED);
