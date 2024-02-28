@@ -224,7 +224,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
           Logger.recordOutput("Swerve/UsedTeleopSpeeds", teleopSpeeds);
 
-          setFieldRelativeSpeeds(teleopSpeeds, true);
+          setFieldRelativeSpeeds(teleopSpeeds, false);
         });
   }
 
