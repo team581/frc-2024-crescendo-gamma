@@ -134,7 +134,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
       Pose3d robotPoseFieldSpace = fixEvilPose(robotPoseEvilSpace);
 
-      Logger.recordOutput("Vision/FilteredRobotPose", robotPoseFieldSpace);
       Logger.recordOutput("Localization/Valid", valid);
 
       return Optional.of(new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance));
@@ -225,10 +224,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
     if (storedResults.isPresent()) {
       var data = storedResults.get();
       Logger.recordOutput("Vision/Latency", data.latency());
-      Logger.recordOutput("Vision/TimestampWithLatency", Timer.getFPGATimestamp() - data.latency());
-      Logger.recordOutput(
-          "Vision/AngularVelocityWithLatency",
-          imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - data.latency()));
       Logger.recordOutput("Vision/DistanceFromTag", data.distanceToTag());
     }
   }

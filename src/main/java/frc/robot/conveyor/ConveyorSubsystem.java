@@ -91,7 +91,6 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
     Logger.recordOutput("Conveyor/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Conveyor/Voltage", motor.getMotorVoltage().getValueAsDouble());
-    Logger.recordOutput("Conveyor/Timer", timer.get());
   }
 
   public void setState(ConveyorState state) {

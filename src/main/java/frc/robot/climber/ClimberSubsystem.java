@@ -92,12 +92,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Climber/Left/Rotations", leftMotor.getPosition().getValueAsDouble());
     Logger.recordOutput("Climber/Left/Voltage", leftMotor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput(
-        "Climber/Left/VelocityRotations", leftMotor.getVelocity().getValueAsDouble());
-    Logger.recordOutput(
         "Climber/Left/VelocityDistance",
         rotationsToInches(Rotation2d.fromRotations(leftMotor.getVelocity().getValueAsDouble())));
-    Logger.recordOutput(
-        "Climber/Left/AccelerationRotations", leftMotor.getAcceleration().getValueAsDouble());
     Logger.recordOutput("Climber/Left/Temperature", leftMotor.getDeviceTemp().getValueAsDouble());
     Logger.recordOutput("Climber/Right/Distance", getDistance(rightMotor));
     Logger.recordOutput(
@@ -107,12 +103,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Climber/Right/Rotations", rightMotor.getPosition().getValueAsDouble());
     Logger.recordOutput("Climber/Right/Voltage", rightMotor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput(
-        "Climber/Right/VelocityRotations", rightMotor.getVelocity().getValueAsDouble());
-    Logger.recordOutput(
         "Climber/Right/VelocityDistance",
         rotationsToInches(Rotation2d.fromRotations(rightMotor.getVelocity().getValueAsDouble())));
-    Logger.recordOutput(
-        "Climber/Right/AccelerationRotations", rightMotor.getAcceleration().getValueAsDouble());
     Logger.recordOutput("Climber/Right/Temperature", rightMotor.getDeviceTemp().getValueAsDouble());
   }
 

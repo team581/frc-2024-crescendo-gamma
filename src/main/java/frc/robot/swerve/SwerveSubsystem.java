@@ -269,9 +269,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Swerve/Pose", drivetrain.getState().Pose);
     Logger.recordOutput("Swerve/ModuleStates", drivetrain.getState().ModuleStates);
     Logger.recordOutput("Swerve/ModuleTargets", drivetrain.getState().ModuleTargets);
-    Logger.recordOutput(
-        "Swerve/PoseWithSnapGoal",
-        new Pose2d(drivetrain.getState().Pose.getTranslation(), goalSnapAngle));
 
     Logger.recordOutput(
         "Swerve/FrontLeft/DriveMotor/Temperature",
@@ -311,28 +308,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
         backRight.getDriveMotor().getStatorCurrent().getValue());
 
     Logger.recordOutput("Swerve/RobotSpeed", getRobotRelativeSpeeds());
-
-    Logger.recordOutput("Swerve/Controller/LeftX", controller.getLeftX());
-    Logger.recordOutput("Swerve/Controller/RightX", -1.0 * controller.getRightX());
-    Logger.recordOutput("Swerve/Controller/LeftY", -1.0 * controller.getLeftY());
-    Logger.recordOutput(
-        "Swerve/Controller/DeadBandedLeftX",
-        ControllerHelpers.getDeadbanded(controller.getLeftX(), leftXDeadband));
-    Logger.recordOutput(
-        "Swerve/Controller/DeadBandedRightX",
-        -1.0 * ControllerHelpers.getDeadbanded(controller.getRightX(), rightXDeadband));
-    Logger.recordOutput(
-        "Swerve/Controller/DeadBandedLeftY",
-        -1.0 * ControllerHelpers.getDeadbanded(controller.getLeftY(), leftYDeadband));
-    Logger.recordOutput(
-        "Swerve/Controller/ExponentLeftX",
-        ControllerHelpers.getExponent(controller.getLeftX(), 1.5));
-    Logger.recordOutput(
-        "Swerve/Controller/ExponentRightX",
-        -1.0 * ControllerHelpers.getExponent(controller.getRightX(), 2));
-    Logger.recordOutput(
-        "Swerve/Controller/ExponentLeftY",
-        -1.0 * ControllerHelpers.getExponent(controller.getLeftY(), 1.5));
 
     DriveRequestType driveType;
 

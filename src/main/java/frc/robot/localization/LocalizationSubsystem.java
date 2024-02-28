@@ -91,14 +91,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
     Logger.recordOutput("Localization/EstimatedPose", getPose());
-    Logger.recordOutput("Localization/AccelerationX", imu.getXAcceleration());
-    Logger.recordOutput("Localization/AccelerationY", imu.getYAcceleration());
-    Logger.recordOutput(
-        "Localization/VelocityX", swerve.getRobotRelativeSpeeds().vxMetersPerSecond);
-    Logger.recordOutput(
-        "Localization/VelocityY", swerve.getRobotRelativeSpeeds().vyMetersPerSecond);
-    Logger.recordOutput(
-        "Localization/VelocityTheta", swerve.getRobotRelativeSpeeds().omegaRadiansPerSecond);
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
 
     xHistory.addData(Timer.getFPGATimestamp(), getPose().getX());

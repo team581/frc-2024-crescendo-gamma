@@ -96,7 +96,7 @@ public class WristSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput(
         "Wrist/Position", Rotation2d.fromRotations(motor.getPosition().getValue()).getDegrees());
-    Logger.recordOutput("Wrist/Current", motor.getStatorCurrent().getValue());
+    Logger.recordOutput("Wrist/StatorCurrent", motor.getStatorCurrent().getValue());
     Logger.recordOutput("Wrist/Voltage", motor.getMotorVoltage().getValue());
     Logger.recordOutput("Wrist/RPM", motor.getVelocity().getValue() * 60.0);
     Logger.recordOutput("Wrist/HomingState", homingState);
@@ -104,7 +104,6 @@ public class WristSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Wrist/Temperature", motor.getDeviceTemp().getValue());
     Logger.recordOutput("Wrist/ControlMode", motor.getControlMode().toString());
     Logger.recordOutput("Wrist/LowestSeenAngle", lowestSeenAngle.getDegrees());
-    Logger.recordOutput("Wrist/HomingAngleOffset", getHomeAngleFromLowestSeen().getDegrees());
   }
 
   private Rotation2d getHomeAngleFromLowestSeen() {
