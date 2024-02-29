@@ -20,7 +20,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.config.RobotConfig;
-import frc.robot.imu.ImuSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.swerve.SwerveSubsystem;
@@ -31,21 +30,12 @@ import org.littletonrobotics.junction.Logger;
 
 public class Autos extends LifecycleSubsystem {
   private final SwerveSubsystem swerve;
-  private final LocalizationSubsystem localization;
-  private final ImuSubsystem imu;
-  private final RobotCommands actions;
   private final AutoChooser autoChooser;
 
-  public Autos(
-      SwerveSubsystem swerve,
-      LocalizationSubsystem localization,
-      ImuSubsystem imu,
-      RobotCommands actions) {
+  public Autos(SwerveSubsystem swerve, LocalizationSubsystem localization, RobotCommands actions) {
     super(SubsystemPriority.AUTOS);
     this.swerve = swerve;
-    this.localization = localization;
-    this.imu = imu;
-    this.actions = actions;
+    var autoCommands = new AutoCommands(actions);
 
     // Configure AutoBuilder last
     AutoBuilder.configureHolonomic(
@@ -66,18 +56,8 @@ public class Autos extends LifecycleSubsystem {
 
     NamedCommands.registerCommand("preloadNote", actions.preloadNoteCommand());
     NamedCommands.registerCommand("speakerShotNoTimeout", actions.speakerShotCommand());
-    NamedCommands.registerCommand(
-        "speakerShot",
-        actions
-            .speakerShotCommand()
-            .withTimeout(5)
-            .andThen(actions.outtakeShooterCommand().withTimeout(1)));
-    NamedCommands.registerCommand(
-        "subwooferShot",
-        actions
-            .subwooferShotCommand()
-            .withTimeout(3)
-            .andThen(actions.outtakeShooterCommand().withTimeout(1)));
+    NamedCommands.registerCommand("speakerShot", autoCommands.speakerShotWithTimeout());
+    NamedCommands.registerCommand("subwooferShot", autoCommands.subwooferShotWithTimeout());
     NamedCommands.registerCommand("intakeFloor", actions.intakeCommand());
     NamedCommands.registerCommand("outtakeShooter", actions.outtakeShooterCommand());
     NamedCommands.registerCommand("homeClimber", actions.homeCommand());

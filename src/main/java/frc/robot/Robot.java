@@ -87,7 +87,7 @@ public class Robot extends LoggedRobot {
       new RobotManager(
           wrist, elevator, shooter, localization, vision, climber, swerve, snaps, imu, noteManager);
   private final RobotCommands actions = new RobotCommands(robotManager);
-  private final Autos autos = new Autos(swerve, localization, imu, actions);
+  private final Autos autos = new Autos(swerve, localization, actions);
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision);
