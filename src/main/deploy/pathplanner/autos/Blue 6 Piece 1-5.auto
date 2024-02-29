@@ -2,10 +2,10 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 1.3999999999999986,
-      "y": 7.3
+      "x": 0.7099999999999991,
+      "y": 4.41
     },
-    "rotation": 180
+    "rotation": 119.50999999999999
   },
   "command": {
     "type": "sequential",
@@ -14,19 +14,19 @@
         {
           "type": "named",
           "data": {
-            "name": "preloadNote"
+            "name": "homeClimber"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "homeClimber"
+            "name": "preloadNote"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Amp to Amp Shot"
+            "pathName": "Blue Left to Shot"
           }
         },
         {
@@ -38,7 +38,43 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Amp Shot to 4"
+            "pathName": "Blue Shot to 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 1 to 2.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 2.5 to 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 3 to 4"
           }
         },
         {
@@ -63,42 +99,6 @@
           "type": "path",
           "data": {
             "pathName": "Blue 5 to RWS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue RWS to 3 to Blue Middle Line"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue Middle Line to 2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 2 to 1"
           }
         },
         {

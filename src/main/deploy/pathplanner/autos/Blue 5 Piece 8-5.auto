@@ -2,8 +2,8 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 0.7599999999999998,
-      "y": 4.44
+      "x": 0.7099999999999991,
+      "y": 4.41
     },
     "rotation": 120.77000000000001
   },
@@ -11,6 +11,12 @@
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "preloadNote"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -86,6 +92,6 @@
       ]
     }
   },
-  "folder": "Blue",
+  "folder": "Blue Comp",
   "choreoAuto": false
 }

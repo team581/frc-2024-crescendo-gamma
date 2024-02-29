@@ -27,7 +27,8 @@
   "autoFolders": [
     "Blue",
     "Red Comp",
-    "Red"
+    "Red",
+    "Blue Comp"
   ],
   "defaultMaxVel": 5.2,
   "defaultMaxAccel": 5.0,
