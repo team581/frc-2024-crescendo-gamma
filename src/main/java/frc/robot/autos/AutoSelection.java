@@ -13,7 +13,7 @@ public enum AutoSelection {
   FIVE_PIECE_SOURCE_8_5("Red 5 Piece 8-5", "Blue 5 Piece 8-5"),
   // FIVE_PIECE_RVL_8_5("Red 5 Piece RVL 8-5", "Blue 5 Piece RVL 8-6"),
   FIVE_PIECE_AMP_4_2("Red 5 Piece 4-2", "Blue 5 Piece 4-2"),
-  SIX_PIECE_SOURCE_1_5("Red 6 Piece 1-5, 6", "Blue 6 Piece 1-5, 6");
+  SIX_PIECE_SOURCE_1_5("Red 6 Piece 1-5", "Blue 6 Piece 1-5");
 
   public final String redAutoName;
   public final String blueAutoName;
