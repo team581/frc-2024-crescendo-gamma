@@ -106,16 +106,10 @@
           "data": {
             "name": "speakerShot"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red RWS to 6"
-          }
         }
       ]
     }
   },
-  "folder": "Red",
+  "folder": "Red Comp",
   "choreoAuto": false
 }
