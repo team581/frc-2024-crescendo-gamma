@@ -38,6 +38,6 @@ public class Stopwatch {
   }
 
   public void skip(String name) {
-    Logger.recordOutput(name, -1);
+    Logger.recordOutput(name, -1.0);
   }
 }
