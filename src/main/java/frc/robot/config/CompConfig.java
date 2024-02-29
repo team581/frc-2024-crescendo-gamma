@@ -16,6 +16,7 @@ import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -113,7 +114,9 @@ class CompConfig {
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)
                   .withMotorOutput(
-                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive)),
+                      new MotorOutputConfigs()
+                          .withInverted(InvertedValue.Clockwise_Positive)
+                          .withNeutralMode(NeutralModeValue.Brake)),
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(10))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
@@ -122,7 +125,9 @@ class CompConfig {
                           .withSupplyCurrentLimit(40)
                           .withSupplyCurrentLimitEnable(true))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
-                  .withOpenLoopRamps(OPEN_LOOP_RAMP)),
+                  .withOpenLoopRamps(OPEN_LOOP_RAMP)
+                  .withMotorOutput(
+                      new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Brake))),
           new WristConfig(
               14,
               new TalonFXConfiguration()
@@ -142,6 +147,7 @@ class CompConfig {
                       new CurrentLimitsConfigs()
                           .withSupplyCurrentLimit(25)
                           .withSupplyCurrentLimitEnable(true))
+                  .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Brake))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               new CurrentLimitsConfigs()
@@ -189,7 +195,9 @@ class CompConfig {
                           .withSupplyCurrentLimit(20)
                           .withSupplyCurrentLimitEnable(true))
                   .withMotorOutput(
-                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
+                      new MotorOutputConfigs()
+                          .withInverted(InvertedValue.Clockwise_Positive)
+                          .withNeutralMode(NeutralModeValue.Brake))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               0,

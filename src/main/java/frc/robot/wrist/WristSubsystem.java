@@ -4,11 +4,9 @@
 
 package frc.robot.wrist;
 
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -58,16 +56,6 @@ public class WristSubsystem extends LifecycleSubsystem {
     if (currentAngle.getDegrees() < lowestSeenAngle.getDegrees()) {
       lowestSeenAngle = currentAngle;
     }
-  }
-
-  @Override
-  public void enabledInit() {
-    var configs = new MotorOutputConfigs();
-    /* First read the configs so they're up-to-date */
-    motor.getConfigurator().refresh(configs);
-    /* Then set the neutral mode config to the appropriate value */
-    configs.NeutralMode = NeutralModeValue.Brake;
-    motor.getConfigurator().apply(configs, 0);
   }
 
   @Override

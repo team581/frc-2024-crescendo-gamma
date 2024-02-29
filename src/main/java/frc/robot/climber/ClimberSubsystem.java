@@ -7,7 +7,6 @@ package frc.robot.climber;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -40,12 +39,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     rightMotor.getConfigurator().apply(CONFIG.rightMotorConfig());
 
     followRequest = new StrictFollower(leftMotor.getDeviceID());
-  }
-
-  @Override
-  public void enabledInit() {
-    leftMotor.setNeutralMode(NeutralModeValue.Brake);
-    rightMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
   @Override
