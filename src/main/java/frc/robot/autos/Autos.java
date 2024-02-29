@@ -19,6 +19,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.config.RobotConfig;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.robot_manager.RobotCommands;
@@ -29,6 +30,25 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class Autos extends LifecycleSubsystem {
+  private static Command wrapAutoEvent(String commandName, Command command) {
+    return Commands.sequence(
+            Commands.print("[COMMANDS] Starting auto event " + commandName),
+            command.deadlineWith(
+                Commands.waitSeconds(5)
+                    .andThen(
+                        Commands.print(
+                            "[COMMANDS] Auto event "
+                                + commandName
+                                + " has been running for 5+ seconds!"))),
+            Commands.print("[COMMANDS] Finished auto event " + commandName))
+        .handleInterrupt(() -> System.out.println("[COMMANDS] Cancelled auto event " + commandName))
+        .withName(commandName);
+  }
+
+  private static void registerCommand(String eventName, Command command) {
+    NamedCommands.registerCommand(eventName, wrapAutoEvent("Auto_" + eventName, command));
+  }
+
   private final SwerveSubsystem swerve;
   private final AutoChooser autoChooser;
 
@@ -54,13 +74,13 @@ public class Autos extends LifecycleSubsystem {
         () -> false,
         swerve);
 
-    NamedCommands.registerCommand("preloadNote", actions.preloadNoteCommand());
-    NamedCommands.registerCommand("speakerShotNoTimeout", actions.speakerShotCommand());
-    NamedCommands.registerCommand("speakerShot", autoCommands.speakerShotWithTimeout());
-    NamedCommands.registerCommand("subwooferShot", autoCommands.subwooferShotWithTimeout());
-    NamedCommands.registerCommand("intakeFloor", actions.intakeCommand());
-    NamedCommands.registerCommand("outtakeShooter", actions.outtakeShooterCommand());
-    NamedCommands.registerCommand("homeClimber", actions.homeCommand());
+    registerCommand("preloadNote", actions.preloadNoteCommand());
+    registerCommand("speakerShotNoTimeout", actions.speakerShotCommand());
+    registerCommand("speakerShot", autoCommands.speakerShotWithTimeout());
+    registerCommand("subwooferShot", autoCommands.subwooferShotWithTimeout());
+    registerCommand("intakeFloor", actions.intakeCommand());
+    registerCommand("outtakeShooter", actions.outtakeShooterCommand());
+    registerCommand("homeClimber", actions.homeCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {
