@@ -1,5 +1,5 @@
 {
-  "version": 1.0,
+  "version": 1,
   "startingPose": {
     "position": {
       "x": 0.7699999999999996,
@@ -15,18 +15,6 @@
           "type": "named",
           "data": {
             "name": "homeClimber"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "preloadNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
           }
         },
         {

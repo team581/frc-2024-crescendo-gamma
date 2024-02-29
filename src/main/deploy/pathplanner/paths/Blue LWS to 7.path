@@ -1,39 +1,57 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 4.459999999999999,
-        "y": 2.1564795529591056
+        "x": 4.08828702057404,
+        "y": 2.2939339598679194
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.600881889763778,
-        "y": 0.6438140716281429
+        "x": 5.5555448310896605,
+        "y": 1.3609474218948445
       },
       "isLocked": false,
-      "linkedName": "Blue LWS"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.10176073152146,
-        "y": 2.390547117094235
+        "x": 8.25173431546863,
+        "y": 2.2939339598679194
       },
       "prevControl": {
-        "x": 7.361436118872234,
-        "y": 2.066741681483364
+        "x": 7.474262636525273,
+        "y": 2.0637658115316238
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Blue 7"
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 211.9976304566467,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.55,
+      "maxWaypointRelativePos": 0.9,
+      "constraints": {
+        "maxVelocity": 4.2,
+        "maxAcceleration": 4,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -50,21 +68,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 216.17712613523253,
+    "rotation": 180,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue 7",
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 140.52488535103032,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

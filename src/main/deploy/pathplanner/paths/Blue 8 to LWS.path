@@ -1,52 +1,67 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 8.015203962407924,
-        "y": 0.7416586233172466
+        "x": 8.131622047244093,
+        "y": 0.7412994665989332
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.648248412496823,
-        "y": 0.8333462026924057
+        "x": 7.764666497332993,
+        "y": 0.8329870459740922
       },
       "isLocked": false,
       "linkedName": "Blue 8"
     },
     {
       "anchor": {
-        "x": 4.459999999999999,
-        "y": 2.1564795529591056
+        "x": 4.08828702057404,
+        "y": 2.2939339598679194
       },
       "prevControl": {
-        "x": 4.834959613919224,
-        "y": 2.019538227076454
+        "x": 4.553241046482093,
+        "y": 1.7641264922529842
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue LWS"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "speaker shot",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 141.6,
+    "rotation": 141.59923737862908,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue 8",
-  "previewStartingState": {
-    "rotation": 180.0,
-    "velocity": 0
-  },
-  "useDefaultConstraints": false
+  "previewStartingState": null,
+  "useDefaultConstraints": true
 }

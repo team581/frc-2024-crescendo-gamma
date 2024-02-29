@@ -1,27 +1,27 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 4.459999999999999,
-        "y": 2.1564795529591056
+        "x": 4.08828702057404,
+        "y": 2.2939339598679194
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.719054610110744,
-        "y": 2.01851206502107
+        "x": 5.188384048768096,
+        "y": 1.77690220980442
       },
       "isLocked": false,
       "linkedName": "Blue LWS"
     },
     {
       "anchor": {
-        "x": 8.015203962407924,
-        "y": 0.7416586233172466
+        "x": 8.131622047244093,
+        "y": 0.7412994665989332
       },
       "prevControl": {
-        "x": 7.738704597409193,
-        "y": 0.8474046228092457
+        "x": 7.7977089154178305,
+        "y": 0.8405806451612903
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
+      "name": "intake and warmup",
       "waypointRelativePos": 0.45,
       "command": {
         "type": "sequential",
@@ -43,6 +43,12 @@
               "data": {
                 "name": "intakeFloor"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
             }
           ]
         }
@@ -50,21 +56,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 162.11310752496735,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue 8",
   "previewStartingState": {
-    "rotation": 139.97719163890656,
+    "rotation": 139.87711273896906,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

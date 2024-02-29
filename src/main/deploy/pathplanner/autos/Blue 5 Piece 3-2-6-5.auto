@@ -2,10 +2,10 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 0.7399999999999984,
-      "y": 4.42
+      "x": 0.7299999999999986,
+      "y": 6.66
     },
-    "rotation": 120.94
+    "rotation": 240.14999999999998
   },
   "command": {
     "type": "sequential",
@@ -32,13 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Left to LWS to 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 6 to CWS"
+            "pathName": "Blue Rt to 3"
           }
         },
         {
@@ -50,13 +44,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue CWS to 5"
+            "pathName": "Blue 3 to 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 5 to RWS"
+            "pathName": "Blue 2 to 5 to RWS"
           }
         },
         {

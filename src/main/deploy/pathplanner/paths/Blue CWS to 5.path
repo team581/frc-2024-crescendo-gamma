@@ -1,27 +1,27 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 4.38330861061722,
-        "y": 4.893612903225807
+        "x": 4.6999309118618235,
+        "y": 4.551695707391415
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.380127508255015,
-        "y": 7.69236728473457
+        "x": 4.696749809499618,
+        "y": 7.350450088900178
       },
       "isLocked": false,
       "linkedName": "Blue CWS"
     },
     {
       "anchor": {
-        "x": 7.790371856743713,
-        "y": 5.911514351028702
+        "x": 7.40315083572659,
+        "y": 5.860680315609833
       },
       "prevControl": {
-        "x": 7.319979171958343,
-        "y": 6.580931165862331
+        "x": 6.93275815094122,
+        "y": 6.530097130443462
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,13 +51,13 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 153.1692714085845,
+    "rotation": 172.71524046100626,
     "rotateFast": false
   },
   "reversed": false,

@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.468100584201167,
-        "y": 4.24646380492761
+        "x": 8.25173431546863,
+        "y": 2.2939339598679194
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.387608331216661,
-        "y": 4.385149606299213
+        "x": 6.583553975107948,
+        "y": 3.8543159766319537
       },
       "isLocked": false,
-      "linkedName": "Blue 6"
+      "linkedName": "Blue 7"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 4.551695707391415
       },
       "prevControl": {
-        "x": 5.629479806959614,
-        "y": 4.251748539497079
+        "x": 5.9072618745237495,
+        "y": 3.9526223012446025
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.65,
+      "name": "warmup",
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 170.04803699264414,
+    "rotation": 167.39577772128786,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 6",
+  "folder": "Blue 7",
   "previewStartingState": {
-    "rotation": 182.17848588114003,
+    "rotation": 149.69053115770825,
     "velocity": 0
   },
   "useDefaultConstraints": true

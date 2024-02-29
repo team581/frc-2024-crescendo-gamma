@@ -1,15 +1,15 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 8.024490728981458,
-        "y": 7.489033274066549
+        "x": 7.4301982380642055,
+        "y": 7.446590408356537
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.622661085592391,
-        "y": 7.292229678997793
+        "x": 7.02836859467514,
+        "y": 7.2497868132877805
       },
       "isLocked": false,
       "linkedName": "Blue 4"
@@ -51,9 +51,9 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,

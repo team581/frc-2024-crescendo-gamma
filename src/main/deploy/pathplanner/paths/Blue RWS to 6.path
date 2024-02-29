@@ -1,5 +1,5 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.359178562357125,
-        "y": 6.783957327914656
+        "x": 6.960668529337056,
+        "y": 6.3871917703835415
       },
       "isLocked": false,
       "linkedName": "Blue RWS"
     },
     {
       "anchor": {
-        "x": 7.745015494030987,
-        "y": 4.082585725171451
+        "x": 8.468100584201167,
+        "y": 4.24646380492761
       },
       "prevControl": {
-        "x": 8.08934417068834,
-        "y": 4.721166370332742
+        "x": 8.81242926085852,
+        "y": 4.885044450088902
       },
       "nextControl": null,
       "isLocked": false,
@@ -56,8 +56,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.7,
-    "maxAcceleration": 3,
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720
   },
@@ -68,9 +68,6 @@
   },
   "reversed": false,
   "folder": "Blue 6",
-  "previewStartingState": {
-    "rotation": -168.6576285323328,
-    "velocity": 0
-  },
-  "useDefaultConstraints": false
+  "previewStartingState": null,
+  "useDefaultConstraints": true
 }

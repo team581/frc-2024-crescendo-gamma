@@ -2,10 +2,10 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 0.7399999999999984,
+      "x": 0.7699999999999996,
       "y": 4.42
     },
-    "rotation": 120.94
+    "rotation": 119.50999999999999
   },
   "command": {
     "type": "sequential",
@@ -24,21 +24,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Blue Left to LWS to 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 6 to CWS"
+            "pathName": "Blue Left to Shot"
           }
         },
         {
@@ -50,7 +38,61 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue CWS to 5"
+            "pathName": "Blue Shot to 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 1 to 2.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 2.5 to 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 3 to 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 4 to RWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue RWS to 5"
           }
         },
         {
@@ -68,19 +110,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue RWS to 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 4 to RWS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
+            "pathName": "Blue RWS to 6"
           }
         }
       ]

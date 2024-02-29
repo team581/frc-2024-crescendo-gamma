@@ -1,5 +1,5 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
@@ -12,16 +12,16 @@
         "y": 4.2711943103848
       },
       "isLocked": false,
-      "linkedName": "blue RL to shot"
+      "linkedName": "blue_RL to shot"
     },
     {
       "anchor": {
-        "x": 2.4426237209972026,
-        "y": 4.256243685617038
+        "x": 2.356863706411115,
+        "y": 3.6457132139503896
       },
       "prevControl": {
-        "x": 2.438201519695129,
-        "y": 4.253335589983982
+        "x": 2.3524415051090415,
+        "y": 3.642805118317334
       },
       "nextControl": null,
       "isLocked": false,

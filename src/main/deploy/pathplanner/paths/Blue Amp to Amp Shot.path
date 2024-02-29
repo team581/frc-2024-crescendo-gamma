@@ -3,34 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.356863706411115,
-        "y": 3.6457132139503896
+        "x": 1.3999999999999986,
+        "y": 7.3013852865268785
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7292116871070764,
-        "y": 3.5036923859087334
+        "x": 1.4438090899256757,
+        "y": 7.685076254182699
       },
       "isLocked": false,
-      "linkedName": "Blue 1"
+      "linkedName": "Blue Amp"
     },
     {
       "anchor": {
-        "x": 2.8547817948990506,
-        "y": 5.1
+        "x": 2.9864179799434556,
+        "y": 7.691684737799667
       },
       "prevControl": {
-        "x": 2.1441132655637922,
-        "y": 5.425857759711829
+        "x": 2.3366714276489446,
+        "y": 7.690501254832838
+      },
+      "nextControl": {
+        "x": 3.9832424503839956,
+        "y": 7.693500406967158
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.448388341999278,
+        "y": 7.3013852865268785
+      },
+      "prevControl": {
+        "x": 4.249722166434097,
+        "y": 7.601471867246223
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 2"
+      "linkedName": "Blue Amp Shot"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 1.15,
       "rotationDegrees": 180,
       "rotateFast": false
     }
@@ -38,18 +54,12 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0,
+      "name": "warmup",
+      "waypointRelativePos": 1.4,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeFloor"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -62,21 +72,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.2,
-    "maxAcceleration": 5,
+    "maxVelocity": 4.7,
+    "maxAcceleration": 3,
     "maxAngularVelocity": 540,
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 212.62171806960168,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 1",
+  "folder": "Blue Starts",
   "previewStartingState": {
-    "rotation": 152.4035262771543,
+    "rotation": 180,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

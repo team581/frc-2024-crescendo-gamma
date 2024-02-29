@@ -1,5 +1,5 @@
 {
-  "version": 1.0,
+  "version": 1,
   "startingPose": {
     "position": {
       "x": 0.7599999999999998,
@@ -36,15 +36,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Blue 8 to LWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 7 to LWS"
+            "pathName": "Blue 7 to CWS"
           }
         },
         {
@@ -68,7 +68,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue LWS to 6"
+            "pathName": "Blue CWS to 6"
           }
         },
         {
