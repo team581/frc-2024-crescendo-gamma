@@ -20,36 +20,42 @@
         "y": 7.691684737799667
       },
       "prevControl": {
-        "x": 14.203327308347118,
-        "y": 7.689940262310716
+        "x": 14.203328572351055,
+        "y": 7.690501254832838
       },
       "nextControl": {
-        "x": 12.72612386735215,
-        "y": 7.693906347546655
+        "x": 12.556757549616004,
+        "y": 7.693500406967158
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 9.217940145145466,
-        "y": 7.406121757131694
+        "x": 12.091611658000721,
+        "y": 7.3013852865268785
       },
       "prevControl": {
-        "x": 9.90837621503353,
-        "y": 7.466527086136292
+        "x": 12.290277833565902,
+        "y": 7.601471867246223
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 4"
+      "linkedName": "Red Amp Shot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.15,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 1.1,
+      "name": "warmup",
+      "waypointRelativePos": 1.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,7 +63,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -73,7 +79,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -32.621718069601684,
     "rotateFast": false
   },
   "reversed": false,

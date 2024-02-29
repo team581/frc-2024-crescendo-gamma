@@ -2,19 +2,31 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.81,
-      "y": 6.66
+      "x": 15.14,
+      "y": 7.3
     },
-    "rotation": -60.14999999999998
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "preloadNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "homeClimber"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Red Rt to RWS"
+            "pathName": "Red Amp to Amp Shot"
           }
         },
         {
@@ -26,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red RWS to 4"
+            "pathName": "Red Amp Shot to 4"
           }
         },
         {
@@ -62,7 +74,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red RWS to 3"
+            "pathName": "Red RWS to 3 to Red Middle Line"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Middle Line to 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 2 to 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
           }
         }
       ]

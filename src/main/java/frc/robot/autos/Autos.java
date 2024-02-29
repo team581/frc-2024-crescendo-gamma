@@ -81,6 +81,7 @@ public class Autos extends LifecycleSubsystem {
     registerCommand("intakeFloor", actions.intakeCommand());
     registerCommand("outtakeShooter", actions.outtakeShooterCommand());
     registerCommand("homeClimber", actions.homeCommand());
+    registerCommand("stow", actions.stowCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {

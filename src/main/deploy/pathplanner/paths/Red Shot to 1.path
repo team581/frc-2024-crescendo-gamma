@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 13.95786233172466,
-        "y": 4.256243685617038
+        "x": 14.010196842278669,
+        "y": 4.150085796177982
       },
       "prevControl": {
-        "x": 13.962284533026734,
-        "y": 4.253335589983982
+        "x": 14.014619043580742,
+        "y": 4.147177700544926
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
+      "name": "intake",
       "waypointRelativePos": 0,
       "command": {
         "type": "sequential",
@@ -42,12 +42,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
               }
             }
           ]
