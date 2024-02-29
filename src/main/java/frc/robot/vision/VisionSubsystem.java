@@ -52,7 +52,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private Optional<FastLimelightResults> storedResults = Optional.empty();
 
-  private static Optional<FastLimelightResults> getFastResults() {
+  private Optional<FastLimelightResults> getFastResults() {
     try {
       double start = Timer.getFPGATimestamp();
       String jsonStr = LimelightHelpers.getJSONDump("");
@@ -136,7 +136,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
       Logger.recordOutput("Localization/Valid", valid);
 
-      return Optional.of(new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance));
+      var output = new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance);
+
+      if (isResultValid(output)) {
+        return Optional.of(output);
+      }
+
+      return Optional.empty();
     } catch (Exception e) {
       return Optional.empty();
     }
@@ -207,10 +213,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
     robotPose = pose;
   }
 
-  public boolean isResultValid(FastLimelightResults results) {
-    return (getState() == VisionState.ONLINE_NO_TAGS
-        && imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
-            < 3.0);
+  private boolean isResultValid(FastLimelightResults results) {
+    return imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
+            < 3.0
+        && results.robotPose().getZ() < Units.feetToMeters(4);
   }
 
   @Override
