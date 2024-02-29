@@ -19,7 +19,6 @@ import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
-import frc.robot.util.Stopwatch;
 import frc.robot.util.TimedDataBuffer;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -64,12 +63,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   public void robotPeriodic() {
     SwerveModulePosition[] modulePositions =
         swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
-    Stopwatch.getInstance().start("Localization/UpdateOdometryDuration");
     odometry.update(imu.getRobotHeading(), modulePositions);
-    Stopwatch.getInstance().stop("Localization/UpdateOdometryDuration");
-    Stopwatch.getInstance().start("Localization/UpdatePoseEstimatorDuration");
     poseEstimator.update(imu.getRobotHeading(), modulePositions);
-    Stopwatch.getInstance().stop("Localization/UpdatePoseEstimatorDuration");
 
     var maybeResults = vision.getResults();
     var timestamp = Timer.getFPGATimestamp();
@@ -83,9 +78,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
       if (visionTimestamp == lastAddedVisionTimestamp) {
         // Don't add the same vision pose over and over
-        Stopwatch.getInstance().skip("Localization/AddVisionPoseDuration");
       } else {
-        Stopwatch.getInstance().start("Localization/AddVisionPoseDuration");
         poseEstimator.addVisionMeasurement(
             visionPose,
             visionTimestamp,
@@ -94,10 +87,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
                 limelightStandardDeviation,
                 limelightStandardDeviation));
         lastAddedVisionTimestamp = visionTimestamp;
-        Stopwatch.getInstance().stop("Localization/AddVisionPoseDuration");
       }
-    } else {
-      Stopwatch.getInstance().skip("Localization/AddVisionPoseDuration");
     }
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
@@ -173,12 +163,10 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   public boolean atSafeJitter() {
     // Get first value of X & Y from history
-    Stopwatch.getInstance().start("Localization/SafeJitterLookup");
     double xDifference =
         Math.abs(xHistory.lookupData(-Double.POSITIVE_INFINITY) - getPose().getX());
     double yDifference =
         Math.abs(yHistory.lookupData(-Double.POSITIVE_INFINITY) - getPose().getY());
-    Stopwatch.getInstance().stop("Localization/SafeJitterLookup");
 
     ChassisSpeeds speeds = new ChassisSpeeds(xDifference, yDifference, 0);
 
