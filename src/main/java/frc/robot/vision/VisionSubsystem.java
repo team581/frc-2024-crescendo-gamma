@@ -215,7 +215,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private boolean isResultValid(FastLimelightResults results) {
     return imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
-            < 3.0
+            < 20.0
         && results.robotPose().getZ() < Units.feetToMeters(4);
   }
 
