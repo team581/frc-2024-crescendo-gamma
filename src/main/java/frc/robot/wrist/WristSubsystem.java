@@ -4,6 +4,7 @@
 
 package frc.robot.wrist;
 
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -61,7 +62,12 @@ public class WristSubsystem extends LifecycleSubsystem {
 
   @Override
   public void enabledInit() {
-    motor.setNeutralMode(NeutralModeValue.Brake);
+    var configs = new MotorOutputConfigs();
+    /* First read the configs so they're up-to-date */
+    motor.getConfigurator().refresh(configs);
+    /* Then set the neutral mode config to the appropriate value */
+    configs.NeutralMode = NeutralModeValue.Brake;
+    motor.getConfigurator().apply(configs, 0);
   }
 
   @Override
