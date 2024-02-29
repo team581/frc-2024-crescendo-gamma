@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 11.469111506223014,
-        "y": 6.404841757683515
+        "y": 6.4
       },
       "prevControl": null,
       "nextControl": {
         "x": 12.037631838841953,
-        "y": 6.543780903057014
+        "y": 6.538939145373499
       },
       "isLocked": false,
       "linkedName": "Red RWS"
     },
     {
       "anchor": {
-        "x": 14.669579726539645,
-        "y": 5.45
+        "x": 14.715990610096238,
+        "y": 5.1
       },
       "prevControl": {
-        "x": 14.786067970698243,
-        "y": 7.075405447296518
+        "x": 15.062945261673272,
+        "y": 7.1944041172427395
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.4,
-      "rotationDegrees": -151.2662532233327,
+      "rotationDegrees": -151.27,
       "rotateFast": false
     }
   ],
