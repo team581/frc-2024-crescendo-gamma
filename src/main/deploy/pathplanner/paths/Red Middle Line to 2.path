@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.61087589535179,
-        "y": 7.022519481838964
+        "x": 14.669579726539645,
+        "y": 5.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.323381254762507,
-        "y": 6.671695199390399
+        "x": 14.662992044833937,
+        "y": 5.448934496271549
       },
       "isLocked": false,
-      "linkedName": "Red 3"
+      "linkedName": "Red Middle Line"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 5.576067877375372
       },
       "prevControl": {
-        "x": 14.47264816385224,
-        "y": 5.3562126576649325
+        "x": 13.299702973591259,
+        "y": 5.584132265286895
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0.1,
+      "name": "intake",
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -42,12 +42,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -67,7 +61,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red 3",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Red 2",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

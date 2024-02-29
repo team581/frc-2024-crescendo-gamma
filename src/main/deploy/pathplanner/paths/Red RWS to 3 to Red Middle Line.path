@@ -3,46 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.010196842278669,
-        "y": 4.150085796177982
+        "x": 11.469111506223014,
+        "y": 6.404841757683515
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.775054057600368,
-        "y": 4.42936278884615
+        "x": 12.037631838841953,
+        "y": 6.543780903057014
       },
       "isLocked": false,
-      "linkedName": "Red 1"
+      "linkedName": "Red RWS"
     },
     {
       "anchor": {
-        "x": 14.36590723612074,
-        "y": 6.666088671312085
+        "x": 14.669579726539645,
+        "y": 5.45
       },
       "prevControl": {
-        "x": 12.856640130545937,
-        "y": 5.047009319358212
+        "x": 14.786067970698243,
+        "y": 7.075405447296518
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 2.5"
+      "linkedName": "Red Middle Line"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.4,
-      "rotationDegrees": -54.515903117200175,
+      "rotationDegrees": -151.2662532233327,
       "rotateFast": false
     }
   ],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.2,
+      "minWaypointRelativePos": 0.15,
       "maxWaypointRelativePos": 0.4,
       "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 3.0,
+        "maxVelocity": 1.5,
+        "maxAcceleration": 5.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    },
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.7,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 5.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
       }
@@ -50,8 +61,8 @@
   ],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0.0,
+      "name": "Stow and intake",
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -59,9 +70,26 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "stow"
               }
             },
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "warmup",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
             {
               "type": "named",
               "data": {
@@ -81,13 +109,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -35.33251303772652,
+    "rotation": -0.29464036574221175,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red 1",
+  "folder": "Red 3",
   "previewStartingState": {
-    "rotation": 32.10145693009435,
+    "rotation": -13.679674715533352,
     "velocity": 0
   },
   "useDefaultConstraints": true

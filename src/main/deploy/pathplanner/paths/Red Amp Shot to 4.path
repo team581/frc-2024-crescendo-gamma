@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.61087589535179,
-        "y": 7.022519481838964
+        "x": 12.091611658000721,
+        "y": 7.3013852865268785
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.323381254762507,
-        "y": 6.671695199390399
+        "x": 11.091611658000721,
+        "y": 7.3013852865268785
       },
       "isLocked": false,
-      "linkedName": "Red 3"
+      "linkedName": "Red Amp Shot"
     },
     {
       "anchor": {
-        "x": 13.297589997735907,
-        "y": 5.576067877375372
+        "x": 9.217940145145466,
+        "y": 7.406121757131694
       },
       "prevControl": {
-        "x": 14.47264816385224,
-        "y": 5.3562126576649325
+        "x": 10.217940145145466,
+        "y": 7.406121757131694
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 2"
+      "linkedName": "Red 4"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "intake and warmup",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "sequential",
         "data": {
@@ -67,7 +67,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red 3",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Red 4",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

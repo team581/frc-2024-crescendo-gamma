@@ -8,47 +8,29 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.592761817312773,
-        "y": 6.137352702021698
+        "x": 9.95081664084734,
+        "y": 6.452124960946407
       },
       "isLocked": false,
       "linkedName": "Red 5"
     },
     {
       "anchor": {
-        "x": 11.469111506223014,
-        "y": 6.404841757683515
+        "x": 12.091611658000721,
+        "y": 7.3013852865268785
       },
       "prevControl": {
-        "x": 10.837713995427992,
-        "y": 6.84542443484887
+        "x": 11.03395806232507,
+        "y": 7.613177818208672
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red RWS"
+      "linkedName": "Red Amp Shot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "warmup",
-      "waypointRelativePos": 0.5,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
@@ -57,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -11.072973145480407,
+    "rotation": -24.703032695536173,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red 5",
   "previewStartingState": {
-    "rotation": 19.562932554660957,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
