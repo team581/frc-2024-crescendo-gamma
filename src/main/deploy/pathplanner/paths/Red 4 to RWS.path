@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "warmup",
-      "waypointRelativePos": 0.1499999999999999,
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "sequential",
         "data": {
