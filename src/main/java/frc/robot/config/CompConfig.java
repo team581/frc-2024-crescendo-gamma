@@ -203,7 +203,7 @@ class CompConfig {
               0,
               0.0,
               22,
-              4.0,
+              4.0 * (15.0 / 24.0),
               0.75),
           new IntakeConfig(
               15,
