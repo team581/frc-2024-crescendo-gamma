@@ -102,7 +102,7 @@ class CompConfig {
               -0.5,
               0.0,
               23.0,
-              0.22398,
+              0.22398 * (15.0 / 24.0),
               1,
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(10))
