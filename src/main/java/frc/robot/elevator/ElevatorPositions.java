@@ -8,9 +8,9 @@ public class ElevatorPositions {
   public static final double STOWED = 0;
   public static final double AMP_OUTTAKE = 15;
 
-  public static final double CLIMBING = 19.25;
-  public static final double TRAP_SHOT = 19.25;
-  public static final double CLIMBING_FINISHED = 17.5;
+  public static final double CLIMBING = 20.25;
+  public static final double TRAP_SHOT = 20.25;
+  public static final double CLIMBING_FINISHED = 12;
 
   private ElevatorPositions() {}
 }
