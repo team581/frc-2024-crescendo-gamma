@@ -103,14 +103,16 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case INTAKE:
-          // Reset note manager state so that we don't instantly think we're done intaking
-          // Need to force set the state, rather than doing a state request, due to order of
-          // subsystems executing
-          noteManager.evilStateOverride(NoteState.IDLE_NO_GP);
-          state = RobotState.INTAKING;
+          if (!state.climbing) {
+            // Reset note manager state so that we don't instantly think we're done intaking
+            // Need to force set the state, rather than doing a state request, due to order of
+            // subsystems executing
+            noteManager.evilStateOverride(NoteState.IDLE_NO_GP);
+            state = RobotState.INTAKING;
+          }
           break;
         case INTAKE_SLOW:
-          if (state != RobotState.IDLE_WITH_GP) {
+          if (!state.climbing && state != RobotState.IDLE_WITH_GP) {
             state = RobotState.INTAKING_SLOW;
           }
           break;
@@ -145,41 +147,65 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case WAIT_SPEAKER_SHOT:
-          state = RobotState.WAITING_SPEAKER_SHOT;
+          if (!state.climbing) {
+            state = RobotState.WAITING_SPEAKER_SHOT;
+          }
           break;
         case WAIT_SUBWOOFER_SHOT:
-          state = RobotState.WAITING_SUBWOOFER_SHOT;
+          if (!state.climbing) {
+            state = RobotState.WAITING_SUBWOOFER_SHOT;
+          }
           break;
         case OUTTAKE:
-          state = RobotState.OUTTAKING;
+          if (!state.climbing) {
+            state = RobotState.OUTTAKING;
+          }
           break;
         case OUTTAKE_SHOOTER:
-          state = RobotState.OUTTAKING_SHOOTER;
+          if (!state.climbing) {
+            state = RobotState.OUTTAKING_SHOOTER;
+          }
           break;
         case SPEAKER_SHOT:
-          state = RobotState.PREPARE_SPEAKER_SHOT;
+          if (!state.climbing) {
+            state = RobotState.PREPARE_SPEAKER_SHOT;
+          }
           break;
         case WAIT_AMP_SHOT:
-          state = RobotState.PREPARE_WAITING_AMP_SHOT;
+          if (!state.climbing) {
+            state = RobotState.PREPARE_WAITING_AMP_SHOT;
+          }
           break;
         case AMP_SHOT:
-          state = RobotState.AMP_SHOT;
+          if (!state.climbing) {
+            state = RobotState.AMP_SHOT;
+          }
           break;
         case SUBWOOFER_SHOT:
-          state = RobotState.PREPARE_SUBWOOFER_SHOT;
+          if (!state.climbing) {
+            state = RobotState.PREPARE_SUBWOOFER_SHOT;
+          }
           break;
         case PRELOAD_NOTE:
-          state = RobotState.IDLE_WITH_GP;
+          if (!state.climbing) {
+            state = RobotState.IDLE_WITH_GP;
+          }
           break;
         case WAIT_FLOOR_SHOT:
-          state = RobotState.WAITING_FLOOR_SHOT;
+          if (!state.climbing) {
+            state = RobotState.WAITING_FLOOR_SHOT;
+          }
           break;
         case FLOOR_SHOT:
-          state = RobotState.PREPARE_FLOOR_SHOT;
+          if (!state.climbing) {
+            state = RobotState.PREPARE_FLOOR_SHOT;
+          }
           break;
         case STOP_SHOOTING:
-          if (state != RobotState.AMP_SHOT) {
-            state = RobotState.IDLE_WITH_GP;
+          if (!state.climbing) {
+            if (state != RobotState.AMP_SHOT) {
+              state = RobotState.IDLE_WITH_GP;
+            }
           }
           break;
       }
