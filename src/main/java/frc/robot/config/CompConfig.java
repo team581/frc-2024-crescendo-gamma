@@ -185,7 +185,7 @@ class CompConfig {
                   .withSlot1(new Slot1Configs().withKP(10))
                   .withFeedback(
                       new FeedbackConfigs()
-                          .withSensorToMechanismRatio((50.0 / 8.0) * (24.0 / 15.0)))
+                          .withSensorToMechanismRatio((50.0 / 8.0)))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
                           .withSupplyCurrentLimit(20)
@@ -203,7 +203,7 @@ class CompConfig {
               0,
               0.0,
               22,
-              4.0 * (15.0 / 24.0),
+              4.0,
               0.75),
           new IntakeConfig(
               15,
