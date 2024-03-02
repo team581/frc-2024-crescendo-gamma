@@ -63,7 +63,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         motor.setVoltage(-12);
         break;
       case TRAP_SHOT_PULSE:
-        var inVoltage = 10;
+        var inVoltage = 4;
         var outVoltage = -12;
         if (timer.hasElapsed(RobotConfig.get().conveyor().pulseDuration())) {
           if (timer.hasElapsed(RobotConfig.get().conveyor().pulseDuration() * 2.0)) {
