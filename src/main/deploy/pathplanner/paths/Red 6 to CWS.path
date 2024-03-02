@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.820492252984506,
-        "y": 4.488685801371602
+        "x": 10.855395556944963,
+        "y": 4.065180438053184
       },
       "isLocked": false,
       "linkedName": "Red 6"
     },
     {
       "anchor": {
-        "x": 12.404505578241928,
-        "y": 4.913737519782733
+        "x": 12.8,
+        "y": 5.11
       },
       "prevControl": {
-        "x": 11.474956683144137,
-        "y": 4.6137903518883965
+        "x": 12.039428694242007,
+        "y": 4.597995349836854
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 38.04461877242989,
+    "rotation": 8.07050776143947,
     "rotateFast": false
   },
   "reversed": false,
