@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.39,
-        "y": 2.29
+        "x": 2.79,
+        "y": 2.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.490097028194057,
-        "y": 1.7729682499365007
+        "x": 3.8900970281940572,
+        "y": 2.0229682499365005
       },
       "isLocked": false,
       "linkedName": "Blue LWS"

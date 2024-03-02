@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 8.25173431546863,
-        "y": 2.5900000000000003
+        "y": 2.7399999999999998
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.583553975107948,
-        "y": 4.150382016764034
+        "y": 4.300382016764034
       },
       "isLocked": false,
       "linkedName": "Blue 7"
     },
     {
       "anchor": {
-        "x": 4.2642777593247505,
-        "y": 5.051874719134054
+        "x": 4.01,
+        "y": 5.2
       },
       "prevControl": {
-        "x": 5.4716087219866765,
-        "y": 4.4528013129872415
+        "x": 5.217330962661926,
+        "y": 4.600926593853187
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 171.7512730130353,
+    "rotation": 173.3581141588521,
     "rotateFast": false
   },
   "reversed": false,

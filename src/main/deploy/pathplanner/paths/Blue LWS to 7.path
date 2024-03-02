@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.39,
-        "y": 2.29
+        "x": 2.79,
+        "y": 2.54
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.857257810515621,
-        "y": 1.3570134620269252
+        "x": 4.2642777593247505,
+        "y": 1.3517711650807926
       },
       "isLocked": false,
       "linkedName": "Blue LWS"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 8.25173431546863,
-        "y": 2.5900000000000003
+        "y": 2.7399999999999998
       },
       "prevControl": {
         "x": 7.353718429481588,
-        "y": 1.3503722973899623
+        "y": 1.5003722973899618
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 211.9976304566467,
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": -148.0,
       "rotateFast": false
     }
   ],
@@ -75,7 +75,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": -148.0,
     "rotateFast": false
   },
   "reversed": false,
