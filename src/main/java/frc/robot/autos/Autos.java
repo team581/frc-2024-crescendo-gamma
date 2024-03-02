@@ -85,8 +85,8 @@ public class Autos extends LifecycleSubsystem {
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {
-          Logger.recordOutput(
-              "Autos/Trajectory/ActivePath", activePath.toArray(new Pose2d[activePath.size()]));
+          // Logger.recordOutput(
+          //     "Autos/Trajectory/ActivePath", activePath.toArray(new Pose2d[activePath.size()]));
         });
     PathPlannerLogging.setLogTargetPoseCallback(
         (targetPose) -> {
