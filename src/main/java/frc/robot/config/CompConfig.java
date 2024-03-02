@@ -183,9 +183,7 @@ class CompConfig {
               new TalonFXConfiguration()
                   .withSlot0(new Slot0Configs().withKP(20))
                   .withSlot1(new Slot1Configs().withKP(10))
-                  .withFeedback(
-                      new FeedbackConfigs()
-                          .withSensorToMechanismRatio((50.0 / 8.0)))
+                  .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio((50.0 / 8.0)))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
                           .withSupplyCurrentLimit(20)
