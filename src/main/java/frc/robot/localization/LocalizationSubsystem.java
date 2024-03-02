@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -172,6 +173,9 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
     // This doesn't check angular velocity, because we trust that to be correct & not have jitter
     // X & Y from pose estimator have the jitter
-    return swerve.movingSlowEnoughForSpeakerShot(speeds);
+    double linearSpeed =
+        Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
+
+    return linearSpeed < Units.feetToMeters(0.5);
   }
 }
