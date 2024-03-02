@@ -8,7 +8,7 @@ public enum ClimberMode {
   STOWED(0.2),
   LINEUP_OUTER(22.75),
   LINEUP_INNER(16.5),
-  HANGING(1.2);
+  HANGING(0.5);
 
   final double position;
 
