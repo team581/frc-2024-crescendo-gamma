@@ -38,7 +38,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   private final VisionSubsystem vision;
   private double lastAddedVisionTimestamp = 0;
 
-  private final TimedDataBuffer xHistory = new TimedDataBuffer(8);
+  private final TimedDataBuffer xHistory = new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
   private final TimedDataBuffer yHistory =
       new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
 
