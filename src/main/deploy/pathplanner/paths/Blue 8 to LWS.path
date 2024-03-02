@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 4.08828702057404,
-        "y": 2.2939339598679194
+        "x": 3.39,
+        "y": 2.29
       },
       "prevControl": {
-        "x": 4.553241046482093,
-        "y": 1.7641264922529842
+        "x": 3.8549540259080533,
+        "y": 1.760192532385065
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue LWS"
     }
   ],
   "rotationTargets": [],
@@ -57,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 141.59923737862908,
+    "rotation": 130.85,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 8",
+  "folder": "Blue 4 Piece Source 8-6",
   "previewStartingState": null,
   "useDefaultConstraints": true
 }

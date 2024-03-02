@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 3.9386686465680643,
+        "x": 3.54,
         "y": 6.21617397080948
       },
       "prevControl": {
-        "x": 4.570066157363087,
+        "x": 4.171397510795023,
         "y": 6.656756647974835
       },
       "nextControl": null,
@@ -57,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 191.0729731454804,
+    "rotation": -168.2584632972491,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 5",
+  "folder": "Blue 6 Piece Source 1-5",
   "previewStartingState": {
     "rotation": 160.43706744533904,
     "velocity": 0

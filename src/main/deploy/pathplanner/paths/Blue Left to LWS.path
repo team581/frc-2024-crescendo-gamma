@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0295604210728477,
-        "y": 3.5437573404076645
+        "x": 1.9053060949572382,
+        "y": 3.4315367193034705
       },
       "isLocked": false,
       "linkedName": "Blue Left"
     },
     {
       "anchor": {
-        "x": 4.08828702057404,
+        "x": 3.39,
         "y": 2.2939339598679194
       },
       "prevControl": {
-        "x": 2.683214630429262,
-        "y": 3.1656073152146305
+        "x": 2.1163065688751193,
+        "y": 3.2560359609537115
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 138.50224804690635,
+    "rotation": 130.85,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue Starts",
+  "folder": "Blue 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": 120.77000000000001,
+    "rotation": 120.77,
     "velocity": 0
   },
   "useDefaultConstraints": true
