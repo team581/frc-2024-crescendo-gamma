@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 11.469111506223014,
-        "y": 6.404841757683515
+        "x": 13.026122975322876,
+        "y": 6.265508684863524
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.360753873507747,
-        "y": 6.866871221742444
+        "x": 11.91776534260761,
+        "y": 6.727538148922452
       },
       "isLocked": false,
       "linkedName": "Red RWS"
@@ -69,7 +69,7 @@
   "reversed": false,
   "folder": "Red 5",
   "previewStartingState": {
-    "rotation": -10.525894773164982,
+    "rotation": -15.490902472934408,
     "velocity": 0
   },
   "useDefaultConstraints": true

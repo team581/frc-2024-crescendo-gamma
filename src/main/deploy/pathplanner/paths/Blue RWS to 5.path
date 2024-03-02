@@ -1,15 +1,15 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
-        "x": 5.070888493776986,
-        "y": 6.404841757683515
+        "x": 3.9386686465680643,
+        "y": 6.21617397080948
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.179246126492252,
-        "y": 6.866871221742444
+        "x": 5.04702627928333,
+        "y": 6.678203434868409
       },
       "isLocked": false,
       "linkedName": "Blue RWS"
@@ -69,7 +69,7 @@
   "reversed": false,
   "folder": "Blue 5",
   "previewStartingState": {
-    "rotation": 190.525894773165,
+    "rotation": -167.5890442593976,
     "velocity": 0
   },
   "useDefaultConstraints": true
