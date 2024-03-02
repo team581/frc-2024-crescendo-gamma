@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
@@ -67,7 +67,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 8",
+  "folder": "Blue 4 Piece Source 8-6",
   "previewStartingState": {
     "rotation": 139.87711273896906,
     "velocity": 0
