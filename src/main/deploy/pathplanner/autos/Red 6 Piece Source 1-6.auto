@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3199999999999985,
-      "y": 5.57
+      "x": 15.83,
+      "y": 4.41
     },
-    "rotation": 180
+    "rotation": 60.49
   },
   "command": {
     "type": "sequential",
@@ -24,15 +24,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Blue Middle to 2"
+            "pathName": "Red Left to Shot"
           }
         },
         {
@@ -44,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 2 to 3"
+            "pathName": "Red Shot to 1"
           }
         },
         {
@@ -56,13 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 3 to 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 4 to RWS"
+            "pathName": "Red 1 to 2.5"
           }
         },
         {
@@ -74,13 +62,43 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue RWS to 5"
+            "pathName": "Red 2.5 to 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 5 to RWS"
+            "pathName": "Copy of Red 3 to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Red 5 to RWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Red RWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Red 6 to CWS"
           }
         },
         {
@@ -92,6 +110,6 @@
       ]
     }
   },
-  "folder": "Blue",
+  "folder": "Red Comp",
   "choreoAuto": false
 }
