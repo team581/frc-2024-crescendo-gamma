@@ -88,6 +88,24 @@
           "data": {
             "name": "speakerShot"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Blue RWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Copy of Blue 6 to CWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
         }
       ]
     }
