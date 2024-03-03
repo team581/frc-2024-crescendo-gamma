@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.517828881811611,
+        "x": 2.52,
         "y": 4.26
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0738164553252196,
+        "x": 2.0759875735136086,
         "y": 5.032140833512437
       },
       "isLocked": false,
@@ -85,7 +85,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 6 & 5 Piece Source 1-5",
+  "folder": "Blue 6 Piece Source 1-5",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0

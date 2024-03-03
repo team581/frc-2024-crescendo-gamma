@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7146766573533139,
-        "y": 4.410649733299467
+        "x": 3.54,
+        "y": 6.22
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1682524619019663,
-        "y": 4.3753448439433305
+        "x": 3.9189347609464464,
+        "y": 1.9536546765401224
       },
       "isLocked": false,
-      "linkedName": "Blue Left"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.68,
-        "y": 4.26
+        "x": 8.468100584201167,
+        "y": 4.35
       },
       "prevControl": {
-        "x": 1.3236529742090595,
-        "y": 4.358332573068699
+        "x": 8.81242926085852,
+        "y": 4.988580645161291
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "blue_RL to shot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0,
+      "name": "intake",
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "intakeFloor"
               }
             }
           ]
@@ -57,14 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 141.5199497726334,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 6 Piece Source 1-5",
-  "previewStartingState": {
-    "rotation": 119.50999999999999,
-    "velocity": 0
-  },
+  "folder": "Blue 6 Piece Source 1-6",
+  "previewStartingState": null,
   "useDefaultConstraints": true
 }

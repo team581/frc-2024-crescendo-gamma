@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7146766573533139,
-        "y": 4.410649733299467
+        "x": 8.468100584201167,
+        "y": 4.35
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1682524619019663,
-        "y": 4.3753448439433305
+        "x": 6.405404349270238,
+        "y": 3.71983743967488
       },
       "isLocked": false,
-      "linkedName": "Blue Left"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.68,
-        "y": 4.26
+        "x": 4.01,
+        "y": 5.2
       },
       "prevControl": {
-        "x": 1.3236529742090595,
-        "y": 4.358332573068699
+        "x": 4.757624899865186,
+        "y": 4.686797835134132
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "blue_RL to shot"
+      "linkedName": "Blue CWS"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "speaker shot",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 141.5199497726334,
+    "rotation": 170.04803699264414,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 6 Piece Source 1-5",
+  "folder": "Blue 6 Piece Source 1-6",
   "previewStartingState": {
-    "rotation": 119.50999999999999,
+    "rotation": 182.17848588114003,
     "velocity": 0
   },
   "useDefaultConstraints": true
