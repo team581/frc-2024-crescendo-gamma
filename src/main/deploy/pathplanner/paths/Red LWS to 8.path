@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.401066802133602,
+        "x": 14.15,
         "y": 2.821945643891289
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.300969773939546,
+        "x": 13.049902971805944,
         "y": 2.30491389382779
       },
       "isLocked": false,
-      "linkedName": "Red LWS"
+      "linkedName": null
     },
     {
       "anchor": {
