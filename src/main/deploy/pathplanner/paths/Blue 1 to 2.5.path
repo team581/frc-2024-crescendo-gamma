@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1764353959477174,
-        "y": 4.988261464215237
+        "x": 2.0738164553252196,
+        "y": 5.032140833512437
       },
       "isLocked": false,
       "linkedName": "Blue 1"
@@ -20,8 +20,8 @@
         "y": 6.666088671312085
       },
       "prevControl": {
-        "x": 3.8103983900275504,
-        "y": 5.1702780328637585
+        "x": 3.474922334460055,
+        "y": 5.525487974052871
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,10 +38,10 @@
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.2,
-      "maxWaypointRelativePos": 0.4,
+      "minWaypointRelativePos": 0.15,
+      "maxWaypointRelativePos": 0.45,
       "constraints": {
-        "maxVelocity": 2,
+        "maxVelocity": 1.25,
         "maxAcceleration": 3,
         "maxAngularVelocity": 540,
         "maxAngularAcceleration": 720
@@ -87,7 +87,7 @@
   "reversed": false,
   "folder": "Blue 6 Piece Source 1-5",
   "previewStartingState": {
-    "rotation": 147.89854306990566,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
