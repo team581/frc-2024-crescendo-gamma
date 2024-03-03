@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.772571852836014,
-        "y": 4.35
+        "x": 14.555100136702833,
+        "y": 4.256243685617038
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.455219747627766,
-        "y": 4.364950624767761
+        "x": 14.237748031494585,
+        "y": 4.2711943103848
       },
       "isLocked": false,
       "linkedName": "RL to shot"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 13.93,
-        "y": 4.25
+        "y": 4.35
       },
       "prevControl": {
         "x": 13.934422201302073,
-        "y": 4.247091904366944
+        "y": 4.347091904366944
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 14.32633353961168,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red 6 Piece Source 1-5",
   "previewStartingState": {
-    "rotation": 51.93334847447435,
+    "rotation": 40.93130612021149,
     "velocity": 0
   },
   "useDefaultConstraints": false
