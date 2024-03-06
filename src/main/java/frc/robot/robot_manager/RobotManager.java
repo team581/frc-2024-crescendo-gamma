@@ -284,22 +284,22 @@ public class RobotManager extends LifecycleSubsystem {
           Logger.recordOutput(
               "RobotManager/SpeakerShot/AngularVelocitySlowEnough", angularVelocitySlowEnough);
           Logger.recordOutput("RobotManager/SpeakerShot/RobotHeadingAtGoal", robotHeadingAtGoal);
-          if (limeLightWorking) {
-            if (wristAtGoal
-                && shooterAtGoal
-                && poseJitterSafe
-                && swerveSlowEnough
-                && angularVelocitySlowEnough
-                && robotHeadingAtGoal) {
-              state = RobotState.SPEAKER_SHOOT;
-            }
-          } else if (wristAtGoal
+          // if (limeLightWorking) {
+          if (wristAtGoal
               && shooterAtGoal
+              && poseJitterSafe
               && swerveSlowEnough
-              && angularVelocitySlowEnough) {
+              && angularVelocitySlowEnough
+              && robotHeadingAtGoal) {
             state = RobotState.SPEAKER_SHOOT;
-            vision.disabledInit();
           }
+          //   } else if (wristAtGoal
+          //   && shooterAtGoal
+          //   && swerveSlowEnough
+          //     && angularVelocitySlowEnough) {
+          // state = RobotState.SPEAKER_SHOOT;
+          // vision.disabledInit();
+          //  }
         }
         break;
       case OUTTAKING_SHOOTER:
