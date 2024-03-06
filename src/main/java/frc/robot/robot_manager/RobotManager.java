@@ -203,7 +203,9 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case STOP_SHOOTING:
           if (!state.climbing) {
-            if (state != RobotState.AMP_SHOT) {
+            if (!state.shootingMode
+                || state != RobotState.IDLE_NO_GP
+                || state != RobotState.AMP_SHOT) {
               state = RobotState.IDLE_WITH_GP;
             }
           }
