@@ -90,7 +90,7 @@ public class Robot extends LoggedRobot {
   private final Autos autos = new Autos(swerve, localization, actions);
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
-          new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision);
+          new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
   private final AutoClimbManager autoClimbManager = new AutoClimbManager(localization, swerve);
   private final AmpAlignManager ampAlignManager = new AmpAlignManager(localization, swerve);
 

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
+import frc.robot.intake.IntakeSubsystem;
 import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -29,6 +30,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
 
   private final CANdle candle;
   private final RobotManager robotManager;
+  private final IntakeSubsystem intake;
   private final VisionSubsystem vision;
   private final Timer blinkTimer = new Timer();
   private final Timer lightsOnExitTimer = new Timer();
@@ -37,12 +39,14 @@ public class LightsSubsystem extends LifecycleSubsystem {
   private Optional<LightsState> lightsOnExit = Optional.empty();
   private RobotState previousState = RobotState.IDLE_NO_GP;
 
-  public LightsSubsystem(CANdle candle, RobotManager robotManager, VisionSubsystem vision) {
+  public LightsSubsystem(
+      CANdle candle, RobotManager robotManager, VisionSubsystem vision, IntakeSubsystem intake) {
     super(SubsystemPriority.LIGHTS);
 
     this.candle = candle;
     this.robotManager = robotManager;
     this.vision = vision;
+    this.intake = intake;
 
     blinkTimer.start();
 
@@ -77,7 +81,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
       switch (previousState) {
         case INTAKING:
         case INTAKING_SLOW:
-          if (robotState == RobotState.IDLE_WITH_GP) {
+          if (intake.hasNote()) {
             lightsOnExit = Optional.of(FLASH_LIGHTS);
           }
           break;
