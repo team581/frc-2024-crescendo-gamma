@@ -40,6 +40,7 @@ public class RobotManager extends LifecycleSubsystem {
   public final SnapManager snaps;
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
+  public boolean isAuto = true;
 
   private RobotState state = RobotState.IDLE_NO_GP;
 
@@ -67,6 +68,16 @@ public class RobotManager extends LifecycleSubsystem {
     this.snaps = snaps;
     this.imu = imu;
     this.noteManager = noteManager;
+  }
+
+  @Override
+  public void autonomousInit(){
+isAuto = true;
+  }
+
+  @Override
+  public void teleopInit(){
+isAuto = false;
   }
 
   @Override
@@ -275,7 +286,7 @@ public class RobotManager extends LifecycleSubsystem {
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
-          boolean limeLightWorking = vision.getState() == VisionState.OFFLINE;
+          boolean limeLightWorking = vision.getState() == VisionState.SEES_TAGS;
 
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/ShooterAtGoal", shooterAtGoal);
@@ -284,22 +295,23 @@ public class RobotManager extends LifecycleSubsystem {
           Logger.recordOutput(
               "RobotManager/SpeakerShot/AngularVelocitySlowEnough", angularVelocitySlowEnough);
           Logger.recordOutput("RobotManager/SpeakerShot/RobotHeadingAtGoal", robotHeadingAtGoal);
-          // if (limeLightWorking) {
-          if (wristAtGoal
+          if (limeLightWorking) {
+            if (wristAtGoal
+                && shooterAtGoal
+                && poseJitterSafe
+                && swerveSlowEnough
+                && angularVelocitySlowEnough
+                && robotHeadingAtGoal) {
+              state = RobotState.SPEAKER_SHOOT;
+            }
+          } else if (isAuto == true && wristAtGoal
               && shooterAtGoal
-              && poseJitterSafe
               && swerveSlowEnough
-              && angularVelocitySlowEnough
-              && robotHeadingAtGoal) {
+              && angularVelocitySlowEnough) {
             state = RobotState.SPEAKER_SHOOT;
+          } else {
+            state = RobotState.IDLE_WITH_GP;
           }
-          //   } else if (wristAtGoal
-          //   && shooterAtGoal
-          //   && swerveSlowEnough
-          //     && angularVelocitySlowEnough) {
-          // state = RobotState.SPEAKER_SHOOT;
-          // vision.disabledInit();
-          //  }
         }
         break;
       case OUTTAKING_SHOOTER:
