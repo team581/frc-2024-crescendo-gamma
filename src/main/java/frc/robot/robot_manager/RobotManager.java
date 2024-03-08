@@ -23,6 +23,7 @@ import frc.robot.util.FlagManager;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.DistanceAngle;
+import frc.robot.vision.VisionState;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristPositions;
 import frc.robot.wrist.WristSubsystem;
@@ -274,6 +275,7 @@ public class RobotManager extends LifecycleSubsystem {
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
+          boolean limeLightWorking = vision.getState() == VisionState.OFFLINE;
 
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/ShooterAtGoal", shooterAtGoal);
@@ -282,7 +284,7 @@ public class RobotManager extends LifecycleSubsystem {
           Logger.recordOutput(
               "RobotManager/SpeakerShot/AngularVelocitySlowEnough", angularVelocitySlowEnough);
           Logger.recordOutput("RobotManager/SpeakerShot/RobotHeadingAtGoal", robotHeadingAtGoal);
-
+          // if (limeLightWorking) {
           if (wristAtGoal
               && shooterAtGoal
               && poseJitterSafe
@@ -291,6 +293,13 @@ public class RobotManager extends LifecycleSubsystem {
               && robotHeadingAtGoal) {
             state = RobotState.SPEAKER_SHOOT;
           }
+          //   } else if (wristAtGoal
+          //   && shooterAtGoal
+          //   && swerveSlowEnough
+          //     && angularVelocitySlowEnough) {
+          // state = RobotState.SPEAKER_SHOOT;
+          // vision.disabledInit();
+          //  }
         }
         break;
       case OUTTAKING_SHOOTER:
