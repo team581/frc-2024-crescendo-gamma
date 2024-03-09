@@ -71,13 +71,13 @@ public class RobotManager extends LifecycleSubsystem {
   }
 
   @Override
-  public void autonomousInit(){
-isAuto = true;
+  public void autonomousInit() {
+    isAuto = true;
   }
 
   @Override
-  public void teleopInit(){
-isAuto = false;
+  public void teleopInit() {
+    isAuto = false;
   }
 
   @Override
@@ -304,7 +304,8 @@ isAuto = false;
                 && robotHeadingAtGoal) {
               state = RobotState.SPEAKER_SHOOT;
             }
-          } else if (isAuto == true && wristAtGoal
+          } else if (isAuto
+              && wristAtGoal
               && shooterAtGoal
               && swerveSlowEnough
               && angularVelocitySlowEnough) {
