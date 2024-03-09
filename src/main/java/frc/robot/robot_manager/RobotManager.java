@@ -311,7 +311,7 @@ public class RobotManager extends LifecycleSubsystem {
               && angularVelocitySlowEnough) {
             state = RobotState.SPEAKER_SHOOT;
           } else {
-            state = RobotState.IDLE_WITH_GP;
+            state = RobotState.PREPARE_SUBWOOFER_SHOT;
           }
         }
         break;
