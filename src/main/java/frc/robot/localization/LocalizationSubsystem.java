@@ -4,7 +4,6 @@
 
 package frc.robot.localization;
 
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -68,28 +67,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     odometry.update(imu.getRobotHeading(), modulePositions);
     poseEstimator.update(imu.getRobotHeading(), modulePositions);
 
-    var maybeResults = vision.getResults();
+    var maybeResults = vision.getSimpleSpeakerBasePose().pose();
     var timestamp = Timer.getFPGATimestamp();
 
     if (maybeResults.isPresent()) {
       var results = maybeResults.get();
-      Pose2d visionPose = results.robotPose().toPose2d();
-      double limelightStandardDeviation = vision.getStandardDeviation(results.latency());
-
-      double visionTimestamp = timestamp - results.latency();
-
-      if (visionTimestamp == lastAddedVisionTimestamp) {
-        // Don't add the same vision pose over and over
-      } else {
-        poseEstimator.addVisionMeasurement(
-            visionPose,
-            visionTimestamp,
-            VecBuilder.fill(
-                limelightStandardDeviation,
-                limelightStandardDeviation,
-                limelightStandardDeviation));
-        lastAddedVisionTimestamp = visionTimestamp;
-      }
+      Pose2d visionPose = results;
+      poseEstimator.addVisionMeasurement(visionPose, Timer.getFPGATimestamp());
     }
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
