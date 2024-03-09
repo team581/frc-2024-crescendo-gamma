@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
@@ -39,8 +38,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 6.9, Rotation2d.fromDegrees(180));
   public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 6.9, Rotation2d.fromDegrees(0));
 
-  public static final Pose2d RED_SPEAKER_DOUBLE_TAG_CENTER = new Pose2d(16.58, 5.53 + 0.283, Rotation2d.fromDegrees(180));
-  public static final Pose2d BLUE_SPEAKER_DOUBLE_TAG_CENTER = new Pose2d(0.0, 5.53 + 0.283, Rotation2d.fromDegrees(0));
+  public static final Pose2d RED_SPEAKER_DOUBLE_TAG_CENTER =
+      new Pose2d(16.58, 5.53 - 0.283, Rotation2d.fromDegrees(180));
+  public static final Pose2d BLUE_SPEAKER_DOUBLE_TAG_CENTER =
+      new Pose2d(0.0, 5.53 - 0.283, Rotation2d.fromDegrees(0));
 
   private static double currentTimestamp = 0;
   private static double previousTimestamp = 0;
@@ -59,53 +60,55 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private Optional<FastLimelightResults> storedResults = Optional.empty();
 
-  private Optional<Pose2d> getSimpleSpeakerBasePose() {
+  public SpeakerBasePoseLatency getSimpleSpeakerBasePose() {
+    double start = Timer.getFPGATimestamp();
     // If not valid, return None
-    double validReadings = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
-    if(validReadings == 0.0){
-      return Optional.empty();
+    double validReadings =
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
+    if (validReadings == 0.0) {
+      return new SpeakerBasePoseLatency(Optional.empty(), 0.0);
     }
-
 
     // Get corners from Limelight
 
     // Make sure we have 2 sets of corners
-    double[] corners = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tcornxy").getDoubleArray(new double[16]);
-    if(corners.length<16){
-      return Optional.empty();
+    double[] corners =
+        NetworkTableInstance.getDefault()
+            .getTable("limelight")
+            .getEntry("tcornxy")
+            .getDoubleArray(new double[16]);
+    if (corners.length < 16) {
+      return new SpeakerBasePoseLatency(Optional.empty(), 0.0);
     }
-    if(corners[0]==0.0 & corners[15]==0.0){
-      return Optional.empty();
+    if (corners[0] == 0.0 & corners[15] == 0.0) {
+      return new SpeakerBasePoseLatency(Optional.empty(), 0.0);
     }
     // COmbine corners into larger rectangle
     double highestX = corners[0];
     double lowestX = corners[0];
     double highestY = corners[1];
     double lowestY = corners[1];
-    for (int i=0;i<16;i=i+2){
-      if (highestX<corners[i]){
+    for (int i = 0; i < 16; i = i + 2) {
+      if (highestX < corners[i]) {
         highestX = corners[i];
-      }
-      else if (lowestX>corners[i]){
+      } else if (lowestX > corners[i]) {
         lowestX = corners[i];
       }
-      if (highestY<corners[i+1]){
-        highestY = corners[i+1];
-      }
-      else if (lowestY>corners[i+1]){
-        lowestY = corners[i+1];
+      if (highestY < corners[i + 1]) {
+        highestY = corners[i + 1];
+      } else if (lowestY > corners[i + 1]) {
+        lowestY = corners[i + 1];
       }
     }
 
     // Find center coordinates of rectange
-    double [] centerCoordinatesPixels = new double[2] ;
-    centerCoordinatesPixels [0]=lowestX+((highestX-lowestX)/2);
-    centerCoordinatesPixels [1]=lowestY+((highestY-lowestY)/2);
+    double[] centerCoordinatesPixels = new double[2];
+    centerCoordinatesPixels[0] = lowestX + ((highestX - lowestX) / 2);
+    centerCoordinatesPixels[1] = lowestY + ((highestY - lowestY) / 2);
     // Convert center coordinates into Angle and Distance
 
     // Pixel X : 0 to 1280
     // Angle X : -31.75 to 31.75
-
 
     // Pixel Y : 0 to 960
     // Angle Y : -24.85 to 24.85
@@ -115,31 +118,44 @@ public class VisionSubsystem extends LifecycleSubsystem {
     double angleX = 0.0;
     double angleY = 0.0;
 
-    angleX = -1* (((pixelX/1280.0)*63.5)-31.5);
-    angleY = -1*(((pixelY/960.0)*49.7)-24.85);
+    angleX = -1 * (((pixelX / 1280.0) * 63.5) - 31.5);
+    angleY = -1 * (((pixelY / 960.0) * 49.7) - 24.85);
 
+    double end = Timer.getFPGATimestamp();
+    double cl =
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("cl").getDouble(0.0);
+    double tl =
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0.0);
+    double totalLatency = (end - start) + (cl + tl) / 1000;
+    double totalLatencyTimestamp = Timer.getFPGATimestamp() - totalLatency;
 
-    Rotation2d cameraToAngle = Rotation2d.fromDegrees(angleX+this.imu.getRobotHeading().getDegrees());
+    Rotation2d cameraToAngle =
+        Rotation2d.fromDegrees(
+            angleX + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees());
     double distanceFromSpeaker = getDistanceFromAngle(angleY);
 
-    double distanceX = Math.cos(cameraToAngle.getRadians())*distanceFromSpeaker;
-    double distanceY = Math.sin(cameraToAngle.getRadians())*distanceFromSpeaker;
+    double distanceX = Math.cos(cameraToAngle.getRadians()) * distanceFromSpeaker;
+    double distanceY = Math.sin(cameraToAngle.getRadians()) * distanceFromSpeaker;
 
-    Pose2d fieldPosition = new Pose2d(RED_SPEAKER_DOUBLE_TAG_CENTER.getX() - distanceX, RED_SPEAKER_DOUBLE_TAG_CENTER.getY() - distanceY, this.imu.getRobotHeading());
-
+    Pose2d fieldPosition =
+        new Pose2d(
+            RED_SPEAKER_DOUBLE_TAG_CENTER.getX() - distanceX,
+            RED_SPEAKER_DOUBLE_TAG_CENTER.getY() - distanceY,
+            this.imu.getRobotHeading(totalLatencyTimestamp));
 
     Logger.recordOutput("Vision/Field Position", fieldPosition);
-    Logger.recordOutput("Vision/Center Coordinates of both april tags",centerCoordinatesPixels);
+    Logger.recordOutput("Vision/Center Coordinates of both april tags", centerCoordinatesPixels);
     Logger.recordOutput("Vision/Angle X", angleX);
     Logger.recordOutput("Vision/Angle Y", angleY);
     Logger.recordOutput("Vision/Distance X", distanceX);
     Logger.recordOutput("Vision/Distance Y", distanceY);
     Logger.recordOutput("Vision/Camera Angle To Target", cameraToAngle);
     Logger.recordOutput("Vision/distance from speaker", distanceFromSpeaker);
+    Logger.recordOutput("Vision/CurrentTimestamp", Timer.getFPGATimestamp());
+    Logger.recordOutput("Vision/SimpleSpeakerLatencyTimestamp", totalLatencyTimestamp);
+    Logger.recordOutput("Vision/SimpleSpeakerLatency", totalLatency);
 
-    return Optional.of(fieldPosition) ;
-
-
+    return new SpeakerBasePoseLatency(Optional.of(fieldPosition), totalLatencyTimestamp);
   }
 
   private Optional<FastLimelightResults> getFastResults() {
@@ -267,10 +283,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
     distanceToDev.put(3.37, 2.45);
     distanceToDev.put(7.0, 10.0);
 
-    angleToDistance.put(16.826, 1.51);
-    angleToDistance.put(-5.772, 6.44);
-    angleToDistance.put(-1.735, 4.13);
-    angleToDistance.put(5.099, 2.55);
+    angleToDistance.put(16.826, 1.51 - 0.12);
+    angleToDistance.put(-1.735, 4.13 - 0.12);
+    angleToDistance.put(5.099, 2.55 - 0.12);
+    angleToDistance.put(0.777, 3.48 - 0.12);
+        angleToDistance.put(-0.362, 3.66 - 0.12);
+
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
@@ -303,7 +321,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     return distanceToDev.get(distance);
   }
-  public double getDistanceFromAngle(double angle){
+
+  public double getDistanceFromAngle(double angle) {
     return angleToDistance.get(angle);
   }
 
