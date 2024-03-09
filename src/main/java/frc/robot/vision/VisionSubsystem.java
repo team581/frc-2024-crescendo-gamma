@@ -283,12 +283,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
     distanceToDev.put(3.37, 2.45);
     distanceToDev.put(7.0, 10.0);
 
-    angleToDistance.put(16.826, 1.51 - 0.12);
-    angleToDistance.put(-1.735, 4.13 - 0.12);
-    angleToDistance.put(5.099, 2.55 - 0.12);
-    angleToDistance.put(0.777, 3.48 - 0.12);
-        angleToDistance.put(-0.362, 3.66 - 0.12);
-
+    angleToDistance.put(-6.264,Units.inchesToMeters(277.5) - 0.12);
+    angleToDistance.put(6.316,Units.inchesToMeters(92)- 0.12);
+    angleToDistance.put(1.631,Units.inchesToMeters(127.25)- 0.12);
+    angleToDistance.put(17.24,Units.inchesToMeters(58.5)- 0.12);
+    angleToDistance.put(-2.589,Units.inchesToMeters(175)- 0.12);
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
