@@ -4,7 +4,6 @@
 
 package frc.robot.localization;
 
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -28,8 +27,8 @@ import frc.robot.vision.VisionSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class LocalizationSubsystem extends LifecycleSubsystem {
-  private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.1;
-  private static final boolean USE_SHOOT_WHILE_MOVE = false;
+  private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.2;
+  private static final boolean USE_SHOOT_WHILE_MOVE = true;
 
   private final SwerveSubsystem swerve;
   private final ImuSubsystem imu;
@@ -68,38 +67,33 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     odometry.update(imu.getRobotHeading(), modulePositions);
     poseEstimator.update(imu.getRobotHeading(), modulePositions);
 
-    var maybeResults = vision.getResults();
+    var maybeResults = vision.getSimpleSpeakerBaseResults();
     var timestamp = Timer.getFPGATimestamp();
 
     if (maybeResults.isPresent()) {
       var results = maybeResults.get();
-      Pose2d visionPose = results.robotPose().toPose2d();
-      double limelightStandardDeviation = vision.getStandardDeviation(results.latency());
+      Pose2d visionPose = results.pose();
 
-      double visionTimestamp = timestamp - results.latency();
+      double visionTimestamp = results.totalLatency();
 
       if (visionTimestamp == lastAddedVisionTimestamp) {
         // Don't add the same vision pose over and over
       } else {
-        poseEstimator.addVisionMeasurement(
-            visionPose,
-            visionTimestamp,
-            VecBuilder.fill(
-                limelightStandardDeviation,
-                limelightStandardDeviation,
-                limelightStandardDeviation));
+        poseEstimator.addVisionMeasurement(visionPose, visionTimestamp);
         lastAddedVisionTimestamp = visionTimestamp;
       }
     }
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
     Logger.recordOutput("Localization/EstimatedPose", getPose());
+    Logger.recordOutput(
+        "Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
 
     xHistory.addData(timestamp, getPose().getX());
     yHistory.addData(timestamp, getPose().getY());
 
-    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD));
+    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE));
   }
 
   public Pose2d getPose() {
@@ -137,7 +131,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
         () -> resetGyro(Rotation2d.fromDegrees(FmsSubsystem.isRedAlliance() ? 0 : 180)));
   }
 
-  public Pose2d getExpectedPose(double lookAhead) {
+  public Pose2d getExpectedPose(double lookAhead, boolean shootWhileMove) {
     var velocities = swerve.getRobotRelativeSpeeds();
     var angularVelocity = imu.getRobotAngularVelocity();
 
@@ -147,16 +141,25 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     var yDifference =
         imu.getYAcceleration() * Math.pow(lookAhead, 2) / 2
             + velocities.vyMetersPerSecond * lookAhead;
-    var thetaDifference = new Rotation2d(angularVelocity.getRadians() * lookAhead);
+    var thetaDifference = new Rotation2d(angularVelocity.getRadians() * lookAhead * -1);
 
     var expectedPose =
         new Pose2d(
             new Translation2d(xDifference + getPose().getX(), yDifference + getPose().getY()),
             thetaDifference.plus(imu.getRobotHeading()));
+    boolean movingSlowEnough = false;
+    double vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
 
-    Logger.recordOutput("Localization/ExpectedPose", expectedPose);
-
-    if (!USE_SHOOT_WHILE_MOVE) {
+    if (vector < 0.05) {
+      movingSlowEnough = true;
+    } else {
+      movingSlowEnough = false;
+    }
+    Logger.recordOutput("Localization/movingSlowEnough", movingSlowEnough);
+    Logger.recordOutput("Localization/xDifference", xDifference);
+    Logger.recordOutput("Localization/yDifference", yDifference);
+    Logger.recordOutput("Localization/Vector", vector);
+    if (!shootWhileMove || movingSlowEnough) {
       return getPose();
     }
 

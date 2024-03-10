@@ -4,11 +4,14 @@
 
 package frc.robot.imu;
 
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.TimedDataBuffer;
@@ -20,7 +23,7 @@ public class ImuSubsystem extends LifecycleSubsystem {
   private final Pigeon2 imu;
   private final InterpolatingDoubleTreeMap distanceToAngleTolerance =
       new InterpolatingDoubleTreeMap();
-  private final TimedDataBuffer robotHeadingLatency = new TimedDataBuffer(6);
+  private final TimedDataBuffer robotHeadingLatency = new TimedDataBuffer(20);
   private final TimedDataBuffer robotAngularVelocityLatency = new TimedDataBuffer(6);
 
   public ImuSubsystem(SwerveSubsystem swerve) {
@@ -43,8 +46,14 @@ public class ImuSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    Logger.recordOutput("Imu/RobotHeading", this.getRobotHeading().getDegrees());
-    Logger.recordOutput("Imu/RobotHeadingRadians", this.getRobotHeading().getRadians());
+
+    Rotation2d robotHeading = this.getRobotHeading();
+    Logger.recordOutput("Imu/RobotHeading", robotHeading.getDegrees());
+    Logger.recordOutput("Imu/RobotHeadingRadians", robotHeading.getRadians());
+
+    var yaw = this.imu.getYaw();
+    double offset = Utils.getCurrentTimeSeconds() - yaw.getTimestamp().getTime();
+    robotHeadingLatency.addData(Timer.getFPGATimestamp()-offset, yaw.getValue());
   }
 
   public Rotation2d getRobotHeading() {
