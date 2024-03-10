@@ -86,7 +86,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
     Logger.recordOutput("Localization/EstimatedPose", getPose());
-    Logger.recordOutput("Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
+    Logger.recordOutput(
+        "Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
 
     xHistory.addData(timestamp, getPose().getX());
