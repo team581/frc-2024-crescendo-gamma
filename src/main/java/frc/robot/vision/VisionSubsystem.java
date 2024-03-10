@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
@@ -32,8 +33,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
     limelightTimer.start();
   }
 
-  public static final Pose2d RED_SPEAKER = new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
-  public static final Pose2d BLUE_SPEAKER = new Pose2d(0, 5.53, Rotation2d.fromDegrees(0));
+  public static final Pose2d ORIGINAL_RED_SPEAKER =
+      new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
+  public static final Pose2d ORIGINAL_BLUE_SPEAKER = new Pose2d(0, 5.53, Rotation2d.fromDegrees(0));
+
+  public static Pose2d RED_SPEAKER = ORIGINAL_RED_SPEAKER;
+  public static Pose2d BLUE_SPEAKER = ORIGINAL_BLUE_SPEAKER;
 
   public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 6.9, Rotation2d.fromDegrees(180));
   public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 6.9, Rotation2d.fromDegrees(0));
@@ -48,6 +53,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
   InterpolatingDoubleTreeMap angleToDistance = new InterpolatingDoubleTreeMap();
+  InterpolatingDoubleTreeMap angleToPositionOffset = new InterpolatingDoubleTreeMap();
 
   private final ImuSubsystem imu;
 
@@ -280,15 +286,46 @@ public class VisionSubsystem extends LifecycleSubsystem {
     angleToDistance.put(1.631, Units.inchesToMeters(127.25) - 0.12);
     angleToDistance.put(17.24, Units.inchesToMeters(58.5) - 0.12);
     angleToDistance.put(-2.589, Units.inchesToMeters(175) - 0.12);
+
+    angleToPositionOffset.put(Rotation2d.fromDegrees(100).getRadians(), 0.525);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(60).getRadians(), 0.525);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(0.0).getRadians(), 0.0);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), 0.525);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), 0.525);
+  }
+
+  private void setSpeakerY(double Y) {
+    RED_SPEAKER = new Pose2d(new Translation2d(RED_SPEAKER.getX(), Y), RED_SPEAKER.getRotation());
+    BLUE_SPEAKER =
+        new Pose2d(new Translation2d(BLUE_SPEAKER.getX(), Y), BLUE_SPEAKER.getRotation());
+  }
+
+  public Pose2d getSpeaker(boolean original) {
+    if (FmsSubsystem.isRedAlliance()) {
+      return ORIGINAL_RED_SPEAKER;
+    } else {
+      return ORIGINAL_BLUE_SPEAKER;
+    }
+  }
+
+  public Pose2d getSpeaker() {
+    if (FmsSubsystem.isRedAlliance()) {
+      return RED_SPEAKER;
+    } else {
+      return BLUE_SPEAKER;
+    }
+  }
+
+  public DistanceAngle getDistanceAngleSpeaker(boolean originalSpeaker) {
+    Pose2d goalPose = getSpeaker(true);
+
+    Logger.recordOutput("Vision/SpeakerPose", goalPose);
+
+    return distanceToTargetPose(goalPose, robotPose);
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
-    Pose2d goalPose;
-    if (FmsSubsystem.isRedAlliance()) {
-      goalPose = RED_SPEAKER;
-    } else {
-      goalPose = BLUE_SPEAKER;
-    }
+    Pose2d goalPose = getSpeaker();
 
     Logger.recordOutput("Vision/SpeakerPose", goalPose);
 
@@ -329,6 +366,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    setSpeakerY(
+        getSpeaker(true).getY()
+            + angleToPositionOffset.get(
+                Math.atan(
+                    (robotPose.getY() - getSpeaker(true).getY())
+                        / (robotPose.getX() - getSpeaker(true).getX()))));
     storedResults = getFastResults();
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle());
@@ -340,13 +383,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
       Logger.recordOutput("Vision/Latency", data.latency());
       Logger.recordOutput("Vision/DistanceFromTag", data.distanceToTag());
     }
-
   }
 
   public Optional<FastLimelightResults> getResults() {
     return storedResults;
   }
-
 
   public VisionState getState() {
     if (limelightTimer.hasElapsed(5)) {
