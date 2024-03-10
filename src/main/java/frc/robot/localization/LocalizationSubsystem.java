@@ -27,7 +27,7 @@ import frc.robot.vision.VisionSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class LocalizationSubsystem extends LifecycleSubsystem {
-  private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.1;
+  private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.2;
   private static final boolean USE_SHOOT_WHILE_MOVE = false;
 
   private final SwerveSubsystem swerve;
@@ -86,12 +86,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
     Logger.recordOutput("Localization/EstimatedPose", getPose());
+    Logger.recordOutput("Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
 
     xHistory.addData(timestamp, getPose().getX());
     yHistory.addData(timestamp, getPose().getY());
 
-    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD));
+    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE));
   }
 
   public Pose2d getPose() {
@@ -129,7 +130,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
         () -> resetGyro(Rotation2d.fromDegrees(FmsSubsystem.isRedAlliance() ? 0 : 180)));
   }
 
-  public Pose2d getExpectedPose(double lookAhead) {
+  public Pose2d getExpectedPose(double lookAhead, boolean shootWhileMove) {
     var velocities = swerve.getRobotRelativeSpeeds();
     var angularVelocity = imu.getRobotAngularVelocity();
 
@@ -146,9 +147,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
             new Translation2d(xDifference + getPose().getX(), yDifference + getPose().getY()),
             thetaDifference.plus(imu.getRobotHeading()));
 
-    Logger.recordOutput("Localization/ExpectedPose", expectedPose);
-
-    if (!USE_SHOOT_WHILE_MOVE) {
+    if (!shootWhileMove) {
       return getPose();
     }
 
