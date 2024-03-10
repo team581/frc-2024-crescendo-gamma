@@ -2,31 +2,19 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.83,
-      "y": 4.41
+      "x": 15.22,
+      "y": 5.57
     },
-    "rotation": 59.23
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "preloadNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "homeClimber"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Red Left to LWS"
+            "pathName": "Middle 6, Mid to 2"
           }
         },
         {
@@ -38,13 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LWS to 8"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 8 to LWS"
+            "pathName": "Middle 6, 2 to 1"
           }
         },
         {
@@ -56,13 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LWS to 7"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 7 to CWS"
+            "pathName": "Middle 6, 1 to 2.5"
           }
         },
         {
@@ -74,7 +50,49 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red CWS to 6"
+            "pathName": "Middle 6, 2.5 to 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 6, 3 to 3.5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 6, 3.5 to 4-WS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 6, 4-WS to 4.5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 6, 4.5 to 5-WS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
           }
         }
       ]
