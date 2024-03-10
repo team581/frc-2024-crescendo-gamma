@@ -147,8 +147,19 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
         new Pose2d(
             new Translation2d(xDifference + getPose().getX(), yDifference + getPose().getY()),
             thetaDifference.plus(imu.getRobotHeading()));
+    boolean movingSlowEnough = false;
+    double vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
 
-    if (!shootWhileMove) {
+    if (vector < 0.05) {
+      movingSlowEnough = true;
+    } else {
+      movingSlowEnough = false;
+    }
+    Logger.recordOutput("Localization/movingSlowEnough", movingSlowEnough);
+    Logger.recordOutput("Localization/xDifference", xDifference);
+    Logger.recordOutput("Localization/yDifference", yDifference);
+    Logger.recordOutput("Localization/Vector", vector);
+    if (!shootWhileMove || movingSlowEnough) {
       return getPose();
     }
 
