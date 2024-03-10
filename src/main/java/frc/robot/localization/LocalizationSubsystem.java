@@ -140,7 +140,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     var yDifference =
         imu.getYAcceleration() * Math.pow(lookAhead, 2) / 2
             + velocities.vyMetersPerSecond * lookAhead;
-    var thetaDifference = new Rotation2d(angularVelocity.getRadians() * lookAhead);
+    var thetaDifference = new Rotation2d(angularVelocity.getRadians() * lookAhead * -1);
 
     var expectedPose =
         new Pose2d(
