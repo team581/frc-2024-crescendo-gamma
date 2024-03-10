@@ -28,7 +28,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class LocalizationSubsystem extends LifecycleSubsystem {
   private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.2;
-  private static final boolean USE_SHOOT_WHILE_MOVE = false;
+  private static final boolean USE_SHOOT_WHILE_MOVE = true;
 
   private final SwerveSubsystem swerve;
   private final ImuSubsystem imu;
