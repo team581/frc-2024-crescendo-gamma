@@ -48,6 +48,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
   InterpolatingDoubleTreeMap angleToDistance = new InterpolatingDoubleTreeMap();
+  static InterpolatingDoubleTreeMap offsetToDistance = new InterpolatingDoubleTreeMap();
 
   private final ImuSubsystem imu;
 
@@ -262,6 +263,36 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return new DistanceAngle(distance, angle);
   }
 
+  private static DistanceAngle distanceToTargetPose(
+      Pose2d target, Pose2d current, boolean targetingSpeaker) {
+    double distance =
+        Math.sqrt(
+            (Math.pow(target.getY() - current.getY(), 2))
+                + (Math.pow(target.getX() - current.getX(), 2)));
+    Rotation2d angle =
+        new Rotation2d(
+                Math.atan((target.getY() - current.getY()) / (target.getX() - current.getX()))
+                    - current.getRotation().getRadians())
+            .plus(Rotation2d.fromDegrees(180));
+
+    if (targetingSpeaker) {
+      angle =
+          angle.getRadians() < Rotation2d.fromDegrees(60).getRadians()
+              ? angle.plus(getAngleOffset(distance))
+              : angle.getRadians() > Rotation2d.fromDegrees(-60).getRadians()
+                  ? angle.minus(getAngleOffset(distance))
+                  : angle;
+    }
+
+    angle = angle.minus(target.getRotation());
+
+    return new DistanceAngle(distance, angle);
+  }
+
+  public static Rotation2d getAngleOffset(double dist) {
+    return Rotation2d.fromDegrees(offsetToDistance.get(dist));
+  }
+
   private Pose2d robotPose = new Pose2d();
 
   public VisionSubsystem(ImuSubsystem imu) {
@@ -275,11 +306,21 @@ public class VisionSubsystem extends LifecycleSubsystem {
     distanceToDev.put(3.37, 2.45);
     distanceToDev.put(7.0, 10.0);
 
-    angleToDistance.put(-6.264,Units.inchesToMeters(277.5) - 0.12);
-    angleToDistance.put(6.316,Units.inchesToMeters(92)- 0.12);
-    angleToDistance.put(1.631,Units.inchesToMeters(127.25)- 0.12);
-    angleToDistance.put(17.24,Units.inchesToMeters(58.5)- 0.12);
-    angleToDistance.put(-2.589,Units.inchesToMeters(175)- 0.12);
+    angleToDistance.put(-6.264, Units.inchesToMeters(277.5) - 0.12);
+    angleToDistance.put(6.316, Units.inchesToMeters(92) - 0.12);
+    angleToDistance.put(1.631, Units.inchesToMeters(127.25) - 0.12);
+    angleToDistance.put(17.24, Units.inchesToMeters(58.5) - 0.12);
+    angleToDistance.put(-2.589, Units.inchesToMeters(175) - 0.12);
+
+    offsetToDistance.put(0.0, 2.5);
+    offsetToDistance.put(3.0, 2.5);
+    offsetToDistance.put(3.5, 2.0);
+    offsetToDistance.put(4.0, 1.5);
+    offsetToDistance.put(4.3, 1.0);
+    offsetToDistance.put(4.5, 0.5);
+    offsetToDistance.put(4.8, 0.3);
+    offsetToDistance.put(5.0, 0.15);
+    offsetToDistance.put(10.0, 0.15);
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
@@ -292,7 +333,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Vision/SpeakerPose", goalPose);
 
-    return distanceToTargetPose(goalPose, robotPose);
+    return distanceToTargetPose(goalPose, robotPose, true);
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
