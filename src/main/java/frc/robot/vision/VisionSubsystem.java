@@ -60,13 +60,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private Optional<FastLimelightResults> storedResults = Optional.empty();
 
-  public SpeakerBasePoseLatency getSimpleSpeakerBasePose() {
+  public Optional<SpeakerBasePoseLatency> getSimpleSpeakerBaseResults() {
     double start = Timer.getFPGATimestamp();
     // If not valid, return None
     double validReadings =
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
     if (validReadings == 0.0) {
-      return new SpeakerBasePoseLatency(Optional.empty(), 0.0);
+      return Optional.empty();
     }
 
     // Get corners from Limelight
@@ -78,10 +78,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
             .getEntry("tcornxy")
             .getDoubleArray(new double[16]);
     if (corners.length < 16) {
-      return new SpeakerBasePoseLatency(Optional.empty(), 0.0);
+      return Optional.empty();
     }
     if (corners[0] == 0.0 & corners[15] == 0.0) {
-      return new SpeakerBasePoseLatency(Optional.empty(), 0.0);
+      return Optional.empty();
     }
     // COmbine corners into larger rectangle
     double highestX = corners[0];
@@ -143,19 +143,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
             RED_SPEAKER_DOUBLE_TAG_CENTER.getY() - distanceY,
             this.imu.getRobotHeading(totalLatencyTimestamp));
 
-    Logger.recordOutput("Vision/Field Position", fieldPosition);
-    Logger.recordOutput("Vision/Center Coordinates of both april tags", centerCoordinatesPixels);
-    Logger.recordOutput("Vision/Angle X", angleX);
-    Logger.recordOutput("Vision/Angle Y", angleY);
-    Logger.recordOutput("Vision/Distance X", distanceX);
-    Logger.recordOutput("Vision/Distance Y", distanceY);
-    Logger.recordOutput("Vision/Camera Angle To Target", cameraToAngle);
-    Logger.recordOutput("Vision/distance from speaker", distanceFromSpeaker);
-    Logger.recordOutput("Vision/CurrentTimestamp", Timer.getFPGATimestamp());
-    Logger.recordOutput("Vision/SimpleSpeakerLatencyTimestamp", totalLatencyTimestamp);
-    Logger.recordOutput("Vision/SimpleSpeakerLatency", totalLatency);
+    Logger.recordOutput("Vision/SimpleSpeakerPose", fieldPosition);
+    Logger.recordOutput("Vision/SimpleSpeakerAngleX", angleX);
+    Logger.recordOutput("Vision/SimpleSpeakerAngleY", angleY);
 
-    return new SpeakerBasePoseLatency(Optional.of(fieldPosition), totalLatencyTimestamp);
+    return Optional.of(new SpeakerBasePoseLatency(fieldPosition, totalLatencyTimestamp));
   }
 
   private Optional<FastLimelightResults> getFastResults() {
@@ -337,7 +329,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    getSimpleSpeakerBasePose();
     storedResults = getFastResults();
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle());
@@ -349,11 +340,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
       Logger.recordOutput("Vision/Latency", data.latency());
       Logger.recordOutput("Vision/DistanceFromTag", data.distanceToTag());
     }
+
   }
 
   public Optional<FastLimelightResults> getResults() {
     return storedResults;
   }
+
 
   public VisionState getState() {
     if (limelightTimer.hasElapsed(5)) {

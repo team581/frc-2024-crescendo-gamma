@@ -7,4 +7,4 @@ package frc.robot.vision;
 import edu.wpi.first.math.geometry.Pose2d;
 import java.util.Optional;
 
-public record SpeakerBasePoseLatency(Optional<Pose2d> pose, double totalLatency) {}
+public record SpeakerBasePoseLatency(Pose2d pose, double totalLatency) {}
