@@ -8,13 +8,13 @@ import edu.wpi.first.hal.HALUtil;
 import edu.wpi.first.util.struct.StructSerializable;
 
 /**
- * A wrapper around {@link BulldogLogger} that makes it easy to use as a drop-in replacement for
+ * A wrapper around {@link DogLog} that makes it easy to use as a drop-in replacement for
  * AdvantageKit.
  */
 public class AdvantageKitCompatibleLogger {
-  private static BulldogLogger baseLogger;
+  private static DogLog baseLogger;
 
-  public static void setBaseLogger(BulldogLogger newLogger) {
+  public static void setBaseLogger(DogLog newLogger) {
     baseLogger = newLogger;
   }
 

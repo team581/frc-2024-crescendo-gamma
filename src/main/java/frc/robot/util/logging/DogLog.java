@@ -46,39 +46,41 @@ import java.util.Map;
 import java.util.Optional;
 
 /** A logger based on WPILib's {@link DataLogManager} */
-public class BulldogLogger {
+// TODO: Add static methods for logging, probably want to move a bunch of this logic to a new Logger
+// class
+public class DogLog {
   private static final String LOG_TABLE = "/Robot";
   private static final PubSubOption PUB_SUB_OPTIONS = PubSubOption.sendAll(true);
 
-  private static BulldogLogger instance;
+  private static DogLog instance;
 
-  public static synchronized BulldogLogger getInstance(DataLog log) {
+  public static synchronized DogLog getInstance(DataLog log) {
     if (instance == null) {
-      instance = new BulldogLogger(log, new BulldogLoggerOptions());
+      instance = new DogLog(log, new DogLogOptions());
     }
 
     return instance;
   }
 
-  public static synchronized BulldogLogger getInstance(DataLog log, BulldogLoggerOptions options) {
+  public static synchronized DogLog getInstance(DataLog log, DogLogOptions options) {
     if (instance == null) {
-      instance = new BulldogLogger(log, options);
+      instance = new DogLog(log, options);
     }
 
     return instance;
   }
 
-  public static synchronized BulldogLogger getInstance(BulldogLoggerOptions options) {
+  public static synchronized DogLog getInstance(DogLogOptions options) {
     if (instance == null) {
-      instance = new BulldogLogger(options);
+      instance = new DogLog(options);
     }
 
     return instance;
   }
 
   /** Get an instance of the logger with the default options. */
-  public static synchronized BulldogLogger getInstance() {
-    return getInstance(new BulldogLoggerOptions());
+  public static synchronized DogLog getInstance() {
+    return getInstance(new DogLogOptions());
   }
 
   private static String prefixKey(String key) {
@@ -116,7 +118,7 @@ public class BulldogLogger {
   private final Map<String, StructPublisher<?>> structPublishers = new HashMap<>();
 
   private final DataLog log;
-  private final BulldogLoggerOptions options;
+  private final DogLogOptions options;
 
   private final Map<String, Struct<?>> structTypeCache = new HashMap<>();
 
@@ -336,11 +338,11 @@ public class BulldogLogger {
     }
   }
 
-  private BulldogLogger(BulldogLoggerOptions options) {
+  private DogLog(DogLogOptions options) {
     this(DataLogManager.getLog(), options);
   }
 
-  private BulldogLogger(DataLog log, BulldogLoggerOptions options) {
+  private DogLog(DataLog log, DogLogOptions options) {
     this.log = log;
     this.options = options;
 
