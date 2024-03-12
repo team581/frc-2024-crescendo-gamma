@@ -134,12 +134,12 @@ class CompConfig {
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.4)
-                          .withKP(150.0))
+                          .withKG(1.0)
+                          .withKP(300.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(0.4)
+                          .withKG(1.0)
                           .withKP(50.0))
                   .withFeedback(
                       new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
@@ -167,10 +167,8 @@ class CompConfig {
                 speakerDistanceToAngle.put(2.0, 46.0);
                 speakerDistanceToAngle.put(3.6, 32.0);
                 speakerDistanceToAngle.put(4.4, 29.0);
-                speakerDistanceToAngle.put(5.2, 26.0);
-                speakerDistanceToAngle.put(6.0, 23.0);
-                speakerDistanceToAngle.put(6.8, 20.0);
-                speakerDistanceToAngle.put(7.6, 18.0);
+                speakerDistanceToAngle.put(4.9, 26.9);
+                speakerDistanceToAngle.put(6.87, 21.0);
               },
               floorSpotDistanceToAngle -> {
                 floorSpotDistanceToAngle.put(1.6, 70.0);

@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.468100584201167,
-        "y": 4.35
+        "x": 13.581101370202655,
+        "y": 7.052741790262551
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.405404349270238,
-        "y": 3.71983743967488
+        "x": 11.551479881075263,
+        "y": 7.1987295342371835
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle 6, 3"
     },
     {
       "anchor": {
-        "x": 4.01,
-        "y": 5.2
+        "x": 9.25587115611921,
+        "y": 7.429538020170265
       },
       "prevControl": {
-        "x": 4.757624899865186,
-        "y": 4.686797835134132
+        "x": 10.628245937342939,
+        "y": 7.273586340485751
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue CWS"
+      "linkedName": "Middle 6, 3.5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.15,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.65,
+      "name": "Intake and warmup",
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +47,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "intakeFloor"
               }
             }
           ]
@@ -57,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 170.04803699264414,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 6 Piece Source 1-6",
+  "folder": ".Red Mid 6 Piece ",
   "previewStartingState": {
-    "rotation": 182.17848588114003,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

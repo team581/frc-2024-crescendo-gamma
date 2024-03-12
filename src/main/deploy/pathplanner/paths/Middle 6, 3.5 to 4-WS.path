@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.468100584201167,
-        "y": 4.35
+        "x": 9.25587115611921,
+        "y": 7.429538020170265
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.405404349270238,
-        "y": 3.71983743967488
+        "x": 9.736202329547515,
+        "y": 7.279824407673132
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle 6, 3.5"
     },
     {
       "anchor": {
-        "x": 4.01,
-        "y": 5.2
+        "x": 10.915197027962444,
+        "y": 6.849397771743873
       },
       "prevControl": {
-        "x": 4.757624899865186,
-        "y": 4.686797835134132
+        "x": 10.391199384222476,
+        "y": 7.0178255858031475
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue CWS"
+      "linkedName": "Middle 6, 4-WS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.65,
+      "name": "warmup",
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 170.04803699264414,
+    "rotation": -13.198903231376043,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue 6 Piece Source 1-6",
+  "folder": ".Red Mid 6 Piece ",
   "previewStartingState": {
-    "rotation": 182.17848588114003,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
