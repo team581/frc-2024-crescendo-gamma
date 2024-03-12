@@ -203,6 +203,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
           ChassisSpeeds teleopSpeeds =
               new ChassisSpeeds(-1.0 * leftY * MaxSpeed, leftX * MaxSpeed, rightX * MaxAngularRate);
 
+          Logger.recordOutput("Swerve/RawTeleopSpeeds", teleopSpeeds);
+
           // teleopSpeeds = accelerationLimitChassisSpeeds(teleopSpeeds);
 
           if (isShooting) {
