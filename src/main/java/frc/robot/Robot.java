@@ -34,10 +34,12 @@ import frc.robot.robot_manager.RobotManager;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.logging.BulldogLogOptions;
+import frc.robot.util.logging.BulldogLogger;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystemManager;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristSubsystem;
-import org.littletonrobotics.junction.Logger;
 
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
@@ -95,6 +97,12 @@ public class Robot extends TimedRobot {
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
+    var bulldogLogOptions =
+        new BulldogLogOptions()
+            .withCaptureNt(RobotConfig.IS_DEVELOPMENT)
+            .withNtPublish(RobotConfig.IS_DEVELOPMENT);
+    Logger.setBaseLogger(BulldogLogger.getInstance(bulldogLogOptions));
+
     // Record metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("RoborioSerialNumber", RobotConfig.SERIAL_NUMBER);
@@ -115,8 +123,6 @@ public class Robot extends TimedRobot {
         Logger.recordMetadata("GitDirty", "Unknown");
         break;
     }
-
-    Logger.start(RobotConfig.IS_DEVELOPMENT);
 
     // This must be run before any commands are scheduled
     LifecycleSubsystemManager.getInstance().ready();

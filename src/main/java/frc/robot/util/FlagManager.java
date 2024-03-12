@@ -4,11 +4,11 @@
 
 package frc.robot.util;
 
+import frc.robot.util.logging.advantagekit.Logger;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import org.littletonrobotics.junction.Logger;
 
 public class FlagManager<T extends Enum<T>> {
   private final String loggerCategory;

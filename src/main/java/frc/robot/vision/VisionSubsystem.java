@@ -18,13 +18,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
   private static final Timer limelightTimer = new Timer();

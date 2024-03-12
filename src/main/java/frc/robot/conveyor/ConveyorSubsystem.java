@@ -9,9 +9,9 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import org.littletonrobotics.junction.Logger;
 
 public class ConveyorSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;

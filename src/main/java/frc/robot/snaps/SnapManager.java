@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import java.util.function.Supplier;
-import org.littletonrobotics.junction.Logger;
 
 public class SnapManager extends LifecycleSubsystem {
   public static Rotation2d getSourceAngle() {

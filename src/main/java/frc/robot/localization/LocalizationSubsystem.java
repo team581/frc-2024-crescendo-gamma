@@ -20,11 +20,11 @@ import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.TimedDataBuffer;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.LimelightHelpers;
 import frc.robot.vision.VisionSubsystem;
-import org.littletonrobotics.junction.Logger;
 
 public class LocalizationSubsystem extends LifecycleSubsystem {
   private static final double SHOOT_WHILE_MOVE_LOOKAHEAD = 0.2;
@@ -113,7 +113,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   }
 
   public Pose2d getSavedExpectedPose(boolean reloadLoops) {
-    if ((loops >= (int)(SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
+    if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
         && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())) {
       savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
       loops = reloadLoops ? 0 : loops;

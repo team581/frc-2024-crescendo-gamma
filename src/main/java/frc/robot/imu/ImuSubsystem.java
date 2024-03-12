@@ -4,7 +4,6 @@
 
 package frc.robot.imu;
 
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
@@ -15,9 +14,9 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.TimedDataBuffer;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import org.littletonrobotics.junction.Logger;
 
 public class ImuSubsystem extends LifecycleSubsystem {
   private final Pigeon2 imu;
@@ -53,7 +52,7 @@ public class ImuSubsystem extends LifecycleSubsystem {
 
     var yaw = this.imu.getYaw();
     double offset = Utils.getCurrentTimeSeconds() - yaw.getTimestamp().getTime();
-    robotHeadingLatency.addData(Timer.getFPGATimestamp()-offset, yaw.getValue());
+    robotHeadingLatency.addData(Timer.getFPGATimestamp() - offset, yaw.getValue());
   }
 
   public Rotation2d getRobotHeading() {

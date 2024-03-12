@@ -20,6 +20,7 @@ import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.FlagManager;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.DistanceAngle;
@@ -27,7 +28,6 @@ import frc.robot.vision.VisionState;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristPositions;
 import frc.robot.wrist.WristSubsystem;
-import org.littletonrobotics.junction.Logger;
 
 public class RobotManager extends LifecycleSubsystem {
   public final WristSubsystem wrist;

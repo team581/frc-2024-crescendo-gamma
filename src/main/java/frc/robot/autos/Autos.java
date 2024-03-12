@@ -23,10 +23,10 @@ import frc.robot.config.RobotConfig;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import java.util.Optional;
-import org.littletonrobotics.junction.Logger;
 
 public class Autos extends LifecycleSubsystem {
   private static Command wrapAutoEvent(String commandName, Command command) {

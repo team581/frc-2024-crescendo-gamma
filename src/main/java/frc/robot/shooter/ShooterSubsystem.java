@@ -9,9 +9,9 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.config.RobotConfig;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import org.littletonrobotics.junction.Logger;
 
 public class ShooterSubsystem extends LifecycleSubsystem {
   private static final double SPIN_RATIO = 3.0 / 5.0;

@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import java.util.List;
-import org.littletonrobotics.junction.Logger;
 
 public class AutoClimbManager extends LifecycleSubsystem {
   private final LocalizationSubsystem localization;

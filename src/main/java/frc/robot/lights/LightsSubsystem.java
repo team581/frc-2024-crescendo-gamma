@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.robot.intake.IntakeSubsystem;
 import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
+import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.LimelightHelpers;
 import frc.robot.vision.VisionState;
 import frc.robot.vision.VisionSubsystem;
 import java.util.Optional;
-import org.littletonrobotics.junction.Logger;
 
 public class LightsSubsystem extends LifecycleSubsystem {
   private static final LightsState FLASH_LIGHTS =
