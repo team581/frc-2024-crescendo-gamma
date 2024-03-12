@@ -36,10 +36,10 @@ import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.logging.BulldogLogOptions;
 import frc.robot.util.logging.BulldogLogger;
-import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystemManager;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristSubsystem;
+import org.littletonrobotics.junction.Logger;
 
 public class Robot extends TimedRobot {
   private Command autonomousCommand;

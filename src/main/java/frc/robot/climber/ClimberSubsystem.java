@@ -13,9 +13,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.config.RobotConfig;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.util.HomingState;
-import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import org.littletonrobotics.junction.Logger;
 
 public class ClimberSubsystem extends LifecycleSubsystem {
   private static final ClimberConfig CONFIG = RobotConfig.get().climber();

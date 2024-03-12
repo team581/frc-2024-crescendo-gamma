@@ -2,17 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.util.logging.advantagekit;
+package frc.robot.util.logging;
 
 import edu.wpi.first.hal.HALUtil;
 import edu.wpi.first.util.struct.StructSerializable;
-import frc.robot.util.logging.BulldogLogger;
 
 /**
  * A wrapper around {@link BulldogLogger} that makes it easy to use as a drop-in replacement for
  * AdvantageKit.
  */
-public class Logger {
+public class AdvantageKitCompatibleLogger {
   private static BulldogLogger baseLogger;
 
   public static void setBaseLogger(BulldogLogger newLogger) {
@@ -125,5 +124,5 @@ public class Logger {
     return HALUtil.getFPGATime();
   }
 
-  private Logger() {}
+  protected AdvantageKitCompatibleLogger() {}
 }

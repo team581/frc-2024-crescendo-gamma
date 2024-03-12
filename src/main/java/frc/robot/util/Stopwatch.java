@@ -4,9 +4,9 @@
 
 package frc.robot.util;
 
-import frc.robot.util.logging.advantagekit.Logger;
 import java.util.HashMap;
 import java.util.Map;
+import org.littletonrobotics.junction.Logger;
 
 public class Stopwatch {
   private static Stopwatch instance;

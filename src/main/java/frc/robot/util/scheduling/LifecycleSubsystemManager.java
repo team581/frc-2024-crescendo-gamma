@@ -6,11 +6,11 @@ package frc.robot.util.scheduling;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.util.logging.advantagekit.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import org.littletonrobotics.junction.Logger;
 
 public class LifecycleSubsystemManager {
   private static LifecycleSubsystemManager instance;

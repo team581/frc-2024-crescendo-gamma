@@ -11,9 +11,9 @@ import frc.robot.intake.IntakeSubsystem;
 import frc.robot.queuer.QueuerState;
 import frc.robot.queuer.QueuerSubsystem;
 import frc.robot.util.FlagManager;
-import frc.robot.util.logging.advantagekit.Logger;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import org.littletonrobotics.junction.Logger;
 
 public class NoteManager extends LifecycleSubsystem {
   private final FlagManager<NoteFlag> flags = new FlagManager<>("NoteManager", NoteFlag.class);
