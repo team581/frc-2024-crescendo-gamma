@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -36,12 +37,9 @@ import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystemManager;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristSubsystem;
-import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private final CommandXboxController driverController = new CommandXboxController(0);
   private final CommandXboxController operatorController = new CommandXboxController(1);
@@ -97,13 +95,6 @@ public class Robot extends LoggedRobot {
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
-    // Log to a USB stick
-    Logger.addDataReceiver(new WPILOGWriter());
-    if (RobotConfig.IS_DEVELOPMENT) {
-      // Publish data to NetworkTables
-      Logger.addDataReceiver(new NT4Publisher());
-    }
-
     // Record metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("RoborioSerialNumber", RobotConfig.SERIAL_NUMBER);
@@ -125,7 +116,7 @@ public class Robot extends LoggedRobot {
         break;
     }
 
-    Logger.start();
+    Logger.start(RobotConfig.IS_DEVELOPMENT);
 
     // This must be run before any commands are scheduled
     LifecycleSubsystemManager.getInstance().ready();

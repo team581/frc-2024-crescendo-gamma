@@ -5,6 +5,8 @@
 package frc.robot.autos;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.fms.FmsSubsystem;
@@ -13,17 +15,16 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 public class AutoChooser {
-  private final LoggedDashboardChooser<AutoSelection> chooser =
-      new LoggedDashboardChooser<>("Autos/SelectedAuto");
+  private final SendableChooser<AutoSelection> chooser = new SendableChooser<>();
   private final Set<String> brokenAutoNames = new HashSet<>();
   private AutoSelection previousSelection = AutoSelection.DO_NOTHING;
   private Optional<Command> cachedCommand = Optional.empty();
 
   public AutoChooser() {
-    chooser.addDefaultOption(AutoSelection.DO_NOTHING.toString(), AutoSelection.DO_NOTHING);
+    SmartDashboard.putData("Autos/SelectedAuto", chooser);
+    chooser.setDefaultOption(AutoSelection.DO_NOTHING.toString(), AutoSelection.DO_NOTHING);
 
     for (AutoSelection selection : EnumSet.allOf(AutoSelection.class)) {
       chooser.addOption(selection.toString(), selection);
@@ -73,7 +74,7 @@ public class AutoChooser {
   }
 
   private AutoSelection getAutoSelection() {
-    var selected = Optional.ofNullable(chooser.get());
+    var selected = Optional.ofNullable(chooser.getSelected());
 
     return selected.orElse(AutoSelection.DO_NOTHING);
   }
