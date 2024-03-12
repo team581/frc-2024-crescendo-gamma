@@ -4,7 +4,6 @@
 
 package frc.robot.imu;
 
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
@@ -53,7 +52,7 @@ public class ImuSubsystem extends LifecycleSubsystem {
 
     var yaw = this.imu.getYaw();
     double offset = Utils.getCurrentTimeSeconds() - yaw.getTimestamp().getTime();
-    robotHeadingLatency.addData(Timer.getFPGATimestamp()-offset, yaw.getValue());
+    robotHeadingLatency.addData(Timer.getFPGATimestamp() - offset, yaw.getValue());
   }
 
   public Rotation2d getRobotHeading() {
