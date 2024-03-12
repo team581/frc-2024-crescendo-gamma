@@ -34,7 +34,7 @@ import frc.robot.robot_manager.RobotManager;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
-import frc.robot.util.logging.BulldogLogOptions;
+import frc.robot.util.logging.BulldogLoggerOptions;
 import frc.robot.util.logging.BulldogLogger;
 import frc.robot.util.scheduling.LifecycleSubsystemManager;
 import frc.robot.vision.VisionSubsystem;
@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
     var bulldogLogOptions =
-        new BulldogLogOptions()
+        new BulldogLoggerOptions()
             .withCaptureNt(RobotConfig.IS_DEVELOPMENT)
             .withNtPublish(RobotConfig.IS_DEVELOPMENT);
     Logger.setBaseLogger(BulldogLogger.getInstance(bulldogLogOptions));

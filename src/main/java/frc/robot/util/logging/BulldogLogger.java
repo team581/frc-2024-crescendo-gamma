@@ -54,13 +54,13 @@ public class BulldogLogger {
 
   public static synchronized BulldogLogger getInstance(DataLog log) {
     if (instance == null) {
-      instance = new BulldogLogger(log, new BulldogLogOptions());
+      instance = new BulldogLogger(log, new BulldogLoggerOptions());
     }
 
     return instance;
   }
 
-  public static synchronized BulldogLogger getInstance(DataLog log, BulldogLogOptions options) {
+  public static synchronized BulldogLogger getInstance(DataLog log, BulldogLoggerOptions options) {
     if (instance == null) {
       instance = new BulldogLogger(log, options);
     }
@@ -68,7 +68,7 @@ public class BulldogLogger {
     return instance;
   }
 
-  public static synchronized BulldogLogger getInstance(BulldogLogOptions options) {
+  public static synchronized BulldogLogger getInstance(BulldogLoggerOptions options) {
     if (instance == null) {
       instance = new BulldogLogger(options);
     }
@@ -78,7 +78,7 @@ public class BulldogLogger {
 
   /** Get an instance of the logger with the default options. */
   public static synchronized BulldogLogger getInstance() {
-    return getInstance(new BulldogLogOptions());
+    return getInstance(new BulldogLoggerOptions());
   }
 
   private static String prefixKey(String key) {
@@ -116,7 +116,7 @@ public class BulldogLogger {
   private final Map<String, StructPublisher<?>> structPublishers = new HashMap<>();
 
   private final DataLog log;
-  private final BulldogLogOptions options;
+  private final BulldogLoggerOptions options;
 
   private final Map<String, Struct<?>> structTypeCache = new HashMap<>();
 
@@ -336,11 +336,11 @@ public class BulldogLogger {
     }
   }
 
-  private BulldogLogger(BulldogLogOptions options) {
+  private BulldogLogger(BulldogLoggerOptions options) {
     this(DataLogManager.getLog(), options);
   }
 
-  private BulldogLogger(DataLog log, BulldogLogOptions options) {
+  private BulldogLogger(DataLog log, BulldogLoggerOptions options) {
     this.log = log;
     this.options = options;
 
