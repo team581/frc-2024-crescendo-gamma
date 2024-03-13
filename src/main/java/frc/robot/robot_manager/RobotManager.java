@@ -199,12 +199,10 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case STOP_SHOOTING:
-          if (!state.climbing) {
-            if (!state.shootingMode
-                || state != RobotState.IDLE_NO_GP
-                || state != RobotState.AMP_SHOT) {
-              state = RobotState.IDLE_WITH_GP;
-            }
+          // TODO: Something is wrong with this, the flag seems to be triggered properly but we
+          // can't cancel shooting without hitting the operator stow button
+          if (!state.climbing && !state.shootingMode) {
+            state = RobotState.IDLE_WITH_GP;
           }
           break;
       }

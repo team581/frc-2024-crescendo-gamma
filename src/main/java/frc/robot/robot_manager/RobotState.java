@@ -52,7 +52,7 @@ public enum RobotState {
   /** Get ready for amp shot, automatically go to AMP_SHOT when ready. */
   PREPARE_AMP_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Actively scoring in the amp. */
-  AMP_SHOT(true, false, false, new LightsState(null, BlinkPattern.BLINK_FAST)),
+  AMP_SHOT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Hooks move to top of the robot so we can start to grab the chain. */
   CLIMB_1_LINEUP_OUTER(true, true, false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
@@ -78,10 +78,6 @@ public enum RobotState {
   public final boolean climbing;
   public final boolean shootingMode;
   public final LightsState lightsState;
-
-  RobotState(boolean hasNote, boolean shootingMode, LightsState lights) {
-    this(hasNote, false, shootingMode, lights);
-  }
 
   RobotState(boolean hasNote, boolean climbing, boolean shootingMode, LightsState lights) {
     this.hasNote = hasNote;
