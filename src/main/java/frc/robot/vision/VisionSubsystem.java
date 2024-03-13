@@ -424,6 +424,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
+    Logger.recordOutput("Vision/State", getState());
     if (storedResults.isPresent()) {
       var data = storedResults.get();
       Logger.recordOutput("Vision/Latency", data.latency());
