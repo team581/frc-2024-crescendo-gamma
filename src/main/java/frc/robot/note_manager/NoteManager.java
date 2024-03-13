@@ -82,7 +82,8 @@ public class NoteManager extends LifecycleSubsystem {
           break;
         case INTAKE:
           if (state == NoteState.INTAKE_TO_QUEUER) {
-            // A note is already in the intake and being passed to the queuer, so we should ignore the request
+            // A note is already in the intake and being passed to the queuer, so we should ignore
+            // the request
           } else {
             state = NoteState.GROUND_NOTE_TO_INTAKE;
           }
