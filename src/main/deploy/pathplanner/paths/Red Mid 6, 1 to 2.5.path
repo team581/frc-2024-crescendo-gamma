@@ -3,39 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.131622047244093,
-        "y": 0.7412994665989332
+        "x": 13.853326673218694,
+        "y": 4.092172074921658
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.764666497332993,
-        "y": 0.8329870459740922
+        "x": 13.840850538843934,
+        "y": 5.370975848334676
       },
       "isLocked": false,
-      "linkedName": "Blue 8"
+      "linkedName": "Red M 6, 1"
     },
     {
       "anchor": {
-        "x": 2.79,
-        "y": 2.54
+        "x": 14.45218112320723,
+        "y": 6.587398949873887
       },
       "prevControl": {
-        "x": 3.254954025908053,
-        "y": 2.010192532385065
+        "x": 13.872037908907659,
+        "y": 6.013499766761298
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue LWS"
+      "linkedName": "Red M 6, 2.5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.2,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.6,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -57,11 +63,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 130.85,
+    "rotation": -29.860000000000014,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Comp Blue 4 Piece Source 8-6",
-  "previewStartingState": null,
+  "folder": "Dev Red Mid 6 Piece ",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

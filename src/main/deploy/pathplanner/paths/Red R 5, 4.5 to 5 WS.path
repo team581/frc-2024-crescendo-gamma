@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.131622047244093,
-        "y": 0.7412994665989332
+        "x": 9.280823424868734,
+        "y": 6.119543910820345
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.764666497332993,
-        "y": 0.8329870459740922
+        "x": 9.511631910801814,
+        "y": 6.156972313944628
       },
       "isLocked": false,
-      "linkedName": "Blue 8"
+      "linkedName": "Red R 5, 4.5"
     },
     {
       "anchor": {
-        "x": 2.79,
-        "y": 2.54
+        "x": 10.65319820609246,
+        "y": 6.356590463940806
       },
       "prevControl": {
-        "x": 3.254954025908053,
-        "y": 2.010192532385065
+        "x": 10.353770981098192,
+        "y": 6.325400128003904
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue LWS"
+      "linkedName": "Red R 5, 5 WS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.6,
+      "name": "Warmup",
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 130.85,
+    "rotation": -7.873938131725623,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Comp Blue 4 Piece Source 8-6",
-  "previewStartingState": null,
+  "folder": "Dev Red Right 5 Piece",
+  "previewStartingState": {
+    "rotation": 26.57,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }
