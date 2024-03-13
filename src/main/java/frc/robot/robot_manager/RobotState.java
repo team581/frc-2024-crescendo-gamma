@@ -57,48 +57,45 @@ public enum RobotState {
   AMP_SHOT(true, false, false, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Hooks move to top of the robot so we can start to grab the chain. */
-  CLIMB_1_LINEUP_OUTER(true, true, false, false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
+  CLIMB_1_LINEUP_OUTER(true, true,false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
 
   /** Climber moves down a little, so you can fully grab the chain. */
   CLIMB_2_LINEUP_INNER(
-      true, true, false, false, new LightsState(Color.kOrangeRed, BlinkPattern.SOLID)),
+      true, true, false, new LightsState(Color.kOrangeRed, BlinkPattern.SOLID)),
 
   /** Elevator goes up and we do final alignment before climbing. */
   CLIMB_3_LINEUP_FINAL(
-      true, true, false, false, new LightsState(Color.kYellow, BlinkPattern.SOLID)),
+      true, true,false, new LightsState(Color.kYellow, BlinkPattern.SOLID)),
 
   PREPARE_CLIMB_4_HANGING(
-      true, true, false, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
+      true, true,false, new LightsState(Color.kGreen, BlinkPattern.BLINK_SLOW)),
   /** Hooks go all the way down, we are fully hanging. */
-  CLIMB_4_HANGING(true, true, false, false, new LightsState(Color.kGreen, BlinkPattern.SOLID)),
+  CLIMB_4_HANGING(true, true,false, new LightsState(Color.kGreen, BlinkPattern.SOLID)),
 
   PREPARE_CLIMB_5_HANGING_TRAP_SCORE(
-      true, true, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
+      true, true,false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
   CLIMB_5_HANGING_TRAP_SCORE(
-      true, true, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_FAST)),
+      true, true,false, new LightsState(Color.kBlue, BlinkPattern.BLINK_FAST)),
   CLIMB_6_HANGING_FINISHED(
-      false, true, false, false, new LightsState(Color.kIndigo, BlinkPattern.SOLID));
+      false, true,false, new LightsState(Color.kIndigo, BlinkPattern.SOLID));
 
   public final boolean hasNote;
   public final boolean climbing;
   public final boolean shootingMode;
-  public final boolean prepareShootingMode;
   public final LightsState lightsState;
 
   RobotState(
-      boolean hasNote, boolean prepareShootingMode, boolean shootingMode, LightsState lights) {
-    this(hasNote, false, prepareShootingMode, shootingMode, lights);
+      boolean hasNote, boolean shootingMode, LightsState lights) {
+    this(hasNote, false, shootingMode, lights);
   }
 
   RobotState(
       boolean hasNote,
       boolean climbing,
-      boolean prepareShootingMode,
       boolean shootingMode,
       LightsState lights) {
     this.hasNote = hasNote;
     this.climbing = climbing;
-    this.prepareShootingMode = prepareShootingMode;
     this.shootingMode = shootingMode;
     this.lightsState = lights;
   }
