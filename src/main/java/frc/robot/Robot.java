@@ -91,6 +91,7 @@ public class Robot extends LoggedRobot {
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
   private final AutoClimbManager autoClimbManager = new AutoClimbManager(localization, swerve);
+
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
