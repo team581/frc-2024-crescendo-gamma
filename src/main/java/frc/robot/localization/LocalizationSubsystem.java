@@ -68,7 +68,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    vectorAcceleration =
+vectorAcceleration =
         Math.sqrt(Math.pow(imu.getXAcceleration(), 2) + Math.pow(imu.getYAcceleration(), 2));
     SwerveModulePosition[] modulePositions =
         swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
@@ -129,7 +129,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   public Pose2d getSavedExpectedPose(boolean reloadLoops) {
     if (USE_SHOOT_WHILE_MOVE) {
       if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
-          && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())) {
+          && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())
+          || changedDirection()) {
         savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
         loops = reloadLoops ? 0 : loops;
       }
@@ -199,7 +200,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
             new Translation2d(xDifference + getPose().getX(), yDifference + getPose().getY()),
             thetaDifference.plus(imu.getRobotHeading()));
     boolean movingSlowEnough = false;
-    vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
+    double vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
 
     if (vector < 0.05) {
       movingSlowEnough = true;
