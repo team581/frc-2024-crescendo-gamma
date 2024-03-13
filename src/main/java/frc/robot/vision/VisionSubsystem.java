@@ -6,6 +6,7 @@ package frc.robot.vision;
 
 import com.jsoniter.JsonIterator;
 import com.jsoniter.any.Any;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -451,4 +452,5 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     return VisionState.ONLINE_NO_TAGS;
   }
+
 }
