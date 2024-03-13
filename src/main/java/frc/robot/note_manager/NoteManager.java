@@ -81,7 +81,11 @@ public class NoteManager extends LifecycleSubsystem {
           state = NoteState.IDLE_NO_GP;
           break;
         case INTAKE:
-          state = NoteState.INTAKE_TO_QUEUER;
+          if (state == NoteState.INTAKE_TO_QUEUER) {
+            // A note is already in the intake and being passed to the queuer, so we should ignore the request
+          } else {
+            state = NoteState.GROUND_NOTE_TO_INTAKE;
+          }
           break;
         case OUTTAKE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
@@ -131,6 +135,11 @@ public class NoteManager extends LifecycleSubsystem {
       case INTAKE_TO_QUEUER:
         if (intake.hasNote()) {
           state = NoteState.IDLE_IN_QUEUER;
+        }
+        break;
+      case GROUND_NOTE_TO_INTAKE:
+        if (queuer.hasNote()) {
+          state = NoteState.INTAKE_TO_QUEUER;
         }
         break;
       case INTAKE_TO_CONVEYOR:
@@ -184,11 +193,12 @@ public class NoteManager extends LifecycleSubsystem {
         queuer.setState(QueuerState.IDLE);
         break;
       case IDLE_IN_QUEUER:
-        intake.setState(IntakeState.TO_QUEUER_SLOW);
+        intake.setState(IntakeState.IDLE);
         conveyor.setState(ConveyorState.IDLE);
         queuer.setState(QueuerState.INTAKING);
         break;
       case INTAKE_TO_QUEUER:
+      case GROUND_NOTE_TO_INTAKE:
         intake.setState(IntakeState.TO_QUEUER);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
@@ -291,9 +301,5 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void evilStateOverride(NoteState newState) {
     state = newState;
-  }
-
-  public void idleNoGpOrFinishIntakeRequest() {
-    flags.check(NoteFlag.IDLE_NO_GP_OR_FINISH_INTAKE);
   }
 }

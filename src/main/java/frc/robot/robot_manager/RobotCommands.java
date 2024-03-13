@@ -36,6 +36,15 @@ public class RobotCommands {
         .withName("StowCommand");
   }
 
+  public Command stopIntakingCommand() {
+    return Commands.runOnce(() -> robot.stopIntakingRequest(), requirements)
+        .andThen(
+            Commands.race(
+                robot.waitForStateCommand(RobotState.IDLE_NO_GP),
+                robot.waitForStateCommand(RobotState.IDLE_WITH_GP)))
+        .withName("StopIntakingCommand");
+  }
+
   public Command intakeCommand() {
     return Commands.runOnce(() -> robot.intakeRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP))

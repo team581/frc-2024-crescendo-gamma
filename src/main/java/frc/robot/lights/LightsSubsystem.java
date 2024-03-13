@@ -80,7 +80,7 @@ public class LightsSubsystem extends LifecycleSubsystem {
     } else {
       switch (previousState) {
         case INTAKING:
-          if (robotState == RobotState.IDLE_WITH_GP) {
+          if (robotState == RobotState.FINISH_INTAKING) {
             lightsOnExit = Optional.of(FLASH_LIGHTS);
           }
           break;

@@ -113,6 +113,15 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.INTAKING;
           }
           break;
+        case STOP_INTAKING:
+          if (!state.climbing) {
+            if (state == RobotState.FINISH_INTAKING) {
+              // Ignore the request, we should finish intaking the note fully
+            } else {
+              state = RobotState.IDLE_NO_GP;
+            }
+          }
+          break;
         case CLIMB_1_LINEUP_OUTER:
           state = RobotState.CLIMB_1_LINEUP_OUTER;
           break;
@@ -233,6 +242,11 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case INTAKING:
+        if (noteManager.getState() == NoteState.INTAKE_TO_QUEUER) {
+          state = RobotState.FINISH_INTAKING;
+        }
+        break;
+      case FINISH_INTAKING:
         if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
           state = RobotState.IDLE_WITH_GP;
         }
@@ -344,6 +358,7 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
         break;
+      case FINISH_INTAKING:
       case INTAKING:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
@@ -579,6 +594,10 @@ public class RobotManager extends LifecycleSubsystem {
     } else {
       speakerShotRequest();
     }
+  }
+
+  public void stopIntakingRequest() {
+    flags.check(RobotFlag.STOP_INTAKING);
   }
 
   public void climb1LineupOutterRequest() {
