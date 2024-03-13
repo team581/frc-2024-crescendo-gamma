@@ -127,12 +127,14 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   }
 
   public Pose2d getSavedExpectedPose(boolean reloadLoops) {
-    if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
-            && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())
-        // || changedDirection()
-        ) {
-      savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
-      loops = reloadLoops ? 0 : loops;
+    if (USE_SHOOT_WHILE_MOVE) {
+      if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
+          && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())) {
+        savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
+        loops = reloadLoops ? 0 : loops;
+      }
+    } else {
+      savedExpected = getPose();
     }
     return savedExpected;
   }
