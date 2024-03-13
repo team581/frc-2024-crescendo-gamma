@@ -89,6 +89,7 @@ public class Robot extends LoggedRobot {
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
+
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
@@ -196,10 +197,7 @@ public class Robot extends LoggedRobot {
     driverController.b().onTrue(snaps.getCommand(() -> SnapManager.getStageRightAngle()));
     driverController.a().onTrue(snaps.getCommand(() -> SnapManager.getAmpAngle()));
 
-    driverController
-        .leftTrigger()
-        .onTrue(actions.intakeCommand())
-        .onFalse(actions.stowCommand());
+    driverController.leftTrigger().onTrue(actions.intakeCommand()).onFalse(actions.stowCommand());
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())

@@ -1,3 +1,7 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot.note_tracking;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -11,7 +15,7 @@ import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 
-public class NoteTracking extends LifecycleSubsystem{
+public class NoteTracking extends LifecycleSubsystem {
   private final LocalizationSubsystem localization;
   private final SwerveSubsystem swerve;
 
@@ -44,7 +48,8 @@ public class NoteTracking extends LifecycleSubsystem{
   }
 
   public Transform2d noteTransform() {
-    return new Transform2d(forwardDistanceToNote(), sidewaysDistanceToNote(), Rotation2d.fromDegrees(180));
+    return new Transform2d(
+        forwardDistanceToNote(), sidewaysDistanceToNote(), Rotation2d.fromDegrees(180));
   }
 
   public Pose2d notePose(Pose2d robotPose) {
@@ -52,7 +57,6 @@ public class NoteTracking extends LifecycleSubsystem{
   }
 
   public Command driveToNotePose() {
-    return swerve
-        .driveToPoseCommand(() -> notePose(robotPose), localization::getPose);
+    return swerve.driveToPoseCommand(() -> notePose(robotPose), localization::getPose);
   }
 }
