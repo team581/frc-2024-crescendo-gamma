@@ -39,7 +39,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   private double lastAddedVisionTimestamp = 0;
   private int loops = 0;
   private double vector = 0;
-  private double vectorAcceleration = 0;
 
   private final TimedDataBuffer xHistory =
       new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
@@ -68,8 +67,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    vectorAcceleration =
-        Math.sqrt(Math.pow(imu.getXAcceleration(), 2) + Math.pow(imu.getYAcceleration(), 2));
     SwerveModulePosition[] modulePositions =
         swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
     odometry.update(imu.getRobotHeading(), modulePositions);
@@ -127,12 +124,15 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   }
 
   public Pose2d getSavedExpectedPose(boolean reloadLoops) {
-    if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
-        && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())
-    // || changedDirection()
-    ) {
-      savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
-      loops = reloadLoops ? 0 : loops;
+    if (USE_SHOOT_WHILE_MOVE) {
+      if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
+              && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())
+          || changedDirection()) {
+        savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
+        loops = reloadLoops ? 0 : loops;
+      }
+    } else {
+      savedExpected = getPose();
     }
     return savedExpected;
   }
@@ -182,7 +182,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   public Pose2d getExpectedPose(double lookAhead, boolean shootWhileMove) {
     var velocities = swerve.getRobotRelativeSpeeds();
-    var angularVelocity = imu.getRobotAngularVelocity();
+    var angularVelocity = Rotation2d.fromDegrees(imu.getRobotAngularVelocity().getDegrees() * 1.00);
 
     var xDifference =
         imu.getXAcceleration() * Math.pow(lookAhead, 2) / 2
