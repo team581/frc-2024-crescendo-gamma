@@ -42,12 +42,6 @@ public class RobotCommands {
         .withName("IntakeCommand");
   }
 
-  public Command intakeSlowCommand() {
-    return Commands.runOnce(() -> robot.intakeSlowRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP))
-        .withName("IntakeSlowCommand");
-  }
-
   public Command outtakeCommand() {
     return Commands.runOnce(() -> robot.outtakeRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))

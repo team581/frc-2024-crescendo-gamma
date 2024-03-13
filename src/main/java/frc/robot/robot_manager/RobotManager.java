@@ -113,11 +113,6 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.INTAKING;
           }
           break;
-        case INTAKE_SLOW:
-          if (!state.climbing && state != RobotState.IDLE_WITH_GP) {
-            state = RobotState.INTAKING_SLOW;
-          }
-          break;
         case CLIMB_1_LINEUP_OUTER:
           state = RobotState.CLIMB_1_LINEUP_OUTER;
           break;
@@ -240,7 +235,6 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case INTAKING:
-      case INTAKING_SLOW:
         if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
           state = RobotState.IDLE_WITH_GP;
         }
@@ -359,13 +353,6 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeRequest();
         break;
-      case INTAKING_SLOW:
-        wrist.setAngle(wristAngleForSpeaker);
-        elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
-        break;
       case OUTTAKING:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
@@ -386,7 +373,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -407,7 +394,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         break;
       case SUBWOOFER_SHOOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
@@ -422,7 +409,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -562,10 +549,6 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void intakeRequest() {
     flags.check(RobotFlag.INTAKE);
-  }
-
-  public void intakeSlowRequest() {
-    flags.check(RobotFlag.INTAKE_SLOW);
   }
 
   public void outtakeRequest() {

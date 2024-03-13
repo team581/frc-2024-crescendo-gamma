@@ -199,7 +199,7 @@ public class Robot extends LoggedRobot {
     driverController
         .leftTrigger()
         .onTrue(actions.intakeCommand())
-        .onFalse(actions.intakeSlowCommand());
+        .onFalse(actions.stowCommand());
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
