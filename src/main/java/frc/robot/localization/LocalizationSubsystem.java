@@ -96,7 +96,9 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     xHistory.addData(timestamp, getPose().getX());
     yHistory.addData(timestamp, getPose().getY());
 
-    vision.setRobotPose(getSavedExpectedPose(true));
+    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE));
+    // TODO: Broken, makes the robot spin in circles slowly when shooting
+    // vision.setRobotPose(getSavedExpectedPose(true));
     loops++;
   }
 
