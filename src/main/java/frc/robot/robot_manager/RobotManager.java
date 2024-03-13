@@ -5,6 +5,7 @@
 package frc.robot.robot_manager;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.climber.ClimberMode;
@@ -40,7 +41,6 @@ public class RobotManager extends LifecycleSubsystem {
   public final SnapManager snaps;
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
-  public boolean isAuto = true;
 
   private RobotState state = RobotState.IDLE_NO_GP;
 
@@ -68,16 +68,6 @@ public class RobotManager extends LifecycleSubsystem {
     this.snaps = snaps;
     this.imu = imu;
     this.noteManager = noteManager;
-  }
-
-  @Override
-  public void autonomousInit() {
-    isAuto = true;
-  }
-
-  @Override
-  public void teleopInit() {
-    isAuto = false;
   }
 
   @Override
@@ -286,8 +276,9 @@ public class RobotManager extends LifecycleSubsystem {
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
-          boolean limeLightWorking = vision.getState() == VisionState.SEES_TAGS;
+          boolean limeLightWorking = vision.getState() != VisionState.OFFLINE;
 
+          Logger.recordOutput("RobotManager/SpeakerShot/LimelightWorking", limeLightWorking);
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/ShooterAtGoal", shooterAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/PoseJitterSafe", poseJitterSafe);
@@ -295,23 +286,14 @@ public class RobotManager extends LifecycleSubsystem {
           Logger.recordOutput(
               "RobotManager/SpeakerShot/AngularVelocitySlowEnough", angularVelocitySlowEnough);
           Logger.recordOutput("RobotManager/SpeakerShot/RobotHeadingAtGoal", robotHeadingAtGoal);
-          if (limeLightWorking) {
-            if (wristAtGoal
-                && shooterAtGoal
-                && poseJitterSafe
-                && swerveSlowEnough
-                && angularVelocitySlowEnough
-                && robotHeadingAtGoal) {
-              state = RobotState.SPEAKER_SHOOT;
-            }
-          } else if (isAuto
+          if (limeLightWorking
               && wristAtGoal
               && shooterAtGoal
+              && (poseJitterSafe || DriverStation.isAutonomous())
               && swerveSlowEnough
-              && angularVelocitySlowEnough) {
+              && angularVelocitySlowEnough
+              && robotHeadingAtGoal) {
             state = RobotState.SPEAKER_SHOOT;
-          } else {
-            state = RobotState.IDLE_NO_GP;
           }
         }
         break;
