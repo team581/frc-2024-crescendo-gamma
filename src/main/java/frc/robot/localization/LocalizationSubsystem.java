@@ -39,7 +39,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   private double lastAddedVisionTimestamp = 0;
   private int loops = 0;
   private double vector = 0;
-  private double vectorAcceleration = 0;
 
   private final TimedDataBuffer xHistory =
       new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
@@ -68,8 +67,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-vectorAcceleration =
-        Math.sqrt(Math.pow(imu.getXAcceleration(), 2) + Math.pow(imu.getYAcceleration(), 2));
     SwerveModulePosition[] modulePositions =
         swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
     odometry.update(imu.getRobotHeading(), modulePositions);
@@ -200,7 +197,7 @@ vectorAcceleration =
             new Translation2d(xDifference + getPose().getX(), yDifference + getPose().getY()),
             thetaDifference.plus(imu.getRobotHeading()));
     boolean movingSlowEnough = false;
-    double vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
+    vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
 
     if (vector < 0.05) {
       movingSlowEnough = true;
