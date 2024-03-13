@@ -52,9 +52,9 @@ public class IntakeSubsystem extends LifecycleSubsystem {
         break;
       case TO_QUEUER_SLOW:
         if (sensorHasNote()) {
-          motor.setVoltage(5);
+          motor.setVoltage(12);
         } else {
-          motor.disable();
+          motor.setVoltage(5);
         }
         break;
       case TO_CONVEYOR:
