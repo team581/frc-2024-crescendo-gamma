@@ -33,9 +33,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
     limelightTimer.start();
   }
 
-  private static final double horizontalFOV = 80.477;
+  private static final double FOV_HORIZONTAL = 80.477;
   private static final double horizontalLeftView = 39.657;
-  private static final double verticalFOV = 55.296;
+  private static final double FOV_VERTICAL = 55.296;
   private static final double veritalTopView = 27.878;
   private static final double CAMERA_ANGLE = 13.0;
 
@@ -145,8 +145,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     double angleX = 0.0;
     double angleY = 0.0;
 
-    angleX = -1 * (((pixelX / 1280.0) * horizontalFOV) - horizontalLeftView);
-    angleY = -1 * (((pixelY / 800.0) * verticalFOV) - veritalTopView);
+    angleX = -1 * (((pixelX / 1280.0) * FOV_HORIZONTAL) - horizontalLeftView);
+    angleY = -1 * (((pixelY / 800.0) * FOV_VERTICAL) - veritalTopView);
     double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
     double horizontalDistanceSpeakerToCamera =
         verticalDistance

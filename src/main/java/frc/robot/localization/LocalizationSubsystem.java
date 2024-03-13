@@ -38,10 +38,14 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   private Pose2d savedExpected = new Pose2d();
   private double lastAddedVisionTimestamp = 0;
   private int loops = 0;
+  private double vector = 0;
+  private double vectorAcceleration = 0;
 
   private final TimedDataBuffer xHistory =
       new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
   private final TimedDataBuffer yHistory =
+      new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
+  private final TimedDataBuffer distanceToSavedHistory =
       new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
 
   public LocalizationSubsystem(SwerveSubsystem swerve, ImuSubsystem imu, VisionSubsystem vision) {
@@ -64,6 +68,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    vectorAcceleration =
+        Math.sqrt(Math.pow(imu.getXAcceleration(), 2) + Math.pow(imu.getYAcceleration(), 2));
     SwerveModulePosition[] modulePositions =
         swerve.getModulePositions().toArray(new SwerveModulePosition[4]);
     odometry.update(imu.getRobotHeading(), modulePositions);
@@ -89,12 +95,18 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
     Logger.recordOutput("Localization/SavedExpectedPose", getSavedExpectedPose(false));
     Logger.recordOutput("Localization/EstimatedPose", getPose());
+    Logger.recordOutput("Localization/ChangedDirection", changedDirection());
     Logger.recordOutput(
         "Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
     Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
 
     xHistory.addData(timestamp, getPose().getX());
     yHistory.addData(timestamp, getPose().getY());
+    distanceToSavedHistory.addData(
+        timestamp,
+        Math.sqrt(
+            Math.pow(getPose().getX() - getSavedExpectedPose(false).getX(), 2)
+                + Math.pow(getPose().getY() - getSavedExpectedPose(false).getY(), 2)));
 
     vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE));
     // TODO: Broken, makes the robot spin in circles slowly when shooting
@@ -116,7 +128,9 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   public Pose2d getSavedExpectedPose(boolean reloadLoops) {
     if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
-        && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())) {
+            && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())
+        // || changedDirection()
+        ) {
       savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
       loops = reloadLoops ? 0 : loops;
     }
@@ -158,6 +172,14 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
         () -> resetGyro(Rotation2d.fromDegrees(FmsSubsystem.isRedAlliance() ? 0 : 180)));
   }
 
+  public boolean changedDirection() {
+    var hist = distanceToSavedHistory;
+    if (hist.lookupData(0) - hist.lookupData(1) > 0.1) {
+      return true;
+    }
+    return false;
+  }
+
   public Pose2d getExpectedPose(double lookAhead, boolean shootWhileMove) {
     var velocities = swerve.getRobotRelativeSpeeds();
     var angularVelocity = imu.getRobotAngularVelocity();
@@ -175,7 +197,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
             new Translation2d(xDifference + getPose().getX(), yDifference + getPose().getY()),
             thetaDifference.plus(imu.getRobotHeading()));
     boolean movingSlowEnough = false;
-    double vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
+    vector = Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2));
 
     if (vector < 0.05) {
       movingSlowEnough = true;
