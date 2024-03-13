@@ -185,7 +185,7 @@ vectorAcceleration =
 
   public Pose2d getExpectedPose(double lookAhead, boolean shootWhileMove) {
     var velocities = swerve.getRobotRelativeSpeeds();
-    var angularVelocity = imu.getRobotAngularVelocity();
+    var angularVelocity = Rotation2d.fromDegrees(imu.getRobotAngularVelocity().getDegrees() * 1.00);
 
     var xDifference =
         imu.getXAcceleration() * Math.pow(lookAhead, 2) / 2
