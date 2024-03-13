@@ -35,7 +35,9 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   private final SwerveDrivePoseEstimator poseEstimator;
   private final SwerveDriveOdometry odometry;
   private final VisionSubsystem vision;
+  private Pose2d savedExpected = new Pose2d();
   private double lastAddedVisionTimestamp = 0;
+  private int loops = 0;
 
   private final TimedDataBuffer xHistory =
       new TimedDataBuffer(RobotConfig.get().vision().translationHistoryArraySize());
@@ -85,6 +87,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     }
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
+    Logger.recordOutput("Localization/SavedExpectedPose", getSavedExpectedPose(false));
     Logger.recordOutput("Localization/EstimatedPose", getPose());
     Logger.recordOutput(
         "Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
@@ -93,7 +96,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     xHistory.addData(timestamp, getPose().getX());
     yHistory.addData(timestamp, getPose().getY());
 
-    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE));
+    vision.setRobotPose(getSavedExpectedPose(true));
+    loops++;
   }
 
   public Pose2d getPose() {
@@ -106,6 +110,27 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   public void resetPose(Pose2d pose) {
     resetPose(pose, pose);
+  }
+
+  public Pose2d getSavedExpectedPose(boolean reloadLoops) {
+    if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
+        && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())) {
+      savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
+      loops = reloadLoops ? 0 : loops;
+    }
+    return savedExpected;
+  }
+
+  public boolean matchesPosition(Translation2d posOne, Translation2d posTwo) {
+    boolean xMatches = false;
+    boolean yMatches = false;
+    if (0.1 > posOne.getX() - posTwo.getX()) {
+      xMatches = true;
+    }
+    if (0.1 > posOne.getX() - posTwo.getX()) {
+      yMatches = true;
+    }
+    return xMatches && yMatches;
   }
 
   public void resetPose(Pose2d estimatedPose, Pose2d odometryPose) {

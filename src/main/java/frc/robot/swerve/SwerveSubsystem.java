@@ -367,7 +367,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     return run(() -> {
           var target = targetSupplier.get();
           var pose = currentPose.get();
-          Logger.recordOutput("AutoClimb/Pose", pose);
           double vx = xPid.calculate(pose.getX(), target.getX());
           double vy = yPid.calculate(pose.getY(), target.getY());
           double vomega =
@@ -377,14 +376,12 @@ public class SwerveSubsystem extends LifecycleSubsystem {
                   target.getRotation().getRadians());
 
           var newSpeeds = new ChassisSpeeds(vx, vy, vomega);
-          Logger.recordOutput("AutoClimb/ChassisSpeeds", newSpeeds);
           setFieldRelativeSpeeds(newSpeeds, true);
         })
         .until(
             () -> {
               var target = targetSupplier.get();
 
-              Logger.recordOutput("AutoClimb/AtLocation", atLocation(target, currentPose.get()));
               return atLocation(target, currentPose.get());
             });
   }
