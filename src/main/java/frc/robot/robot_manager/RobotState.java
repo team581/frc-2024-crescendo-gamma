@@ -4,6 +4,7 @@
 
 package frc.robot.robot_manager;
 
+import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.lights.BlinkPattern;
 import frc.robot.lights.LightsState;
@@ -19,6 +20,8 @@ public enum RobotState {
 
   /** Intaking a game piece. Transition to INTAKE_TO_QUEUER when done. */
   INTAKING(false, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
+  FINISH_INTAKING(true, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
+
 
   /** Outtaking via the shooter. Game piece should be in queuer at start. */
   OUTTAKING_SHOOTER(true, false, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
