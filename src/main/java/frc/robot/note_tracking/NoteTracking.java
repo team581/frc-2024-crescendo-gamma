@@ -26,6 +26,8 @@ public class NoteTracking extends LifecycleSubsystem {
 
     this.localization = localization;
     this.swerve = swerve;
+
+    distanceToNote.put(0.0, 0.0);
   }
 
   private Pose2d robotPose = new Pose2d();
