@@ -5,7 +5,6 @@
 package frc.robot.climber;
 
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.LinearFilter;
@@ -21,7 +20,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
   private static final ClimberConfig CONFIG = RobotConfig.get().climber();
   private final TalonFX leftMotor;
   private final TalonFX rightMotor;
-  private StrictFollower followRequest;
   private LinearFilter currentFilter = LinearFilter.movingAverage(CONFIG.currentTaps());
   private double goalDistance = 0.0;
   private PositionVoltage positionRequest = new PositionVoltage(goalDistance);
@@ -37,8 +35,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
 
     leftMotor.getConfigurator().apply(CONFIG.leftMotorConfig());
     rightMotor.getConfigurator().apply(CONFIG.rightMotorConfig());
-
-    followRequest = new StrictFollower(leftMotor.getDeviceID());
   }
 
   @Override
@@ -55,7 +51,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         break;
       case MID_MATCH_HOMING:
         leftMotor.setVoltage(CONFIG.homingVoltage());
-        rightMotor.setControl(followRequest);
+        rightMotor.setVoltage(CONFIG.homingVoltage());
         if (filteredCurrent > CONFIG.homingCurrentThreshold()) {
           leftMotor.setPosition(
               inchesToRotations(RobotConfig.get().climber().minDistance()).getRotations());
@@ -67,7 +63,8 @@ public class ClimberSubsystem extends LifecycleSubsystem {
       case HOMED:
         leftMotor.setControl(
             positionRequest.withPosition(inchesToRotations(clamp(goalDistance)).getRotations()));
-        rightMotor.setControl(followRequest);
+        rightMotor.setControl(
+            positionRequest.withPosition(inchesToRotations(clamp(goalDistance)).getRotations()));
         break;
       case PRE_MATCH_HOMING:
         throw new IllegalStateException("Climber can't do pre match homing");
