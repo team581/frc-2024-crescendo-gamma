@@ -105,9 +105,9 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
             Math.pow(getPose().getX() - getSavedExpectedPose(false).getX(), 2)
                 + Math.pow(getPose().getY() - getSavedExpectedPose(false).getY(), 2)));
 
-    vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE));
+    // vision.setRobotPose(getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE));
     // TODO: Broken, makes the robot spin in circles slowly when shooting
-    // vision.setRobotPose(getSavedExpectedPose(true));
+    vision.setRobotPose(getSavedExpectedPose(true));
     loops++;
   }
 
@@ -125,11 +125,14 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
 
   public Pose2d getSavedExpectedPose(boolean reloadLoops) {
     if (USE_SHOOT_WHILE_MOVE) {
-      if ((loops >= (int) (SHOOT_WHILE_MOVE_LOOKAHEAD * 50))
-              && !matchesPosition(savedExpected.getTranslation(), getPose().getTranslation())
-          || changedDirection()) {
+      if ((loops >= SHOOT_WHILE_MOVE_LOOKAHEAD * 50.0)
+          && !atPose(getPose().getTranslation(), savedExpected.getTranslation())
+      // || changedDirection()
+      ) {
         savedExpected = getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, USE_SHOOT_WHILE_MOVE);
-        loops = reloadLoops ? 0 : loops;
+        if (reloadLoops) {
+          loops = 0;
+        }
       }
     } else {
       savedExpected = getPose();
@@ -137,16 +140,8 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     return savedExpected;
   }
 
-  public boolean matchesPosition(Translation2d posOne, Translation2d posTwo) {
-    boolean xMatches = false;
-    boolean yMatches = false;
-    if (0.1 > posOne.getX() - posTwo.getX()) {
-      xMatches = true;
-    }
-    if (0.1 > posOne.getX() - posTwo.getX()) {
-      yMatches = true;
-    }
-    return xMatches && yMatches;
+  private static boolean atPose(Translation2d poseOne, Translation2d poseTwo) {
+    return poseOne.getDistance(poseTwo) < 0.1;
   }
 
   public void resetPose(Pose2d estimatedPose, Pose2d odometryPose) {
