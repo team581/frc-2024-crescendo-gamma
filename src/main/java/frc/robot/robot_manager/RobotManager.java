@@ -162,6 +162,11 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.WAITING_SUBWOOFER_SHOT;
           }
           break;
+        case WAIT_PODIUM_SHOT:
+          if (!state.climbing) {
+            state = RobotState.WAITING_PODIUM_SHOT;
+          }
+          break;
         case OUTTAKE:
           if (!state.climbing) {
             state = RobotState.OUTTAKING;
@@ -190,6 +195,11 @@ public class RobotManager extends LifecycleSubsystem {
         case SUBWOOFER_SHOT:
           if (!state.climbing) {
             state = RobotState.PREPARE_SUBWOOFER_SHOT;
+          }
+          break;
+        case PODIUM_SHOT:
+          if (!state.climbing) {
+            state = RobotState.PREPARE_PODIUM_SHOT;
           }
           break;
         case PRELOAD_NOTE:
@@ -227,6 +237,7 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_AMP_SHOT:
       case WAITING_FLOOR_SHOT:
       case WAITING_SUBWOOFER_SHOT:
+      case WAITING_PODIUM_SHOT:
       case OUTTAKING:
         // Do nothing
         break;
@@ -259,6 +270,13 @@ public class RobotManager extends LifecycleSubsystem {
             && swerve.movingSlowEnoughForSpeakerShot()
             && Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 2.5) {
           state = RobotState.FLOOR_SHOOT;
+        }
+        break;
+      case PREPARE_PODIUM_SHOT:
+        if (wrist.atAngle(WristPositions.PODIUM_SHOT)
+            && shooter.atGoal(ShooterMode.PODIUM_SHOT)
+            && noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
+          state = RobotState.PODIUM_SHOOT;
         }
         break;
       case PREPARE_SUBWOOFER_SHOT:
@@ -306,6 +324,7 @@ public class RobotManager extends LifecycleSubsystem {
       case OUTTAKING_SHOOTER:
       case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
+      case PODIUM_SHOOT:
       case SPEAKER_SHOOT:
       case AMP_SHOT:
         if (noteManager.getState() == NoteState.IDLE_NO_GP) {
@@ -398,6 +417,27 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
         snaps.setAngle(robotAngleToFloorSpot);
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
+        break;
+      case WAITING_PODIUM_SHOT:
+      case PREPARE_PODIUM_SHOT:
+        wrist.setAngle(WristPositions.PODIUM_SHOT);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PODIUM_SHOT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.idleInQueuerRequest();
+        snaps.setAngle(SnapManager.getPodiumAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
+        break;
+      case PODIUM_SHOOT:
+        wrist.setAngle(WristPositions.PODIUM_SHOT);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PODIUM_SHOT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        snaps.setAngle(SnapManager.getPodiumAngle());
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
@@ -528,6 +568,14 @@ public class RobotManager extends LifecycleSubsystem {
     flags.clear();
   }
 
+  public void waitPodiumShotRequest() {
+    flags.check(RobotFlag.WAIT_PODIUM_SHOT);
+  }
+
+  public void podiumShotRequest() {
+    flags.check(RobotFlag.PODIUM_SHOT);
+  }
+
   public void waitSubwooferShotRequest() {
     flags.check(RobotFlag.WAIT_SUBWOOFER_SHOT);
   }
@@ -587,6 +635,8 @@ public class RobotManager extends LifecycleSubsystem {
   public void confirmShotRequest() {
     if (state == RobotState.WAITING_SUBWOOFER_SHOT) {
       subwooferShotRequest();
+    } else if (state == RobotState.WAITING_PODIUM_SHOT) {
+      podiumShotRequest();
     } else if (state == RobotState.WAITING_AMP_SHOT) {
       ampShotRequest();
     } else if (state == RobotState.WAITING_FLOOR_SHOT) {
