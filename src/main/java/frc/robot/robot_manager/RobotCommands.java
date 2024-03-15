@@ -87,6 +87,10 @@ public class RobotCommands {
     return Commands.runOnce(() -> robot.waitAmpShotRequest(), requirements)
         .withName("WaitForAmpShotCommand");
   }
+  public Command waitPodiumShotCommand(){
+    return Commands.runOnce(() -> robot.waitPodiumShotRequest(), requirements)
+    .withName("WaitForPodiumShotCommand");
+  }
 
   public Command waitSubwooferShotCommand() {
     return Commands.runOnce(() -> robot.waitSubwooferShotRequest(), requirements)
@@ -113,6 +117,11 @@ public class RobotCommands {
     return Commands.runOnce(() -> robot.subwooferShotRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
         .withName("SubwooferShotCommand");
+  }
+  public Command podiumShotCommand() {
+    return Commands.runOnce(() -> robot.podiumShotRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .withName("PodiumShotCommand");
   }
 
   public Command trapShotCommand() {

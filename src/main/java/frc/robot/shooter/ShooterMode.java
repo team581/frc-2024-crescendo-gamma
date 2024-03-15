@@ -9,6 +9,7 @@ public enum ShooterMode {
   IDLE,
   OUTTAKE,
   SUBWOOFER_SHOT,
+  PODIUM_SHOT,
   SPEAKER_SHOT,
   FLOOR_SHOT;
 }

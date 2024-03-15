@@ -35,14 +35,20 @@ public enum RobotState {
   /** Get ready for subwoofer shot, wait for drive to confirm, then go to PREPARE_SUBWOOFER_SHOT. */
   WAITING_SUBWOOFER_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Get ready for subwoofer shot, automatically go to SUBWOOFER_SHOOT when ready. */
-  PREPARE_SUBWOOFER_SHOT(true, true, false, new LightsState(null, BlinkPattern.SOLID)),
+  PREPARE_SUBWOOFER_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Actively doing the subwoofer shot. */
   SUBWOOFER_SHOOT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
+
+  WAITING_PODIUM_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
+
+  PREPARE_PODIUM_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
+
+  PODIUM_SHOOT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Get ready for speaker shot, wait for driver to confirm, then go to PREPARE_SPEAKER_SHOT. */
   WAITING_SPEAKER_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Get ready for speaker shot, automatically go to SPEAKER_SHOOT when ready. */
-  PREPARE_SPEAKER_SHOT(true, true, false, new LightsState(null, BlinkPattern.SOLID)),
+  PREPARE_SPEAKER_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   SPEAKER_SHOOT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
   /** Note maybe in queuer, need to move it to conveyor, and then transition to WAITING_AMP_SHOT. */
