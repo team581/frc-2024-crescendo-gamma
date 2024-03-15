@@ -99,7 +99,7 @@ public record RobotConfig(
       boolean invertX,
       boolean invertY) {}
 
-  public record VisionConfig(int translationHistoryArraySize) {}
+  public record VisionConfig(int translationHistoryArraySize, double xyStdDev, double thetaStdDev) {}
 
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;
