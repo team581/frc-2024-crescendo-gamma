@@ -3,47 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.45218112320723,
-        "y": 6.587398949873887
+        "x": 9.050014938935654,
+        "y": 4.466456106164492
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.208907452894097,
-        "y": 6.762080081889855
+        "x": 9.723726195172754,
+        "y": 4.254361821793553
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 2.5"
+      "linkedName": "Red Mid Alt 6, 6"
     },
     {
       "anchor": {
-        "x": 13.581101370202655,
-        "y": 7.052741790262551
+        "x": 11.41424240295289,
+        "y": 4.466456106164492
       },
       "prevControl": {
-        "x": 13.818147923323115,
-        "y": 6.940456580889701
+        "x": 10.665674340467222,
+        "y": 4.173266948357605
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red M 6, 3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake and warmup",
-      "waypointRelativePos": 0.0,
+      "name": "Warmup",
+      "waypointRelativePos": 0.05,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeFloor"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -63,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -28.22990888708361,
+    "rotation": 12.763566852832053,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red Mid 6 Piece 1-5",
+  "folder": "Dev Red Mid 6 Piece 1-3,5-6",
   "previewStartingState": {
-    "rotation": -28.063528871586758,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

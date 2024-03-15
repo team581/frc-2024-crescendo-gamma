@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.45218112320723,
-        "y": 6.587398949873887
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 14.208907452894097,
-        "y": 6.762080081889855
-      },
-      "isLocked": false,
-      "linkedName": "Red M 6, 2.5"
-    },
-    {
-      "anchor": {
         "x": 13.581101370202655,
         "y": 7.052741790262551
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.551479881075263,
+        "y": 7.1987295342371835
+      },
+      "isLocked": false,
+      "linkedName": "Red M A 6, 3"
+    },
+    {
+      "anchor": {
+        "x": 9.411822835803726,
+        "y": 5.9947825670727335
+      },
       "prevControl": {
-        "x": 13.818147923323115,
-        "y": 6.940456580889701
+        "x": 10.335056779536052,
+        "y": 6.6061131514360305
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red M 6, 3"
+      "linkedName": "Red Mid Alt 6, 5"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake and warmup",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -42,12 +42,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -63,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -28.22990888708361,
+    "rotation": 30.332175096299974,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red Mid 6 Piece 1-5",
+  "folder": "Dev Red Mid 6 Piece 1-3,5-6",
   "previewStartingState": {
-    "rotation": -28.063528871586758,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

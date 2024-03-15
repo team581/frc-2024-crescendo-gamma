@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 1 to 2"
+            "pathName": null
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 2 to 3"
+            "pathName": null
           }
         },
         {
