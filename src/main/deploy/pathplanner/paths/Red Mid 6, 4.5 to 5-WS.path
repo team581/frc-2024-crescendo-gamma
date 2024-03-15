@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 9.031300737373511,
+        "y": 5.957354163948449
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.455489306115389,
+        "y": 6.16944844831939
+      },
+      "isLocked": false,
+      "linkedName": "Red M 6, 4.5"
+    },
+    {
+      "anchor": {
+        "x": 10.75300728109055,
+        "y": 6.325400128003904
+      },
+      "prevControl": {
+        "x": 10.416151652971998,
+        "y": 6.319162060816523
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red M 6, 5-WS"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Warmup",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -8.086597594473359,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Red Mid 6 Piece 1-5",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

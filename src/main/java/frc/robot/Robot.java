@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.amp_align.AmpAlignManager;
 import frc.robot.autos.Autos;
-import frc.robot.climber.AutoClimbManager;
 import frc.robot.climber.ClimberSubsystem;
 import frc.robot.config.RobotConfig;
 import frc.robot.conveyor.ConveyorSubsystem;
@@ -91,8 +89,6 @@ public class Robot extends TimedRobot {
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
-  private final AutoClimbManager autoClimbManager = new AutoClimbManager(localization, swerve);
-  private final AmpAlignManager ampAlignManager = new AmpAlignManager(localization, swerve);
 
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
@@ -201,7 +197,7 @@ public class Robot extends TimedRobot {
     driverController
         .leftTrigger()
         .onTrue(actions.intakeCommand())
-        .onFalse(actions.intakeSlowCommand());
+        .onFalse(actions.stopIntakingCommand());
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
@@ -210,10 +206,9 @@ public class Robot extends TimedRobot {
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
-    // operatorController.povLeft().whileTrue(autoClimbManager.getClimbSequenceCommand());
-    // operatorController.povRight().whileTrue(ampAlignManager.getAlignForAmpCommand());
 
     operatorController.a().onTrue(actions.stowCommand());
+    operatorController.b().onTrue(actions.waitPodiumShotCommand()).onFalse(actions.stowCommand());
     operatorController
         .y()
         .onTrue(actions.waitSubwooferShotCommand())

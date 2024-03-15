@@ -1,0 +1,97 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.81,
+      "y": 6.69
+    },
+    "rotation": -59.69
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, R to 2.5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, 2.5 to 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, 3 to 3.5 "
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, 3.5 to 4 WS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, 4 WS to 4.5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, 4.5 to 5 WS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, 5 WS to 5.5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red R 5, 5.5 to 6 WS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "New Red Autos in Development",
+  "choreoAuto": false
+}

@@ -5,6 +5,7 @@
 package frc.robot.robot_manager;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.climber.ClimberMode;
@@ -80,13 +81,14 @@ public class RobotManager extends LifecycleSubsystem {
     double floorSpotDistance = floorSpotVisionTargets.distance();
     Rotation2d wristAngleForSpeaker = wrist.getAngleFromDistanceToSpeaker(speakerDistance);
     Rotation2d wristAngleForFloorSpot = wrist.getAngleFromDistanceToFloorSpot(floorSpotDistance);
+    var currentHeading = vision.getUsedRobotPose().getRotation();
     Rotation2d robotAngleToSpeaker =
         Rotation2d.fromDegrees(
-            imu.getRobotHeading().getDegrees() + speakerVisionTargets.angle().getDegrees());
+            currentHeading.getDegrees() + speakerVisionTargets.angle().getDegrees());
     shooter.setSpeakerDistance(speakerDistance);
     Rotation2d robotAngleToFloorSpot =
         Rotation2d.fromDegrees(
-            imu.getRobotHeading().getDegrees() + floorSpotVisionTargets.angle().getDegrees());
+            currentHeading.getDegrees() + floorSpotVisionTargets.angle().getDegrees());
     shooter.setFloorSpotDistance(floorSpotDistance);
 
     // State transitions from requests
@@ -112,9 +114,15 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.INTAKING;
           }
           break;
-        case INTAKE_SLOW:
-          if (!state.climbing && state != RobotState.IDLE_WITH_GP) {
-            state = RobotState.INTAKING_SLOW;
+        case STOP_INTAKING:
+          if (!state.climbing) {
+            if (state == RobotState.FINISH_INTAKING) {
+              // Ignore the request, we should finish intaking the note fully
+            } else if (state == RobotState.IDLE_WITH_GP) {
+              // You released the button after fully intaking the game piece
+            } else {
+              state = RobotState.IDLE_NO_GP;
+            }
           }
           break;
         case CLIMB_1_LINEUP_OUTER:
@@ -157,6 +165,11 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.WAITING_SUBWOOFER_SHOT;
           }
           break;
+        case WAIT_PODIUM_SHOT:
+          if (!state.climbing) {
+            state = RobotState.WAITING_PODIUM_SHOT;
+          }
+          break;
         case OUTTAKE:
           if (!state.climbing) {
             state = RobotState.OUTTAKING;
@@ -187,6 +200,11 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.PREPARE_SUBWOOFER_SHOT;
           }
           break;
+        case PODIUM_SHOT:
+          if (!state.climbing) {
+            state = RobotState.PREPARE_PODIUM_SHOT;
+          }
+          break;
         case PRELOAD_NOTE:
           if (!state.climbing) {
             state = RobotState.IDLE_WITH_GP;
@@ -203,12 +221,10 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case STOP_SHOOTING:
-          if (!state.climbing) {
-            if (!state.shootingMode
-                || state != RobotState.IDLE_NO_GP
-                || state != RobotState.AMP_SHOT) {
-              state = RobotState.IDLE_WITH_GP;
-            }
+          // TODO: Something is wrong with this, the flag seems to be triggered properly but we
+          // can't cancel shooting without hitting the operator stow button
+          if (!state.climbing && !state.shootingMode) {
+            state = RobotState.IDLE_WITH_GP;
           }
           break;
       }
@@ -224,6 +240,7 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_AMP_SHOT:
       case WAITING_FLOOR_SHOT:
       case WAITING_SUBWOOFER_SHOT:
+      case WAITING_PODIUM_SHOT:
       case OUTTAKING:
         // Do nothing
         break;
@@ -239,7 +256,11 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case INTAKING:
-      case INTAKING_SLOW:
+        if (noteManager.getState() == NoteState.INTAKE_TO_QUEUER) {
+          state = RobotState.FINISH_INTAKING;
+        }
+        break;
+      case FINISH_INTAKING:
         if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
           state = RobotState.IDLE_WITH_GP;
         }
@@ -252,6 +273,13 @@ public class RobotManager extends LifecycleSubsystem {
             && swerve.movingSlowEnoughForSpeakerShot()
             && Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 2.5) {
           state = RobotState.FLOOR_SHOOT;
+        }
+        break;
+      case PREPARE_PODIUM_SHOT:
+        if (wrist.atAngle(WristPositions.PODIUM_SHOT)
+            && shooter.atGoal(ShooterMode.PODIUM_SHOT)
+            && noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
+          state = RobotState.PODIUM_SHOOT;
         }
         break;
       case PREPARE_SUBWOOFER_SHOT:
@@ -275,8 +303,9 @@ public class RobotManager extends LifecycleSubsystem {
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
-          boolean limeLightWorking = vision.getState() == VisionState.OFFLINE;
+          boolean limeLightWorking = vision.getState() != VisionState.OFFLINE;
 
+          Logger.recordOutput("RobotManager/SpeakerShot/LimelightWorking", limeLightWorking);
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/ShooterAtGoal", shooterAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/PoseJitterSafe", poseJitterSafe);
@@ -284,27 +313,21 @@ public class RobotManager extends LifecycleSubsystem {
           Logger.recordOutput(
               "RobotManager/SpeakerShot/AngularVelocitySlowEnough", angularVelocitySlowEnough);
           Logger.recordOutput("RobotManager/SpeakerShot/RobotHeadingAtGoal", robotHeadingAtGoal);
-          // if (limeLightWorking) {
-          if (wristAtGoal
+          if (limeLightWorking
+              && wristAtGoal
               && shooterAtGoal
-              && poseJitterSafe
+              && (poseJitterSafe || DriverStation.isAutonomous())
               && swerveSlowEnough
               && angularVelocitySlowEnough
               && robotHeadingAtGoal) {
             state = RobotState.SPEAKER_SHOOT;
           }
-          //   } else if (wristAtGoal
-          //   && shooterAtGoal
-          //   && swerveSlowEnough
-          //     && angularVelocitySlowEnough) {
-          // state = RobotState.SPEAKER_SHOOT;
-          // vision.disabledInit();
-          //  }
         }
         break;
       case OUTTAKING_SHOOTER:
       case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
+      case PODIUM_SHOOT:
       case SPEAKER_SHOOT:
       case AMP_SHOT:
         if (noteManager.getState() == NoteState.IDLE_NO_GP) {
@@ -357,19 +380,13 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
         break;
+      case FINISH_INTAKING:
       case INTAKING:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeRequest();
-        break;
-      case INTAKING_SLOW:
-        wrist.setAngle(wristAngleForSpeaker);
-        elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
         break;
       case OUTTAKING:
         wrist.setAngle(wristAngleForSpeaker);
@@ -391,7 +408,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -406,13 +423,34 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
+      case WAITING_PODIUM_SHOT:
+      case PREPARE_PODIUM_SHOT:
+        wrist.setAngle(WristPositions.PODIUM_SHOT);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PODIUM_SHOT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.idleInQueuerRequest();
+        snaps.setAngle(SnapManager.getPodiumAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
+        break;
+      case PODIUM_SHOOT:
+        wrist.setAngle(WristPositions.PODIUM_SHOT);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PODIUM_SHOT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        snaps.setAngle(SnapManager.getPodiumAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
+        break;
       case WAITING_SUBWOOFER_SHOT:
       case PREPARE_SUBWOOFER_SHOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         break;
       case SUBWOOFER_SHOOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
@@ -427,7 +465,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -533,6 +571,14 @@ public class RobotManager extends LifecycleSubsystem {
     flags.clear();
   }
 
+  public void waitPodiumShotRequest() {
+    flags.check(RobotFlag.WAIT_PODIUM_SHOT);
+  }
+
+  public void podiumShotRequest() {
+    flags.check(RobotFlag.PODIUM_SHOT);
+  }
+
   public void waitSubwooferShotRequest() {
     flags.check(RobotFlag.WAIT_SUBWOOFER_SHOT);
   }
@@ -569,10 +615,6 @@ public class RobotManager extends LifecycleSubsystem {
     flags.check(RobotFlag.INTAKE);
   }
 
-  public void intakeSlowRequest() {
-    flags.check(RobotFlag.INTAKE_SLOW);
-  }
-
   public void outtakeRequest() {
     flags.check(RobotFlag.OUTTAKE);
   }
@@ -596,6 +638,8 @@ public class RobotManager extends LifecycleSubsystem {
   public void confirmShotRequest() {
     if (state == RobotState.WAITING_SUBWOOFER_SHOT) {
       subwooferShotRequest();
+    } else if (state == RobotState.WAITING_PODIUM_SHOT) {
+      podiumShotRequest();
     } else if (state == RobotState.WAITING_AMP_SHOT) {
       ampShotRequest();
     } else if (state == RobotState.WAITING_FLOOR_SHOT) {
@@ -603,6 +647,10 @@ public class RobotManager extends LifecycleSubsystem {
     } else {
       speakerShotRequest();
     }
+  }
+
+  public void stopIntakingRequest() {
+    flags.check(RobotFlag.STOP_INTAKING);
   }
 
   public void climb1LineupOutterRequest() {

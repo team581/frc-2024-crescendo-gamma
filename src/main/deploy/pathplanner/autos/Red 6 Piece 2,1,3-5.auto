@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, Mid to 2"
+            "pathName": "Red Mid 6, Mid to 2"
           }
         },
         {
@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, 2 to 1"
+            "pathName": "Red Mid 6, 2 to 1"
           }
         },
         {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, 1 to 2.5"
+            "pathName": "Red Mid 6, 1 to 2.5"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, 2.5 to 3"
+            "pathName": "Red Mid 6, 2.5 to 3"
           }
         },
         {
@@ -62,13 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, 3 to 3.5"
+            "pathName": "Red Mid 6, 3 to 3.5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, 3.5 to 4-WS"
+            "pathName": "Red Mid 6, 3.5 to 4-WS"
           }
         },
         {
@@ -80,13 +80,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, 4-WS to 4.5"
+            "pathName": "Red Mid 6, 4-WS to 4.5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle 6, 4.5 to 5-WS"
+            "pathName": "Red Mid 6, 4.5 to 5-WS"
           }
         },
         {
@@ -98,6 +98,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "New Red Autos in Development",
   "choreoAuto": false
 }

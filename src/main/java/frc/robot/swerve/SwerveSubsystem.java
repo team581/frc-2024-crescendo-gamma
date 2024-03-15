@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
+import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.util.ControllerHelpers;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -30,7 +31,8 @@ import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveSubsystem extends LifecycleSubsystem {
-  private static final double MAX_SPEED_SHOOTING = Units.feetToMeters(2);
+  private static final double MAX_SPEED_SHOOTING =
+      Units.feetToMeters(LocalizationSubsystem.USE_SHOOT_WHILE_MOVE ? 10 : 5);
   // 6 meters per second desired top speed
   public static final double MaxSpeed = 4.75;
   // Half a rotation per second max angular velocity
@@ -367,7 +369,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     return run(() -> {
           var target = targetSupplier.get();
           var pose = currentPose.get();
-          Logger.recordOutput("AutoClimb/Pose", pose);
           double vx = xPid.calculate(pose.getX(), target.getX());
           double vy = yPid.calculate(pose.getY(), target.getY());
           double vomega =
@@ -377,14 +378,12 @@ public class SwerveSubsystem extends LifecycleSubsystem {
                   target.getRotation().getRadians());
 
           var newSpeeds = new ChassisSpeeds(vx, vy, vomega);
-          Logger.recordOutput("AutoClimb/ChassisSpeeds", newSpeeds);
           setFieldRelativeSpeeds(newSpeeds, true);
         })
         .until(
             () -> {
               var target = targetSupplier.get();
 
-              Logger.recordOutput("AutoClimb/AtLocation", atLocation(target, currentPose.get()));
               return atLocation(target, currentPose.get());
             });
   }

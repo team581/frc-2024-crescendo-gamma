@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 9.287061492056115,
+        "y": 7.442014154545027
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.623917120174665,
+        "y": 7.211205668611945
+      },
+      "isLocked": false,
+      "linkedName": "Red R 5, 3.5"
+    },
+    {
+      "anchor": {
+        "x": 10.684388542029362,
+        "y": 6.537494412374844
+      },
+      "prevControl": {
+        "x": 10.34129484672343,
+        "y": 6.724636427996261
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red R 5, 4 WS"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Warmup",
+      "waypointRelativePos": 0.35,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -9.800934032046051,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Red Right 5 Piece",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

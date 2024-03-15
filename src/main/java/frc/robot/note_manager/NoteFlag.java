@@ -6,7 +6,6 @@ package frc.robot.note_manager;
 
 public enum NoteFlag {
   INTAKE,
-  INTAKE_SLOW,
   SHOOTER_SCORE,
   SHOOTER_OUTTAKE,
   IDLE_IN_QUEUER,

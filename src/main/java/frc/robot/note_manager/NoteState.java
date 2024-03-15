@@ -7,9 +7,10 @@ package frc.robot.note_manager;
 public enum NoteState {
   IDLE_NO_GP,
 
+  /** Note is in intake, going to be sent to queuer for idle. */
   INTAKE_TO_QUEUER,
-  INTAKE_SLOW_TO_QUEUER,
   IDLE_IN_QUEUER,
+  GROUND_NOTE_TO_INTAKE,
 
   CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE,
   CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL,

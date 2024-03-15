@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Rt to 3"
+            "pathName": null
           }
         },
         {
@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 3 to 2"
+            "pathName": null
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 2 to 5 to RWS"
+            "pathName": null
           }
         },
         {
@@ -68,7 +68,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue RWS to 4"
+            "pathName": null
           }
         },
         {

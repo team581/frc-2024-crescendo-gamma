@@ -18,6 +18,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private static final int IDLE_RPM = 1000;
   private static final double OUTTAKE_RPM = 2000;
   private static final double SUBWOOFER_SHOOTING_RPM = 3000;
+  private static final double PODIUM_SHOOTING_RPM = 4000;
   private static final double TOLERANCE_RPM = 250;
   private final TalonFX leftMotor;
   private final TalonFX rightMotor;
@@ -54,6 +55,9 @@ public class ShooterSubsystem extends LifecycleSubsystem {
         break;
       case SUBWOOFER_SHOT:
         goalRPM = SUBWOOFER_SHOOTING_RPM;
+        break;
+      case PODIUM_SHOT:
+        goalRPM = PODIUM_SHOOTING_RPM;
         break;
       case FLOOR_SHOT:
         goalRPM = floorSpotDistanceToRPM.get(floorSpotDistance);

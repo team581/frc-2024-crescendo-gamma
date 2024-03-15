@@ -36,16 +36,19 @@ public class RobotCommands {
         .withName("StowCommand");
   }
 
+  public Command stopIntakingCommand() {
+    return Commands.runOnce(() -> robot.stopIntakingRequest(), requirements)
+        .andThen(
+            Commands.race(
+                robot.waitForStateCommand(RobotState.IDLE_NO_GP),
+                robot.waitForStateCommand(RobotState.IDLE_WITH_GP)))
+        .withName("StopIntakingCommand");
+  }
+
   public Command intakeCommand() {
     return Commands.runOnce(() -> robot.intakeRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP))
         .withName("IntakeCommand");
-  }
-
-  public Command intakeSlowCommand() {
-    return Commands.runOnce(() -> robot.intakeSlowRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_WITH_GP))
-        .withName("IntakeSlowCommand");
   }
 
   public Command outtakeCommand() {
@@ -85,6 +88,11 @@ public class RobotCommands {
         .withName("WaitForAmpShotCommand");
   }
 
+  public Command waitPodiumShotCommand() {
+    return Commands.runOnce(() -> robot.waitPodiumShotRequest(), requirements)
+        .withName("WaitForPodiumShotCommand");
+  }
+
   public Command waitSubwooferShotCommand() {
     return Commands.runOnce(() -> robot.waitSubwooferShotRequest(), requirements)
         .withName("WaitSubwooferShotCommand");
@@ -110,6 +118,12 @@ public class RobotCommands {
     return Commands.runOnce(() -> robot.subwooferShotRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
         .withName("SubwooferShotCommand");
+  }
+
+  public Command podiumShotCommand() {
+    return Commands.runOnce(() -> robot.podiumShotRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .withName("PodiumShotCommand");
   }
 
   public Command trapShotCommand() {

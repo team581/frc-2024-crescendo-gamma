@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Rt to RWS"
+            "pathName": null
           }
         },
         {
@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue RWS to 4"
+            "pathName": null
           }
         },
         {
@@ -62,7 +62,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue RWS to 6"
+            "pathName": null
           }
         },
         {
