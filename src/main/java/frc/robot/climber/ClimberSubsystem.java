@@ -68,7 +68,6 @@ public class ClimberSubsystem extends LifecycleSubsystem {
         leftMotor.setControl(
             positionRequest.withPosition(inchesToRotations(clamp(goalDistance)).getRotations()));
         rightMotor.setControl(followRequest);
-
         break;
       case PRE_MATCH_HOMING:
         throw new IllegalStateException("Climber can't do pre match homing");
