@@ -118,6 +118,8 @@ public class RobotManager extends LifecycleSubsystem {
           if (!state.climbing) {
             if (state == RobotState.FINISH_INTAKING) {
               // Ignore the request, we should finish intaking the note fully
+            } else if (state == RobotState.IDLE_WITH_GP) {
+              // You released the button after fully intaking the game piece
             } else {
               state = RobotState.IDLE_NO_GP;
             }
