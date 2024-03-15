@@ -134,12 +134,12 @@ public class NoteManager extends LifecycleSubsystem {
         }
         break;
       case INTAKE_TO_QUEUER:
-        if (intake.hasNote()) {
+        if (queuer.hasNote()) {
           state = NoteState.IDLE_IN_QUEUER;
         }
         break;
       case GROUND_NOTE_TO_INTAKE:
-        if (queuer.hasNote()) {
+        if (intake.hasNote()) {
           state = NoteState.INTAKE_TO_QUEUER;
         }
         break;
