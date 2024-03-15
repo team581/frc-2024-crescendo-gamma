@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Rt to 3"
+            "pathName": null
           }
         },
         {
@@ -80,7 +80,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue RWS to 6"
+            "pathName": null
           }
         },
         {

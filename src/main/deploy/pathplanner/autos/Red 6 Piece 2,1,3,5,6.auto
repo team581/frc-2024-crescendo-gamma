@@ -2,31 +2,19 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3999999999999986,
-      "y": 7.3
+      "x": 15.22,
+      "y": 5.57
     },
-    "rotation": 180
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "preloadNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "homeClimber"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Red Mid Alt 6, Mid to 2"
           }
         },
         {
@@ -38,13 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 4 to RWS"
+            "pathName": "Red Mid Alt 6, 2 to 1"
           }
         },
         {
@@ -56,13 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue RWS to 5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 5 to RWS"
+            "pathName": "Red Mid Alt 6, 1 to 2.5"
           }
         },
         {
@@ -74,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Red Mid Alt 6, 2.5 to 3"
           }
         },
         {
@@ -86,7 +62,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Red Mid Alt 6, 3 to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Mid Alt 6, 5 to 5-WS"
           }
         },
         {
@@ -98,7 +80,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Red Mid Alt 6, 5-WS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Mid 6 Alt, 6 to 6-WS"
           }
         },
         {
@@ -110,6 +98,6 @@
       ]
     }
   },
-  "folder": "Blue",
+  "folder": "New Red Autos in Development",
   "choreoAuto": false
 }
