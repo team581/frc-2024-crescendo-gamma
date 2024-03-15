@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
+import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.util.ControllerHelpers;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -30,7 +31,8 @@ import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveSubsystem extends LifecycleSubsystem {
-  private static final double MAX_SPEED_SHOOTING = Units.feetToMeters(10);
+  private static final double MAX_SPEED_SHOOTING =
+      Units.feetToMeters(LocalizationSubsystem.USE_SHOOT_WHILE_MOVE ? 10 : 5);
   // 6 meters per second desired top speed
   public static final double MaxSpeed = 4.75;
   // Half a rotation per second max angular velocity
