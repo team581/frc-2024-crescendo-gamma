@@ -4,7 +4,6 @@
 
 package frc.robot.localization;
 
-import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -86,7 +85,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
       if (visionTimestamp == lastAddedVisionTimestamp) {
         // Don't add the same vision pose over and over
       } else {
-        poseEstimator.addVisionMeasurement(visionPose, visionTimestamp, VecBuilder.fill(RobotConfig.get().vision().xyStdDev(), RobotConfig.get().vision().xyStdDev(), RobotConfig.get().vision().thetaStdDev()));
+        poseEstimator.addVisionMeasurement(
+            visionPose,
+            visionTimestamp,
+            VecBuilder.fill(
+                RobotConfig.get().vision().xyStdDev(),
+                RobotConfig.get().vision().xyStdDev(),
+                RobotConfig.get().vision().thetaStdDev()));
         lastAddedVisionTimestamp = visionTimestamp;
       }
     }
