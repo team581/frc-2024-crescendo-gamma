@@ -122,7 +122,7 @@ class CompConfig {
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
-                          .withSupplyCurrentLimit(40)
+                          .withSupplyCurrentLimit(80)
                           .withSupplyCurrentLimitEnable(true))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)
