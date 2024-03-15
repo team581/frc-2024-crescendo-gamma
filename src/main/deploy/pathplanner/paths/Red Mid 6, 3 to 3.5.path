@@ -38,7 +38,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake and warmup",
+      "name": "Intake",
       "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",

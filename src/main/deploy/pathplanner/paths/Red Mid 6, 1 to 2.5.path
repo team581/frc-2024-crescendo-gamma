@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "warmup",
       "waypointRelativePos": 0.1,
       "command": {
         "type": "parallel",
