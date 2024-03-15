@@ -65,7 +65,8 @@ public class IntakeSubsystem extends LifecycleSubsystem {
   public void robotPeriodic() {
     debouncedSensor = debouncer.calculate(sensorHasNote());
     Logger.recordOutput("Intake/State", goalState);
-    Logger.recordOutput("Intake/DebouncedHasNote", hasNote());
+    Logger.recordOutput("Intake/DebouncedHasNote", debouncedSensor);
+    Logger.recordOutput("Intake/HasNote", hasNote());
     Logger.recordOutput("Intake/SensorHasNote", sensorHasNote());
     Logger.recordOutput("Intake/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Intake/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
@@ -81,6 +82,7 @@ public class IntakeSubsystem extends LifecycleSubsystem {
     switch (goalState) {
       case TO_QUEUER:
       case TO_QUEUER_SHOOTING:
+      case TO_QUEUER_SLOW:
         // Bypass debouncer when we are sending game piece to queuer
         return sensorHasNote();
       default:

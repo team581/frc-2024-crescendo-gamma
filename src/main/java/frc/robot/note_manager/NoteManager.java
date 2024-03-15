@@ -44,14 +44,6 @@ public class NoteManager extends LifecycleSubsystem {
             state = NoteState.AMP_SCORING;
           }
           break;
-        case IDLE_NO_GP_OR_FINISH_INTAKE:
-          if (intake.hasNote()) {
-            // We have partially intaked a note, so we should finish intaking it
-            // Don't transition the state
-          } else {
-            state = NoteState.IDLE_NO_GP;
-          }
-          break;
         case AMP_WAIT:
         case TRAP_WAIT:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
@@ -139,7 +131,11 @@ public class NoteManager extends LifecycleSubsystem {
         }
         break;
       case GROUND_NOTE_TO_INTAKE:
-        if (intake.hasNote()) {
+        if (queuer.hasNote()) {
+          // Trying to restart the intake sequence, even though a note is already fully inside the
+          // robot
+          state = NoteState.IDLE_IN_QUEUER;
+        } else if (intake.hasNote()) {
           state = NoteState.INTAKE_TO_QUEUER;
         }
         break;
