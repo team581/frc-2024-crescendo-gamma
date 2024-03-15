@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
+      "name": "intake ",
       "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
@@ -42,12 +42,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
               }
             }
           ]

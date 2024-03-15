@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.06,
-        "y": 7.429538020170265
+        "x": 15.22,
+        "y": 5.57
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.540331173428305,
-        "y": 7.279824407673132
+        "x": 15.395953307629014,
+        "y": 5.57
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 3.5"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 11.823188722377445,
-        "y": 6.631931419862839
+        "x": 14.469999999999999,
+        "y": 5.57
       },
       "prevControl": {
-        "x": 11.299191078637477,
-        "y": 6.800359233922114
+        "x": 14.660884855933842,
+        "y": 5.5687523865625215
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red M 6, 4-WS"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -41,12 +41,6 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "speakerShotNoTimeout"
               }
             }
@@ -56,21 +50,18 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -13.5238206417135,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Dev Red Mid 6 Piece 1-5",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
-  "useDefaultConstraints": true
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }

@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "preloadNote"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red R 5, R to 2.5"

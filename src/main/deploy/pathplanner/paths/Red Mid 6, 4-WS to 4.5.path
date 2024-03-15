@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.915197027962444,
-        "y": 6.849397771743873
+        "x": 11.823188722377445,
+        "y": 6.631931419862839
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.091772159228208,
-        "y": 6.431447270189374
+        "x": 10.876041148082296,
+        "y": 6.38139395478791
       },
       "isLocked": false,
       "linkedName": "Red M 6, 4-WS"
     },
     {
       "anchor": {
-        "x": 9.031300737373511,
-        "y": 5.957354163948449
+        "x": 9.301344170688342,
+        "y": 5.837528067056135
       },
       "prevControl": {
-        "x": 9.836011404545605,
-        "y": 6.294209792067001
+        "x": 10.146132080264161,
+        "y": 6.120081788163577
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red M 6, 4.5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.9,
-      "rotationDegrees": 23.59994414233527,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -69,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 21.801409486351762,
+    "rotation": 4.613547567545655,
     "rotateFast": false
   },
   "reversed": false,

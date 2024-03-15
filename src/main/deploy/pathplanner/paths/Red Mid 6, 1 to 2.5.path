@@ -8,33 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.840850538843934,
-        "y": 5.370975848334676
+        "x": 14.188132360230735,
+        "y": 5.408052189268304
       },
       "isLocked": false,
       "linkedName": "Red M 6, 1"
     },
     {
       "anchor": {
-        "x": 14.45218112320723,
-        "y": 6.587398949873887
+        "x": 14.401882651765302,
+        "y": 6.41140919481839
       },
       "prevControl": {
-        "x": 13.872037908907659,
-        "y": 6.013499766761298
+        "x": 14.236934133556261,
+        "y": 5.690887775322457
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red M 6, 2.5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.2,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -63,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.860000000000014,
+    "rotation": -26.361112146858662,
     "rotateFast": false
   },
   "reversed": false,
