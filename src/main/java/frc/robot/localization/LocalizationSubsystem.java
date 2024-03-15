@@ -185,7 +185,9 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
   public Pose2d getExpectedPose(double lookAhead, boolean shootWhileMove) {
     var velocities = swerve.getRobotRelativeSpeeds();
     var angularVelocity = Rotation2d.fromDegrees(imu.getRobotAngularVelocity().getDegrees() * 1.00);
-
+    if (Math.abs(angularVelocity.getDegrees()) < 0.1) {
+      angularVelocity = Rotation2d.fromDegrees(0);
+    }
     var xDifference =
         imu.getXAcceleration() * Math.pow(lookAhead, 2) / 2
             + velocities.vxMetersPerSecond * lookAhead;
