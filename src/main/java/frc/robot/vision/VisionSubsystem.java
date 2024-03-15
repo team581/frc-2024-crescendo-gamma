@@ -410,6 +410,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
     robotPose = pose;
   }
 
+  public Pose2d getUsedRobotPose() {
+    return robotPose;
+  }
+
   private boolean isResultValid(FastLimelightResults results) {
     return imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
             < 20.0

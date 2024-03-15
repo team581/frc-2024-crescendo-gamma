@@ -81,13 +81,14 @@ public class RobotManager extends LifecycleSubsystem {
     double floorSpotDistance = floorSpotVisionTargets.distance();
     Rotation2d wristAngleForSpeaker = wrist.getAngleFromDistanceToSpeaker(speakerDistance);
     Rotation2d wristAngleForFloorSpot = wrist.getAngleFromDistanceToFloorSpot(floorSpotDistance);
+    var currentHeading = vision.getUsedRobotPose().getRotation();
     Rotation2d robotAngleToSpeaker =
         Rotation2d.fromDegrees(
-            imu.getRobotHeading().getDegrees() + speakerVisionTargets.angle().getDegrees());
+            currentHeading.getDegrees() + speakerVisionTargets.angle().getDegrees());
     shooter.setSpeakerDistance(speakerDistance);
     Rotation2d robotAngleToFloorSpot =
         Rotation2d.fromDegrees(
-            imu.getRobotHeading().getDegrees() + floorSpotVisionTargets.angle().getDegrees());
+            currentHeading.getDegrees() + floorSpotVisionTargets.angle().getDegrees());
     shooter.setFloorSpotDistance(floorSpotDistance);
 
     // State transitions from requests
