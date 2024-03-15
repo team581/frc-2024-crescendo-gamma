@@ -113,9 +113,13 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.INTAKING;
           }
           break;
-        case INTAKE_SLOW:
-          if (!state.climbing && state != RobotState.IDLE_WITH_GP) {
-            state = RobotState.INTAKING_SLOW;
+        case STOP_INTAKING:
+          if (!state.climbing) {
+            if (state == RobotState.FINISH_INTAKING) {
+              // Ignore the request, we should finish intaking the note fully
+            } else {
+              state = RobotState.IDLE_NO_GP;
+            }
           }
           break;
         case CLIMB_1_LINEUP_OUTER:
@@ -204,12 +208,10 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case STOP_SHOOTING:
-          if (!state.climbing) {
-            if (!state.shootingMode
-                || state != RobotState.IDLE_NO_GP
-                || state != RobotState.AMP_SHOT) {
-              state = RobotState.IDLE_WITH_GP;
-            }
+          // TODO: Something is wrong with this, the flag seems to be triggered properly but we
+          // can't cancel shooting without hitting the operator stow button
+          if (!state.climbing && !state.shootingMode) {
+            state = RobotState.IDLE_WITH_GP;
           }
           break;
       }
@@ -240,7 +242,11 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case INTAKING:
-      case INTAKING_SLOW:
+        if (noteManager.getState() == NoteState.INTAKE_TO_QUEUER) {
+          state = RobotState.FINISH_INTAKING;
+        }
+        break;
+      case FINISH_INTAKING:
         if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
           state = RobotState.IDLE_WITH_GP;
         }
@@ -352,19 +358,13 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
         break;
+      case FINISH_INTAKING:
       case INTAKING:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeRequest();
-        break;
-      case INTAKING_SLOW:
-        wrist.setAngle(wristAngleForSpeaker);
-        elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
-        climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
         break;
       case OUTTAKING:
         wrist.setAngle(wristAngleForSpeaker);
@@ -386,7 +386,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         snaps.setAngle(robotAngleToFloorSpot);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -407,7 +407,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         break;
       case SUBWOOFER_SHOOT:
         wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
@@ -422,7 +422,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.intakeSlowRequest();
+        noteManager.idleInQueuerRequest();
         snaps.setAngle(robotAngleToSpeaker);
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
@@ -564,10 +564,6 @@ public class RobotManager extends LifecycleSubsystem {
     flags.check(RobotFlag.INTAKE);
   }
 
-  public void intakeSlowRequest() {
-    flags.check(RobotFlag.INTAKE_SLOW);
-  }
-
   public void outtakeRequest() {
     flags.check(RobotFlag.OUTTAKE);
   }
@@ -598,6 +594,10 @@ public class RobotManager extends LifecycleSubsystem {
     } else {
       speakerShotRequest();
     }
+  }
+
+  public void stopIntakingRequest() {
+    flags.check(RobotFlag.STOP_INTAKING);
   }
 
   public void climb1LineupOutterRequest() {

@@ -29,14 +29,16 @@ import org.littletonrobotics.junction.Logger;
 public class VisionSubsystem extends LifecycleSubsystem {
   private static final Timer limelightTimer = new Timer();
 
-  
-  
   static {
     limelightTimer.start();
   }
-  
-  private static final double horizontalFOV = 80;
-  private static final double verticalFOV = 56;
+
+  private static final double FOV_HORIZONTAL = 80.477;
+  private static final double horizontalLeftView = 39.657;
+  private static final double FOV_VERTICAL = 55.296;
+  private static final double veritalTopView = 27.878;
+  private static final double CAMERA_ANGLE = 13.0;
+
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
   public static final Pose2d ORIGINAL_BLUE_SPEAKER = new Pose2d(0, 5.53, Rotation2d.fromDegrees(0));
@@ -52,7 +54,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
           0,
           Units.inchesToMeters(-1.103),
           Units.inchesToMeters(24.418),
-          new Rotation3d(0, Units.degreesToRadians(13.2), 0));
+          new Rotation3d(0, Units.degreesToRadians(CAMERA_ANGLE), 0));
 
   public static final Pose3d RED_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
@@ -143,8 +145,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     double angleX = 0.0;
     double angleY = 0.0;
 
-    angleX = -1 * (((pixelX / 1280.0) * horizontalFOV) - horizontalFOV/2);
-    angleY = -1 * (((pixelY / 800.0) * verticalFOV) - verticalFOV/2);
+    angleX = -1 * (((pixelX / 1280.0) * FOV_HORIZONTAL) - horizontalLeftView);
+    angleY = -1 * (((pixelY / 800.0) * FOV_VERTICAL) - veritalTopView);
     double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
     double horizontalDistanceSpeakerToCamera =
         verticalDistance
