@@ -30,7 +30,7 @@ import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class SwerveSubsystem extends LifecycleSubsystem {
-  private static final double MAX_SPEED_SHOOTING = Units.feetToMeters(5);
+  private static final double MAX_SPEED_SHOOTING = Units.feetToMeters(10);
   // 6 meters per second desired top speed
   public static final double MaxSpeed = 4.75;
   // Half a rotation per second max angular velocity
