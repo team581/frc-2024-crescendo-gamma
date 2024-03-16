@@ -62,7 +62,7 @@ class CompConfig {
                       new TorqueCurrentConfigs()
                           .withPeakForwardTorqueCurrent(200)
                           .withPeakReverseTorqueCurrent(0))
-                  .withSlot0(new Slot0Configs().withKP(10).withKV(0).withKS(15))
+                  .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
@@ -78,7 +78,7 @@ class CompConfig {
                       new TorqueCurrentConfigs()
                           .withPeakForwardTorqueCurrent(200)
                           .withPeakReverseTorqueCurrent(0))
-                  .withSlot0(new Slot0Configs().withKP(12).withKV(0).withKS(15))
+                  .withSlot0(new Slot0Configs().withKP(0).withKV(0).withKS(0))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
@@ -99,13 +99,13 @@ class CompConfig {
               20,
               4,
               10,
-              -0.5,
+              0,
               0.0,
               23.0,
               0.22398,
               1,
               new TalonFXConfiguration()
-                  .withSlot0(new Slot0Configs().withKP(10))
+                  .withSlot0(new Slot0Configs().withKP(0))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
@@ -118,7 +118,7 @@ class CompConfig {
                           .withInverted(InvertedValue.Clockwise_Positive)
                           .withNeutralMode(NeutralModeValue.Brake)),
               new TalonFXConfiguration()
-                  .withSlot0(new Slot0Configs().withKP(10))
+                  .withSlot0(new Slot0Configs().withKP(0))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1.0))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
@@ -134,13 +134,13 @@ class CompConfig {
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(1.0)
-                          .withKP(300.0))
+                          .withKG(0.0)
+                          .withKP(0.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(1.0)
-                          .withKP(50.0))
+                          .withKG(0.0)
+                          .withKP(0.0))
                   .withFeedback(
                       new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
                   .withCurrentLimits(
@@ -179,8 +179,8 @@ class CompConfig {
               21,
               0.10,
               new TalonFXConfiguration()
-                  .withSlot0(new Slot0Configs().withKP(20))
-                  .withSlot1(new Slot1Configs().withKP(10))
+                  .withSlot0(new Slot0Configs().withKP(0))
+                  .withSlot1(new Slot1Configs().withKP(0))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio((50.0 / 8.0)))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
