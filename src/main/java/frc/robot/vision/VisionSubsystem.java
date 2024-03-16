@@ -4,14 +4,11 @@
 
 package frc.robot.vision;
 
-import com.jsoniter.JsonIterator;
-import com.jsoniter.any.Any;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -20,18 +17,11 @@ import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
-  private static final Timer limelightTimer = new Timer();
-
-  static {
-    limelightTimer.start();
-  }
+  private final Timer limelightTimer = new Timer();
 
   private static final double FOV_HORIZONTAL = 80.477;
   private static final double horizontalLeftView = 39.657;
@@ -69,23 +59,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
           Units.inchesToMeters(57.13),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
-  private static double currentTimestamp = 0;
-  private static double previousTimestamp = 0;
+  private double limelightHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
 
   InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
   InterpolatingDoubleTreeMap angleToDistance = new InterpolatingDoubleTreeMap();
   InterpolatingDoubleTreeMap angleToPositionOffset = new InterpolatingDoubleTreeMap();
 
   private final ImuSubsystem imu;
-
-  private static Pose3d fixEvilPose(Pose3d pose) {
-    return new Pose3d(
-        new Translation3d(
-            pose.getX() + (16.54175 / 2.0), pose.getY() + (8.2042 / 2.0), pose.getZ()),
-        pose.getRotation());
-  }
-
-  private Optional<FastLimelightResults> storedResults = Optional.empty();
 
   public Optional<SpeakerBasePoseLatency> getSimpleSpeakerBaseResults() {
     double start = Timer.getFPGATimestamp();
@@ -181,8 +161,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     // double distanceFromSpeaker = getDistanceFromAngle(angleY);
 
-    double distanceX = Math.cos(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
-    double distanceY = Math.sin(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
+    double distanceX = Math.cos(cameraToAngle.getRadians()) * distanceToSpeaker3D;
+    double distanceY = Math.sin(cameraToAngle.getRadians()) * distanceToSpeaker3D;
 
     Pose2d fieldPosition =
         new Pose2d(
@@ -195,102 +175,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Vision/SimpleSpeakerAngleY", angleY);
 
     return Optional.of(new SpeakerBasePoseLatency(fieldPosition, totalLatencyTimestamp));
-  }
-
-  private Optional<FastLimelightResults> getFastResults() {
-    try {
-      double start = Timer.getFPGATimestamp();
-      String jsonStr = LimelightHelpers.getJSONDump("");
-      Any json = JsonIterator.deserialize(jsonStr);
-
-      Any results = json.get("Results");
-
-      double ts = results.get("ts").toDouble();
-
-      previousTimestamp = currentTimestamp;
-      currentTimestamp = ts;
-
-      if (previousTimestamp == currentTimestamp) {
-        // Vision data hasn't changed
-      } else {
-        // Vision data is different
-        limelightTimer.reset();
-      }
-
-      double v = results.get("v").toDouble();
-
-      boolean valid = v == 1;
-
-      if (!valid) {
-        return Optional.empty();
-      }
-
-      List<Any> megaTagPose = results.get("botpose").asList();
-
-      Pose3d robotPoseEvilSpace =
-          new Pose3d(
-              new Translation3d(
-                  megaTagPose.get(0).toDouble(),
-                  megaTagPose.get(1).toDouble(),
-                  megaTagPose.get(2).toDouble()),
-              new Rotation3d(
-                  Units.degreesToRadians(megaTagPose.get(3).toDouble()),
-                  Units.degreesToRadians(megaTagPose.get(4).toDouble()),
-                  Units.degreesToRadians(megaTagPose.get(5).toDouble())));
-
-      List<Any> fiducial = results.get("Fiducial").asList();
-      ArrayList<Double> distances = new ArrayList<>(fiducial.size());
-      for (Any fiducialEntry : fiducial) {
-        List<Any> cameraPoseTargetSpaceArray = fiducialEntry.get("t6c_ts").asList();
-
-        if (cameraPoseTargetSpaceArray.size() != 6) {
-          continue;
-        }
-
-        Pose3d cameraPoseTargetSpace =
-            new Pose3d(
-                cameraPoseTargetSpaceArray.get(0).toDouble(),
-                cameraPoseTargetSpaceArray.get(1).toDouble(),
-                cameraPoseTargetSpaceArray.get(2).toDouble(),
-                new Rotation3d(
-                    Units.degreesToRadians(cameraPoseTargetSpaceArray.get(3).toDouble()),
-                    Units.degreesToRadians(cameraPoseTargetSpaceArray.get(4).toDouble()),
-                    Units.degreesToRadians(cameraPoseTargetSpaceArray.get(5).toDouble())));
-        double distance =
-            cameraPoseTargetSpace.getTranslation().getDistance(new Translation3d(0, 0, 0));
-        distances.add(distance);
-      }
-
-      double[] distanceArray = new double[distances.size()];
-      for (int i = 0; i < distances.size(); i++) {
-        distanceArray[i] = distances.get(i);
-      }
-
-      Logger.recordOutput("Vision/Distances", distanceArray);
-
-      double minDistance = Collections.min(distances);
-
-      double captureLatency = results.get("cl").toDouble() / 1000.0;
-      double pipelineLatency = results.get("tl").toDouble() / 1000.0;
-      double end = Timer.getFPGATimestamp();
-      double jsonParseLatency = (end - start);
-
-      double totalLatency = jsonParseLatency + captureLatency + pipelineLatency;
-
-      Pose3d robotPoseFieldSpace = fixEvilPose(robotPoseEvilSpace);
-
-      Logger.recordOutput("Localization/Valid", valid);
-
-      var output = new FastLimelightResults(totalLatency, robotPoseFieldSpace, minDistance);
-
-      if (isResultValid(output)) {
-        return Optional.of(output);
-      }
-
-      return Optional.empty();
-    } catch (Exception e) {
-      return Optional.empty();
-    }
   }
 
   private static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
@@ -333,6 +217,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     angleToPositionOffset.put(Rotation2d.fromDegrees(0.0).getRadians(), 0.0);
     angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), 0.525);
     angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), 0.525);
+
+    limelightTimer.start();
   }
 
   private void setSpeakerY(double Y) {
@@ -428,30 +314,29 @@ public class VisionSubsystem extends LifecycleSubsystem {
                 Math.atan(
                     (robotPose.getY() - getSpeaker(true).getY())
                         / (robotPose.getX() - getSpeaker(true).getX()))));
-    storedResults = getFastResults();
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle());
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
     Logger.recordOutput("Vision/State", getState());
-    if (storedResults.isPresent()) {
-      var data = storedResults.get();
-      Logger.recordOutput("Vision/Latency", data.latency());
-      Logger.recordOutput("Vision/DistanceFromTag", data.distanceToTag());
-    }
-  }
 
-  public Optional<FastLimelightResults> getResults() {
-    return storedResults;
+    var newHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
+
+    if (limelightHeartbeat == newHeartbeat) {
+      // No new data, Limelight dead?
+    } else {
+      limelightTimer.restart();
+    }
   }
 
   public VisionState getState() {
     if (limelightTimer.hasElapsed(5)) {
+      // Heartbeat hasn't updated
       return VisionState.OFFLINE;
     }
 
-    if (storedResults.isPresent()) {
+    if (LimelightHelpers.getTV("")) {
       return VisionState.SEES_TAGS;
     }
 
