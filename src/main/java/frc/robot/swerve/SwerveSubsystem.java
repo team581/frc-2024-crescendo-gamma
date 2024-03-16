@@ -33,10 +33,9 @@ import org.littletonrobotics.junction.Logger;
 public class SwerveSubsystem extends LifecycleSubsystem {
   private static final double MAX_SPEED_SHOOTING =
       Units.feetToMeters(LocalizationSubsystem.USE_SHOOT_WHILE_MOVE ? 3 : 3);
-  // 6 meters per second desired top speed
   public static final double MaxSpeed = 4.75;
-  // Half a rotation per second max angular velocity
-  private static final double MaxAngularRate = Units.rotationsToRadians(2);
+  private static final double MaxAngularRate = Units.rotationsToRadians(4);
+  private static final Rotation2d TELEOP_MAX_ANGULAR_RATE = Rotation2d.fromRotations(2);
   private boolean isShooting = false;
 
   private double leftXDeadband = 0.05;
@@ -203,7 +202,10 @@ public class SwerveSubsystem extends LifecycleSubsystem {
           Logger.recordOutput("Swerve/Controller/FinalLeftY", leftY);
 
           ChassisSpeeds teleopSpeeds =
-              new ChassisSpeeds(-1.0 * leftY * MaxSpeed, leftX * MaxSpeed, rightX * MaxAngularRate);
+              new ChassisSpeeds(
+                  -1.0 * leftY * MaxSpeed,
+                  leftX * MaxSpeed,
+                  rightX * TELEOP_MAX_ANGULAR_RATE.getRadians());
 
           Logger.recordOutput("Swerve/RawTeleopSpeeds", teleopSpeeds);
 
