@@ -32,7 +32,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class SwerveSubsystem extends LifecycleSubsystem {
   private static final double MAX_SPEED_SHOOTING =
-      Units.feetToMeters(LocalizationSubsystem.USE_SHOOT_WHILE_MOVE ? 10 : 5);
+      Units.feetToMeters(LocalizationSubsystem.USE_SHOOT_WHILE_MOVE ? 3 : 3);
   // 6 meters per second desired top speed
   public static final double MaxSpeed = 4.75;
   // Half a rotation per second max angular velocity
@@ -209,19 +209,23 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
           // teleopSpeeds = accelerationLimitChassisSpeeds(teleopSpeeds);
 
+          double currentSpeed =
+              Math.sqrt(
+                  Math.pow(teleopSpeeds.vxMetersPerSecond, 2)
+                      + Math.pow(teleopSpeeds.vyMetersPerSecond, 2));
+          Logger.recordOutput("Swerve/CurrentSpeed", currentSpeed);
+          var scaled = teleopSpeeds.div(currentSpeed / MAX_SPEED_SHOOTING);
+          Logger.recordOutput("Swerve/ScaledSpeeds", scaled);
+          Logger.recordOutput("Swerve/IsShooting", isShooting);
+          Logger.recordOutput("Swerve/GoingToFast", currentSpeed > MAX_SPEED_SHOOTING);
           if (isShooting) {
-            double currentSpeed =
-                Math.sqrt(
-                    Math.pow(teleopSpeeds.vxMetersPerSecond, 2)
-                        + Math.pow(teleopSpeeds.vyMetersPerSecond, 2));
-
-            var scaled = teleopSpeeds.times(currentSpeed / MAX_SPEED_SHOOTING);
-
-            teleopSpeeds =
-                new ChassisSpeeds(
-                    scaled.vxMetersPerSecond,
-                    scaled.vyMetersPerSecond,
-                    teleopSpeeds.omegaRadiansPerSecond);
+            if (currentSpeed > MAX_SPEED_SHOOTING) {
+              teleopSpeeds =
+                  new ChassisSpeeds(
+                      scaled.vxMetersPerSecond,
+                      scaled.vyMetersPerSecond,
+                      teleopSpeeds.omegaRadiansPerSecond);
+            }
           }
 
           Logger.recordOutput("Swerve/UsedTeleopSpeeds", teleopSpeeds);
