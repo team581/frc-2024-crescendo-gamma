@@ -121,7 +121,8 @@ public class RobotManager extends LifecycleSubsystem {
             } else if (state == RobotState.IDLE_WITH_GP) {
               // You released the button after fully intaking the game piece
             } else {
-              state = RobotState.IDLE_NO_GP;
+              // The note might be partially in the intake, but hasn't triggered the sensor, so we enter FINISH_INTAKING to ensure it's fully intaked
+              state = RobotState.FINISH_INTAKING;
             }
           }
           break;
