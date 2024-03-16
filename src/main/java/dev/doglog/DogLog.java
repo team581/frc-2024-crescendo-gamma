@@ -24,7 +24,7 @@ public class DogLog {
 
   public static void setOptions(DogLogOptions newOptions) {
     if (newOptions == null) {
-      return;
+      newOptions = new DogLogOptions();
     }
 
     if (!options.equals(newOptions)) {
