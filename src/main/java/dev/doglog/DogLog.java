@@ -7,60 +7,156 @@ package dev.doglog;
 import dev.doglog.loggers.DataLogLogger;
 import dev.doglog.loggers.DogLogLogger;
 import dev.doglog.loggers.NetworkTablesLogger;
-import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.struct.Struct;
+import edu.wpi.first.util.struct.StructSerializable;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /** A logger based on WPILib's {@link DataLogManager} */
-// TODO: Add static methods for logging, probably want to move a bunch of this logic to a new Logger
-// class
-public class DogLog extends DogLogLogger {
-  private static final String LOG_TABLE = "/Robot";
+public class DogLog {
+  protected static final String LOG_TABLE = "/Robot";
 
-  private static DogLog instance;
+  protected static DogLogOptions options = new DogLogOptions();
+  protected static DogLogLogger logger = createLogger();
+  protected static boolean enabled = true;
 
-  public static synchronized DogLog getInstance(DataLog log) {
-    if (instance == null) {
-      instance = new DogLog(log, new DogLogOptions());
+  public static void setOptions(DogLogOptions newOptions) {
+    if (newOptions == null) {
+      return;
     }
 
-    return instance;
-  }
-
-  public static synchronized DogLog getInstance(DataLog log, DogLogOptions options) {
-    if (instance == null) {
-      instance = new DogLog(log, options);
+    if (!options.equals(newOptions)) {
+      logger = createLogger();
     }
-
-    return instance;
+    options = newOptions;
   }
 
-  public static synchronized DogLog getInstance(DogLogOptions options) {
-    if (instance == null) {
-      instance = new DogLog(options);
+  public static void setEnabled(boolean newEnabled) {
+    enabled = newEnabled;
+  }
+
+  public static void log(String key, boolean[] value) {
+    if (enabled) {
+      logger.log(key, value);
     }
-
-    return instance;
   }
 
-  /** Get an instance of the logger with the default options. */
-  public static synchronized DogLog getInstance() {
-    return getInstance(new DogLogOptions());
+  public static void log(String key, boolean value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
   }
 
-  private DogLog(DogLogOptions options) {
-    this(DataLogManager.getLog(), options);
+  public static void log(String key, double[] value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
   }
 
-  private DogLog(DataLog log, DogLogOptions options) {
-    super(
-        new DataLogLogger(log, LOG_TABLE),
-        options.ntPublish() ? new NetworkTablesLogger(LOG_TABLE) : null);
+  public static void log(String key, double value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, float[] value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, float value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, int[] value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, long[] value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, int value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  // TODO: Protobuf logs
+
+  // TODO: Raw logs
+
+  public static void log(String key, String[] value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, Enum<?>[] value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, String value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static void log(String key, Enum<?> value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static <T> void log(String key, Struct<T> struct, T[] value) {
+    if (enabled) {
+      logger.log(key, struct, value);
+    }
+  }
+
+  public static <T extends StructSerializable> void log(String key, T[] value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  public static <T> void log(String key, Struct<T> struct, T value) {
+    if (enabled) {
+      logger.log(key, struct, value);
+    }
+  }
+
+  public static <T extends StructSerializable> void log(String key, T value) {
+    if (enabled) {
+      logger.log(key, value);
+    }
+  }
+
+  protected static DogLogLogger createLogger() {
+    var log = DataLogManager.getLog();
+
+    var newLogger =
+        new DogLogLogger(
+            new DataLogLogger(log, LOG_TABLE),
+            options.ntPublish() ? new NetworkTablesLogger(LOG_TABLE) : null);
 
     DataLogManager.logNetworkTables(options.captureNt());
 
     if (options.captureDs()) {
       DriverStation.startDataLog(log);
     }
+
+    return newLogger;
   }
+
+  protected DogLog() {}
 }

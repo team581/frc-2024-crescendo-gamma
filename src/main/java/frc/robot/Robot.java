@@ -93,11 +93,10 @@ public class Robot extends TimedRobot {
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
-    var bulldogLogOptions =
+    DogLog.setOptions(
         new DogLogOptions()
             .withCaptureNt(RobotConfig.IS_DEVELOPMENT)
-            .withNtPublish(RobotConfig.IS_DEVELOPMENT);
-    Logger.setBaseLogger(DogLog.getInstance(bulldogLogOptions));
+            .withNtPublish(RobotConfig.IS_DEVELOPMENT));
 
     // Record metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
