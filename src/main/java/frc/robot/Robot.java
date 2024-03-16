@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
   private final RumbleControllerSubsystem driverRumble =
       new RumbleControllerSubsystem(driverController, false);
   private final RumbleControllerSubsystem operatorRumble =
-      new RumbleControllerSubsystem(driverController, true);
+      new RumbleControllerSubsystem(operatorController, true);
 
   private final PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
   private final WristSubsystem wrist =
