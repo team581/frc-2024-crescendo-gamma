@@ -72,6 +72,9 @@ public class NoteManager extends LifecycleSubsystem {
         case IDLE_NO_GP:
           state = NoteState.IDLE_NO_GP;
           break;
+        case LAZY_INTAKE:
+          state = NoteState.LAZY_INTAKE_TO_QUEUER;
+          break;
         case INTAKE:
           if (state == NoteState.INTAKE_TO_QUEUER) {
             // A note is already in the intake and being passed to the queuer, so we should ignore
@@ -194,6 +197,11 @@ public class NoteManager extends LifecycleSubsystem {
         conveyor.setState(ConveyorState.IDLE);
         queuer.setState(QueuerState.INTAKING);
         break;
+      case LAZY_INTAKE_TO_QUEUER:
+        intake.setState(IntakeState.TO_QUEUER_SLOW);
+        conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
+        queuer.setState(QueuerState.INTAKING);
+        break;
       case INTAKE_TO_QUEUER:
       case GROUND_NOTE_TO_INTAKE:
         intake.setState(IntakeState.TO_QUEUER);
@@ -290,6 +298,10 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void outtakeRequest() {
     flags.check(NoteFlag.OUTTAKE);
+  }
+
+  public void lazyIntakeRequest() {
+    flags.check(NoteFlag.LAZY_INTAKE);
   }
 
   public NoteState getState() {

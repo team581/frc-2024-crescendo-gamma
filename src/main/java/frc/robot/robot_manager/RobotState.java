@@ -18,7 +18,8 @@ public enum RobotState {
 
   /** Intaking a game piece. Transition to INTAKE_TO_QUEUER when done. */
   INTAKING(false, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
-  FINISH_INTAKING(true, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
+  LAZY_INTAKING(false, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_SLOW)),
+  FINISH_INTAKING(true, false, false, new LightsState(Color.kBlue, BlinkPattern.BLINK_FAST)),
 
   /** Outtaking via the shooter. Game piece should be in queuer at start. */
   OUTTAKING_SHOOTER(true, false, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),

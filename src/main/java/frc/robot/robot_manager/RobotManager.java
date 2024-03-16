@@ -122,8 +122,8 @@ public class RobotManager extends LifecycleSubsystem {
               // You released the button after fully intaking the game piece
             } else {
               // The note might be partially in the intake, but hasn't triggered the sensor, so we
-              // enter FINISH_INTAKING to ensure it's fully intaked
-              state = RobotState.FINISH_INTAKING;
+              // enter LAZY_INTAKING to ensure it's fully intaked
+              state = RobotState.LAZY_INTAKING;
             }
           }
           break;
@@ -261,6 +261,7 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case FINISH_INTAKING:
+      case LAZY_INTAKING:
         if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
           state = RobotState.IDLE_WITH_GP;
         }
@@ -379,6 +380,13 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
+        break;
+      case LAZY_INTAKING:
+        wrist.setAngle(wristAngleForSpeaker);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.IDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.lazyIntakeRequest();
         break;
       case FINISH_INTAKING:
       case INTAKING:

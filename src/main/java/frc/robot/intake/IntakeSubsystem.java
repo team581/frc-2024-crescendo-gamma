@@ -50,6 +50,9 @@ public class IntakeSubsystem extends LifecycleSubsystem {
           motor.setVoltage(12);
         }
         break;
+      case TO_QUEUER_SLOW:
+        motor.setVoltage(5);
+        break;
       case TO_CONVEYOR:
         motor.setVoltage(2);
         break;

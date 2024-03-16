@@ -15,10 +15,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.autos.Autos;
 import frc.robot.climber.ClimberSubsystem;
 import frc.robot.config.RobotConfig;
+import frc.robot.controller.RumbleControllerSubsystem;
 import frc.robot.conveyor.ConveyorSubsystem;
 import frc.robot.elevator.ElevatorSubsystem;
 import frc.robot.fms.FmsSubsystem;
@@ -31,6 +33,7 @@ import frc.robot.note_manager.NoteManager;
 import frc.robot.queuer.QueuerSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.robot_manager.RobotManager;
+import frc.robot.robot_manager.RobotState;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
@@ -43,6 +46,11 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private final CommandXboxController driverController = new CommandXboxController(0);
   private final CommandXboxController operatorController = new CommandXboxController(1);
+
+  private final RumbleControllerSubsystem driverRumble =
+      new RumbleControllerSubsystem(driverController, false);
+  private final RumbleControllerSubsystem operatorRumble =
+      new RumbleControllerSubsystem(driverController, true);
 
   private final PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
   private final WristSubsystem wrist =
@@ -195,8 +203,19 @@ public class Robot extends TimedRobot {
 
     driverController
         .leftTrigger()
-        .onTrue(actions.intakeCommand())
-        .onFalse(actions.stopIntakingCommand());
+        .onTrue(
+            actions
+                .intakeCommand()
+                .alongWith(
+                    robotManager
+                        .waitForStateCommand(RobotState.INTAKING)
+                        .andThen(Commands.waitUntil(() -> robotManager.getState().hasNote))
+                        .andThen(driverRumble.getRumbleShortCommand())))
+        .onFalse(
+            actions
+                .stopIntakingCommand()
+                .alongWith(Commands.waitUntil(() -> robotManager.getState().hasNote))
+                .andThen(driverRumble.getRumbleShortCommand()));
     driverController
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
@@ -217,6 +236,7 @@ public class Robot extends TimedRobot {
         .onTrue(actions.waitForSpeakerShotCommand())
         .onFalse(actions.stowCommand());
     operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
+    operatorController.x().onTrue(actions.shooterOuttakeCommand()).onFalse(actions.stowCommand());
     // operatorController
     //     .leftBumper()
     //     .onTrue(actions.waitForFloorShotCommand())

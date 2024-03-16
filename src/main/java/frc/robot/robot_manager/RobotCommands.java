@@ -51,6 +51,12 @@ public class RobotCommands {
         .withName("IntakeCommand");
   }
 
+  public Command shooterOuttakeCommand() {
+    return Commands.runOnce(() -> robot.outtakeShooterRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .withName("ShooterOuttakeCommand");
+  }
+
   public Command outtakeCommand() {
     return Commands.runOnce(() -> robot.outtakeRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
