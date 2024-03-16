@@ -27,10 +27,13 @@ public class DogLog {
       newOptions = new DogLogOptions();
     }
 
-    if (!options.equals(newOptions)) {
+    var oldOptions = options;
+    options = newOptions;
+
+    if (!oldOptions.equals(newOptions)) {
+      System.out.println("[DogLog] Options changed: " + newOptions.toString());
       logger = createLogger();
     }
-    options = newOptions;
   }
 
   public static void setEnabled(boolean newEnabled) {
