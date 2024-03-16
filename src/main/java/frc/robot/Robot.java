@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix6.hardware.TalonFX;
+import dev.doglog.DogLog;
+import dev.doglog.DogLogOptions;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -32,8 +34,6 @@ import frc.robot.robot_manager.RobotManager;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
-import frc.robot.util.logging.DogLog;
-import frc.robot.util.logging.DogLogOptions;
 import frc.robot.util.scheduling.LifecycleSubsystemManager;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristSubsystem;
@@ -93,11 +93,10 @@ public class Robot extends TimedRobot {
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
-    var bulldogLogOptions =
+    DogLog.setOptions(
         new DogLogOptions()
             .withCaptureNt(RobotConfig.IS_DEVELOPMENT)
-            .withNtPublish(RobotConfig.IS_DEVELOPMENT);
-    Logger.setBaseLogger(DogLog.getInstance(bulldogLogOptions));
+            .withNtPublish(RobotConfig.IS_DEVELOPMENT));
 
     // Record metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
