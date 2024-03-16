@@ -313,7 +313,7 @@ public class RobotManager extends LifecycleSubsystem {
           Logger.recordOutput(
               "RobotManager/SpeakerShot/AngularVelocitySlowEnough", angularVelocitySlowEnough);
           Logger.recordOutput("RobotManager/SpeakerShot/RobotHeadingAtGoal", robotHeadingAtGoal);
-          if (limeLightWorking
+          if ((limeLightWorking || DriverStation.isAutonomous())
               && wristAtGoal
               && shooterAtGoal
               && (poseJitterSafe || DriverStation.isAutonomous())

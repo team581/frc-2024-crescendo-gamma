@@ -23,13 +23,41 @@
         "x": 14.660884855933842,
         "y": 5.5687523865625215
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 14.279115144066155,
+        "y": 5.571247613437479
+      },
       "isLocked": false,
       "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 13.867239640928611,
+        "y": 5.567892751660769
+      },
+      "prevControl": {
+        "x": 14.191041851075221,
+        "y": 5.538619534891265
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red M 6, 2"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.95,
+      "constraints": {
+        "maxVelocity": 0.8,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "warmup",
@@ -42,6 +70,23 @@
               "type": "named",
               "data": {
                 "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 1.1,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
               }
             }
           ]
