@@ -36,7 +36,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   // 6 meters per second desired top speed
   public static final double MaxSpeed = 4.75;
   // Half a rotation per second max angular velocity
-  private static final double MaxAngularRate = Units.rotationsToRadians(4);
+  private static final double MaxAngularRate = Units.rotationsToRadians(2);
   private boolean isShooting = false;
 
   private double leftXDeadband = 0.05;
