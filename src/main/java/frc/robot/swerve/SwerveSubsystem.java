@@ -35,7 +35,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
       Units.feetToMeters(LocalizationSubsystem.USE_SHOOT_WHILE_MOVE ? 3 : 3);
   public static final double MaxSpeed = 4.75;
   private static final double MaxAngularRate = Units.rotationsToRadians(4);
-  private static final Rotation2d TELEOP_MAX_ANGULAR_RATE = Rotation2d.fromRotations(2);
+  private static final Rotation2d TELEOP_MAX_ANGULAR_RATE = Rotation2d.fromRotations(3);
   private boolean isShooting = false;
 
   private double leftXDeadband = 0.05;
