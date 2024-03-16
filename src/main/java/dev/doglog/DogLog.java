@@ -4,9 +4,11 @@
 
 package dev.doglog;
 
+import com.ctre.phoenix6.hardware.TalonFX;
 import dev.doglog.loggers.DataLogLogger;
 import dev.doglog.loggers.DogLogLogger;
 import dev.doglog.loggers.NetworkTablesLogger;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.struct.Struct;
 import edu.wpi.first.util.struct.StructSerializable;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -139,6 +141,19 @@ public class DogLog {
     if (enabled) {
       logger.log(key, value);
     }
+  }
+
+  public static void log(String key, TalonFX motor) {
+    log(key + "/PositionDeg", Units.rotationsToDegrees(motor.getPosition().getValueAsDouble()));
+    log(key + "/VelocityRPM", motor.getVelocity().getValueAsDouble() * 60.0);
+    log(key + "/Voltage", motor.getMotorVoltage().getValueAsDouble());
+    log(key + "/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
+  }
+
+  public static void logFull(String key, TalonFX motor) {
+    log(key, motor);
+    log(key + "/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
+    log(key + "/TemperatureC", motor.getDeviceTemp().getValueAsDouble());
   }
 
   protected static DogLogLogger createLogger() {
