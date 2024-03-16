@@ -26,55 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Mid Alt 6, Mid to 2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Mid Alt 6, 2 to 1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Mid Alt 6, 1 to 2.5"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Mid Alt 6, 2.5 to 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Mid Alt 6, 3 to 5"
+            "pathName": "Red Mid Alt 6, 2 to 5"
           }
         },
         {
