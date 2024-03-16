@@ -59,7 +59,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
           Units.inchesToMeters(57.13),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
-  private double limelightHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
+  private double limelightHeartbeat = -1;
 
   InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
   InterpolatingDoubleTreeMap angleToDistance = new InterpolatingDoubleTreeMap();
@@ -328,6 +328,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     } else {
       limelightTimer.restart();
     }
+
+    limelightHeartbeat = newHeartbeat;
   }
 
   public VisionState getState() {
