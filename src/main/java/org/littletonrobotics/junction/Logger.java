@@ -4,6 +4,6 @@
 
 package org.littletonrobotics.junction;
 
-import frc.robot.util.logging.AdvantageKitCompatibleLogger;
+import dev.doglog.AdvantageKitCompatibleLogger;
 
 public class Logger extends AdvantageKitCompatibleLogger {}
