@@ -227,14 +227,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
         new Pose2d(new Translation2d(BLUE_SPEAKER.getX(), Y), BLUE_SPEAKER.getRotation());
   }
 
-  public Pose2d getSpeaker(boolean original) {
-    if (FmsSubsystem.isRedAlliance()) {
-      return ORIGINAL_RED_SPEAKER;
-    } else {
-      return ORIGINAL_BLUE_SPEAKER;
-    }
-  }
-
   public Pose2d getSpeaker() {
     if (FmsSubsystem.isRedAlliance()) {
       return ORIGINAL_RED_SPEAKER;
@@ -243,16 +235,24 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
   }
 
-  public DistanceAngle getDistanceAngleSpeaker(boolean originalSpeaker) {
-    Pose2d goalPose = getSpeaker(true);
+  public Pose2d getMovedSpeaker() {
+    if (FmsSubsystem.isRedAlliance()) {
+      return RED_SPEAKER;
+    } else {
+      return BLUE_SPEAKER;
+    }
+  }
+
+  public DistanceAngle getDistanceAngleSpeaker() {
+    Pose2d goalPose = getSpeaker();
 
     Logger.recordOutput("Vision/SpeakerPose", goalPose);
 
     return distanceToTargetPose(goalPose, robotPose);
   }
 
-  public DistanceAngle getDistanceAngleSpeaker() {
-    Pose2d goalPose = getSpeaker();
+  public DistanceAngle getDistanceAngleMovedSpeaker() {
+    Pose2d goalPose = getMovedSpeaker();
 
     Logger.recordOutput("Vision/SpeakerPose", goalPose);
 
@@ -309,13 +309,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
   @Override
   public void robotPeriodic() {
     setSpeakerY(
-        getSpeaker(true).getY()
+        getSpeaker().getY()
             + angleToPositionOffset.get(
                 Math.atan(
-                    (robotPose.getY() - getSpeaker(true).getY())
-                        / (robotPose.getX() - getSpeaker(true).getX()))));
-    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
-    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
+                    (robotPose.getY() - getSpeaker().getY())
+                        / (robotPose.getX() - getSpeaker().getX()))));
+    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleMovedSpeaker().distance());
+    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleMovedSpeaker().angle().getDegrees());
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
