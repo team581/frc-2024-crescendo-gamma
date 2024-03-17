@@ -33,15 +33,15 @@
     {
       "anchor": {
         "x": 13.867239640928611,
-        "y": 4.16367976498818
+        "y": 4.070938785877572
       },
       "prevControl": {
         "x": 14.137839738079427,
-        "y": 3.85782434345731
+        "y": 3.7650833643467023
       },
       "nextControl": {
         "x": 13.638731203257857,
-        "y": 4.421959585516833
+        "y": 4.329218606406226
       },
       "isLocked": false,
       "linkedName": "Red M 6, 1"
@@ -157,7 +157,7 @@
       "minWaypointRelativePos": 0.2,
       "maxWaypointRelativePos": 0.5,
       "constraints": {
-        "maxVelocity": 0.8,
+        "maxVelocity": 0.7,
         "maxAcceleration": 5.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
