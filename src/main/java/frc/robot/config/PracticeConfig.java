@@ -273,5 +273,5 @@ class PracticeConfig {
               0.01,
               tyToNoteDistance -> {
                 tyToNoteDistance.put(0.0, 0.0);
-              }, 13.0));
+              }, 13.0, 55.296, 80.477, 39.657, 27.878));
 }

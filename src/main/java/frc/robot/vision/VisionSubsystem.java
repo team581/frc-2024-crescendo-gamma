@@ -24,10 +24,10 @@ import org.littletonrobotics.junction.Logger;
 public class VisionSubsystem extends LifecycleSubsystem {
   private final Timer limelightTimer = new Timer();
 
-  private static final double FOV_HORIZONTAL = 80.477;
-  private static final double horizontalLeftView = 39.657;
-  private static final double FOV_VERTICAL = 55.296;
-  private static final double veritalTopView = 27.878;
+  private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
+  private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
+  private static final double horizontalLeftView = RobotConfig.get().vision().horzLeft();
+  private static final double veritalTopView = RobotConfig.get().vision().vertTop();
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
@@ -314,7 +314,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
                 Math.atan(
                     (robotPose.getY() - getSpeaker(true).getY())
                         / (robotPose.getX() - getSpeaker(true).getX()))));
-    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
+    Logger.recordOutput("Vision/DistanceFromSpeaker", Units.metersToInches(getDistanceAngleSpeaker().distance()));
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());

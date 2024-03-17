@@ -103,7 +103,7 @@ public record RobotConfig(
       int translationHistoryArraySize,
       double xyStdDev,
       double thetaStdDev,
-      Consumer<InterpolatingDoubleTreeMap> tyToNoteDistance, double llAngle) {}
+      Consumer<InterpolatingDoubleTreeMap> tyToNoteDistance, double llAngle, double fovVert, double fovHorz, double horzLeft, double vertTop) {}
 
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;
