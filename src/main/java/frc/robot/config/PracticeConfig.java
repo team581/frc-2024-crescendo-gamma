@@ -87,7 +87,8 @@ class PracticeConfig {
                 speakerDistanceToRPM.put(1.5, 4000.0);
                 speakerDistanceToRPM.put(5.0, 4000.0);
                 speakerDistanceToRPM.put(5.5, 4500.0);
-                speakerDistanceToRPM.put(6.0, 5000.0);
+                speakerDistanceToRPM.put(6.0, 4500.0);
+                speakerDistanceToRPM.put(9.0, 4500.0);
               },
               floorSpotDistanceToRPM -> {
                 floorSpotDistanceToRPM.put(1.6, 1700.0);
@@ -166,9 +167,9 @@ class PracticeConfig {
                 speakerDistanceToAngle.put(1.25, 58.1);
                 speakerDistanceToAngle.put(2.0, 46.0);
                 speakerDistanceToAngle.put(3.6, 32.0);
-                speakerDistanceToAngle.put(4.4, 29.0);
-                speakerDistanceToAngle.put(4.9, 26.9);
-                speakerDistanceToAngle.put(6.87, 21.0);
+                speakerDistanceToAngle.put(4.9, 26.0);
+                speakerDistanceToAngle.put(6.87, 19.0);
+                speakerDistanceToAngle.put(8.8, 12.0);
               },
               floorSpotDistanceToAngle -> {
                 floorSpotDistanceToAngle.put(1.6, 70.0);
