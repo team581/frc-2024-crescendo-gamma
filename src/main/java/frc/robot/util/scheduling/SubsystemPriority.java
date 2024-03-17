@@ -8,6 +8,7 @@ public enum SubsystemPriority {
   // Vision must run before **everything** to ensure that the cached data is fresh
   VISION(50),
 
+  NOTE_TRACKING(41),
   AUTOS(40),
 
   NOTE_MANAGER(31),

@@ -266,7 +266,11 @@ class PracticeConfig {
                 distanceToAngleTolerance.put(1.0, 2.5);
               }),
           new LightsConfig(3),
-          new VisionConfig(4, 0.9, 0.9));
-
-  private PracticeConfig() {}
+          new VisionConfig(
+              4,
+              0.005,
+              0.01,
+              tyToNoteDistance -> {
+                tyToNoteDistance.put(0.0, 0.0);
+              }));
 }

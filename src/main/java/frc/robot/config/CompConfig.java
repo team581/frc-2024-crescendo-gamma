@@ -266,7 +266,13 @@ class CompConfig {
                 distanceToAngleTolerance.put(1.0, 2.5);
               }),
           new LightsConfig(3),
-          new VisionConfig(4, 0.9, 0.9));
+          new VisionConfig(
+              4,
+              0.9,
+              0.9,
+              tyToNoteDistance -> {
+                tyToNoteDistance.put(0.0, 0.0);
+              }));
 
   private CompConfig() {}
 }

@@ -100,7 +100,10 @@ public record RobotConfig(
       boolean invertY) {}
 
   public record VisionConfig(
-      int translationHistoryArraySize, double xyStdDev, double thetaStdDev) {}
+      int translationHistoryArraySize,
+      double xyStdDev,
+      double thetaStdDev,
+      Consumer<InterpolatingDoubleTreeMap> tyToNoteDistance) {}
 
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;
