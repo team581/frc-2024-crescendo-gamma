@@ -37,15 +37,15 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   }
 
   private Optional<Pose2d> getNotePose() {
-    if (NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("v").getInteger(0)
+    if (NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("v").getInteger(0)
         == 0) {
       return Optional.empty();
     }
     var robotPose = getPose();
     double ty =
-        NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("ty").getDouble(0);
+        NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("ty").getDouble(0);
     double tx =
-        NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("tx").getDouble(0);
+        NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("tx").getDouble(0);
 
     Logger.recordOutput("NoteTracking/TY", ty);
     Logger.recordOutput("NoteTracking/TX", tx);
