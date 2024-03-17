@@ -26,6 +26,18 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Copy of Red Mid 6, Mid to 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Red Mid 6, 2 to 5"
           }
         },

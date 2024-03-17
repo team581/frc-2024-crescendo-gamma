@@ -17,6 +17,9 @@ import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.VisionSubsystem;
 import java.util.Optional;
+
+import javax.swing.text.html.Option;
+
 import org.littletonrobotics.junction.Logger;
 
 public class NoteTrackingManager extends LifecycleSubsystem {
@@ -34,15 +37,15 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   }
 
   private Optional<Pose2d> getNotePose() {
-    if (NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("v").getInteger(0)
+    if (NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("v").getInteger(0)
         == 0) {
       return Optional.empty();
     }
     var robotPose = getPose();
     double ty =
-        NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("ty").getDouble(0);
+        NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("ty").getDouble(0);
     double tx =
-        NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("tx").getDouble(0);
+        NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("tx").getDouble(0);
 
     Logger.recordOutput("NoteTracking/TY", ty);
     Logger.recordOutput("NoteTracking/TX", tx);
@@ -86,6 +89,10 @@ public class NoteTrackingManager extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    Logger.recordOutput("NoteTracking/NotePose", getNotePose().get());
+    Optional<Pose2d> notePose = getNotePose();
+    if (notePose.isPresent()){
+      Logger.recordOutput("NoteTracking/NotePose", notePose.get());
+    }
+
   }
 }
