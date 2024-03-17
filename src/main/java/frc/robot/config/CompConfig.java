@@ -20,6 +20,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
 import frc.robot.config.RobotConfig.ElevatorConfig;
@@ -272,6 +273,7 @@ class CompConfig {
               0.9,
               tyToNoteDistance -> {
                 tyToNoteDistance.put(0.0, 0.0);
+                tyToNoteDistance.put(-20.0, Units.inchesToMeters(10.0));
               }));
 
   private CompConfig() {}

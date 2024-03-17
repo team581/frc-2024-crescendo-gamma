@@ -41,15 +41,17 @@ public class NoteTrackingManager extends LifecycleSubsystem {
         NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("tx").getDouble(0);
 
     Logger.recordOutput("NoteTracking/TY", ty);
+        Logger.recordOutput("NoteTracking/TX", tx);
+
 
     double forwardDistanceToNote = tyToDistance.get(ty);
     Rotation2d angleFromNote = Rotation2d.fromDegrees(tx);
+    Logger.recordOutput("NoteTracking/ForwardDistance", forwardDistanceToNote);
 
-    double sidewaysDistanceToNote =
-        forwardDistanceToNote
-            * Math.sin(angleFromNote.getRadians())
-            / Math.sin(Units.degreesToRadians(90) - angleFromNote.getRadians());
-
+    var c = forwardDistanceToNote/Math.cos(angleFromNote.getRadians());
+    double sidewaysDistanceToNote = Math.sqrt(Math.pow(c, 2)-Math.pow(forwardDistanceToNote, 2));
+            
+    Logger.recordOutput("NoteTracking/SidewaysDistance", sidewaysDistanceToNote);
     var notePoseWithoutRotation =
         new Translation2d(
             robotPose.getX() - forwardDistanceToNote, robotPose.getY() - sidewaysDistanceToNote);
