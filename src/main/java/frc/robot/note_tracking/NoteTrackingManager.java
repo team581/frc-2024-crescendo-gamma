@@ -17,9 +17,6 @@ import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.VisionSubsystem;
 import java.util.Optional;
-
-import javax.swing.text.html.Option;
-
 import org.littletonrobotics.junction.Logger;
 
 public class NoteTrackingManager extends LifecycleSubsystem {
@@ -37,51 +34,51 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   }
 
   private Optional<Pose2d> getNotePose() {
-    //TODO: update limelight so v works
-    //long v = NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("v").getInteger(0);
+    // TODO: update limelight so v works
+    // long v =
+    // NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("v").getInteger(0);
     double ty =
         NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("ty").getDouble(0);
     double tx =
         NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("tx").getDouble(0);
-    
-        if (tx
-        == 0) {
+
+    if (tx == 0) {
       return Optional.empty();
     } else {
-    var robotPose = getPose();
+      var robotPose = getPose();
 
-    Logger.recordOutput("NoteTracking/TY", ty);
-    Logger.recordOutput("NoteTracking/TX", tx);
+      Logger.recordOutput("NoteTracking/TY", ty);
+      Logger.recordOutput("NoteTracking/TX", tx);
 
-    double forwardDistanceToNote = tyToDistance.get(ty);
-    Rotation2d angleFromNote = Rotation2d.fromDegrees(tx);
-    Logger.recordOutput("NoteTracking/ForwardDistance", forwardDistanceToNote);
+      double forwardDistanceToNote = tyToDistance.get(ty);
+      Rotation2d angleFromNote = Rotation2d.fromDegrees(tx);
+      Logger.recordOutput("NoteTracking/ForwardDistance", forwardDistanceToNote);
 
-    var c = forwardDistanceToNote / Math.cos(angleFromNote.getRadians());
-    double sidewaysDistanceToNote = 0;
-    if (tx > 0) {
-      sidewaysDistanceToNote = -(Math.sqrt(Math.pow(c, 2) - Math.pow(forwardDistanceToNote, 2)));
-    } else {
-      sidewaysDistanceToNote = Math.sqrt(Math.pow(c, 2) - Math.pow(forwardDistanceToNote, 2));
+      var c = forwardDistanceToNote / Math.cos(angleFromNote.getRadians());
+      double sidewaysDistanceToNote = 0;
+      if (tx > 0) {
+        sidewaysDistanceToNote = -(Math.sqrt(Math.pow(c, 2) - Math.pow(forwardDistanceToNote, 2)));
+      } else {
+        sidewaysDistanceToNote = Math.sqrt(Math.pow(c, 2) - Math.pow(forwardDistanceToNote, 2));
+      }
+
+      Logger.recordOutput("NoteTracking/SidewaysDistance", sidewaysDistanceToNote);
+      var notePoseWithoutRotation =
+          new Translation2d(
+              robotPose.getX() - forwardDistanceToNote, robotPose.getY() - sidewaysDistanceToNote);
+
+      // Uses distance angle math to aim, inverses the angle for intake
+      double rotation =
+          VisionSubsystem.distanceToTargetPose(
+                  new Pose2d(notePoseWithoutRotation, new Rotation2d()), robotPose)
+              .angle()
+              .getRadians();
+      return Optional.of(
+          new Pose2d(
+              notePoseWithoutRotation,
+              new Rotation2d(rotation + getPose().getRotation().getRadians() + Math.PI)));
     }
-
-    Logger.recordOutput("NoteTracking/SidewaysDistance", sidewaysDistanceToNote);
-    var notePoseWithoutRotation =
-        new Translation2d(
-            robotPose.getX() - forwardDistanceToNote, robotPose.getY() - sidewaysDistanceToNote);
-
-    // Uses distance angle math to aim, inverses the angle for intake
-    double rotation =
-        VisionSubsystem.distanceToTargetPose(
-                new Pose2d(notePoseWithoutRotation, new Rotation2d()), robotPose)
-            .angle()
-            .getRadians();
-    return Optional.of(
-        new Pose2d(
-            notePoseWithoutRotation,
-            new Rotation2d(rotation + getPose().getRotation().getRadians() + Math.PI)));
   }
-}
 
   public Command driveToNotePose() {
     return swerve.driveToPoseCommand(() -> getNotePose().get(), this::getPose);
@@ -94,9 +91,8 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   @Override
   public void robotPeriodic() {
     Optional<Pose2d> notePose = getNotePose();
-    if (notePose.isPresent()){
+    if (notePose.isPresent()) {
       Logger.recordOutput("NoteTracking/NotePose", notePose.get());
     }
-
   }
 }

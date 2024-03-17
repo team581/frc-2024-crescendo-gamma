@@ -76,7 +76,7 @@ public class RobotManager extends LifecycleSubsystem {
     flags.log();
 
     DistanceAngle speakerVisionTargets = vision.getDistanceAngleSpeaker();
-    //change to Speaker or MovedSpeaker
+    // change to Speaker or MovedSpeaker
 
     DistanceAngle floorSpotVisionTargets = vision.getDistanceAngleFloorShot();
     double speakerDistance = speakerVisionTargets.distance();
@@ -86,7 +86,7 @@ public class RobotManager extends LifecycleSubsystem {
     var currentHeading = vision.getUsedRobotPose().getRotation();
     Rotation2d robotAngleToSpeaker =
         Rotation2d.fromDegrees(
-            currentHeading.getDegrees()+speakerVisionTargets.angle().getDegrees());
+            currentHeading.getDegrees() + speakerVisionTargets.angle().getDegrees());
     shooter.setSpeakerDistance(speakerDistance);
     Rotation2d robotAngleToFloorSpot =
         Rotation2d.fromDegrees(
