@@ -9,20 +9,20 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.config.RobotConfig;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
-import frc.robot.vision.LimelightHelpers;
 import frc.robot.vision.VisionSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class NoteTrackingManager extends LifecycleSubsystem {
   private final LocalizationSubsystem localization;
   private final SwerveSubsystem swerve;
-  private static final String LIMELIGHT_NAME = "note";
+  private static final String LIMELIGHT_NAME = "limelight-note";
   private final InterpolatingDoubleTreeMap tyToDistance = new InterpolatingDoubleTreeMap();
 
   public NoteTrackingManager(LocalizationSubsystem localization, SwerveSubsystem swerve) {
@@ -35,8 +35,10 @@ public class NoteTrackingManager extends LifecycleSubsystem {
 
   private Pose2d getNotePose() {
     var robotPose = getPose();
-    double ty = LimelightHelpers.getTY(LIMELIGHT_NAME);
-    double tx = LimelightHelpers.getTX(LIMELIGHT_NAME);
+    double ty =
+        NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("ty").getDouble(0);
+    double tx =
+        NetworkTableInstance.getDefault().getTable("limelight-note").getEntry("tx").getDouble(0);
 
     Logger.recordOutput("NoteTracking/TY", ty);
 
@@ -54,7 +56,7 @@ public class NoteTrackingManager extends LifecycleSubsystem {
 
     // Uses distance angle math to aim, inverses the angle for intake
     double rotation =
-          VisionSubsystem.distanceToTargetPose(
+        VisionSubsystem.distanceToTargetPose(
                 new Pose2d(notePoseWithoutRotation, new Rotation2d()), robotPose)
             .angle()
             .getRadians();
