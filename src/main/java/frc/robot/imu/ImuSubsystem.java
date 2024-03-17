@@ -80,7 +80,7 @@ public class ImuSubsystem extends LifecycleSubsystem {
   }
 
   public boolean belowVelocityForSpeaker(double distance) {
-    return getRobotAngularVelocity().getDegrees() < 20;
+    return getRobotAngularVelocity().getDegrees() < 10;
   }
 
   public boolean atAngleForSpeaker(Rotation2d angle, double distance) {
