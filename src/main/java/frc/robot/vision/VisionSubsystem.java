@@ -237,9 +237,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   public Pose2d getSpeaker() {
     if (FmsSubsystem.isRedAlliance()) {
-      return RED_SPEAKER;
+      return ORIGINAL_RED_SPEAKER;
     } else {
-      return BLUE_SPEAKER;
+      return ORIGINAL_BLUE_SPEAKER;
     }
   }
 
