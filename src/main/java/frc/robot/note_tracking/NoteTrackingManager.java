@@ -17,6 +17,9 @@ import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.VisionSubsystem;
 import java.util.Optional;
+
+import javax.swing.text.html.Option;
+
 import org.littletonrobotics.junction.Logger;
 
 public class NoteTrackingManager extends LifecycleSubsystem {
@@ -86,6 +89,10 @@ public class NoteTrackingManager extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    Logger.recordOutput("NoteTracking/NotePose", getNotePose().get());
+    Optional<Pose2d> notePose = getNotePose();
+    if (notePose.isPresent()){
+      Logger.recordOutput("NoteTracking/NotePose", notePose.get());
+    }
+
   }
 }
