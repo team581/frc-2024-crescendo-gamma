@@ -28,23 +28,23 @@
         "y": 4.0098301894695325
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 2"
+      "linkedName": null
     },
     {
       "anchor": {
         "x": 13.867239640928611,
-        "y": 4.16367976498818
+        "y": 4.070938785877572
       },
       "prevControl": {
         "x": 13.814639754315765,
-        "y": 3.939394179200831
+        "y": 3.8466532000902234
       },
       "nextControl": {
         "x": 13.945979186361601,
-        "y": 4.499424691627521
+        "y": 4.406683712516913
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 1"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -60,7 +60,7 @@
         "y": 6.620507894726174
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 2.5"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -89,7 +89,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red Mid Alt 6, 5"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
