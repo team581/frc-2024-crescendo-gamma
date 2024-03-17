@@ -37,15 +37,18 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   }
 
   private Optional<Pose2d> getNotePose() {
-    if (NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("v").getInteger(0)
-        == 0) {
-      return Optional.empty();
-    }
-    var robotPose = getPose();
+    //TODO: update limelight so v works
+    //long v = NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("v").getInteger(0);
     double ty =
         NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("ty").getDouble(0);
     double tx =
         NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("tx").getDouble(0);
+    
+        if (tx
+        == 0) {
+      return Optional.empty();
+    } else {
+    var robotPose = getPose();
 
     Logger.recordOutput("NoteTracking/TY", ty);
     Logger.recordOutput("NoteTracking/TX", tx);
@@ -78,13 +81,14 @@ public class NoteTrackingManager extends LifecycleSubsystem {
             notePoseWithoutRotation,
             new Rotation2d(rotation + getPose().getRotation().getRadians() + Math.PI)));
   }
+}
 
   public Command driveToNotePose() {
     return swerve.driveToPoseCommand(() -> getNotePose().get(), this::getPose);
   }
 
   private Pose2d getPose() {
-    return localization.getOdometryPose();
+    return localization.getPose();
   }
 
   @Override
