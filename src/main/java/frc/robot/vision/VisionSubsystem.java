@@ -315,7 +315,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
                     (robotPose.getY() - getSpeaker(true).getY())
                         / (robotPose.getX() - getSpeaker(true).getX()))));
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
-    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle());
+    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
