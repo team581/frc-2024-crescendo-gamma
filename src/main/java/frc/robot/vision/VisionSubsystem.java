@@ -310,10 +310,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public void robotPeriodic() {
     setSpeakerY(
         getSpeaker().getY()
-            + angleToPositionOffset.get(
-                Math.atan(
-                    (robotPose.getY() - getSpeaker().getY())
-                        / (robotPose.getX() - getSpeaker().getX()))));
+            + angleToPositionOffset.get(getDistanceAngleSpeaker().angle().getDegrees()));
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput(
         "Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
