@@ -13,6 +13,7 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
@@ -23,11 +24,10 @@ import org.littletonrobotics.junction.Logger;
 public class VisionSubsystem extends LifecycleSubsystem {
   private final Timer limelightTimer = new Timer();
 
-  private static final double FOV_HORIZONTAL = 80.477;
-  private static final double horizontalLeftView = 39.657;
-  private static final double FOV_VERTICAL = 55.296;
-  private static final double veritalTopView = 27.878;
-  private static final double CAMERA_ANGLE = 13.0;
+  private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
+  private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
+  private static final double horizontalLeftView = RobotConfig.get().vision().horzLeft();
+  private static final double veritalTopView = RobotConfig.get().vision().vertTop();
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
@@ -44,7 +44,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
           0,
           Units.inchesToMeters(-1.103),
           Units.inchesToMeters(24.418),
-          new Rotation3d(0, Units.degreesToRadians(CAMERA_ANGLE), 0));
+          new Rotation3d(0, Units.degreesToRadians(RobotConfig.get().vision().llAngle()), 0));
 
   public static final Pose3d RED_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
@@ -314,10 +314,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
                 Math.atan(
                     (robotPose.getY() - getSpeaker().getY())
                         / (robotPose.getX() - getSpeaker().getX()))));
-    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleMovedSpeaker().distance());
+    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput(
-        "Vision/AngleFromSpeaker", getDistanceAngleMovedSpeaker().angle().getDegrees());
-
+        "Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
     Logger.recordOutput("Vision/State", getState());
