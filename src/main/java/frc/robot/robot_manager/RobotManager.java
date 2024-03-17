@@ -84,7 +84,7 @@ public class RobotManager extends LifecycleSubsystem {
     var currentHeading = vision.getUsedRobotPose().getRotation();
     Rotation2d robotAngleToSpeaker =
         Rotation2d.fromDegrees(
-            currentHeading.getDegrees() + speakerVisionTargets.angle().getDegrees());
+            currentHeading.getDegrees()+speakerVisionTargets.angle().getDegrees());
     shooter.setSpeakerDistance(speakerDistance);
     Rotation2d robotAngleToFloorSpot =
         Rotation2d.fromDegrees(
@@ -304,7 +304,7 @@ public class RobotManager extends LifecycleSubsystem {
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
-          boolean limeLightWorking = vision.getState() != VisionState.OFFLINE;
+          boolean limeLightWorking = vision.getState() == VisionState.SEES_TAGS;
 
           Logger.recordOutput("RobotManager/SpeakerShot/LimelightWorking", limeLightWorking);
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
