@@ -8,7 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -29,12 +28,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
   private static final double veritalTopView = 27.878;
   private static final double CAMERA_ANGLE = 13.0;
 
-  public static final Pose2d ORIGINAL_RED_SPEAKER =
-      new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
-  public static final Pose2d ORIGINAL_BLUE_SPEAKER = new Pose2d(0, 5.53, Rotation2d.fromDegrees(0));
-
-  public static Pose2d RED_SPEAKER = ORIGINAL_RED_SPEAKER;
-  public static Pose2d BLUE_SPEAKER = ORIGINAL_BLUE_SPEAKER;
+  public static final Pose2d RED_SPEAKER = new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
+  public static final Pose2d BLUE_SPEAKER = new Pose2d(0, 5.53, Rotation2d.fromDegrees(0));
 
   public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 6.9, Rotation2d.fromDegrees(180));
   public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 6.9, Rotation2d.fromDegrees(0));
@@ -221,34 +216,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
     limelightTimer.start();
   }
 
-  private void setSpeakerY(double Y) {
-    RED_SPEAKER = new Pose2d(new Translation2d(RED_SPEAKER.getX(), Y), RED_SPEAKER.getRotation());
-    BLUE_SPEAKER =
-        new Pose2d(new Translation2d(BLUE_SPEAKER.getX(), Y), BLUE_SPEAKER.getRotation());
-  }
-
-  public Pose2d getSpeaker(boolean original) {
-    if (FmsSubsystem.isRedAlliance()) {
-      return ORIGINAL_RED_SPEAKER;
-    } else {
-      return ORIGINAL_BLUE_SPEAKER;
-    }
-  }
-
-  public Pose2d getSpeaker() {
+  private static Pose2d getSpeaker() {
     if (FmsSubsystem.isRedAlliance()) {
       return RED_SPEAKER;
     } else {
       return BLUE_SPEAKER;
     }
-  }
-
-  public DistanceAngle getDistanceAngleSpeaker(boolean originalSpeaker) {
-    Pose2d goalPose = getSpeaker(true);
-
-    Logger.recordOutput("Vision/SpeakerPose", goalPose);
-
-    return distanceToTargetPose(goalPose, robotPose);
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
@@ -308,17 +281,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    setSpeakerY(
-        getSpeaker(true).getY()
-            + angleToPositionOffset.get(
-                Math.atan(
-                    (robotPose.getY() - getSpeaker(true).getY())
-                        / (robotPose.getX() - getSpeaker(true).getX()))));
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
 
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
-    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
+    Logger.recordOutput(
+        "Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle().getDegrees());
     Logger.recordOutput("Vision/State", getState());
 
     var newHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
