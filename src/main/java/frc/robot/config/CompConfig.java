@@ -84,10 +84,12 @@ class CompConfig {
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
                 speakerDistanceToRPM.put(0.92, 3000.0);
-                speakerDistanceToRPM.put(1.2, 3000.0);
-                speakerDistanceToRPM.put(1.5, 4000.0);
-                speakerDistanceToRPM.put(5.0, 4000.0);
-                speakerDistanceToRPM.put(5.5, 4500.0);
+                speakerDistanceToRPM.put(1.37, 3000.0);
+                speakerDistanceToRPM.put(2.5, 3000.0);
+                speakerDistanceToRPM.put(3.5, 4000.0);
+                speakerDistanceToRPM.put(5.0, 5000.0);
+
+                // Unvalidated
                 speakerDistanceToRPM.put(6.0, 5000.0);
               },
               floorSpotDistanceToRPM -> {
@@ -164,10 +166,13 @@ class CompConfig {
               },
               speakerDistanceToAngle -> {
                 speakerDistanceToAngle.put(0.92, 58.1);
-                speakerDistanceToAngle.put(1.25, 58.1);
-                speakerDistanceToAngle.put(2.0, 46.0);
-                speakerDistanceToAngle.put(3.6, 32.0);
-                speakerDistanceToAngle.put(4.4, 29.0);
+                speakerDistanceToAngle.put(1.37, 58.1);
+                speakerDistanceToAngle.put(2.5, 42.5);
+                speakerDistanceToAngle.put(3.5, 35.0);
+
+                speakerDistanceToAngle.put(5.0, 29.0);
+
+                // Unvalidated
                 speakerDistanceToAngle.put(4.9, 26.9);
                 speakerDistanceToAngle.put(6.87, 21.0);
               },
