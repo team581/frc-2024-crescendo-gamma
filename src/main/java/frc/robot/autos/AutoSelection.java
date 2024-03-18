@@ -16,7 +16,7 @@ public enum AutoSelection {
   SIX_PIECE_SOURCE_1_6("Red 6 Piece Source 1-6", "Blue 6 Piece Source 1-6"),
   SIX_PIECE_2_5_DEV("Red 6 Piece 2,1,3-5", ""),
   SIX_PIECE_SOURCE_1_5("Red 6 Piece Source 1-5", "Blue 6 Piece Source 1-5"),
-  STRAIGHT_LINE("Red Straight Line" , "");
+  STRAIGHT_LINE("Red Straight Line", "");
 
   public final String redAutoName;
   public final String blueAutoName;
