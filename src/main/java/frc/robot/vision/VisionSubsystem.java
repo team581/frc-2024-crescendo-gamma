@@ -44,12 +44,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
           0,
           Units.inchesToMeters(-1.103),
           Units.inchesToMeters(24.418),
-          new Rotation3d(0, Units.degreesToRadians(RobotConfig.get().vision().llAngle()), 0));
+          new Rotation3d(0, Units.degreesToRadians(RobotConfig.get().vision().llAngle()), -4.25));
 
   public static final Pose3d RED_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
           16.58,
-          5.53 - 0.283,
+          5.53 - 0.29,
           Units.inchesToMeters(57.13),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
   public static final Pose3d BLUE_SPEAKER_DOUBLE_TAG_CENTER =
@@ -157,12 +157,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     Rotation2d cameraToAngle =
         Rotation2d.fromDegrees(
-            angleX + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees());
+            angleX + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees()+ CAMERA_ON_BOT.getRotation().getZ());
 
     // double distanceFromSpeaker = getDistanceFromAngle(angleY);
 
-    double distanceX = Math.cos(cameraToAngle.getRadians()) * distanceToSpeaker3D;
-    double distanceY = Math.sin(cameraToAngle.getRadians()) * distanceToSpeaker3D;
+    double distanceX = Math.cos(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
+    double distanceY = Math.sin(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
 
     Pose2d fieldPosition =
         new Pose2d(
@@ -312,8 +312,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
         getSpeaker().getY()
             + angleToPositionOffset.get(getDistanceAngleSpeaker().angle().getDegrees()));
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
-    Logger.recordOutput(
-        "Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
+    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
     Logger.recordOutput("Vision/State", getState());

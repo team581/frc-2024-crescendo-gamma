@@ -272,9 +272,20 @@ class CompConfig {
               0.9,
               0.9,
               tyToNoteDistance -> {
-                tyToNoteDistance.put(-21.3, Units.inchesToMeters(8.5 + 15));
-                tyToNoteDistance.put(9.5, Units.inchesToMeters(67 + 15));
-              }, 14.7, 56.015, 81.428, 42.134, 27.676));
+                tyToNoteDistance.put(-16.0, Units.inchesToMeters(12 + 15.25));
+                tyToNoteDistance.put(16.8, Units.inchesToMeters(120 + 15));
+                                tyToNoteDistance.put(15.0, Units.inchesToMeters(96.0 + 15));
+                                tyToNoteDistance.put(10.5, Units.inchesToMeters(60.0 + 15));
+                                            tyToNoteDistance.put(12.5, Units.inchesToMeters(72.0 + 15));
+
+
+
+              },
+              14.7,
+              56.015,
+              81.428,
+              42.134,
+              27.676));
 
   private CompConfig() {}
 }
