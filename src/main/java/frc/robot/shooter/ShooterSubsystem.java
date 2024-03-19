@@ -16,6 +16,7 @@ import org.littletonrobotics.junction.Logger;
 public class ShooterSubsystem extends LifecycleSubsystem {
   private final TalonFX leftMotor;
   private final TalonFX rightMotor;
+  private boolean usingNoteSpin = true;
   private final VelocityTorqueCurrentFOC velocityRequest =
       new VelocityTorqueCurrentFOC(0).withSlot(0).withLimitReverseMotion(true);
   private double speakerDistance = 0;
@@ -43,6 +44,11 @@ public class ShooterSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    if (goalMode == ShooterMode.SHOOTER_AMP) {
+      usingNoteSpin = false;
+    } else {
+      usingNoteSpin = true;
+    }
     switch (goalMode) {
       case SPEAKER_SHOT:
         goalRPM = speakerDistanceToRPM.get(speakerDistance);
@@ -59,6 +65,9 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       case OUTTAKE:
         goalRPM = ShooterRPMs.OUTTAKE;
         break;
+      case SHOOTER_AMP:
+        goalRPM = ShooterRPMs.SHOOTER_AMP;
+        break;
       case IDLE:
         if (DriverStation.isAutonomous()) {
           goalRPM = speakerDistanceToRPM.get(speakerDistance);
@@ -67,7 +76,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
         }
         break;
       case FULLY_STOPPED:
-        goalRPM = 0;
+        goalRPM = ShooterRPMs.FULLY_STOPPED;
         break;
       default:
         break;
@@ -75,7 +84,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Shooter/Mode", goalMode);
     Logger.recordOutput("Shooter/GoalRPM", goalRPM);
-    Logger.recordOutput("Shooter/GoalRPMForRightMotor", goalRPM * ShooterRPMs.SPIN_RATIO);
+    Logger.recordOutput("Shooter/GoalRPMForRightMotor", goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0));
     Logger.recordOutput("Shooter/LeftMotor/Temperature", leftMotor.getDeviceTemp().getValue());
     Logger.recordOutput("Shooter/LeftMotor/RPM", getRPM(leftMotor));
     Logger.recordOutput(
@@ -96,7 +105,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       rightMotor.disable();
     } else {
       leftMotor.setControl(velocityRequest.withVelocity((goalRPM) / 60));
-      rightMotor.setControl(velocityRequest.withVelocity((goalRPM * ShooterRPMs.SPIN_RATIO) / 60));
+      rightMotor.setControl(velocityRequest.withVelocity((goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0)) / 60));
     }
   }
 
@@ -109,7 +118,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       return true;
     }
 
-    if (Math.abs((goalRPM * ShooterRPMs.SPIN_RATIO) - getRPM(rightMotor)) < ShooterRPMs.TOLERANCE
+    if (Math.abs((goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0)) - getRPM(rightMotor)) < ShooterRPMs.TOLERANCE
         && Math.abs(goalRPM - getRPM(leftMotor)) < ShooterRPMs.TOLERANCE) {
       return true;
     }

@@ -238,6 +238,10 @@ public class Robot extends TimedRobot {
         .rightTrigger()
         .onTrue(actions.waitForSpeakerShotCommand())
         .onFalse(actions.stowCommand());
+    operatorController
+        .leftTrigger()
+        .onTrue(actions.shooterAmpCommand())
+        .onFalse(actions.stowCommand());
     operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
     operatorController.x().onTrue(actions.shooterOuttakeCommand()).onFalse(actions.stowCommand());
     // operatorController

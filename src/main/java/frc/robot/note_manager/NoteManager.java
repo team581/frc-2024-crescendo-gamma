@@ -97,6 +97,13 @@ public class NoteManager extends LifecycleSubsystem {
             state = NoteState.SHOOTER_OUTTAKING;
           }
           break;
+        case SHOOTER_AMP:
+          if (state == NoteState.IDLE_IN_CONVEYOR) {
+            state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_OUTTAKE;
+          } else {
+            state = NoteState.SHOOTER_AMP;
+          }
+          break;
         case SHOOTER_SCORE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_SCORE;
@@ -124,6 +131,7 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case SHOOTING:
       case SHOOTER_OUTTAKING:
+      case SHOOTER_AMP:
         if (!queuer.hasNote() && !intake.hasNote()) {
           state = NoteState.IDLE_NO_GP;
         }
@@ -270,6 +278,10 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void shooterOuttakeRequest() {
     flags.check(NoteFlag.SHOOTER_OUTTAKE);
+  }
+
+  public void shooterAmpRequest() {
+    flags.check(NoteFlag.SHOOTER_AMP);
   }
 
   public void idleInQueuerRequest() {

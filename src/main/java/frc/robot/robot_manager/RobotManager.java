@@ -184,6 +184,11 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.OUTTAKING_SHOOTER;
           }
           break;
+        case SHOOTER_AMP:
+          if (!state.climbing) {
+            state = RobotState.SHOOTER_AMP;
+          }
+          break;
         case SPEAKER_SHOT:
           if (!state.climbing) {
             state = RobotState.PREPARE_SPEAKER_SHOT;
@@ -328,6 +333,7 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case OUTTAKING_SHOOTER:
+      case SHOOTER_AMP:
       case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
       case PODIUM_SHOOT:
@@ -411,6 +417,13 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.OUTTAKE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterOuttakeRequest();
+        break;
+      case SHOOTER_AMP:
+        wrist.setAngle(WristPositions.SHOOTER_AMP);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterAmpRequest();
         break;
       case WAITING_FLOOR_SHOT:
       case PREPARE_FLOOR_SHOT:
@@ -611,6 +624,10 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void ampShotRequest() {
     flags.check(RobotFlag.AMP_SHOT);
+  }
+
+  public void shooterAmpRequest() {
+    flags.check(RobotFlag.SHOOTER_AMP);
   }
 
   public void waitFloorShotRequest() {

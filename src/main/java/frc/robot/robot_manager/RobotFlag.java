@@ -16,6 +16,7 @@ public enum RobotFlag {
   INTAKE,
   STOP_INTAKING,
   OUTTAKE_SHOOTER,
+  SHOOTER_AMP,
   OUTTAKE,
   STOW,
   STOP_SHOOTING,

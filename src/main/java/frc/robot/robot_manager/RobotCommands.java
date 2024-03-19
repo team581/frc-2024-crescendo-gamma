@@ -69,6 +69,12 @@ public class RobotCommands {
         .withName("OuttakeShooterCommand");
   }
 
+  public Command shooterAmpCommand() {
+    return Commands.runOnce(() -> robot.shooterAmpRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .withName("shooterAmpCommand");
+  }
+
   public Command homeCommand() {
     return Commands.runOnce(() -> robot.climber.startHoming(), robot.climber)
         .withName("HomeCommand");

@@ -23,6 +23,7 @@ public enum RobotState {
 
   /** Outtaking via the shooter. Game piece should be in queuer at start. */
   OUTTAKING_SHOOTER(true, false, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
+  SHOOTER_AMP(true, false, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
   /** Outtaking via the intake. Game piece should be in queuer at start. */
   OUTTAKING(true, false, false, new LightsState(Color.kGreen, BlinkPattern.BLINK_FAST)),
 
