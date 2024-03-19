@@ -204,7 +204,7 @@ class CompConfig {
           new IntakeConfig(
               15,
               1,
-              new Debouncer(0.05, DebounceType.kBoth),
+              new Debouncer(0.025, DebounceType.kBoth),
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(
