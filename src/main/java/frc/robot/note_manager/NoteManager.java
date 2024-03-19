@@ -99,7 +99,7 @@ public class NoteManager extends LifecycleSubsystem {
           break;
         case SHOOTER_AMP:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
-            state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_OUTTAKE;
+            state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_SCORE;
           } else {
             state = NoteState.SHOOTER_AMP;
           }
