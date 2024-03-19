@@ -12,7 +12,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.units.Unit;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
@@ -45,7 +44,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
           0,
           Units.inchesToMeters(-1.103),
           Units.inchesToMeters(24.418),
-          new Rotation3d(0, Units.degreesToRadians(RobotConfig.get().vision().llAngle()), Units.degreesToRadians(-4.25)));
+          new Rotation3d(
+              0,
+              Units.degreesToRadians(RobotConfig.get().vision().llAngle()),
+              Units.degreesToRadians(-4.25)));
 
   public static final Pose3d RED_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
@@ -158,7 +160,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     Rotation2d cameraToAngle =
         Rotation2d.fromDegrees(
-            angleX + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees() + Units.radiansToDegrees(CAMERA_ON_BOT.getRotation().getZ()));
+            angleX
+                + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees()
+                + Units.radiansToDegrees(CAMERA_ON_BOT.getRotation().getZ()));
 
     // double distanceFromSpeaker = getDistanceFromAngle(angleY);
 
