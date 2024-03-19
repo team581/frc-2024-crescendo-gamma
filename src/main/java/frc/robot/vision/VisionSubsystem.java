@@ -167,7 +167,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Rotation2d cameraToAngle =
         Rotation2d.fromDegrees(
             angleX
-                + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees()
+                + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees()+ CAMERA_ON_BOT.getRotation().getZ()
                 + Units.radiansToDegrees(CAMERA_ON_BOT.getRotation().getZ()));
 
     // double distanceFromSpeaker = getDistanceFromAngle(angleY);
@@ -323,6 +323,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
         getSpeaker().getY()
             + angleToPositionOffset.get(getDistanceAngleSpeaker().angle().getDegrees()));
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
+    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
