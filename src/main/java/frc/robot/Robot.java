@@ -99,7 +99,7 @@ public class Robot extends TimedRobot {
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
   private final NoteTrackingManager noteTrackingManager =
-      new NoteTrackingManager(localization, swerve);
+      new NoteTrackingManager(localization, swerve, actions);
 
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
@@ -227,6 +227,7 @@ public class Robot extends TimedRobot {
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
+    operatorController.povLeft().whileTrue(noteTrackingManager.driveToNotePose());
 
     operatorController.a().onTrue(actions.stowCommand());
     operatorController.b().onTrue(actions.waitPodiumShotCommand()).onFalse(actions.stowCommand());

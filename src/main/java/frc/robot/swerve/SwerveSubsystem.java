@@ -114,9 +114,9 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   private boolean closedLoop = false;
 
   // TODO: tune
-  private final PIDController xPid = new PIDController(0.5, 0, 0);
-  private final PIDController yPid = new PIDController(0.5, 0, 0);
-  private final PIDController omegaPid = new PIDController(0.5, 0, 0);
+  private final PIDController xPid = new PIDController(3.5, 0, 0);
+  private final PIDController yPid = new PIDController(3.5, 0, 0);
+  private final PIDController omegaPid = new PIDController(2.0, 0, 0);
 
   public SwerveSubsystem(CommandXboxController driveController) {
     super(SubsystemPriority.SWERVE);
@@ -133,6 +133,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     applyCurrentLimits(frontRight);
     applyCurrentLimits(backLeft);
     applyCurrentLimits(backRight);
+
+    omegaPid.enableContinuousInput(-Math.PI, Math.PI);
   }
 
   public List<SwerveModulePosition> getModulePositions() {
@@ -362,9 +364,11 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   }
 
   private boolean atLocation(Pose2d target, Pose2d current) {
-    // Return true once at location
+    //in meters
     double translationTolerance = 0.1;
+    //in degrees
     double omegaTolerance = 5;
+
     return Math.abs(current.getX() - target.getX()) <= translationTolerance
         && Math.abs(current.getY() - target.getY()) <= translationTolerance
         && Math.abs(current.getRotation().getDegrees() - target.getRotation().getDegrees())

@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.config.RobotConfig;
 import frc.robot.localization.LocalizationSubsystem;
+import frc.robot.robot_manager.RobotCommands;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -22,14 +23,17 @@ import org.littletonrobotics.junction.Logger;
 public class NoteTrackingManager extends LifecycleSubsystem {
   private final LocalizationSubsystem localization;
   private final SwerveSubsystem swerve;
+  private final RobotCommands actions;
   private static final String LIMELIGHT_NAME = "limelight-note";
   private final InterpolatingDoubleTreeMap tyToDistance = new InterpolatingDoubleTreeMap();
 
-  public NoteTrackingManager(LocalizationSubsystem localization, SwerveSubsystem swerve) {
+  public NoteTrackingManager(
+      LocalizationSubsystem localization, SwerveSubsystem swerve, RobotCommands actions) {
     super(SubsystemPriority.NOTE_TRACKING);
 
     this.localization = localization;
     this.swerve = swerve;
+    this.actions = actions;
     RobotConfig.get().vision().tyToNoteDistance().accept(tyToDistance);
   }
 
@@ -81,7 +85,20 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   }
 
   public Command driveToNotePose() {
-    return swerve.driveToPoseCommand(() -> getNotePose().get(), this::getPose);
+    return swerve
+        .driveToPoseCommand(
+          
+        
+        () -> {
+          var maybeNotePose= getNotePose();
+
+          if(maybeNotePose.isPresent()) {
+            return maybeNotePose.get();
+          }
+            return this.getPose();
+          
+        }, this::getPose)
+        .alongWith(actions.intakeCommand());
   }
 
   private Pose2d getPose() {
