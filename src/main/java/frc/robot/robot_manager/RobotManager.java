@@ -184,9 +184,14 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.OUTTAKING_SHOOTER;
           }
           break;
+        case WAIT_SHOOTER_AMP:
+          if (!state.climbing) {
+            state = RobotState.WAIT_SHOOTER_AMP;
+          }
+          break;
         case SHOOTER_AMP:
           if (!state.climbing) {
-            state = RobotState.SHOOTER_AMP;
+            state = RobotState.PREPARE_AMP_SHOT;
           }
           break;
         case SPEAKER_SHOT:
@@ -248,6 +253,7 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_FLOOR_SHOT:
       case WAITING_SUBWOOFER_SHOT:
       case WAITING_PODIUM_SHOT:
+      case WAIT_SHOOTER_AMP:
       case OUTTAKING:
         // Do nothing
         break;
@@ -300,6 +306,13 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_AMP_SHOT:
         if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
             && wrist.atAngle(WristPositions.STOWED)) {
+          state = RobotState.AMP_SHOT;
+        }
+        break;
+      case PREPARE_SHOOTER_AMP:
+        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER
+            && wrist.atAngle(WristPositions.SHOOTER_AMP)
+            && shooter.atGoal(ShooterMode.SHOOTER_AMP)) {
           state = RobotState.AMP_SHOT;
         }
         break;
@@ -417,6 +430,14 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.OUTTAKE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterOuttakeRequest();
+        break;
+      case PREPARE_SHOOTER_AMP:
+      case WAIT_SHOOTER_AMP:
+        wrist.setAngle(WristPositions.SHOOTER_AMP);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.idleInQueuerRequest();
         break;
       case SHOOTER_AMP:
         wrist.setAngle(WristPositions.SHOOTER_AMP);
@@ -630,6 +651,10 @@ public class RobotManager extends LifecycleSubsystem {
     flags.check(RobotFlag.SHOOTER_AMP);
   }
 
+  public void waitShooterAmpRequest() {
+    flags.check(RobotFlag.WAIT_SHOOTER_AMP);
+  }
+
   public void waitFloorShotRequest() {
     flags.check(RobotFlag.WAIT_FLOOR_SHOT);
   }
@@ -671,6 +696,8 @@ public class RobotManager extends LifecycleSubsystem {
       ampShotRequest();
     } else if (state == RobotState.WAITING_FLOOR_SHOT) {
       floorShotRequest();
+    } else if (state == RobotState.WAIT_SHOOTER_AMP) {
+      shooterAmpRequest();
     } else {
       speakerShotRequest();
     }

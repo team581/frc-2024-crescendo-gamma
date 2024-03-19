@@ -240,7 +240,7 @@ public class Robot extends TimedRobot {
         .onFalse(actions.stowCommand());
     operatorController
         .leftTrigger()
-        .onTrue(actions.shooterAmpCommand())
+        .onTrue(actions.waitShooterAmpCommand())
         .onFalse(actions.stowCommand());
     operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
     operatorController.x().onTrue(actions.shooterOuttakeCommand()).onFalse(actions.stowCommand());
