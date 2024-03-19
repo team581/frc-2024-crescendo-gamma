@@ -13,7 +13,7 @@ public class WristPositions {
 
   public static final Rotation2d OUTTAKING_SHOOTER = Rotation2d.fromDegrees(0);
 
-  public static final Rotation2d SHOOTER_AMP = RobotConfig.get().wrist().maxAngle(); //TODO: tune
+  public static final Rotation2d SHOOTER_AMP = RobotConfig.get().wrist().maxAngle(); // TODO: tune
 
   public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(58.1);
   public static final Rotation2d PODIUM_SHOT = Rotation2d.fromDegrees(37.0);

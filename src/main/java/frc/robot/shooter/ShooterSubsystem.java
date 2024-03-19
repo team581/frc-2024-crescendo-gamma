@@ -84,7 +84,8 @@ public class ShooterSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Shooter/Mode", goalMode);
     Logger.recordOutput("Shooter/GoalRPM", goalRPM);
-    Logger.recordOutput("Shooter/GoalRPMForRightMotor", goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0));
+    Logger.recordOutput(
+        "Shooter/GoalRPMForRightMotor", goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0));
     Logger.recordOutput("Shooter/LeftMotor/Temperature", leftMotor.getDeviceTemp().getValue());
     Logger.recordOutput("Shooter/LeftMotor/RPM", getRPM(leftMotor));
     Logger.recordOutput(
@@ -105,7 +106,9 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       rightMotor.disable();
     } else {
       leftMotor.setControl(velocityRequest.withVelocity((goalRPM) / 60));
-      rightMotor.setControl(velocityRequest.withVelocity((goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0)) / 60));
+      rightMotor.setControl(
+          velocityRequest.withVelocity(
+              (goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0)) / 60));
     }
   }
 
@@ -118,7 +121,8 @@ public class ShooterSubsystem extends LifecycleSubsystem {
       return true;
     }
 
-    if (Math.abs((goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0)) - getRPM(rightMotor)) < ShooterRPMs.TOLERANCE
+    if (Math.abs((goalRPM * (usingNoteSpin ? ShooterRPMs.SPIN_RATIO : 1.0)) - getRPM(rightMotor))
+            < ShooterRPMs.TOLERANCE
         && Math.abs(goalRPM - getRPM(leftMotor)) < ShooterRPMs.TOLERANCE) {
       return true;
     }
