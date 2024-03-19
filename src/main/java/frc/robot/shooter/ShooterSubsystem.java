@@ -14,10 +14,10 @@ import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
 
 public class ShooterSubsystem extends LifecycleSubsystem {
-  private static final double SPIN_RATIO = 4.0 / 5.0;
+  private static final double SPIN_RATIO = 3.5 / 5.0;
   private static final int IDLE_RPM = 1000;
   private static final double OUTTAKE_RPM = 1000;
-  private static final double SUBWOOFER_SHOOTING_RPM = 3000;
+  private static final double SUBWOOFER_SHOOTING_RPM = 3000; // 3000
   private static final double PODIUM_SHOOTING_RPM = 4000;
   private static final double TOLERANCE_RPM = 250;
   private final TalonFX leftMotor;

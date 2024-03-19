@@ -87,10 +87,8 @@ class CompConfig {
                 speakerDistanceToRPM.put(1.37, 3000.0);
                 speakerDistanceToRPM.put(2.5, 3000.0);
                 speakerDistanceToRPM.put(3.5, 4000.0);
-                speakerDistanceToRPM.put(5.0, 5000.0);
-
-                // Unvalidated
-                speakerDistanceToRPM.put(6.0, 5000.0);
+                speakerDistanceToRPM.put(5.0, 4300.0);
+                speakerDistanceToRPM.put(6.5, 4500.0);
               },
               floorSpotDistanceToRPM -> {
                 floorSpotDistanceToRPM.put(1.6, 1700.0);
@@ -167,14 +165,10 @@ class CompConfig {
               speakerDistanceToAngle -> {
                 speakerDistanceToAngle.put(0.92, 58.1);
                 speakerDistanceToAngle.put(1.37, 58.1);
-                speakerDistanceToAngle.put(2.5, 42.5);
-                speakerDistanceToAngle.put(3.5, 35.0);
-
-                speakerDistanceToAngle.put(5.0, 29.0);
-
-                // Unvalidated
-                speakerDistanceToAngle.put(4.9, 26.9);
-                speakerDistanceToAngle.put(6.87, 21.0);
+                speakerDistanceToAngle.put(2.5, 42.25);
+                speakerDistanceToAngle.put(3.5, 32.125);
+                speakerDistanceToAngle.put(5.0, 24.8);
+                speakerDistanceToAngle.put(6.5, 22.25);
               },
               floorSpotDistanceToAngle -> {
                 floorSpotDistanceToAngle.put(1.6, 70.0);
