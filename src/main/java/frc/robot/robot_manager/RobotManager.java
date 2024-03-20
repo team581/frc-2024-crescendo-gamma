@@ -312,8 +312,9 @@ public class RobotManager extends LifecycleSubsystem {
       case PREPARE_SHOOTER_AMP:
         if (noteManager.getState() == NoteState.IDLE_IN_QUEUER
             && wrist.atAngle(WristPositions.SHOOTER_AMP)
-            && shooter.atGoal(ShooterMode.SHOOTER_AMP)) {
-          state = RobotState.AMP_SHOT;
+            && shooter.atGoal(ShooterMode.SHOOTER_AMP)
+            && elevator.atPosition(ElevatorPositions.STOWED)) {
+          state = RobotState.SHOOTER_AMP;
         }
         break;
       case PREPARE_SPEAKER_SHOT:
