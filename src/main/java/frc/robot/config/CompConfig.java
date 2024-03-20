@@ -20,6 +20,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
@@ -274,11 +275,11 @@ class CompConfig {
                 tyToNoteDistance.put(-21.3, Units.inchesToMeters(8.5 + 15));
                 tyToNoteDistance.put(9.5, Units.inchesToMeters(67 + 15));
               },
-              15.0,
+              new Rotation3d(0.0, Units.degreesToRadians(15.0), Units.degreesToRadians(-4.25)),
               56.015,
               81.428,
-              42.134,
-              27.676));
+              28.517,
+              -4.226));
 
   private CompConfig() {}
 }
