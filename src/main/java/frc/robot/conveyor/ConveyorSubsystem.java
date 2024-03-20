@@ -54,7 +54,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
         motor.setVoltage(3);
         break;
       case QUEUER_TO_INTAKE:
-        motor.setVoltage(-3);
+        motor.setVoltage(-12);
         break;
       case CONVEYOR_TO_INTAKE:
         motor.setVoltage(3);
