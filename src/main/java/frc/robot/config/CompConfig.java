@@ -274,16 +274,12 @@ class CompConfig {
               tyToNoteDistance -> {
                 tyToNoteDistance.put(-16.0, Units.inchesToMeters(12 + 15.25));
                 tyToNoteDistance.put(16.8, Units.inchesToMeters(120 + 15));
-                                tyToNoteDistance.put(15.0, Units.inchesToMeters(96.0 + 15));
-                                tyToNoteDistance.put(10.5, Units.inchesToMeters(60.0 + 15));
-                                            tyToNoteDistance.put(12.5, Units.inchesToMeters(72.0 + 15));
-
-
-
+                tyToNoteDistance.put(15.0, Units.inchesToMeters(96.0 + 15));
+                tyToNoteDistance.put(10.5, Units.inchesToMeters(60.0 + 15));
+                tyToNoteDistance.put(12.5, Units.inchesToMeters(72.0 + 15));
               },
               new Rotation3d(0.0, Units.degreesToRadians(13.0), Units.degreesToRadians(-4.25)),
               56.015,
-             
               81.428,
               28.517,
               -4.226));
