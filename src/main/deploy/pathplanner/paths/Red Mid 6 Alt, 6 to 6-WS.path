@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 11.41424240295289,
-        "y": 4.466456106164492
+        "x": 11.75766827533655,
+        "y": 4.606851917703835
       },
       "prevControl": {
-        "x": 10.665674340467222,
-        "y": 4.173266948357605
+        "x": 11.009100212850882,
+        "y": 4.313662759896948
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Warmup",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
@@ -57,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 12.763566852832053,
+    "rotation": 13.861458512852487,
     "rotateFast": false
   },
   "reversed": false,

@@ -84,12 +84,12 @@
         "y": 5.9947825670727335
       },
       "prevControl": {
-        "x": 9.951007366014732,
-        "y": 6.345888747777496
+        "x": 10.627556007112014,
+        "y": 6.37800762001524
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red M A 6, 5"
+      "linkedName": "Red Mid Alt 6, 5"
     }
   ],
   "rotationTargets": [
@@ -109,8 +109,8 @@
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 4.5,
-      "rotationDegrees": 0.0,
+      "waypointRelativePos": 4.75,
+      "rotationDegrees": 0,
       "rotateFast": false
     },
     {
@@ -155,7 +155,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.2,
-      "maxWaypointRelativePos": 0.5,
+      "maxWaypointRelativePos": 0.35000000000000003,
       "constraints": {
         "maxVelocity": 0.7,
         "maxAcceleration": 5.0,
@@ -183,6 +183,12 @@
         "type": "sequential",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -273,6 +279,12 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
               }
             }
           ]

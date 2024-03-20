@@ -204,12 +204,6 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "speakerShot"
               }
             }
