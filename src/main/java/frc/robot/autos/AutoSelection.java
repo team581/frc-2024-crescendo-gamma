@@ -15,6 +15,7 @@ public enum AutoSelection {
   // FIVE_PIECE_AMP_4_2("Red 5 Piece 4-2", "Blue 5 Piece 4-2"),
   SIX_PIECE_SOURCE_1_6("Red 6 Piece Source 1-6", "Blue 6 Piece Source 1-6"),
   SIX_PIECE_2_5_DEV("Red 6 Piece 2,1,3-5", ""),
+  SIX_PIECE_2_6_DEV("Red 6 Piece 2,1,3,5,6", ""),
   SIX_PIECE_SOURCE_1_5("Red 6 Piece Source 1-5", "Blue 6 Piece Source 1-5"),
   STRAIGHT_LINE("Red Straight Line", "");
 
