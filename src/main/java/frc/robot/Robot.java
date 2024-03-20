@@ -235,6 +235,7 @@ public class Robot extends TimedRobot {
         .y()
         .onTrue(actions.waitSubwooferShotCommand())
         .onFalse(actions.stowCommand());
+    operatorController.povRight().whileTrue(noteTrackingManager.driveToNotePose());
     operatorController
         .rightTrigger()
         .onTrue(actions.waitForSpeakerShotCommand())
