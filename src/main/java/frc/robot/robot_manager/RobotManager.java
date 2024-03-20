@@ -240,9 +240,9 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case UNJAM:
-        if(!state.climbing){
-          state = RobotState.UNJAM;
-        }
+          if (!state.climbing) {
+            state = RobotState.UNJAM;
+          }
       }
     }
 
@@ -558,12 +558,12 @@ public class RobotManager extends LifecycleSubsystem {
         noteManager.ampScoreRequest();
         break;
       case UNJAM:
-      wrist.setAngle(WristPositions.STOWED);
-      elevator.setGoalHeight(ElevatorPositions.ANTI_JAM);
-      shooter.setGoalMode(ShooterMode.OUTTAKE);
-      climber.setGoalMode(ClimberMode.STOWED);
-      noteManager.outtakeRequest();
-      break;
+        wrist.setAngle(WristPositions.STOWED);
+        elevator.setGoalHeight(ElevatorPositions.ANTI_JAM);
+        shooter.setGoalMode(ShooterMode.OUTTAKE);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.outtakeRequest();
+        break;
       case CLIMB_1_LINEUP_OUTER:
         wrist.setAngle(WristPositions.FULLY_STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
@@ -695,6 +695,7 @@ public class RobotManager extends LifecycleSubsystem {
   public void stowRequest() {
     flags.check(RobotFlag.STOW);
   }
+
   public void unjamRequest() {
     flags.check(RobotFlag.UNJAM);
   }

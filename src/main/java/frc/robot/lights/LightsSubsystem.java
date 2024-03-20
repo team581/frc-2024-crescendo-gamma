@@ -124,9 +124,9 @@ public class LightsSubsystem extends LifecycleSubsystem {
     Color8Bit color8Bit = new Color8Bit(state.color());
 
     if (state.color() == Color.kWhite) {
-      LimelightHelpers.setLEDMode_ForceBlink("note");
+      LimelightHelpers.setLEDMode_ForceBlink("Limelight/Note");
     } else {
-      LimelightHelpers.setLEDMode_ForceOff("note");
+      LimelightHelpers.setLEDMode_ForceOff("Limelight/Note");
     }
 
     if (state.pattern() == BlinkPattern.SOLID) {

@@ -163,6 +163,7 @@ public class RobotCommands {
     return Commands.runOnce(() -> robot.stopShootingRequest(), requirements)
         .withName("StopShootingCommand");
   }
+
   public Command unjamCommand() {
     return Commands.runOnce(() -> robot.unjamRequest(), requirements).withName("UnjamCommand");
   }
