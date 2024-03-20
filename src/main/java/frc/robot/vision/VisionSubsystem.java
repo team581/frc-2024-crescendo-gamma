@@ -26,12 +26,16 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
   private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
-  private static final double horizontalLeftView = RobotConfig.get().vision().horzLeft();
-  private static final double veritalTopView = RobotConfig.get().vision().vertTop();
 
-  public static final Pose2d ORIGINAL_RED_SPEAKER =
-      new Pose2d(16.58, 5.53, Rotation2d.fromDegrees(180));
-  public static final Pose2d ORIGINAL_BLUE_SPEAKER = new Pose2d(0, 5.53, Rotation2d.fromDegrees(0));
+  private static final double principlePixelOffsetX = RobotConfig.get().vision().principlePixelOffsetX();
+  private static final double principlePixelOffsetY = RobotConfig.get().vision().principlePixelOffsetY();
+
+  public static final Pose2d ORIGINAL_RED_SPEAKER = new Pose2d(Units.inchesToMeters(652.73),
+                                                               Units.inchesToMeters(218.42),
+                                                               Rotation2d.fromDegrees(180));
+  public static final Pose2d ORIGINAL_BLUE_SPEAKER = new Pose2d(Units.inchesToMeters(0),
+                                                                Units.inchesToMeters(218.42),
+                                                                Rotation2d.fromDegrees(0));
 
   public static Pose2d RED_SPEAKER = ORIGINAL_RED_SPEAKER;
   public static Pose2d BLUE_SPEAKER = ORIGINAL_BLUE_SPEAKER;
@@ -44,21 +48,19 @@ public class VisionSubsystem extends LifecycleSubsystem {
           0,
           Units.inchesToMeters(-1.103),
           Units.inchesToMeters(24.418),
-          new Rotation3d(
-              0,
-              Units.degreesToRadians(RobotConfig.get().vision().llAngle()),
-              Units.degreesToRadians(-4.25)));
+          RobotConfig.get().vision().llAngle()
+          );
 
   public static final Pose3d RED_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
-          16.58,
-          5.53 - 0.2921,
+          Units.inchesToMeters(652.73),
+          Units.inchesToMeters(218.42 - 11.125),
           Units.inchesToMeters(57.13),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
   public static final Pose3d BLUE_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
-          0.0,
-          5.53 - 0.2921,
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(218.42 - 11.125),
           Units.inchesToMeters(57.13),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
@@ -122,14 +124,16 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     // Pixel Y : 0 to 960
     // Angle Y : -24.85 to 24.85
-    double pixelX = centerCoordinatesPixels[0];
-    double pixelY = centerCoordinatesPixels[1];
+
+
+    double pixelX = centerCoordinatesPixels[0] - principlePixelOffsetX;
+    double pixelY = centerCoordinatesPixels[1] - principlePixelOffsetY;
 
     double angleX = 0.0;
     double angleY = 0.0;
 
-    angleX = -1 * (((pixelX / 1280.0) * FOV_HORIZONTAL) - horizontalLeftView);
-    angleY = -1 * (((pixelY / 800.0) * FOV_VERTICAL) - veritalTopView);
+    angleX = -1 * (((pixelX / 1280.0) * FOV_HORIZONTAL) - (FOV_HORIZONTAL/2.0));
+    angleY = -1 * (((pixelY / 800.0) * FOV_VERTICAL) - (FOV_VERTICAL/2.0));
     double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
     double horizontalDistanceSpeakerToCamera =
         verticalDistance
@@ -139,6 +143,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
         verticalDistance
             / Math.sin(Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY());
 
+    Logger.recordOutput("Vision/Pixels/X",pixelX);
+    Logger.recordOutput("Vision/Pixels/Y",pixelY);
     Logger.recordOutput(
         "Vision/AngleRobotToSpeaker",
         Units.radiansToDegrees(
@@ -149,6 +155,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
         "Vision/Trig/DistanceHorizontal3D", Units.metersToInches(distanceToSpeaker3D));
     Logger.recordOutput("Vision/Trig/VerticalDistance", Units.metersToInches(verticalDistance));
     Logger.recordOutput("Vision/Trig/AngleY", angleY);
+    Logger.recordOutput("Vision/Trig/AngleX", angleX);
+
 
     double end = Timer.getFPGATimestamp();
     double cl =
@@ -166,8 +174,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     // double distanceFromSpeaker = getDistanceFromAngle(angleY);
 
-    double distanceX = Math.cos(cameraToAngle.getRadians()) * distanceToSpeaker3D;
-    double distanceY = Math.sin(cameraToAngle.getRadians()) * distanceToSpeaker3D;
+    double distanceX = Math.cos(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
+    double distanceY = Math.sin(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
 
     Pose2d fieldPosition =
         new Pose2d(

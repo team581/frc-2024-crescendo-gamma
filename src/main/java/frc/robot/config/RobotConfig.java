@@ -10,6 +10,7 @@ import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import java.util.function.Consumer;
 
@@ -104,11 +105,11 @@ public record RobotConfig(
       double xyStdDev,
       double thetaStdDev,
       Consumer<InterpolatingDoubleTreeMap> tyToNoteDistance,
-      double llAngle,
+      Rotation3d llAngle,
       double fovVert,
       double fovHorz,
-      double horzLeft,
-      double vertTop) {}
+      double principlePixelOffsetX,
+      double principlePixelOffsetY) {}
 
   // TODO: Change this to false during events
   public static final boolean IS_DEVELOPMENT = true;

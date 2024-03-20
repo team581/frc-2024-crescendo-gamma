@@ -20,6 +20,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.util.Units;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
 import frc.robot.config.RobotConfig.ElevatorConfig;
@@ -274,9 +276,9 @@ class PracticeConfig {
               tyToNoteDistance -> {
                 tyToNoteDistance.put(0.0, 0.0);
               },
-              13.0,
+              new Rotation3d(0.0, Units.degreesToRadians(13.8), Units.degreesToRadians(0.0)),
               55.296,
               80.477,
-              39.657,
-              27.878));
+              -7.415,
+              -10.880));
 }
