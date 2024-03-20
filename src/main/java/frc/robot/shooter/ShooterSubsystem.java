@@ -22,6 +22,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   private double speakerDistance = 0;
   private double floorSpotDistance = 0;
   private double goalRPM = 0;
+  private double usedTolerance = ShooterRPMs.TOLERANCE;
 
   private final InterpolatingDoubleTreeMap speakerDistanceToRPM = new InterpolatingDoubleTreeMap();
   private final InterpolatingDoubleTreeMap floorSpotDistanceToRPM =
@@ -46,8 +47,10 @@ public class ShooterSubsystem extends LifecycleSubsystem {
   public void robotPeriodic() {
     if (goalMode == ShooterMode.SHOOTER_AMP) {
       usingNoteSpin = false;
+      usedTolerance = ShooterRPMs.AMP_TOLERANCE;
     } else {
       usingNoteSpin = true;
+      usedTolerance = ShooterRPMs.TOLERANCE;
     }
     switch (goalMode) {
       case SPEAKER_SHOT:
