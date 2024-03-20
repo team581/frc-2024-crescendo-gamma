@@ -191,7 +191,7 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case SHOOTER_AMP:
           if (!state.climbing) {
-            state = RobotState.PREPARE_AMP_SHOT;
+            state = RobotState.PREPARE_SHOOTER_AMP;
           }
           break;
         case SPEAKER_SHOT:
@@ -444,7 +444,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.shooterAmpRequest();
+        noteManager.shooterScoreRequest();
         break;
       case WAITING_FLOOR_SHOT:
       case PREPARE_FLOOR_SHOT:
