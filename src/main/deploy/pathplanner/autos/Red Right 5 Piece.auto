@@ -26,37 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red R 5, R to 2.5"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red R 5, 2.5 to 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red R 5, 3 to 3.5 "
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red R 5, 3.5 to 4 WS"
+            "pathName": "Red 5 R, 3-4"
           }
         },
         {
