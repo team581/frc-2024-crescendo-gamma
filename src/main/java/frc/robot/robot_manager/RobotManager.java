@@ -5,7 +5,9 @@
 package frc.robot.robot_manager;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.climber.ClimberMode;
@@ -31,6 +33,7 @@ import frc.robot.wrist.WristSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class RobotManager extends LifecycleSubsystem {
+  public final Translation2d timeAndAngle = new Translation2d(0.175,30); // goes down too fast
   public final WristSubsystem wrist;
   public final ElevatorSubsystem elevator;
   public final ShooterSubsystem shooter;
@@ -41,6 +44,7 @@ public class RobotManager extends LifecycleSubsystem {
   public final SnapManager snaps;
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
+  private final Timer timer = new Timer();
 
   private RobotState state = RobotState.IDLE_NO_GP;
 
@@ -68,6 +72,7 @@ public class RobotManager extends LifecycleSubsystem {
     this.snaps = snaps;
     this.imu = imu;
     this.noteManager = noteManager;
+    timer.start();
   }
 
   @Override
@@ -320,6 +325,7 @@ public class RobotManager extends LifecycleSubsystem {
             && elevator.atPosition(ElevatorPositions.STOWED)) {
           state = RobotState.SHOOTER_AMP;
         }
+        timer.reset();
         break;
       case PREPARE_SPEAKER_SHOT:
         {
@@ -350,8 +356,16 @@ public class RobotManager extends LifecycleSubsystem {
           }
         }
         break;
-      case OUTTAKING_SHOOTER:
       case SHOOTER_AMP:
+          if (timer.hasElapsed(timeAndAngle.getX())) {
+            state = RobotState.SHOOTER_AMP_FLICK;
+          }
+        break;
+      case SHOOTER_AMP_FLICK:
+        if (noteManager.getState() == NoteState.IDLE_NO_GP) {
+          state = RobotState.IDLE_NO_GP;
+        }
+      case OUTTAKING_SHOOTER:
       case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
       case PODIUM_SHOOT:
@@ -446,7 +460,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
-        noteManager.queuer.setWithDebouncer(true);
+        noteManager.queuer.setWithDebouncer(false);
         break;
       case SHOOTER_AMP:
         wrist.setAngle(WristPositions.SHOOTER_AMP);
@@ -454,7 +468,15 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
-        noteManager.queuer.setWithDebouncer(true);
+        noteManager.queuer.setWithDebouncer(false);
+        break;
+      case SHOOTER_AMP_FLICK:
+        wrist.setAngle(WristPositions.SHOOTER_AMP.minus(Rotation2d.fromDegrees(timeAndAngle.getY())));
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        noteManager.queuer.setWithDebouncer(false);
         break;
       case WAITING_FLOOR_SHOT:
       case PREPARE_FLOOR_SHOT:
