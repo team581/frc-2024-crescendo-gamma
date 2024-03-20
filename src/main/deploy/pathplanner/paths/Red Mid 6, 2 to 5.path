@@ -155,7 +155,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.2,
-      "maxWaypointRelativePos": 0.5,
+      "maxWaypointRelativePos": 0.35000000000000003,
       "constraints": {
         "maxVelocity": 0.7,
         "maxAcceleration": 5.0,
@@ -186,6 +186,12 @@
             {
               "type": "named",
               "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
                 "name": "speakerShot"
               }
             },
@@ -193,6 +199,12 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
               }
             },
             {
@@ -273,6 +285,12 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
               }
             }
           ]

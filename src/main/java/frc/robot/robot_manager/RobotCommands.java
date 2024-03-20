@@ -69,8 +69,8 @@ public class RobotCommands {
         .withName("OuttakeShooterCommand");
   }
 
-  public Command shooterAmpCommand() {
-    return Commands.runOnce(() -> robot.shooterAmpRequest(), requirements)
+  public Command waitShooterAmpCommand() {
+    return Commands.runOnce(() -> robot.waitShooterAmpRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
         .withName("shooterAmpCommand");
   }
