@@ -230,6 +230,7 @@ public class Robot extends TimedRobot {
 
     operatorController.a().onTrue(actions.stowCommand());
     operatorController.b().onTrue(actions.waitPodiumShotCommand()).onFalse(actions.stowCommand());
+    operatorController.povLeft().onTrue(actions.unjamCommand()).onFalse(actions.stowCommand());
     operatorController
         .y()
         .onTrue(actions.waitSubwooferShotCommand())

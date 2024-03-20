@@ -63,6 +63,8 @@ public enum RobotState {
   /** Actively scoring in the amp. */
   AMP_SHOT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
+  UNJAM(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
+
   /** Hooks move to top of the robot so we can start to grab the chain. */
   CLIMB_1_LINEUP_OUTER(true, true, false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
 

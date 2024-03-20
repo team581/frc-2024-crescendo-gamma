@@ -239,6 +239,10 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.IDLE_WITH_GP;
           }
           break;
+        case UNJAM:
+        if(!state.climbing){
+          state = RobotState.UNJAM;
+        }
       }
     }
 
@@ -356,6 +360,7 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.IDLE_NO_GP;
         }
         break;
+      case UNJAM:
       case CLIMB_1_LINEUP_OUTER:
       case CLIMB_2_LINEUP_INNER:
       case CLIMB_3_LINEUP_FINAL:
@@ -547,6 +552,13 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.ampScoreRequest();
         break;
+      case UNJAM:
+      wrist.setAngle(WristPositions.STOWED);
+      elevator.setGoalHeight(ElevatorPositions.ANTI_JAM);
+      shooter.setGoalMode(ShooterMode.OUTTAKE);
+      climber.setGoalMode(ClimberMode.STOWED);
+      noteManager.outtakeRequest();
+      break;
       case CLIMB_1_LINEUP_OUTER:
         wrist.setAngle(WristPositions.FULLY_STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
@@ -677,6 +689,9 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void stowRequest() {
     flags.check(RobotFlag.STOW);
+  }
+  public void unjamRequest() {
+    flags.check(RobotFlag.UNJAM);
   }
 
   public void stopShootingRequest() {
