@@ -54,7 +54,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-      debouncedSensor = debouncer.calculate(sensorHasNote());
+    debouncedSensor = debouncer.calculate(sensorHasNote());
     Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput("Queuer/State", goalState);
     Logger.recordOutput("Queuer/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
