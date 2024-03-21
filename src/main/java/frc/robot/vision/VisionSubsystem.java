@@ -8,7 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -22,7 +21,7 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
-  private final Timer limelightTimer = new Timer();
+  private static final boolean SHOOT_TO_SIDE_ENABLED = false;
 
   private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
   private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
@@ -37,9 +36,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
           Units.inchesToMeters(652.73), Units.inchesToMeters(218.42), Rotation2d.fromDegrees(180));
   public static final Pose2d ORIGINAL_BLUE_SPEAKER =
       new Pose2d(Units.inchesToMeters(0), Units.inchesToMeters(218.42), Rotation2d.fromDegrees(0));
-
-  public static Pose2d RED_SPEAKER = ORIGINAL_RED_SPEAKER;
-  public static Pose2d BLUE_SPEAKER = ORIGINAL_BLUE_SPEAKER;
 
   public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 6.9, Rotation2d.fromDegrees(180));
   public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 6.9, Rotation2d.fromDegrees(0));
@@ -64,6 +60,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
           Units.inchesToMeters(57.13),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
+  private final Timer limelightTimer = new Timer();
   private double limelightHeartbeat = -1;
 
   InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
@@ -238,13 +235,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     limelightTimer.start();
   }
 
-  private void setSpeakerY(double Y) {
-    RED_SPEAKER = new Pose2d(new Translation2d(RED_SPEAKER.getX(), Y), RED_SPEAKER.getRotation());
-    BLUE_SPEAKER =
-        new Pose2d(new Translation2d(BLUE_SPEAKER.getX(), Y), BLUE_SPEAKER.getRotation());
-  }
+  private Pose2d getSpeaker() {
 
-  public Pose2d getSpeaker() {
     if (FmsSubsystem.isRedAlliance()) {
       return ORIGINAL_RED_SPEAKER;
     } else {
@@ -252,28 +244,22 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
   }
 
-  public Pose2d getMovedSpeaker() {
-    if (FmsSubsystem.isRedAlliance()) {
-      return RED_SPEAKER;
-    } else {
-      return BLUE_SPEAKER;
-    }
-  }
-
   public DistanceAngle getDistanceAngleSpeaker() {
     Pose2d goalPose = getSpeaker();
 
-    Logger.recordOutput("Vision/SpeakerPose", goalPose);
+    var adjustedPose = goalPose;
 
-    return distanceToTargetPose(goalPose, robotPose);
-  }
+    if (SHOOT_TO_SIDE_ENABLED) {
+      var yOffset =
+          angleToPositionOffset.get(
+              Math.atan(
+                  (goalPose.getY() - robotPose.getY()) / (goalPose.getX() - robotPose.getX())));
 
-  public DistanceAngle getDistanceAngleMovedSpeaker() {
-    Pose2d goalPose = getMovedSpeaker();
+      adjustedPose = new Pose2d(goalPose.getX(), goalPose.getY() + yOffset, goalPose.getRotation());
+    }
+    Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
 
-    Logger.recordOutput("Vision/SpeakerPose", goalPose);
-
-    return distanceToTargetPose(goalPose, robotPose);
+    return distanceToTargetPose(adjustedPose, robotPose);
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
@@ -317,20 +303,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return robotPose;
   }
 
-  private boolean isResultValid(FastLimelightResults results) {
-    return imu.getRobotAngularVelocity(Timer.getFPGATimestamp() - results.latency()).getDegrees()
-            < 20.0
-        && results.robotPose().getZ() < Units.feetToMeters(4);
-  }
-
   @Override
   public void robotPeriodic() {
-    setSpeakerY(
-        getSpeaker().getY()
-            + angleToPositionOffset.get(
-                Math.atan(
-                    (getSpeaker().getY() - getUsedRobotPose().getY())
-                        / (getSpeaker().getX() - getUsedRobotPose().getX()))));
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
