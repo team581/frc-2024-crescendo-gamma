@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.723726195172754,
-        "y": 4.254361821793553
+        "x": 10.454852933705869,
+        "y": 4.212856997713996
       },
       "isLocked": false,
       "linkedName": "Red M A 6, 6"
     },
     {
       "anchor": {
-        "x": 11.75766827533655,
-        "y": 4.606851917703835
+        "x": 12.14073456946914,
+        "y": 4.865547371094743
       },
       "prevControl": {
-        "x": 11.009100212850882,
-        "y": 4.313662759896948
+        "x": 11.403771399542801,
+        "y": 4.5013111506223025
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 13.861458512852487,
+    "rotation": 8.770107583795612,
     "rotateFast": false
   },
   "reversed": false,
