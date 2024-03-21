@@ -38,6 +38,7 @@ import frc.robot.robot_manager.RobotState;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
 import frc.robot.swerve.SwerveSubsystem;
+import frc.robot.util.Stopwatch;
 import frc.robot.util.scheduling.LifecycleSubsystemManager;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristSubsystem;
@@ -143,7 +144,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    Stopwatch.getInstance().start("Scheduler/CommandSchedulerPeriodic");
     CommandScheduler.getInstance().run();
+    Stopwatch.getInstance().stop("Scheduler/CommandSchedulerPeriodic");
   }
 
   @Override
