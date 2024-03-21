@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7420244480413718,
+        "y": 6.694775266418152
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.0511038862037605,
+        "y": 6.5738506477068075
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.9278054356068601,
+        "y": 6.567180594366701
+      },
+      "prevControl": {
+        "x": 1.6280438104623158,
+        "y": 6.507947971410357
+      },
+      "nextControl": {
+        "x": 2.197070358136706,
+        "y": 6.620387096779706
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.82841656082911,
+        "y": 6.952914909835333
+      },
+      "prevControl": {
+        "x": 2.492502413004825,
+        "y": 6.7978105156210304
+      },
+      "nextControl": {
+        "x": 3.204741546796603,
+        "y": 7.126678531743651
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.479999999999999,
+        "y": 7.43
+      },
+      "prevControl": {
+        "x": 7.014584201168402,
+        "y": 7.445289814579629
+      },
+      "nextControl": {
+        "x": 7.945415798831595,
+        "y": 7.41471018542037
+      },
+      "isLocked": false,
+      "linkedName": "Blue Amp 5, 5"
+    },
+    {
+      "anchor": {
+        "x": 5.3946939293878575,
+        "y": 6.289244602489205
+      },
+      "prevControl": {
+        "x": 5.672886461772922,
+        "y": 6.4523530607006085
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue R 5, 4 WS"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 3,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 207.8444633684242,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 212.78934887043198,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2.65,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.9,
+      "maxWaypointRelativePos": 1.15,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    },
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 1.85,
+      "maxWaypointRelativePos": 2.1,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "Shoot",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Intake and Shoot",
+      "waypointRelativePos": 1.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 2.75,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 190.9707738356406,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Blue Right 5 Piece",
+  "previewStartingState": {
+    "rotation": 240.6761530990406,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

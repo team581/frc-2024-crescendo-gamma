@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.637279106412315,
+        "y": 6.369066598315568
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.771033782067564,
+        "y": 6.608534925069851
+      },
+      "isLocked": false,
+      "linkedName": "Blue Mid Alt 6, 5-WS"
+    },
+    {
+      "anchor": {
+        "x": 7.4899850610643455,
+        "y": 4.466456106164492
+      },
+      "prevControl": {
+        "x": 6.97222548451176,
+        "y": 6.119543910820345
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue M A 6, 6"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 116.24000000000001,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake and warmup",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 116.24000000000001,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Blue Mid 6 Piece 1-3,5-6",
+  "previewStartingState": {
+    "rotation": 193.73492739477743,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

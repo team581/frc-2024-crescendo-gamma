@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.289999999999999,
+        "y": 6.27
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.944583732244384,
+        "y": 3.127820871026358
+      },
+      "isLocked": false,
+      "linkedName": "Blue RWS"
+    },
+    {
+      "anchor": {
+        "x": 8.12,
+        "y": 4.35
+      },
+      "prevControl": {
+        "x": 7.439180946054199,
+        "y": 4.330266114378381
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue 6 2"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Comp Blue 6 Piece Source 1-6",
+  "previewStartingState": {
+    "rotation": 196.08277687532015,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

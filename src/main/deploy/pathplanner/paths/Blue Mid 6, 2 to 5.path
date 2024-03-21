@@ -1,0 +1,307 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.3199999999999985,
+        "y": 5.57
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6953565230404681,
+        "y": 5.600232509728874
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.672760359071388,
+        "y": 5.567892751660769
+      },
+      "prevControl": {
+        "x": 2.7668631800742016,
+        "y": 5.721369789621766
+      },
+      "nextControl": {
+        "x": 1.778283806108389,
+        "y": 4.109045817941109
+      },
+      "isLocked": false,
+      "linkedName": "Blue M 6, 2"
+    },
+    {
+      "anchor": {
+        "x": 2.672760359071388,
+        "y": 4.1499999999999995
+      },
+      "prevControl": {
+        "x": 2.3580959568255793,
+        "y": 3.8793930199830626
+      },
+      "nextControl": {
+        "x": 2.934225685940657,
+        "y": 4.3748565200837755
+      },
+      "isLocked": false,
+      "linkedName": "Blue M 6, 1"
+    },
+    {
+      "anchor": {
+        "x": 2.023514093883925,
+        "y": 6.5260800872733675
+      },
+      "prevControl": {
+        "x": 1.8529512080100687,
+        "y": 6.408299660832996
+      },
+      "nextControl": {
+        "x": 2.248795923301264,
+        "y": 6.681646110925575
+      },
+      "isLocked": false,
+      "linkedName": "Blue M 6, 2.5"
+    },
+    {
+      "anchor": {
+        "x": 2.815897383794768,
+        "y": 7.105915671831344
+      },
+      "prevControl": {
+        "x": 2.6517453618630267,
+        "y": 7.023487919678244
+      },
+      "nextControl": {
+        "x": 3.05675581570012,
+        "y": 7.226860993707026
+      },
+      "isLocked": false,
+      "linkedName": "Blue M 6, 3"
+    },
+    {
+      "anchor": {
+        "x": 7.479999999999999,
+        "y": 7.429538020170265
+      },
+      "prevControl": {
+        "x": 5.145645528064845,
+        "y": 7.4763787899979
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue M 6, 3.5"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.1,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 3,
+      "rotationDegrees": 207.11627513881953,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 4.15,
+      "rotationDegrees": 207.4477542607241,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 4.75,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.3,
+      "rotationDegrees": 149.67046768268798,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.1,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 2.8499999999999996,
+      "maxWaypointRelativePos": 3.2,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    },
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 3.75,
+      "maxWaypointRelativePos": 4.1499999999999995,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    },
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.2,
+      "maxWaypointRelativePos": 0.35000000000000003,
+      "constraints": {
+        "maxVelocity": 0.7,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    },
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.8,
+      "maxWaypointRelativePos": 1.1,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "shoot, intake and shoot",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "shoot",
+      "waypointRelativePos": 2.6500000000000004,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "intake and shoot",
+      "waypointRelativePos": 3.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 4.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "intake",
+      "waypointRelativePos": 1.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 179.98186651199498,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Blue Mid 6 Piece 1-5",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

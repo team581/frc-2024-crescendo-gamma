@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.4399999999999995,
+        "y": 5.11
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.380172134190419,
+        "y": 4.538793692972002
+      },
+      "isLocked": false,
+      "linkedName": "Blue CWS"
+    },
+    {
+      "anchor": {
+        "x": 8.121739317324787,
+        "y": 2.673941501729158
+      },
+      "prevControl": {
+        "x": 7.618525233973543,
+        "y": 3.374494441296575
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue 6"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake and warmup",
+      "waypointRelativePos": 0.35,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Comp Blue 4 Piece Source 8-6",
+  "previewStartingState": {
+    "rotation": 166.86892529340733,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

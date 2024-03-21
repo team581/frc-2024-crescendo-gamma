@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.4899850610643455,
+        "y": 4.466456106164492
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.08514706629413,
+        "y": 4.212856997713996
+      },
+      "isLocked": false,
+      "linkedName": "Blue M A 6, 6"
+    },
+    {
+      "anchor": {
+        "x": 4.399265430530859,
+        "y": 4.865547371094743
+      },
+      "prevControl": {
+        "x": 5.136228600457198,
+        "y": 4.5013111506223025
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 171.2298924162044,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Blue Mid 6 Piece 1-3,5-6",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

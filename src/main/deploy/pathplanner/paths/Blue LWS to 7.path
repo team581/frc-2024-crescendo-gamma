@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.138933197866397,
+        "y": 2.821945643891289
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.195970107467369,
+        "y": 0.4280456324490922
+      },
+      "isLocked": false,
+      "linkedName": "Blue LWS"
+    },
+    {
+      "anchor": {
+        "x": 8.1,
+        "y": 2.5259373595670285
+      },
+      "prevControl": {
+        "x": 7.322528321056643,
+        "y": 2.295769211230733
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue 7"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 211.9976304566467,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.55,
+      "maxWaypointRelativePos": 0.9,
+      "constraints": {
+        "maxVelocity": 4.2,
+        "maxAcceleration": 4,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Comp Blue 4 Piece Source 8-6",
+  "previewStartingState": {
+    "rotation": 132.28861454307292,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
