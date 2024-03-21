@@ -41,6 +41,7 @@ public class RobotManager extends LifecycleSubsystem {
   public final SnapManager snaps;
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
+  private final boolean useShootToTheSide = true;
 
   private RobotState state = RobotState.IDLE_NO_GP;
 
@@ -74,8 +75,12 @@ public class RobotManager extends LifecycleSubsystem {
   public void robotPeriodic() {
     Logger.recordOutput("RobotManager/State", state);
     flags.log();
-
-    DistanceAngle speakerVisionTargets = vision.getDistanceAngleSpeaker();
+    DistanceAngle speakerVisionTargets = new DistanceAngle(0, null);
+    if (useShootToTheSide) {
+      speakerVisionTargets = vision.getDistanceAngleMovedSpeaker();
+    } else {
+      speakerVisionTargets = vision.getDistanceAngleSpeaker();
+    }
     // change to Speaker or MovedSpeaker
 
     DistanceAngle floorSpotVisionTargets = vision.getDistanceAngleFloorShot();

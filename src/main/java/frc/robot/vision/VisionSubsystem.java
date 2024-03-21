@@ -224,11 +224,16 @@ public class VisionSubsystem extends LifecycleSubsystem {
     angleToDistance.put(17.24, Units.inchesToMeters(58.5) - 0.12);
     angleToDistance.put(-2.589, Units.inchesToMeters(175) - 0.12);
 
-    angleToPositionOffset.put(Rotation2d.fromDegrees(100).getRadians(), 0.525);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(60).getRadians(), 0.525);
+    // 96.5
+    angleToPositionOffset.put(Rotation2d.fromDegrees(100).getRadians(), 0.4825);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(65).getRadians(), 0.4825);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(60).getRadians(), 0.4825 - .356);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(40).getRadians(), 0.4825 - .356);
     angleToPositionOffset.put(Rotation2d.fromDegrees(0.0).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), 0.525);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), 0.525);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-40).getRadians(), -0.4825 + .356);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), -0.4825 + .356);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-65).getRadians(), -0.4825);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), -0.4825);
 
     limelightTimer.start();
   }
@@ -322,7 +327,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public void robotPeriodic() {
     setSpeakerY(
         getSpeaker().getY()
-            + angleToPositionOffset.get(getDistanceAngleSpeaker().angle().getDegrees()));
+            + angleToPositionOffset.get(
+                Math.atan(
+                    (getSpeaker().getY() - getUsedRobotPose().getY())
+                        / (getSpeaker().getX() - getUsedRobotPose().getX()))));
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
