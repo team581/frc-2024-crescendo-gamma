@@ -33,7 +33,7 @@ import frc.robot.wrist.WristSubsystem;
 import org.littletonrobotics.junction.Logger;
 
 public class RobotManager extends LifecycleSubsystem {
-  public final Translation2d timeAndAngle = new Translation2d(0.175,30); // goes down too fast
+  public final Translation2d timeAndAngle = new Translation2d(0.2,30); // goes down too fast
   public final WristSubsystem wrist;
   public final ElevatorSubsystem elevator;
   public final ShooterSubsystem shooter;

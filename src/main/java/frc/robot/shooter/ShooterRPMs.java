@@ -10,7 +10,7 @@ public class ShooterRPMs {
   public static final double OUTTAKE = 1000;
   public static final double SUBWOOFER = 3000;
   public static final double PODIUM = 4000;
-  public static final double SHOOTER_AMP = 600;
+  public static final double SHOOTER_AMP = 500;
 
   public static final double AMP_TOLERANCE = 100;
   public static final double TOLERANCE = 250;
