@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.54648920497841,
-        "y": 6.226289560579121
+        "x": 10.528531369062739,
+        "y": 6.1567157734315465
       },
       "isLocked": false,
       "linkedName": "Red R 5, 4 WS"
     },
     {
       "anchor": {
-        "x": 9.280823424868734,
-        "y": 6.119543910820345
+        "x": 9.479998983997968,
+        "y": 5.88098602997206
       },
       "prevControl": {
-        "x": 9.924070612141225,
-        "y": 6.16979933959868
+        "x": 10.114064516129034,
+        "y": 6.0245974091948185
       },
       "nextControl": null,
       "isLocked": false,
@@ -63,7 +63,7 @@
   "reversed": false,
   "folder": "Dev Red Right 5 Piece",
   "previewStartingState": {
-    "rotation": -9.780352756969942,
+    "rotation": 1.9041812218855392,
     "velocity": 0
   },
   "useDefaultConstraints": true

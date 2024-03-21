@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 11.9,
-        "y": 4.72
+        "x": 12.3,
+        "y": 4.92
       },
       "prevControl": {
-        "x": 11.163908071889093,
-        "y": 4.358192103131927
+        "x": 11.862542037084074,
+        "y": 4.33461112522225
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 10.568620951136339,
+    "rotation": 9.591719477798659,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Dev Red Right 5 Piece",
   "previewStartingState": {
-    "rotation": 53.49437578980902,
+    "rotation": 0.9877603996397537,
     "velocity": 0
   },
   "useDefaultConstraints": true
