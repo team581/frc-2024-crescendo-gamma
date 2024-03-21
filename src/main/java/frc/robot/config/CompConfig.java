@@ -269,8 +269,8 @@ class CompConfig {
           new LightsConfig(3),
           new VisionConfig(
               4,
-              0.9,
-              0.9,
+              0.4,
+              0.4,
               tyToNoteDistance -> {
                 tyToNoteDistance.put(-16.0, Units.inchesToMeters(12 + 15.25));
                 tyToNoteDistance.put(16.8, Units.inchesToMeters(120 + 15));
