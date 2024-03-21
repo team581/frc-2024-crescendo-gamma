@@ -334,9 +334,9 @@ public class RobotManager extends LifecycleSubsystem {
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
-          boolean limeLightWorking = vision.getState() == VisionState.SEES_TAGS;
+          boolean limelightWorking = vision.getState() == VisionState.SEES_TAGS;
 
-          Logger.recordOutput("RobotManager/SpeakerShot/LimelightWorking", limeLightWorking);
+          Logger.recordOutput("RobotManager/SpeakerShot/LimelightWorking", limelightWorking);
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/ShooterAtGoal", shooterAtGoal);
           Logger.recordOutput("RobotManager/SpeakerShot/PoseJitterSafe", poseJitterSafe);
@@ -344,7 +344,7 @@ public class RobotManager extends LifecycleSubsystem {
           Logger.recordOutput(
               "RobotManager/SpeakerShot/AngularVelocitySlowEnough", angularVelocitySlowEnough);
           Logger.recordOutput("RobotManager/SpeakerShot/RobotHeadingAtGoal", robotHeadingAtGoal);
-          if ((limeLightWorking || DriverStation.isAutonomous())
+          if ((limelightWorking || DriverStation.isAutonomous())
               && wristAtGoal
               && shooterAtGoal
               && (poseJitterSafe || DriverStation.isAutonomous())
