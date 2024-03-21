@@ -405,7 +405,6 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleNoGPRequest();
-        noteManager.queuer.setWithDebouncer(false);
         break;
       case IDLE_WITH_GP:
         wrist.setAngle(wristAngleForSpeaker);
@@ -413,7 +412,6 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
-        noteManager.queuer.setWithDebouncer(false);
         break;
       case LAZY_INTAKING:
         wrist.setAngle(wristAngleForSpeaker);
@@ -451,7 +449,6 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
-        noteManager.queuer.setWithDebouncer(true);
         break;
       case SHOOTER_AMP:
         wrist.setAngle(WristPositions.SHOOTER_AMP);
@@ -459,7 +456,6 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.SHOOTER_AMP);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
-        noteManager.queuer.setWithDebouncer(true);
         break;
       case WAITING_FLOOR_SHOT:
       case PREPARE_FLOOR_SHOT:

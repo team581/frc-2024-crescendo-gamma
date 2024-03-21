@@ -233,7 +233,7 @@ class PracticeConfig {
           new QueuerConfig(
               16,
               0,
-              new Debouncer(0.25, DebounceType.kFalling),
+              new Debouncer(0.0, DebounceType.kBoth),
               new TalonFXConfiguration()
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio(1))
                   .withCurrentLimits(

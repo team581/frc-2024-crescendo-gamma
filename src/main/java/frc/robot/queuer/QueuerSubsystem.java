@@ -16,7 +16,6 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   private final TalonFX motor;
   private final DigitalInput sensor;
   private QueuerState goalState = QueuerState.IDLE;
-  private boolean withDebouncer = false;
   private final Debouncer debouncer = RobotConfig.get().queuer().debouncer();
   private boolean debouncedSensor = false;
 
@@ -55,11 +54,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    if (withDebouncer) {
       debouncedSensor = debouncer.calculate(sensorHasNote());
-    } else {
-      debouncedSensor = sensorHasNote();
-    }
     Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput("Queuer/State", goalState);
     Logger.recordOutput("Queuer/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
@@ -75,10 +70,6 @@ public class QueuerSubsystem extends LifecycleSubsystem {
 
   public boolean hasNote() {
     return debouncedSensor;
-  }
-
-  public void setWithDebouncer(boolean yea) {
-    withDebouncer = yea;
   }
 
   private boolean sensorHasNote() {
