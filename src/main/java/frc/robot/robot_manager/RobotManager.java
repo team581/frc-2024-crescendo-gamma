@@ -41,7 +41,7 @@ public class RobotManager extends LifecycleSubsystem {
   public final SnapManager snaps;
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
-  private final boolean useShootToTheSide = true;
+  private final boolean useShootToTheSide = false;
 
   private RobotState state = RobotState.IDLE_NO_GP;
 
