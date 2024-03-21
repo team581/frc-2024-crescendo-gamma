@@ -10,6 +10,8 @@ package frc.robot.autos;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.FollowPathCommand;
+import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -99,6 +101,9 @@ public class Autos extends LifecycleSubsystem {
     PPHolonomicDriveController.setRotationTargetOverride(this::getRotationTargetOverride);
 
     autoChooser = new AutoChooser();
+
+    FollowPathCommand.warmupCommand().schedule();
+    PathfindingCommand.warmupCommand().schedule();
   }
 
   public Command getAutoCommand() {

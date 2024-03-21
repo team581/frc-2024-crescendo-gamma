@@ -2,7 +2,7 @@
   "javaDependencies": [{
     "groupId": "com.pathplanner.lib",
     "artifactId": "PathplannerLib-java",
-    "version": "2024.2.2"
+    "version": "2024.2.7"
   }],
   "fileName": "PathplannerLib.json",
   "frcYear": "2024",
@@ -15,7 +15,7 @@
     "libName": "PathplannerLib",
     "artifactId": "PathplannerLib-cpp",
     "skipInvalidPlatforms": true,
-    "version": "2024.2.2",
+    "version": "2024.2.7",
     "headerClassifier": "headers",
     "binaryPlatforms": [
       "windowsx86-64",
@@ -27,6 +27,6 @@
     ],
     "sharedLibrary": false
   }],
-  "version": "2024.2.2",
+  "version": "2024.2.7",
   "uuid": "1b42324f-17c6-4875-8e77-1c312bc8c786"
 }
