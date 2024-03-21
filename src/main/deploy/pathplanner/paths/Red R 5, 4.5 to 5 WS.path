@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.479998983997968,
-        "y": 5.88098602997206
+        "x": 9.463939547879097,
+        "y": 5.71874980949962
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.611283763345643,
-        "y": 6.463716947701372
+        "x": 11.410338602796196,
+        "y": 7.022917607421359
       },
       "isLocked": false,
       "linkedName": "Red R 5, 4.5"
@@ -20,8 +20,8 @@
         "y": 5.5797561595123195
       },
       "prevControl": {
-        "x": 12.0266253492507,
-        "y": 6.6222341884683775
+        "x": 12.113643891287783,
+        "y": 6.124596901193803
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Warmup",
-      "waypointRelativePos": 0.05,
+      "name": "warmup",
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "sequential",
         "data": {
