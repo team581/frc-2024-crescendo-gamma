@@ -21,7 +21,7 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
-  private static final boolean SHOOT_TO_SIDE_ENABLED = false;
+  private static final boolean SHOOT_TO_SIDE_ENABLED = true;
 
   private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
   private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
