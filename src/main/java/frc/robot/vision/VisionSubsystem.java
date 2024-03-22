@@ -255,8 +255,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
               Math.atan(
                   (goalPose.getY() - robotPose.getY()) / (goalPose.getX() - robotPose.getX())));
 
+      if (!FmsSubsystem.isRedAlliance()) {
+        yOffset *= -1.0;
+      }
+
       adjustedPose = new Pose2d(goalPose.getX(), goalPose.getY() + yOffset, goalPose.getRotation());
     }
+    Logger.recordOutput("Vision/OriginalSpeakerPose", goalPose);
     Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
 
     return distanceToTargetPose(adjustedPose, robotPose);
