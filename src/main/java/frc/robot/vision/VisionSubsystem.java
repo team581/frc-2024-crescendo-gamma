@@ -51,13 +51,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
       new Pose3d(
           Units.inchesToMeters(652.73),
           Units.inchesToMeters(218.42 - 11.125),
-          Units.inchesToMeters(57.13),
+          Units.inchesToMeters(57.25),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
   public static final Pose3d BLUE_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(218.42 - 11.125),
-          Units.inchesToMeters(57.13),
+          Units.inchesToMeters(57.25),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
   private final Timer limelightTimer = new Timer();
@@ -305,7 +305,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
+    Logger.recordOutput("Vision/DistanceFromSpeaker",Units.metersToInches( getDistanceAngleSpeaker().distance()));
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
