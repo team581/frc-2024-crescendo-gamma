@@ -8,27 +8,33 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.15982786580958,
-        "y": 4.538793692972002
+        "x": 12.394638635431116,
+        "y": 4.93347140540435
       },
       "isLocked": false,
       "linkedName": "Red CWS"
     },
     {
       "anchor": {
-        "x": 8.418260682675212,
-        "y": 2.673941501729158
+        "x": 8.44,
+        "y": 4.144115980539654
       },
       "prevControl": {
-        "x": 8.921474766026456,
-        "y": 3.374494441296575
+        "x": 9.535230651999765,
+        "y": 3.49289775502628
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Red 6"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
