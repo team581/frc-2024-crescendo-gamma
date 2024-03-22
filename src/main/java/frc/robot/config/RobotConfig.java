@@ -112,7 +112,7 @@ public record RobotConfig(
       double principlePixelOffsetY) {}
 
   // TODO: Change this to false during events
-  public static final boolean IS_DEVELOPMENT = true;
+  public static final boolean IS_DEVELOPMENT = false;
   private static final String PRACTICE_BOT_SERIAL_NUMBER = "0322443D";
   public static final String SERIAL_NUMBER = System.getenv("serialnum");
   public static final boolean IS_PRACTICE_BOT =
