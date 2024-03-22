@@ -310,7 +310,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-    Logger.recordOutput("Vision/DistanceFromSpeaker",Units.metersToInches( getDistanceAngleSpeaker().distance()));
+    Logger.recordOutput(
+        "Vision/DistanceFromSpeaker", Units.metersToInches(getDistanceAngleSpeaker().distance()));
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
