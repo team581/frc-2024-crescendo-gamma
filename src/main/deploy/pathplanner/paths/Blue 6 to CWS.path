@@ -3,53 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4399999999999995,
-        "y": 5.11
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 4.145361364568883,
-        "y": 4.93347140540435
-      },
-      "isLocked": false,
-      "linkedName": "Blue CWS"
-    },
-    {
-      "anchor": {
         "x": 8.1,
         "y": 4.144115980539654
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.0575428381626,
+        "y": 4.499325921728767
+      },
+      "isLocked": false,
+      "linkedName": "Blue 6"
+    },
+    {
+      "anchor": {
+        "x": 3.4399999999999995,
+        "y": 5.11
+      },
       "prevControl": {
-        "x": 7.004769348000234,
-        "y": 3.49289775502628
+        "x": 4.103897735487774,
+        "y": 4.726265606377368
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 6"
+      "linkedName": "Blue CWS"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 180,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0.35,
+      "name": "speaker shot",
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeFloor"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -69,14 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 171.92949223856053,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Dev Blue 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": 166.86892529340733,
+    "rotation": 182.17848588114003,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

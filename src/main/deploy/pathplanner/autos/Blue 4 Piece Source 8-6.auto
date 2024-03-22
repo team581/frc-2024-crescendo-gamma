@@ -76,6 +76,18 @@
           "data": {
             "pathName": "Blue CWS to 6"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 6 to CWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
         }
       ]
     }
