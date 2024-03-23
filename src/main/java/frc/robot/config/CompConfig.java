@@ -64,7 +64,7 @@ class CompConfig {
                       new TorqueCurrentConfigs()
                           .withPeakForwardTorqueCurrent(200)
                           .withPeakReverseTorqueCurrent(0))
-                  .withSlot0(new Slot0Configs().withKP(20).withKV(0).withKS(20))
+                  .withSlot0(new Slot0Configs().withKP(15).withKV(0).withKS(15))
                   .withMotorOutput(
                       new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
@@ -80,7 +80,7 @@ class CompConfig {
                       new TorqueCurrentConfigs()
                           .withPeakForwardTorqueCurrent(200)
                           .withPeakReverseTorqueCurrent(0))
-                  .withSlot0(new Slot0Configs().withKP(12.0).withKV(0).withKS(20.0))
+                  .withSlot0(new Slot0Configs().withKP(12.0).withKV(0).withKS(15.0))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
@@ -88,7 +88,7 @@ class CompConfig {
                 speakerDistanceToRPM.put(1.37, 3000.0);
                 speakerDistanceToRPM.put(2.5, 3000.0);
                 speakerDistanceToRPM.put(3.5, 4000.0);
-                speakerDistanceToRPM.put(5.0, 4300.0);
+                speakerDistanceToRPM.put(5.0, 4500.0);
                 speakerDistanceToRPM.put(6.5, 4500.0);
               },
               floorSpotDistanceToRPM -> {
@@ -169,7 +169,7 @@ class CompConfig {
                 speakerDistanceToAngle.put(2.5, 42.25);
                 speakerDistanceToAngle.put(3.5, 32.7 );
                 speakerDistanceToAngle.put(5.0, 25.2);
-                speakerDistanceToAngle.put(6.5, 22.75);
+                speakerDistanceToAngle.put(6.5, 22.25);
                 speakerDistanceToAngle.put(8.0, 20.25);
 
               },
