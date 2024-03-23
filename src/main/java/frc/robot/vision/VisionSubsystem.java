@@ -223,13 +223,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     // 96.5
     angleToPositionOffset.put(Rotation2d.fromDegrees(100).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(65).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(60).getRadians(), 0.4825 - .356);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(40).getRadians(), 0.4825 - .356);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(75).getRadians(), 0.4825);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(60).getRadians(), 0.0);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(40).getRadians(), 0.0);
     angleToPositionOffset.put(Rotation2d.fromDegrees(0.0).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-40).getRadians(), -0.4825 + .356);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), -0.4825 + .356);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-65).getRadians(), -0.4825);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-40).getRadians(), 0.0);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), 0.0);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-75).getRadians(), -0.4825);
     angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), -0.4825);
 
     limelightTimer.start();
