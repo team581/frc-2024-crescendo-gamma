@@ -3,12 +3,12 @@
     {
       "groupId": "com.ctre.phoenix",
       "artifactId": "api-java",
-      "version": "5.33.0"
+      "version": "5.33.1"
     },
     {
       "groupId": "com.ctre.phoenix",
       "artifactId": "wpiapi-java",
-      "version": "5.33.0"
+      "version": "5.33.1"
     }
   ],
   "fileName": "Phoenix5.json",
@@ -27,7 +27,7 @@
       "artifactId": "cci",
       "skipInvalidPlatforms": true,
       "isJar": false,
-      "version": "5.33.0"
+      "version": "5.33.1"
     },
     {
       "simMode": "swsim",
@@ -40,7 +40,7 @@
       "artifactId": "cci-sim",
       "skipInvalidPlatforms": true,
       "isJar": false,
-      "version": "5.33.0"
+      "version": "5.33.1"
     }
   ],
   "mavenUrls": ["https://maven.ctr-electronics.com/release/"],
@@ -51,7 +51,7 @@
       "libName": "CTRE_Phoenix_WPI",
       "artifactId": "wpiapi-cpp",
       "skipInvalidPlatforms": true,
-      "version": "5.33.0",
+      "version": "5.33.1",
       "headerClassifier": "headers",
       "binaryPlatforms": [
         "windowsx86-64",
@@ -66,7 +66,7 @@
       "libName": "CTRE_Phoenix",
       "artifactId": "api-cpp",
       "skipInvalidPlatforms": true,
-      "version": "5.33.0",
+      "version": "5.33.1",
       "headerClassifier": "headers",
       "binaryPlatforms": [
         "windowsx86-64",
@@ -81,7 +81,7 @@
       "libName": "CTRE_PhoenixCCI",
       "artifactId": "cci",
       "skipInvalidPlatforms": true,
-      "version": "5.33.0",
+      "version": "5.33.1",
       "headerClassifier": "headers",
       "binaryPlatforms": [
         "windowsx86-64",
@@ -96,7 +96,7 @@
       "libName": "CTRE_Phoenix_WPISim",
       "artifactId": "wpiapi-cpp-sim",
       "skipInvalidPlatforms": true,
-      "version": "5.33.0",
+      "version": "5.33.1",
       "headerClassifier": "headers",
       "binaryPlatforms": [
         "windowsx86-64",
@@ -111,7 +111,7 @@
       "libName": "CTRE_PhoenixSim",
       "artifactId": "api-cpp-sim",
       "skipInvalidPlatforms": true,
-      "version": "5.33.0",
+      "version": "5.33.1",
       "headerClassifier": "headers",
       "binaryPlatforms": [
         "windowsx86-64",
@@ -126,7 +126,7 @@
       "libName": "CTRE_PhoenixCCISim",
       "artifactId": "cci-sim",
       "skipInvalidPlatforms": true,
-      "version": "5.33.0",
+      "version": "5.33.1",
       "headerClassifier": "headers",
       "binaryPlatforms": [
         "windowsx86-64",
@@ -136,7 +136,7 @@
       "sharedLibrary": true
     }
   ],
-  "version": "5.33.0",
+  "version": "5.33.1",
   "uuid": "ab676553-b602-441f-a38d-f1296eff6537",
   "requires": [{
     "onlineUrl": "https://maven.ctr-electronics.com/release/com/ctre/phoenix6/latest/Phoenix6-frc2024-latest.json",
