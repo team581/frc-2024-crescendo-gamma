@@ -3,47 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.52,
-        "y": 6.67
+        "x": 8.44,
+        "y": 2.5259373595670285
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.315743989889222,
-        "y": 6.749652767556057
+        "x": 10.108180340360681,
+        "y": 4.086319376331062
       },
       "isLocked": false,
-      "linkedName": "Red 2.5"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.61,
-        "y": 6.819999999999999
+        "x": 13.1,
+        "y": 5.11
       },
       "prevControl": {
-        "x": 13.912927010719905,
-        "y": 6.640317911712402
+        "x": 11.85195678083664,
+        "y": 4.6078622926476624
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 3"
+      "linkedName": "Red CWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0.05,
+      "name": "warmup",
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeFloor"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -63,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -30.792278001957108,
+    "rotation": 9.646314638565764,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Comp Red 6 Piece Source 1-5",
-  "previewStartingState": null,
+  "folder": "Dev Red 4 Piece Source 8-6",
+  "previewStartingState": {
+    "rotation": 30.30946884229176,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

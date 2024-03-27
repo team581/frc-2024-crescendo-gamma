@@ -3,45 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.289999999999999,
-        "y": 6.27
+        "x": 8.46,
+        "y": 7.429538020170265
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.944583732244384,
-        "y": 3.127820871026358
+        "x": 8.99023571092735,
+        "y": 7.030301720177907
       },
       "isLocked": false,
-      "linkedName": "Blue RWS"
+      "linkedName": "Dynamic Red 4"
     },
     {
       "anchor": {
-        "x": 8.12,
-        "y": 4.35
+        "x": 8.438684354572356,
+        "y": 5.845068954575599
       },
       "prevControl": {
-        "x": 7.439180946054199,
-        "y": 4.330266114378381
+        "x": 9.02506267018613,
+        "y": 6.294209792067001
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 6 2"
+      "linkedName": "Dynamic Red 5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 180,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "intake",
       "waypointRelativePos": 0.4,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -63,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 52.21,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Comp Blue 6 Piece Source 1-6",
+  "folder": "MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": 196.08277687532015,
+    "rotation": -0.33505921860918053,
     "velocity": 0
   },
   "useDefaultConstraints": true

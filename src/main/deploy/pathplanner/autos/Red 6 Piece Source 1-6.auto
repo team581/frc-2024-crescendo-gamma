@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Left to Shot"
+            "pathName": null
           }
         },
         {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Shot to 1"
+            "pathName": null
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 1 to 2.5"
+            "pathName": null
           }
         },
         {
@@ -62,7 +62,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 2.5 to 3"
+            "pathName": null
           }
         },
         {
@@ -74,13 +74,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Copy of Red 3 to 5"
+            "pathName": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Copy of Red 5 to RWS"
+            "pathName": null
           }
         },
         {
@@ -92,13 +92,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Copy of Red RWS to 6"
+            "pathName": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Copy of Red 6 to CWS"
+            "pathName": null
           }
         },
         {

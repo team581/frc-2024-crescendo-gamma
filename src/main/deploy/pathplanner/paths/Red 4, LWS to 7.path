@@ -3,43 +3,55 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.61,
-        "y": 6.819999999999999
+        "x": 13.401066802133602,
+        "y": 2.821945643891289
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.383895797268524,
-        "y": 7.537013735565933
+        "x": 11.34402989253263,
+        "y": 0.4280456324490922
       },
       "isLocked": false,
-      "linkedName": "Red 3"
+      "linkedName": "Red LWS"
     },
     {
       "anchor": {
-        "x": 8.581557798099622,
-        "y": 5.5
+        "x": 8.44,
+        "y": 2.5259373595670285
       },
       "prevControl": {
-        "x": 8.895778945711246,
-        "y": 5.775289280610511
+        "x": 9.217471678943356,
+        "y": 2.295769211230733
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red 5"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.55,
-      "rotationDegrees": 19.32,
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -31.99763045664671,
       "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.55,
+      "maxWaypointRelativePos": 0.9,
+      "constraints": {
+        "maxVelocity": 4.2,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -63,13 +75,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 19.32,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Comp Red 6 Piece Source 1-5",
+  "folder": "Dev Red 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": -15.490902472934408,
+    "rotation": 47.711385456927076,
     "velocity": 0
   },
   "useDefaultConstraints": true
