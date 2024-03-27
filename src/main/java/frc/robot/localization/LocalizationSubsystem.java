@@ -85,18 +85,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
       if (visionTimestamp == lastAddedVisionTimestamp) {
         // Don't add the same vision pose over and over
       } else {
-        if (results.hasBothSpeakerTags()) {
-          // If we see both speaker tags, we used trig based vision which we trust A LOT
-          // Fully bypass the Kalman filter stuff by just overwriting our current pose
-          resetPose(results.pose());
-        } else {
         poseEstimator.addVisionMeasurement(
             visionPose,
             visionTimestamp,
             VecBuilder.fill(
                 RobotConfig.get().vision().xyStdDev(),
                 RobotConfig.get().vision().xyStdDev(),
-                RobotConfig.get().vision().thetaStdDev()));}
+                RobotConfig.get().vision().thetaStdDev()));
         lastAddedVisionTimestamp = visionTimestamp;
       }
     }

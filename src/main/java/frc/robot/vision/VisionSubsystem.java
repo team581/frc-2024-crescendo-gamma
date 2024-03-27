@@ -69,148 +69,39 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private final ImuSubsystem imu;
 
-  private Optional<VisionResult> getMegatagVisionResult() {
-    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue("");
-
-    if (Math.abs(estimatePose.pose.getRotation().getDegrees()  - imu.getRobotHeading().getDegrees()) > 5) {
-      return Optional.empty();
-    }
-
-    for(int i = 0;i<estimatePose.rawFiducials.length;i++){
-      var fiducial = estimatePose.rawFiducials[i];
-
-      if (fiducial.ambiguity>0.5){
-        return Optional.empty();
-      }
-    }
-
-    return Optional.of(new VisionResult(estimatePose.pose, estimatePose.latency, false));
-  }
-
-  private Optional<VisionResult> getTrigVisionResult() {
-    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue("");
-
-    // get tx ty do math etc
-    double validReadings =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
-    if (validReadings == 0.0) {
-      return Optional.empty();
-    }
-
-    // Get corners from Limelight
-
-    // Make sure we have 2 sets of corners
-    double[] corners =
-        NetworkTableInstance.getDefault()
-            .getTable("limelight")
-            .getEntry("tcornxy")
-            .getDoubleArray(new double[16]);
-    if (corners.length < 16) {
-      return Optional.empty();
-    }
-    if (corners[0] == 0.0 & corners[15] == 0.0) {
-      return Optional.empty();
-    }
-    // COmbine corners into larger rectangle
-    double highestX = corners[0];
-    double lowestX = corners[0];
-    double highestY = corners[1];
-    double lowestY = corners[1];
-    for (int i = 0; i < 16; i = i + 2) {
-      if (highestX < corners[i]) {
-        highestX = corners[i];
-      } else if (lowestX > corners[i]) {
-        lowestX = corners[i];
-      }
-      if (highestY < corners[i + 1]) {
-        highestY = corners[i + 1];
-      } else if (lowestY > corners[i + 1]) {
-        lowestY = corners[i + 1];
-      }
-    }
-
-    // Find center coordinates of rectange
-    double[] centerCoordinatesPixels = new double[2];
-    centerCoordinatesPixels[0] = lowestX + ((highestX - lowestX) / 2);
-    centerCoordinatesPixels[1] = lowestY + ((highestY - lowestY) / 2);
-    // Convert center coordinates into Angle and Distance
-
-    // Pixel X : 0 to 1280
-    // Angle X : -31.75 to 31.75
-
-    // Pixel Y : 0 to 960
-    // Angle Y : -24.85 to 24.85
-
-    double pixelX = centerCoordinatesPixels[0] - principlePixelOffsetX;
-    double pixelY = centerCoordinatesPixels[1] - principlePixelOffsetY;
-
-    double angleX = 0.0;
-    double angleY = 0.0;
-
-    angleX = -1 * (((pixelX / 1280.0) * FOV_HORIZONTAL) - (FOV_HORIZONTAL / 2.0));
-    angleY = -1 * (((pixelY / 800.0) * FOV_VERTICAL) - (FOV_VERTICAL / 2.0));
-    double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
-    double horizontalDistanceSpeakerToCamera =
-        verticalDistance
-            / Math.tan(Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY());
-
-    double distanceToSpeaker3D =
-        verticalDistance
-            / Math.sin(Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY());
-
-    Logger.recordOutput("Vision/Pixels/X", pixelX);
-    Logger.recordOutput("Vision/Pixels/Y", pixelY);
-    Logger.recordOutput(
-        "Vision/AngleRobotToSpeaker",
-        Units.radiansToDegrees(
-            Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY()));
-    Logger.recordOutput(
-        "Vision/Trig/DistanceHorizontal", Units.metersToInches(horizontalDistanceSpeakerToCamera));
-    Logger.recordOutput(
-        "Vision/Trig/DistanceHorizontal3D", Units.metersToInches(distanceToSpeaker3D));
-    Logger.recordOutput("Vision/Trig/VerticalDistance", Units.metersToInches(verticalDistance));
-    Logger.recordOutput("Vision/Trig/AngleY", angleY);
-    Logger.recordOutput("Vision/Trig/AngleX", angleX);
-
-
-
-    Rotation2d cameraToAngle =
-        Rotation2d.fromDegrees(
-            angleX
-                + this.imu.getRobotHeading(estimatePose.latency).getDegrees()
-                + CAMERA_ON_BOT.getRotation().getZ()
-                + Units.radiansToDegrees(CAMERA_ON_BOT.getRotation().getZ()));
-
-    // double distanceFromSpeaker = getDistanceFromAngle(angleY);
-
-    double distanceX = Math.cos(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
-    double distanceY = Math.sin(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
-
-    Pose2d fieldPosition =
-        new Pose2d(
-            getAllianceDoubleTagCenterPose().getX() - distanceX,
-            getAllianceDoubleTagCenterPose().getY() - distanceY,
-            this.imu.getRobotHeading(estimatePose.latency));
-
-    Logger.recordOutput("Vision/SimpleSpeakerPose", fieldPosition);
-    Logger.recordOutput("Vision/SimpleSpeakerAngleX", angleX);
-    Logger.recordOutput("Vision/SimpleSpeakerAngleY", angleY);
-    // return a thing
-
-    return Optional.of(new VisionResult(fieldPosition, estimatePose.latency, true));
-  }
-
   public Optional<VisionResult> getVisionResult() {
     var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue("");
 
-    if (estimatePose.tagCount==2) {
-      return getTrigVisionResult();
+    if (Math.abs(estimatePose.pose.getRotation().getDegrees() - imu.getRobotHeading().getDegrees())
+        > 5) {
+      return Optional.empty();
     }
 
-    return getMegatagVisionResult();
+    for (int i = 0; i < estimatePose.rawFiducials.length; i++) {
+      var fiducial = estimatePose.rawFiducials[i];
+
+      if (fiducial.ambiguity > 0.5) {
+        return Optional.empty();
+      }
+    }
+    Logger.recordOutput("Vision/MegatagPose",estimatePose.pose);
+    return Optional.of(new VisionResult(estimatePose.pose, estimatePose.latency));
   }
 
-  public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
+  private Optional<DistanceAngle> getTxTyDistanceAngle() {
+    // use tx and ty to calculate a DistanceAngle
+    // return optional.empty if tv is not present
+    if (LimelightHelpers.getTV(getName())){
+      double tx = LimelightHelpers.getTX("");
+      double ty = LimelightHelpers.getTY("");
+
+
+
+    }
+    return Optional.empty();
+  }
+
+  public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current, boolean usingTagDirectly) {
     double distance =
         Math.sqrt(
             (Math.pow(target.getY() - current.getY(), 2))
@@ -223,7 +114,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     angle = angle.minus(target.getRotation());
 
-    return new DistanceAngle(distance, angle);
+    return new DistanceAngle(distance, angle, usingTagDirectly);
   }
 
   private Pose2d robotPose = new Pose2d();
@@ -269,6 +160,14 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
+    var txTyDistanceAngle = getTxTyDistanceAngle();
+
+    if (txTyDistanceAngle.isPresent()) {
+      return txTyDistanceAngle.get();
+    }
+
+    // Fallback to using the pose estimator if we can't use tx & ty
+
     Pose2d goalPose = getSpeaker();
 
     var adjustedPose = goalPose;
@@ -288,7 +187,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Vision/OriginalSpeakerPose", goalPose);
     Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
 
-    return distanceToTargetPose(adjustedPose, robotPose);
+    return distanceToTargetPose(adjustedPose, robotPose, false);
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
@@ -301,7 +200,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Vision/FloorSpot", goalPose);
 
-    return distanceToTargetPose(goalPose, robotPose);
+    return distanceToTargetPose(goalPose, robotPose, false);
   }
 
   public double getStandardDeviation(double distance) {
@@ -341,6 +240,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
     Logger.recordOutput("Vision/State", getState());
+
+    // TODO: Figure out the center tag IDs for red & blue speaker, update these to match
+    if (FmsSubsystem.isRedAlliance()) {
+      LimelightHelpers.setPriorityTagID("", 123);
+    } else {
+      LimelightHelpers.setPriorityTagID("", 123);
+    }
 
     var newHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
 

@@ -6,4 +6,4 @@ package frc.robot.vision;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 
-public record DistanceAngle(double distance, Rotation2d angle) {}
+public record DistanceAngle(double distance, Rotation2d angle, boolean usingTagDirectly) {}
