@@ -28,48 +28,6 @@
           "data": {
             "pathName": "Red 5 R, 3-4"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red R 5, 4 WS to 4.5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red R 5, 4.5 to 5 WS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red R 5, 5 WS to 5.5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red R 5, 5.5 to 6 WS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
         }
       ]
     }

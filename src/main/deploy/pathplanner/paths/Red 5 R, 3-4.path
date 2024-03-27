@@ -55,33 +55,12 @@
         "x": 8.925415798831597,
         "y": 7.445289814579629
       },
-      "nextControl": {
-        "x": 7.994584201168404,
-        "y": 7.41471018542037
-      },
-      "isLocked": false,
-      "linkedName": "Red Amp 5, 5"
-    },
-    {
-      "anchor": {
-        "x": 11.145306070612142,
-        "y": 6.289244602489205
-      },
-      "prevControl": {
-        "x": 10.867113538227077,
-        "y": 6.4523530607006085
-      },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red R 5, 4 WS"
+      "linkedName": "Red Amp 5, 5"
     }
   ],
   "rotationTargets": [
-    {
-      "waypointRelativePos": 3,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
     {
       "waypointRelativePos": 2,
       "rotationDegrees": -27.844463368424176,
@@ -201,7 +180,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.970773835640609,
+    "rotation": -0.05076655246718394,
     "rotateFast": false
   },
   "reversed": false,
