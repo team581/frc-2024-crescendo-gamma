@@ -69,9 +69,28 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private final ImuSubsystem imu;
 
-  public Optional<SpeakerBasePoseLatency> getSimpleSpeakerBaseResults() {
-    double start = Timer.getFPGATimestamp();
-    // If not valid, return None
+  private Optional<VisionResult> getMegatagVisionResult() {
+    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue("");
+
+    if (Math.abs(estimatePose.pose.getRotation().getDegrees()  - imu.getRobotHeading().getDegrees()) > 5) {
+      return Optional.empty();
+    }
+
+    for(int i = 0;i<estimatePose.rawFiducials.length;i++){
+      var fiducial = estimatePose.rawFiducials[i];
+
+      if (fiducial.ambiguity>0.5){
+        return Optional.empty();
+      }
+    }
+
+    return Optional.of(new VisionResult(estimatePose.pose, estimatePose.latency, false));
+  }
+
+  private Optional<VisionResult> getTrigVisionResult() {
+    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue("");
+
+    // get tx ty do math etc
     double validReadings =
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
     if (validReadings == 0.0) {
@@ -153,18 +172,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Vision/Trig/AngleY", angleY);
     Logger.recordOutput("Vision/Trig/AngleX", angleX);
 
-    double end = Timer.getFPGATimestamp();
-    double cl =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("cl").getDouble(0.0);
-    double tl =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0.0);
-    double totalLatency = (end - start) + (cl + tl) / 1000;
-    double totalLatencyTimestamp = Timer.getFPGATimestamp() - totalLatency;
+
 
     Rotation2d cameraToAngle =
         Rotation2d.fromDegrees(
             angleX
-                + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees()
+                + this.imu.getRobotHeading(estimatePose.latency).getDegrees()
                 + CAMERA_ON_BOT.getRotation().getZ()
                 + Units.radiansToDegrees(CAMERA_ON_BOT.getRotation().getZ()));
 
@@ -177,13 +190,24 @@ public class VisionSubsystem extends LifecycleSubsystem {
         new Pose2d(
             getAllianceDoubleTagCenterPose().getX() - distanceX,
             getAllianceDoubleTagCenterPose().getY() - distanceY,
-            this.imu.getRobotHeading(totalLatencyTimestamp));
+            this.imu.getRobotHeading(estimatePose.latency));
 
     Logger.recordOutput("Vision/SimpleSpeakerPose", fieldPosition);
     Logger.recordOutput("Vision/SimpleSpeakerAngleX", angleX);
     Logger.recordOutput("Vision/SimpleSpeakerAngleY", angleY);
+    // return a thing
 
-    return Optional.of(new SpeakerBasePoseLatency(fieldPosition, totalLatencyTimestamp));
+    return Optional.of(new VisionResult(fieldPosition, estimatePose.latency, true));
+  }
+
+  public Optional<VisionResult> getVisionResult() {
+    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue("");
+
+    if (estimatePose.tagCount==2) {
+      return getTrigVisionResult();
+    }
+
+    return getMegatagVisionResult();
   }
 
   public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {

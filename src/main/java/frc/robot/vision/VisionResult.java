@@ -6,4 +6,4 @@ package frc.robot.vision;
 
 import edu.wpi.first.math.geometry.Pose2d;
 
-public record SpeakerBasePoseLatency(Pose2d pose, double totalLatency) {}
+public record VisionResult(Pose2d pose, double totalLatency, boolean hasBothSpeakerTags) {}
