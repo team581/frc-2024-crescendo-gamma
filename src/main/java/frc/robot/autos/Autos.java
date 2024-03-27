@@ -56,7 +56,7 @@ public class Autos extends LifecycleSubsystem {
   public Autos(SwerveSubsystem swerve, LocalizationSubsystem localization, RobotCommands actions) {
     super(SubsystemPriority.AUTOS);
     this.swerve = swerve;
-    var autoCommands = new AutoCommands(actions);
+    var autoCommands = new AutoCommands(actions, null);
 
     // Configure AutoBuilder last
     AutoBuilder.configureHolonomic(
@@ -83,6 +83,7 @@ public class Autos extends LifecycleSubsystem {
     registerCommand("outtakeShooter", actions.outtakeShooterCommand());
     registerCommand("homeClimber", actions.homeCommand());
     registerCommand("stow", actions.stowCommand());
+    registerCommand("midlineNotesFromAmp", autoCommands.getMidlineNotesAmpCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {
