@@ -16,6 +16,7 @@ import frc.robot.imu.ImuSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.note_manager.NoteManager;
 import frc.robot.note_manager.NoteState;
+import frc.robot.note_tracking.NoteTrackingManager;
 import frc.robot.shooter.ShooterMode;
 import frc.robot.shooter.ShooterSubsystem;
 import frc.robot.snaps.SnapManager;
@@ -41,6 +42,7 @@ public class RobotManager extends LifecycleSubsystem {
   public final SnapManager snaps;
   private final ImuSubsystem imu;
   public final NoteManager noteManager;
+  public final NoteTrackingManager noteTrackingManager;
 
   private RobotState state = RobotState.IDLE_NO_GP;
 
@@ -56,7 +58,8 @@ public class RobotManager extends LifecycleSubsystem {
       SwerveSubsystem swerve,
       SnapManager snaps,
       ImuSubsystem imu,
-      NoteManager noteManager) {
+      NoteManager noteManager,
+      NoteTrackingManager noteTrackingManager) {
     super(SubsystemPriority.ROBOT_MANAGER);
     this.wrist = wrist;
     this.elevator = elevator;
@@ -68,6 +71,7 @@ public class RobotManager extends LifecycleSubsystem {
     this.snaps = snaps;
     this.imu = imu;
     this.noteManager = noteManager;
+    this.noteTrackingManager = noteTrackingManager;
   }
 
   @Override

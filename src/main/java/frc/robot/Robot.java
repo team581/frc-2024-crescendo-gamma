@@ -91,16 +91,26 @@ public class Robot extends TimedRobot {
   private final LocalizationSubsystem localization = new LocalizationSubsystem(swerve, imu, vision);
   private final SnapManager snaps = new SnapManager(swerve, driverController);
   private final NoteManager noteManager = new NoteManager(queuer, intake, conveyor);
+  private final NoteTrackingManager noteTrackingManager =
+      new NoteTrackingManager(localization, imu, swerve);
   private final RobotManager robotManager =
       new RobotManager(
-          wrist, elevator, shooter, localization, vision, climber, swerve, snaps, imu, noteManager);
+          wrist,
+          elevator,
+          shooter,
+          localization,
+          vision,
+          climber,
+          swerve,
+          snaps,
+          imu,
+          noteManager,
+          noteTrackingManager);
   private final RobotCommands actions = new RobotCommands(robotManager);
   private final Autos autos = new Autos(swerve, localization, actions);
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
-  private final NoteTrackingManager noteTrackingManager =
-      new NoteTrackingManager(localization, swerve);
 
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
@@ -227,6 +237,10 @@ public class Robot extends TimedRobot {
         .onTrue(actions.confirmShotCommand())
         .onFalse(actions.stopShootingCommand());
     driverController.rightBumper().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
+    driverController
+        .povLeft()
+        .onTrue(actions.driveToNoteAndIntakeCommand())
+        .onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());

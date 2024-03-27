@@ -23,8 +23,16 @@ public class RobotCommands {
             robot.noteManager.conveyor,
             robot.noteManager.intake,
             robot.noteManager.queuer,
-            robot.shooter);
+            robot.shooter,
+            robot.noteTrackingManager);
     requirements = requirementsList.toArray(new Subsystem[requirementsList.size()]);
+  }
+
+  public Command driveToNoteAndIntakeCommand() {
+    return Commands.runOnce(
+            () -> intakeCommand().alongWith(robot.noteTrackingManager.driveToNotePoseCommand()),
+            requirements)
+        .withName("DriveToNoteCommand");
   }
 
   public Command stowCommand() {
