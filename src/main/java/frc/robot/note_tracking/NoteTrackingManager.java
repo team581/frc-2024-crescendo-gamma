@@ -24,6 +24,7 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   private final SwerveSubsystem swerve;
   private static final String LIMELIGHT_NAME = "limelight-note";
   private final InterpolatingDoubleTreeMap tyToDistance = new InterpolatingDoubleTreeMap();
+  private Pose2d lastNotePose = new Pose2d();
 
   public NoteTrackingManager(LocalizationSubsystem localization, SwerveSubsystem swerve) {
     super(SubsystemPriority.NOTE_TRACKING);
@@ -44,44 +45,44 @@ public class NoteTrackingManager extends LifecycleSubsystem {
 
     if (tx == 0) {
       return Optional.empty();
-    } else {
-      var robotPose = getPose();
-
-      Logger.recordOutput("NoteTracking/TY", ty);
-      Logger.recordOutput("NoteTracking/TX", tx);
-
-      double forwardDistanceToNote = tyToDistance.get(ty);
-      Rotation2d angleFromNote = Rotation2d.fromDegrees(tx);
-      Logger.recordOutput("NoteTracking/ForwardDistance", forwardDistanceToNote);
-
-      var c = forwardDistanceToNote / Math.cos(angleFromNote.getRadians());
-      double sidewaysDistanceToNote = 0;
-      if (tx > 0) {
-        sidewaysDistanceToNote = -(Math.sqrt(Math.pow(c, 2) - Math.pow(forwardDistanceToNote, 2)));
-      } else {
-        sidewaysDistanceToNote = Math.sqrt(Math.pow(c, 2) - Math.pow(forwardDistanceToNote, 2));
-      }
-
-      Logger.recordOutput("NoteTracking/SidewaysDistance", sidewaysDistanceToNote);
-      var notePoseWithoutRotation =
-          new Translation2d(
-              robotPose.getX() - forwardDistanceToNote, robotPose.getY() - sidewaysDistanceToNote);
-
-      // Uses distance angle math to aim, inverses the angle for intake
-      double rotation =
-          VisionSubsystem.distanceToTargetPose(
-                  new Pose2d(notePoseWithoutRotation, new Rotation2d()), robotPose)
-              .angle()
-              .getRadians();
-      return Optional.of(
-          new Pose2d(
-              notePoseWithoutRotation,
-              new Rotation2d(rotation + getPose().getRotation().getRadians() + Math.PI)));
     }
+
+    var robotPose = getPose();
+
+    Logger.recordOutput("NoteTracking/TY", ty);
+    Logger.recordOutput("NoteTracking/TX", tx);
+
+    double forwardDistanceToNote = tyToDistance.get(ty);
+    Rotation2d angleFromNote = Rotation2d.fromDegrees(tx);
+    Logger.recordOutput("NoteTracking/ForwardDistance", forwardDistanceToNote);
+
+    var c = forwardDistanceToNote / Math.cos(angleFromNote.getRadians());
+    double sidewaysDistanceToNote = Math.sqrt(Math.pow(c, 2) - Math.pow(forwardDistanceToNote, 2));
+
+    // Flips side of robot note is on based on if tx is positive or negative
+    if (tx > 0) {
+      sidewaysDistanceToNote *= -1.0;
+    }
+
+    Logger.recordOutput("NoteTracking/SidewaysDistance", sidewaysDistanceToNote);
+    var notePoseWithoutRotation =
+        new Translation2d(
+            robotPose.getX() - forwardDistanceToNote, robotPose.getY() - sidewaysDistanceToNote);
+
+    // Uses distance angle math to aim, inverses the angle for intake
+    double rotation =
+        VisionSubsystem.distanceToTargetPose(
+                new Pose2d(notePoseWithoutRotation, new Rotation2d()), robotPose)
+            .angle()
+            .getRadians();
+    return Optional.of(
+        new Pose2d(
+            notePoseWithoutRotation,
+            new Rotation2d(rotation + getPose().getRotation().getRadians() + Math.PI)));
   }
 
   public Command driveToNotePose() {
-    return swerve.driveToPoseCommand(() -> getNotePose().get(), this::getPose);
+    return swerve.driveToPoseCommand(() -> lastNotePose, this::getPose);
   }
 
   private Pose2d getPose() {
@@ -93,6 +94,7 @@ public class NoteTrackingManager extends LifecycleSubsystem {
     Optional<Pose2d> notePose = getNotePose();
     if (notePose.isPresent()) {
       Logger.recordOutput("NoteTracking/NotePose", notePose.get());
+      lastNotePose = notePose.get();
     }
   }
 }
