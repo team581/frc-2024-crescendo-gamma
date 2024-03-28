@@ -39,10 +39,10 @@ public class AutoCommands {
   public Command getMidlineNotesAmpCommand() {
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
     var red4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
-    var rightWingShotTo5 = PathPlannerPath.fromPathFile("RWS to 5");
+    var rightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
     var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
     var red5To6 = PathPlannerPath.fromPathFile("Red 5 to 6");
-    var centerWingShotTo6 = PathPlannerPath.fromPathFile("CWS to 6");
+    var centerWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
     ///    var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
     ///    var red6To7 = PathPlannerPath.fromPathFile("Red 6 to 7");
     ///    var stageWingShotTo7 = PathPlannerPath.fromPathFile("SWS to Red 7");
