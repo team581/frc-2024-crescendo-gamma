@@ -156,11 +156,8 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   private Rotation2d getToleranceFromDistanceToSpeaker(double distance) {
-    return distance > 8
-        ? Rotation2d.fromDegrees(0.5)
-        : distance < 0.85
-            ? Rotation2d.fromDegrees(5.0)
-            : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
+    return Rotation2d.fromDegrees(
+        distance > 8 ? 0.5 : distance < 0.85 ? 5.0 : distanceToAngleTolerance.get(distance));
   }
 
   public Rotation2d getAngleFromDistanceToFloorSpot(double distance) {
