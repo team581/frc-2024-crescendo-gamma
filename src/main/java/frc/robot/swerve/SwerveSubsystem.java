@@ -364,9 +364,9 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   }
 
   private boolean atLocation(Pose2d target, Pose2d current) {
-    //in meters
+    // in meters
     double translationTolerance = 0.1;
-    //in degrees
+    // in degrees
     double omegaTolerance = 5;
 
     return Math.abs(current.getX() - target.getX()) <= translationTolerance

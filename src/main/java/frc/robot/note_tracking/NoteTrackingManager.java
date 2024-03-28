@@ -87,17 +87,15 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   public Command driveToNotePose() {
     return swerve
         .driveToPoseCommand(
-          
-        
-        () -> {
-          var maybeNotePose= getNotePose();
+            () -> {
+              var maybeNotePose = getNotePose();
 
-          if(maybeNotePose.isPresent()) {
-            return maybeNotePose.get();
-          }
-            return this.getPose();
-          
-        }, this::getPose)
+              if (maybeNotePose.isPresent()) {
+                return maybeNotePose.get();
+              }
+              return this.getPose();
+            },
+            this::getPose)
         .alongWith(actions.intakeCommand());
   }
 
