@@ -15,10 +15,8 @@
     "MidlineNotesFromSource"
   ],
   "autoFolders": [
-    "New Red Autos in Development",
-    "Red Comp",
     "New Blue Autos in Development",
-    "Blue Comp"
+    "New Red Autos in Development"
   ],
   "defaultMaxVel": 5.2,
   "defaultMaxAccel": 5.0,
