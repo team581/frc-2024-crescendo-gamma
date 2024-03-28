@@ -47,6 +47,9 @@ public class QueuerSubsystem extends LifecycleSubsystem {
       case PASS_TO_SHOOTER:
         motor.setVoltage(12);
         break;
+      case PASS_TO_CONVEYOR:
+        motor.setVoltage(-8); //TODO: adjust voltage
+        break;
       default:
         break;
     }

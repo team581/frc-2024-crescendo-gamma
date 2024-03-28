@@ -4,6 +4,7 @@
 
 package frc.robot.note_manager;
 
+import frc.robot.config.RobotConfig;
 import frc.robot.conveyor.ConveyorState;
 import frc.robot.conveyor.ConveyorSubsystem;
 import frc.robot.intake.IntakeState;
@@ -49,10 +50,14 @@ public class NoteManager extends LifecycleSubsystem {
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             // Do nothing, you are already idling with the note in the conveyor
           } else if (state == NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL
-              || state == NoteState.INTAKE_TO_CONVEYOR) {
+              || state == NoteState.INTAKE_TO_CONVEYOR
+              || state == NoteState.QUEUER_TO_CONVEYOR) {
             // Do nothing, we are already in the handoff process
           } else {
-            state = NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR;
+            state =
+                RobotConfig.get().robotName().equals("competition")
+                    ? NoteState.QUEUER_TO_CONVEYOR
+                    : NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR;
           }
           break;
         case TRAP_SCORE:
@@ -177,6 +182,11 @@ public class NoteManager extends LifecycleSubsystem {
           state = NoteState.OUTTAKING;
         }
         break;
+      case QUEUER_TO_CONVEYOR:
+        if (!queuer.hasNote() && conveyor.hasNote()) {
+          state = NoteState.IDLE_IN_CONVEYOR;
+        }
+        break;
         // TODO: Fix missing states
       default:
         break;
@@ -251,6 +261,11 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.TO_QUEUER_SHOOTING);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
+        break;
+      case QUEUER_TO_CONVEYOR:
+        intake.setState(IntakeState.IDLE);
+        conveyor.setState(ConveyorState.WAITING_AMP_SHOT);
+        queuer.setState(QueuerState.PASS_TO_CONVEYOR);
         break;
       default:
         break;
