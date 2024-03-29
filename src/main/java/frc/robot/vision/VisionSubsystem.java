@@ -86,10 +86,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
             .getTable("limelight")
             .getEntry("tcornxy")
             .getDoubleArray(new double[16]);
+
     if (corners.length < 16) {
       return Optional.empty();
     }
-    if (corners[0] == 0.0 & corners[15] == 0.0) {
+    if (corners[0] == 0.0 && corners[15] == 0.0) {
       return Optional.empty();
     }
     // COmbine corners into larger rectangle
