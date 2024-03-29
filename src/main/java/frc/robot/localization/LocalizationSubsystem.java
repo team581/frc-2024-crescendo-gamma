@@ -93,6 +93,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
                 RobotConfig.get().vision().xyStdDev(),
                 RobotConfig.get().vision().thetaStdDev()));
         lastAddedVisionTimestamp = visionTimestamp;
+      }
     }
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
