@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.config.RobotConfig;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.robot_manager.RobotCommands;
+import frc.robot.robot_manager.RobotManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -52,11 +53,14 @@ public class Autos extends LifecycleSubsystem {
 
   private final SwerveSubsystem swerve;
   private final AutoChooser autoChooser;
+  private final RobotManager robotManager;
 
-  public Autos(SwerveSubsystem swerve, LocalizationSubsystem localization, RobotCommands actions) {
+  public Autos(SwerveSubsystem swerve, LocalizationSubsystem localization, RobotCommands actions, RobotManager robotManager) {
     super(SubsystemPriority.AUTOS);
     this.swerve = swerve;
-    var autoCommands = new AutoCommands(actions);
+    this.robotManager = robotManager;
+
+    var autoCommands = new AutoCommands(actions, robotManager);
 
     // Configure AutoBuilder last
     AutoBuilder.configureHolonomic(
@@ -83,6 +87,7 @@ public class Autos extends LifecycleSubsystem {
     registerCommand("outtakeShooter", actions.outtakeShooterCommand());
     registerCommand("homeClimber", actions.homeCommand());
     registerCommand("stow", actions.stowCommand());
+    registerCommand("midlineNotesFromAmp", autoCommands.getMidlineNotesAmpCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {

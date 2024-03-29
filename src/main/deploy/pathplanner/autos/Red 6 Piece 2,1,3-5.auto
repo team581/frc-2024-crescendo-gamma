@@ -30,33 +30,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Red Mid 6, 3.5 to 4-WS"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Mid 6, 4-WS to 4.5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Mid 6, 4.5 to 5-WS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
+            "name": "midlineNotesFromAmp"
           }
         }
       ]

@@ -3,39 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.9299999999999997,
-        "y": 6.819999999999999
+        "x": 9.34,
+        "y": 5.845068954575599
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.516195173990345,
-        "y": 7.105806654813309
+        "x": 9.77666470311664,
+        "y": 5.165119631151117
       },
       "isLocked": false,
-      "linkedName": "Blue 3"
+      "linkedName": "Dynamic Red 5"
     },
     {
       "anchor": {
-        "x": 7.96351358983868,
-        "y": 7.461753346030654
+        "x": 9.26,
+        "y": 4.104648209296419
       },
       "prevControl": {
-        "x": 6.748075946963395,
-        "y": 7.361343389210739
+        "x": 9.727855039053543,
+        "y": 4.86569240615685
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 4"
+      "linkedName": "Dynamic Red 6"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
+      "name": "intake",
       "waypointRelativePos": 0.35,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 61.00404048588169,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Comp Blue 6 Piece Source 1-5",
-  "previewStartingState": null,
+  "folder": "MidlineNotesFromAmp",
+  "previewStartingState": {
+    "rotation": 52.21,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

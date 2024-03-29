@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.57648641016132,
-        "y": 7.46
+        "x": 9.360000000000001,
+        "y": 7.429538020170265
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.978316053550385,
-        "y": 7.263196404931244
+        "x": 9.737920654564714,
+        "y": 7.342205079546938
       },
       "isLocked": false,
-      "linkedName": "Red 4"
+      "linkedName": "Dynamic Red 4"
     },
     {
       "anchor": {
-        "x": 13.25,
-        "y": 6.27
+        "x": 11.823188722377445,
+        "y": 6.631931419862839
       },
       "prevControl": {
-        "x": 12.878939801879604,
-        "y": 6.445863652527304
+        "x": 11.283242992017898,
+        "y": 6.755826763933163
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red RWS"
+      "linkedName": "Dynamic RWS"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "warmup",
-      "waypointRelativePos": 0.1499999999999999,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -12.319999999999993,
+    "rotation": -12.90255779418525,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Comp Red 6 Piece Source 1-5",
+  "folder": "MidlineNotesFromAmp",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

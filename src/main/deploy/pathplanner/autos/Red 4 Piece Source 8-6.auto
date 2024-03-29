@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Left to LWS"
+            "pathName": "Red 4, Left to LWS"
           }
         },
         {
@@ -38,13 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LWS to 8"
+            "pathName": "Red 4, LWS to 8"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 8 to LWS"
+            "pathName": "Red 4, 8 to LWS"
           }
         },
         {
@@ -56,13 +56,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LWS to 7"
+            "pathName": "Red 4, LWS to 7"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 7 to CWS"
+            "pathName": "Red 4, 7 to CWS"
           }
         },
         {
@@ -74,13 +74,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red CWS to 6"
+            "pathName": "Red 4, CWS to 6"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 6 to CWS"
+            "pathName": "Red 4, 6 to CWS"
           }
         },
         {
