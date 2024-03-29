@@ -200,6 +200,11 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.PREPARE_SPEAKER_SHOT;
           }
           break;
+        case FORCE_SPEAKER_SHOT:
+          if (!state.climbing) {
+            state = RobotState.SPEAKER_SHOOT;
+          }
+          break;
         case WAIT_AMP_SHOT:
           if (!state.climbing) {
             state = RobotState.PREPARE_WAITING_AMP_SHOT;
@@ -655,6 +660,10 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void speakerShotRequest() {
     flags.check(RobotFlag.SPEAKER_SHOT);
+  }
+
+  public void forceSpeakerShotRequest() {
+    flags.check(RobotFlag.FORCE_SPEAKER_SHOT);
   }
 
   public void waitAmpShotRequest() {
