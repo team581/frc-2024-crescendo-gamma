@@ -81,7 +81,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return Optional.of(new VisionResult(estimatePose.pose, estimatePose.latency));
   }
 
-  public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current, boolean usingTagDirectly) {
+  public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
     double distance =
         Math.sqrt(
             (Math.pow(target.getY() - current.getY(), 2))
