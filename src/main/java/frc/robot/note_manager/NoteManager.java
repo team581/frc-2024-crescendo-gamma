@@ -4,7 +4,6 @@
 
 package frc.robot.note_manager;
 
-import frc.robot.config.RobotConfig;
 import frc.robot.conveyor.ConveyorState;
 import frc.robot.conveyor.ConveyorSubsystem;
 import frc.robot.intake.IntakeState;
@@ -49,15 +48,10 @@ public class NoteManager extends LifecycleSubsystem {
         case TRAP_WAIT:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
             // Do nothing, you are already idling with the note in the conveyor
-          } else if (state == NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL
-              || state == NoteState.INTAKE_TO_CONVEYOR
-              || state == NoteState.QUEUER_TO_CONVEYOR) {
+          } else if (state == NoteState.QUEUER_TO_CONVEYOR) {
             // Do nothing, we are already in the handoff process
           } else {
-            state =
-                RobotConfig.get().robotName().equals("competition")
-                    ? NoteState.QUEUER_TO_CONVEYOR
-                    : NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR;
+            state = NoteState.QUEUER_TO_CONVEYOR;
           }
           break;
         case TRAP_SCORE:
@@ -67,8 +61,8 @@ public class NoteManager extends LifecycleSubsystem {
           break;
         case IDLE_IN_QUEUER:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
-            state = NoteState.CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE;
-          } else if (state == NoteState.CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE) {
+            state = NoteState.CONVEYOR_TO_QUEUER;
+          } else if (state == NoteState.CONVEYOR_TO_QUEUER) {
             // Do nothing, we are already in the handoff process
           } else {
             state = NoteState.IDLE_IN_QUEUER;
@@ -97,14 +91,14 @@ public class NoteManager extends LifecycleSubsystem {
           break;
         case SHOOTER_OUTTAKE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
-            state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_OUTTAKE;
+            state = NoteState.CONVEYOR_TO_QUEUER;
           } else {
             state = NoteState.SHOOTER_OUTTAKING;
           }
           break;
         case SHOOTER_SCORE:
           if (state == NoteState.IDLE_IN_CONVEYOR) {
-            state = NoteState.CONVEYOR_TO_INTAKE_FOR_SHOOTER_SCORE;
+            state = NoteState.CONVEYOR_TO_QUEUER;
           } else {
             state = NoteState.SHOOTING;
           }
@@ -134,6 +128,7 @@ public class NoteManager extends LifecycleSubsystem {
         }
         break;
       case INTAKE_TO_QUEUER:
+      case LAZY_INTAKE_TO_QUEUER:
         if (queuer.hasNote()) {
           state = NoteState.IDLE_IN_QUEUER;
         }
@@ -147,34 +142,9 @@ public class NoteManager extends LifecycleSubsystem {
           state = NoteState.INTAKE_TO_QUEUER;
         }
         break;
-      case INTAKE_TO_CONVEYOR:
-        if (conveyor.hasNote() && !intake.hasNote()) {
-          state = NoteState.IDLE_IN_CONVEYOR;
-        }
-        break;
-      case QUEUER_TO_INTAKE_FOR_CONVEYOR:
-        if (intake.hasNote() && !queuer.hasNote()) {
-          state = NoteState.QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL;
-        }
-        break;
-      case QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL:
-        if (!intake.hasNote()) {
-          state = NoteState.INTAKE_TO_CONVEYOR;
-        }
-        break;
       case CONVEYOR_TO_INTAKE_FOR_OUTTAKING:
         if (!conveyor.hasNote() && intake.hasNote()) {
           state = NoteState.OUTTAKING;
-        }
-        break;
-      case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE:
-        if (!conveyor.hasNote() && intake.hasNote()) {
-          state = NoteState.CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL;
-        }
-        break;
-      case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL:
-        if (!intake.hasNote()) {
-          state = NoteState.INTAKE_TO_QUEUER;
         }
         break;
       case QUEUER_TO_INTAKE_FOR_OUTTAKING:
@@ -187,7 +157,11 @@ public class NoteManager extends LifecycleSubsystem {
           state = NoteState.IDLE_IN_CONVEYOR;
         }
         break;
-        // TODO: Fix missing states
+      case CONVEYOR_TO_QUEUER:
+        if (queuer.hasNote() && !conveyor.hasNote()) {
+          state = NoteState.IDLE_IN_QUEUER;
+        }
+        break;
       default:
         break;
     }
@@ -229,10 +203,8 @@ public class NoteManager extends LifecycleSubsystem {
         queuer.setState(QueuerState.IDLE);
         break;
       case CONVEYOR_TO_INTAKE_FOR_OUTTAKING:
-      case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE:
-      case CONVEYOR_TO_INTAKE_FOR_QUEUER_IDLE_FINAL:
-        intake.setState(IntakeState.FROM_CONVEYOR);
-        conveyor.setState(ConveyorState.CONVEYOR_TO_INTAKE);
+        intake.setState(IntakeState.OUTTAKING);
+        conveyor.setState(ConveyorState.TO_INTAKE);
         queuer.setState(QueuerState.IDLE);
         break;
       case OUTTAKING:
@@ -240,17 +212,6 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.OUTTAKING);
         conveyor.setState(ConveyorState.QUEUER_TO_INTAKE);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
-        break;
-      case QUEUER_TO_INTAKE_FOR_CONVEYOR:
-      case QUEUER_TO_INTAKE_FOR_CONVEYOR_FINAL:
-        intake.setState(IntakeState.FROM_QUEUER);
-        conveyor.setState(ConveyorState.QUEUER_TO_INTAKE);
-        queuer.setState(QueuerState.PASS_TO_INTAKE);
-        break;
-      case INTAKE_TO_CONVEYOR:
-        intake.setState(IntakeState.TO_CONVEYOR);
-        conveyor.setState(ConveyorState.INTAKE_TO_SELF);
-        queuer.setState(QueuerState.IDLE);
         break;
       case SHOOTER_OUTTAKING:
         intake.setState(IntakeState.TO_QUEUER);

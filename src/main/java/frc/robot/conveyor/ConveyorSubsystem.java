@@ -40,7 +40,7 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
       case IDLE:
         motor.disable();
         break;
-      case INTAKE_TO_SELF:
+      case TO_SELF:
         motor.setVoltage(-12);
         break;
       case WAITING_AMP_SHOT:
@@ -56,11 +56,11 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
       case QUEUER_TO_INTAKE:
         motor.setVoltage(-12);
         break;
-      case CONVEYOR_TO_INTAKE:
-        motor.setVoltage(3);
-        break;
       case AMP_SHOT:
         motor.setVoltage(-12);
+        break;
+      case TO_INTAKE:
+        motor.setVoltage(6);
         break;
       case TRAP_SHOT_PULSE:
         var inVoltage = 4;
