@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
 
     DogLog.setOptions(
         new DogLogOptions()
-            .withCaptureNt(RobotConfig.IS_DEVELOPMENT)
+            .withCaptureNt(false)
             .withNtPublish(RobotConfig.IS_DEVELOPMENT));
 
     // Record metadata
