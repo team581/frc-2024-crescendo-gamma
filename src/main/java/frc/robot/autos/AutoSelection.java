@@ -7,13 +7,6 @@ package frc.robot.autos;
 public enum AutoSelection {
   DO_NOTHING("", ""),
 
-  // FOUR_PIECE_6_4("Red 4 Piece 6-4", "Blue 4 Piece 6-4"),
-  // FIVE_PIECE_2_5("Red 5 Piece 2-5", "Blue 5 Piece 2-5"),
-  // FIVE_PIECE_3_6("Red 5 Piece 3-6", "Blue 5 Piece 3-6"),
-  // FIVE_PIECE_RVL_8_5("Red 5 Piece RVL 8-5", "Blue 5 Piece RVL 8-6"),
-  // FIVE_PIECE_AMP_4_2("Red 5 Piece 4-2", "Blue 5 Piece 4-2"),
-  // SIX_PIECE_SOURCE_1_6("Red 6 Piece Source 1-6", "Blue 6 Piece Source 1-6"),
-  // SIX_PIECE_SOURCE_1_5("Red 6 Piece Source 1-5", "Blue 6 Piece Source 1-5"),
   FOUR_PIECE_SOURCE_8_6("Red 4 Piece Source 8-6", "Blue 4 Piece Source 8-6"),
   FIVE_PIECE_3_6_DEV("Red Right 5 Piece", "Blue Right 5 Piece"),
   SIX_PIECE_2_5_DEV("Red 6 Piece 2,1,3-5", "Blue 6 Piece 2,1,3-5"),

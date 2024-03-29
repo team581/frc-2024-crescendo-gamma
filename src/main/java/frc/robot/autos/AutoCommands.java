@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.robot_manager.RobotManager;
+import frc.robot.robot_manager.RobotState;
+import java.util.function.BooleanSupplier;
 
 public class AutoCommands {
   private final RobotCommands actions;
@@ -48,18 +50,22 @@ public class AutoCommands {
     ///    var stageWingShotTo7 = PathPlannerPath.fromPathFile("SWS to Red 7");
     ///    var red7ToLeftWingShot= PathPlannerPath.fromPathFile("Red 7 to Left Wing Shot");
 
+    BooleanSupplier hasNote =
+        () ->
+            robotManager.getState().hasNote
+                || robotManager.getState() == RobotState.FINISH_INTAKING;
     return Commands.sequence(
         Commands.either(
             AutoBuilder.followPath(red4ToRightWingShot)
                 .andThen(speakerShotWithTimeout())
                 .andThen(AutoBuilder.followPath(rightWingShotTo5)),
             AutoBuilder.followPath(red4To5),
-            () -> robotManager.getState().hasNote),
+            hasNote),
         Commands.either(
             AutoBuilder.followPath(red5ToCenterWingShot)
                 .andThen(speakerShotWithTimeout())
                 .andThen(AutoBuilder.followPath(centerWingShotTo6)),
             AutoBuilder.followPath(red5To6),
-            () -> robotManager.getState().hasNote));
+            hasNote));
   }
 }
