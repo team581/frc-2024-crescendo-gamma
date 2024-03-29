@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
@@ -22,14 +23,6 @@ import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
   private static final boolean SHOOT_TO_SIDE_ENABLED = true;
-
-  private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
-  private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
-
-  private static final double principlePixelOffsetX =
-      RobotConfig.get().vision().principlePixelOffsetX();
-  private static final double principlePixelOffsetY =
-      RobotConfig.get().vision().principlePixelOffsetY();
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(
@@ -84,21 +77,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
         return Optional.empty();
       }
     }
-    Logger.recordOutput("Vision/MegatagPose",estimatePose.pose);
+
     return Optional.of(new VisionResult(estimatePose.pose, estimatePose.latency));
-  }
-
-  private Optional<DistanceAngle> getTxTyDistanceAngle() {
-    // use tx and ty to calculate a DistanceAngle
-    // return optional.empty if tv is not present
-    if (LimelightHelpers.getTV(getName())){
-      double tx = LimelightHelpers.getTX("");
-      double ty = LimelightHelpers.getTY("");
-
-
-
-    }
-    return Optional.empty();
   }
 
   public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current, boolean usingTagDirectly) {
@@ -114,7 +94,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     angle = angle.minus(target.getRotation());
 
-    return new DistanceAngle(distance, angle, usingTagDirectly);
+    return new DistanceAngle(distance, angle, false);
   }
 
   private Pose2d robotPose = new Pose2d();
@@ -158,20 +138,45 @@ public class VisionSubsystem extends LifecycleSubsystem {
       return ORIGINAL_BLUE_SPEAKER;
     }
   }
+  public Optional<DistanceAngle> getDistanceAngleTxTy(){
 
-  public DistanceAngle getDistanceAngleSpeaker() {
-    var txTyDistanceAngle = getTxTyDistanceAngle();
-
-    if (txTyDistanceAngle.isPresent()) {
-      return txTyDistanceAngle.get();
+        if (!LimelightHelpers.getTV("")){
+          return Optional.empty();
     }
 
-    // Fallback to using the pose estimator if we can't use tx & ty
+    Rotation2d tx= Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
+    Rotation2d ty =Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
+
+    double distance = (RED_SPEAKER_DOUBLE_TAG_CENTER.getZ()-CAMERA_ON_BOT.getZ())*(Math.tan(ty.getRadians()+CAMERA_ON_BOT.getRotation().getY()));
+    double now = Timer.getFPGATimestamp();
+    double latency = LimelightHelpers.getLatency_Capture("") + LimelightHelpers.getLatency_Pipeline("");
+    double timestampAtCapture = now -latency;
+    Logger.recordOutput("Vision/timeStampAtCapture", timestampAtCapture);
+    Logger.recordOutput("Vision/now", now);
+    Logger.recordOutput("Vision/latency", latency);
+
+
+
+    // TODO: Double check that the latency is in the correct units here
+
+    Rotation2d angle = Rotation2d.fromDegrees(tx.getDegrees() + imu.getRobotHeading(timestampAtCapture).getDegrees());
+
+
+
+    return Optional.of(new DistanceAngle(distance,angle,true));
+  }
+  public DistanceAngle getDistanceAngleSpeaker() {
+    var maybeTxTyDistanceAngle = getDistanceAngleTxTy();
+
+    if (maybeTxTyDistanceAngle.isPresent()) {
+      return maybeTxTyDistanceAngle.get();
+    }
 
     Pose2d goalPose = getSpeaker();
 
     var adjustedPose = goalPose;
 
+    // T
     if (SHOOT_TO_SIDE_ENABLED) {
       var yOffset =
           angleToPositionOffset.get(
