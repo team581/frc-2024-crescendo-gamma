@@ -173,9 +173,9 @@ class CompConfig {
                 speakerDistanceToAngle.put(8.0, 20.25);
               },
               floorSpotDistanceToAngle -> {
-                floorSpotDistanceToAngle.put(1.6, 70.0);
+                floorSpotDistanceToAngle.put(1.6, 30.0);
                 floorSpotDistanceToAngle.put(3.4, 60.0);
-                floorSpotDistanceToAngle.put(4.8, 50.0);
+                floorSpotDistanceToAngle.put(4.8, 80.0);
               }),
           new ElevatorConfig(
               21,
@@ -246,12 +246,12 @@ class CompConfig {
           new SwerveConfig(
               new CurrentLimitsConfigs()
                   .withSupplyCurrentLimit(20)
-                  .withStatorCurrentLimit(150)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(80)
-                  .withStatorCurrentLimit(150)
+                  .withSupplyCurrentLimit(120)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new TorqueCurrentConfigs()

@@ -396,7 +396,11 @@ public class RobotManager extends LifecycleSubsystem {
       case IDLE_NO_GP:
         wrist.setAngle(wristAngleForSpeaker);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.IDLE);
+        if (DriverStation.isAutonomous()) {
+          shooter.setGoalMode(ShooterMode.IDLE);
+        } else {
+          shooter.setGoalMode(ShooterMode.FULLY_STOPPED);
+        }
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleNoGPRequest();
         break;

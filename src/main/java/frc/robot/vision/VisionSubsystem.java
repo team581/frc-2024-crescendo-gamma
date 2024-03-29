@@ -255,7 +255,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
       LimelightHelpers.setPriorityTagID("", 7);
     }
     Logger.recordOutput(
-        "Vision/DistanceFromSpeaker", Units.metersToInches(getDistanceAngleSpeaker().distance()));
+        "Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
