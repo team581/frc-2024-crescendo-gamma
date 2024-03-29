@@ -55,7 +55,11 @@ public class Autos extends LifecycleSubsystem {
   private final AutoChooser autoChooser;
   private final RobotManager robotManager;
 
-  public Autos(SwerveSubsystem swerve, LocalizationSubsystem localization, RobotCommands actions, RobotManager robotManager) {
+  public Autos(
+      SwerveSubsystem swerve,
+      LocalizationSubsystem localization,
+      RobotCommands actions,
+      RobotManager robotManager) {
     super(SubsystemPriority.AUTOS);
     this.swerve = swerve;
     this.robotManager = robotManager;
