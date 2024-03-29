@@ -10,8 +10,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
@@ -138,39 +136,39 @@ public class VisionSubsystem extends LifecycleSubsystem {
       return ORIGINAL_BLUE_SPEAKER;
     }
   }
-  public Optional<DistanceAngle> getDistanceAngleTxTy(){
 
-        if (!LimelightHelpers.getTV("")){
-          return Optional.empty();
+  public Optional<DistanceAngle> getDistanceAngleTxTy() {
+
+    if (LimelightHelpers.getTA("") == 0.0) {
+      return Optional.empty();
     }
 
-    Rotation2d tx= Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
-    Rotation2d ty =Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
+    Rotation2d tx = Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
+    Rotation2d ty = Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
 
-    double distance = (RED_SPEAKER_DOUBLE_TAG_CENTER.getZ()-CAMERA_ON_BOT.getZ())*(Math.tan(ty.getRadians()+CAMERA_ON_BOT.getRotation().getY()));
+    double distance =
+        (RED_SPEAKER_DOUBLE_TAG_CENTER.getZ() - CAMERA_ON_BOT.getZ())
+            * (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY()));
     double now = Timer.getFPGATimestamp();
-    double latency = LimelightHelpers.getLatency_Capture("") + LimelightHelpers.getLatency_Pipeline("");
-    double timestampAtCapture = now -latency;
+    double latency =
+        (LimelightHelpers.getLatency_Capture("")
+            + LimelightHelpers.getLatency_Pipeline("") / 1000.0);
+    double timestampAtCapture = now - latency;
     Logger.recordOutput("Vision/timeStampAtCapture", timestampAtCapture);
     Logger.recordOutput("Vision/now", now);
     Logger.recordOutput("Vision/latency", latency);
 
-
-
     // TODO: Double check that the latency is in the correct units here
 
-    Rotation2d angle = Rotation2d.fromDegrees(tx.getDegrees() + imu.getRobotHeading(timestampAtCapture).getDegrees());
+    Rotation2d angle =
+        Rotation2d.fromDegrees(
+            -1 * (tx.getDegrees() + imu.getRobotHeading(timestampAtCapture).getDegrees()));
 
-
-
-    return Optional.of(new DistanceAngle(distance,angle,true));
+    return Optional.of(new DistanceAngle(distance, angle, true));
   }
+
   public DistanceAngle getDistanceAngleSpeaker() {
     var maybeTxTyDistanceAngle = getDistanceAngleTxTy();
-
-    if (maybeTxTyDistanceAngle.isPresent()) {
-      return maybeTxTyDistanceAngle.get();
-    }
 
     Pose2d goalPose = getSpeaker();
 
@@ -189,10 +187,23 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
       adjustedPose = new Pose2d(goalPose.getX(), goalPose.getY() + yOffset, goalPose.getRotation());
     }
+    DistanceAngle distanceToTargetPose = distanceToTargetPose(adjustedPose, robotPose);
+
     Logger.recordOutput("Vision/OriginalSpeakerPose", goalPose);
     Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
 
-    return distanceToTargetPose(adjustedPose, robotPose, false);
+    Logger.recordOutput("Vision/PoseAngle", distanceToTargetPose.angle());
+    Logger.recordOutput("Vision/PoseDistance", distanceToTargetPose.distance());
+
+    if (maybeTxTyDistanceAngle.isPresent()) {
+
+      Logger.recordOutput("Vision/TxTyDistance", maybeTxTyDistanceAngle.get().distance());
+      Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().angle());
+
+      return maybeTxTyDistanceAngle.get();
+    }
+
+    return distanceToTargetPose;
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
@@ -205,7 +216,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Vision/FloorSpot", goalPose);
 
-    return distanceToTargetPose(goalPose, robotPose, false);
+    return distanceToTargetPose(goalPose, robotPose);
   }
 
   public double getStandardDeviation(double distance) {
@@ -238,20 +249,17 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    if (FmsSubsystem.isRedAlliance()) {
+      LimelightHelpers.setPriorityTagID("", 4);
+    } else {
+      LimelightHelpers.setPriorityTagID("", 7);
+    }
     Logger.recordOutput(
         "Vision/DistanceFromSpeaker", Units.metersToInches(getDistanceAngleSpeaker().distance()));
-    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
     Logger.recordOutput("Vision/State", getState());
-
-    // TODO: Figure out the center tag IDs for red & blue speaker, update these to match
-    if (FmsSubsystem.isRedAlliance()) {
-      LimelightHelpers.setPriorityTagID("", 123);
-    } else {
-      LimelightHelpers.setPriorityTagID("", 123);
-    }
 
     var newHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
 
