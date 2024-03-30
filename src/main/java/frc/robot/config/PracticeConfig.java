@@ -100,9 +100,6 @@ class PracticeConfig {
                 floorSpotDistanceToRPM.put(3.0, 1800.0);
                 floorSpotDistanceToRPM.put(5.8, 2500.0);
                 floorSpotDistanceToRPM.put(6.5, 2900.0);
-
-
-
               }),
           new ClimberConfig(
               19,
@@ -184,9 +181,6 @@ class PracticeConfig {
                 floorSpotDistanceToAngle.put(3.4, 18.0);
                 floorSpotDistanceToAngle.put(5.8, 27.0);
                 floorSpotDistanceToAngle.put(6.5, 50.0);
-
-
-
               }),
           new ElevatorConfig(
               21,
