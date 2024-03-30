@@ -280,7 +280,7 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.TO_QUEUER_SHOOTING);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
-       break;
+        break;
       default:
         break;
     }
