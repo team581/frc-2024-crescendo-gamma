@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 12.3,
+        "y": 4.92
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 12.7250825501651,
+        "y": 6.551942087884176
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic SWS"
+    },
+    {
+      "anchor": {
+        "x": 9.04,
+        "y": 5.845068954575599
+      },
+      "prevControl": {
+        "x": 10.077225298450598,
+        "y": 7.377489458978919
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Red 5"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "MidlineNotesFromSource",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
