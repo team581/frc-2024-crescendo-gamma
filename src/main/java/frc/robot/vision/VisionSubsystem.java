@@ -61,7 +61,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
   private final ImuSubsystem imu;
 
   public Optional<VisionResult> getVisionResult() {
-    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue("");
+    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("");
 
     if (Math.abs(estimatePose.pose.getRotation().getDegrees() - imu.getRobotHeading().getDegrees())
         > 5) {
@@ -146,13 +146,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Rotation2d tx = Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
     Rotation2d ty = Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
 
-
-    //TODO: update to use blue if on blue, since heights may be different at comp
+    // TODO: update to use blue if on blue, since heights may be different at comp
     double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
 
     double distance =
-        verticalDistance/
-            (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY()));
+        verticalDistance / (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY()));
     double now = Timer.getFPGATimestamp();
     double latency =
         (LimelightHelpers.getLatency_Capture("")
@@ -258,8 +256,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     } else {
       LimelightHelpers.setPriorityTagID("", 7);
     }
-    Logger.recordOutput(
-        "Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
+    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
@@ -274,6 +271,15 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
 
     limelightHeartbeat = newHeartbeat;
+
+    LimelightHelpers.SetRobotOrientation(
+        "",
+        imu.getRobotHeading().getDegrees(),
+        imu.getRobotAngularVelocity().getDegrees(),
+        imu.getPitch().getDegrees(),
+        imu.getPitchRate().getDegrees(),
+        imu.getRoll().getDegrees(),
+        imu.getRollRate().getDegrees());
   }
 
   public VisionState getState() {
