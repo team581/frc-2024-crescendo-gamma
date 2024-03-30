@@ -150,7 +150,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     var robotHeading = imu.getRobotHeading(timestampAtCapture);
 
-    double txToRobotScalar = 1.0;
+    double txToRobotScalar = 0.6;
 
     Rotation2d angle =
         Rotation2d.fromDegrees(robotHeading.getDegrees() - (tx.getDegrees() * txToRobotScalar));
