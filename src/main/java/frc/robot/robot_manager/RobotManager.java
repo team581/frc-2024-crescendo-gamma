@@ -198,6 +198,11 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.PREPARE_SPEAKER_SHOT;
           }
           break;
+        case FORCE_SPEAKER_SHOT:
+          if (!state.climbing) {
+            state = RobotState.SPEAKER_SHOOT;
+          }
+          break;
         case WAIT_AMP_SHOT:
           if (!state.climbing) {
             state = RobotState.PREPARE_WAITING_AMP_SHOT;
@@ -234,7 +239,10 @@ public class RobotManager extends LifecycleSubsystem {
           }
           break;
         case STOP_SHOOTING:
-          if (!state.climbing && state != RobotState.IDLE_NO_GP) {
+          if (!state.climbing
+              && state != RobotState.IDLE_NO_GP
+              && state != RobotState.WAITING_PODIUM_SHOT
+              && state != RobotState.WAITING_SUBWOOFER_SHOT) {
             state = RobotState.IDLE_WITH_GP;
           }
           break;
@@ -653,6 +661,10 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void speakerShotRequest() {
     flags.check(RobotFlag.SPEAKER_SHOT);
+  }
+
+  public void forceSpeakerShotRequest() {
+    flags.check(RobotFlag.FORCE_SPEAKER_SHOT);
   }
 
   public void waitAmpShotRequest() {

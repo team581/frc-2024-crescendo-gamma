@@ -15,7 +15,7 @@ public class WristPositions {
   public static final Rotation2d SHOOTER_AMP = Rotation2d.fromDegrees(58.0);
 
   public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(58.1);
-  public static final Rotation2d PODIUM_SHOT = Rotation2d.fromDegrees(37.0);
+  public static final Rotation2d PODIUM_SHOT = Rotation2d.fromDegrees(26.0);
 
   private WristPositions() {}
 }

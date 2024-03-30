@@ -26,7 +26,7 @@ public class AutoCommands {
     return actions
         .subwooferShotCommand()
         .withTimeout(2)
-        .andThen(actions.outtakeShooterCommand().withTimeout(1))
+        .andThen(actions.forceSpeakerShotCommand().withTimeout(1))
         .withName("SubwooferShotWithTimeout");
   }
 
@@ -34,7 +34,7 @@ public class AutoCommands {
     return actions
         .speakerShotCommand()
         .withTimeout(2)
-        .andThen(actions.outtakeShooterCommand().withTimeout(1))
+        .andThen(actions.forceSpeakerShotCommand().withTimeout(3))
         .withName("SpeakerShotWithTimeout");
   }
 

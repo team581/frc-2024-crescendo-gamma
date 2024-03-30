@@ -120,6 +120,16 @@ public class RobotCommands {
         .withName("SpeakerShotCommand");
   }
 
+  public Command forceSpeakerShotCommand() {
+    return Commands.runOnce(() -> robot.forceSpeakerShotRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .finallyDo(
+            () -> {
+              robot.snaps.setEnabled(false);
+            })
+        .withName("ForceSpeakerShotCommand");
+  }
+
   public Command ampShotCommand() {
     return Commands.runOnce(() -> robot.ampShotRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
