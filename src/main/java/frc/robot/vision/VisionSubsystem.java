@@ -152,7 +152,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     double txToRobotScalar = 1.0;
 
-    Rotation2d angle = Rotation2d.fromDegrees(robotHeading.getDegrees() - (tx.getDegrees() * txToRobotScalar));
+    Rotation2d angle =
+        Rotation2d.fromDegrees(robotHeading.getDegrees() - (tx.getDegrees() * txToRobotScalar));
     return Optional.of(new DistanceAngle(distance, angle, true));
   }
 
