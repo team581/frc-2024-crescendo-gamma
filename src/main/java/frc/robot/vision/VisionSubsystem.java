@@ -144,19 +144,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
         verticalDistance / (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY()));
     double now = Timer.getFPGATimestamp();
     double latency =
-        (LimelightHelpers.getLatency_Capture("")
-            + LimelightHelpers.getLatency_Pipeline("") / 1000.0);
+        (LimelightHelpers.getLatency_Capture("") + LimelightHelpers.getLatency_Pipeline(""))
+            / 1000.0;
     double timestampAtCapture = now - latency;
-    Logger.recordOutput("Vision/timeStampAtCapture", timestampAtCapture);
-    Logger.recordOutput("Vision/now", now);
-    Logger.recordOutput("Vision/latency", latency);
 
-    // TODO: Double check that the latency is in the correct units here
-
-    Rotation2d angle =
-        Rotation2d.fromDegrees(
-            -1 * (tx.getDegrees() + imu.getRobotHeading(timestampAtCapture).getDegrees()));
-
+    var robotHeading = imu.getRobotHeading(timestampAtCapture);
+    Rotation2d angle = Rotation2d.fromDegrees(robotHeading.getDegrees() - tx.getDegrees());
     return Optional.of(new DistanceAngle(distance, angle, true));
   }
 
@@ -251,6 +244,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().targetAngle());
     Logger.recordOutput("Vision/State", getState());
+    Logger.recordOutput("Vision/VisionMethod", RobotConfig.get().vision().strategy());
 
     var newHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
 
