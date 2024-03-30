@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 12.3,
+        "y": 4.92
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.816056896113793,
+        "y": 4.007881127762256
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic SWS"
+    },
+    {
+      "anchor": {
+        "x": 9.11,
+        "y": 4.104648209296419
+      },
+      "prevControl": {
+        "x": 10.294412496824995,
+        "y": 3.9065989331978668
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Red 6"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "MidlineNotesFromAmp",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
