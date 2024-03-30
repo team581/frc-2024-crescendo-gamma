@@ -844,4 +844,13 @@ public class RobotManager extends LifecycleSubsystem {
   public RobotState getState() {
     return state;
   }
+
+  @Override
+  public void teleopInit() {
+    if (RobotConfig.IS_DEVELOPMENT) {
+      // Stow when entering teleop, but only when we're in dev mode
+      // Helps to avoid evil stuff happening after exiting auto
+      stowRequest();
+    }
+  }
 }
