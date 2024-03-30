@@ -172,6 +172,7 @@ class CompConfig {
                 speakerDistanceToAngle.put(5.0, 25.2);
                 speakerDistanceToAngle.put(6.5, 22.75);
                 speakerDistanceToAngle.put(8.0, 20.25);
+                speakerDistanceToAngle.put(8.368, 20.50);
               },
               floorSpotDistanceToAngle -> {
                 floorSpotDistanceToAngle.put(1.6, 30.0);
@@ -270,7 +271,7 @@ class CompConfig {
               }),
           new LightsConfig(3),
           new VisionConfig(
-              VisionStrategy.MEGATAG,
+              VisionStrategy.TX_TY_AND_MEGATAG,
               4,
               0.4,
               0.4,
