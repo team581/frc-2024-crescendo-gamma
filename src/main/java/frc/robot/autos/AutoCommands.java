@@ -76,4 +76,32 @@ public class AutoCommands {
             AutoBuilder.followPath(red5To6),
             hasNote));
   }
+
+  public Command getMidlineNotesSourceCommand() {
+    var red6To5 = PathPlannerPath.fromPathFile("Red 6 to 5");
+    var red5To4 = PathPlannerPath.fromPathFile("Red 5 to 4");
+    var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
+    var stageWingShotTo5 = PathPlannerPath.fromPathFile("Red SWS to 5");
+    var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
+    var centerWingShotTo4 = PathPlannerPath.fromPathFile("Red CWS to 4");
+    /// var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
+
+    BooleanSupplier hasNote =
+        () ->
+            robotManager.getState().hasNote
+                || robotManager.getState() == RobotState.FINISH_INTAKING;
+    return Commands.sequence(
+        Commands.either(
+            AutoBuilder.followPath(red6ToStageWingShot)
+                .andThen(speakerShotWithTimeout())
+                .andThen(AutoBuilder.followPath(stageWingShotTo5)),
+            AutoBuilder.followPath(red6To5),
+            hasNote),
+        Commands.either(
+            AutoBuilder.followPath(red5ToCenterWingShot)
+                .andThen(speakerShotWithTimeout())
+                .andThen(AutoBuilder.followPath(centerWingShotTo4)),
+            AutoBuilder.followPath(red5To4),
+            hasNote));
+  }
 }
