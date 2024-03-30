@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 11.823188722377445,
+        "y": 6.631931419862839
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.51513487426975,
+        "y": 6.746091948183897
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic RWS"
+    },
+    {
+      "anchor": {
+        "x": 9.209999999999999,
+        "y": 7.429538020170265
+      },
+      "prevControl": {
+        "x": 9.48307747015494,
+        "y": 7.306119888239776
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Red 4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "MidlineNotesFromSource",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
