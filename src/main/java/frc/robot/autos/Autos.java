@@ -77,7 +77,7 @@ public class Autos extends LifecycleSubsystem {
         new HolonomicPathFollowerConfig(
             new PIDConstants(4.0, 0.0, 0.0),
             new PIDConstants(4.0, 0.0, 0.0),
-            SwerveSubsystem.MaxSpeed,
+            4.4,
             0.387,
             new ReplanningConfig()),
         () -> false,
