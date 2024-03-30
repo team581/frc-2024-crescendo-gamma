@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.climber.ClimberMode;
 import frc.robot.climber.ClimberSubsystem;
+import frc.robot.config.RobotConfig;
 import frc.robot.elevator.ElevatorPositions;
 import frc.robot.elevator.ElevatorSubsystem;
 import frc.robot.imu.ImuSubsystem;
@@ -25,6 +26,7 @@ import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.DistanceAngle;
 import frc.robot.vision.VisionState;
+import frc.robot.vision.VisionStrategy;
 import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristPositions;
 import frc.robot.wrist.WristSubsystem;
@@ -76,20 +78,19 @@ public class RobotManager extends LifecycleSubsystem {
   public void robotPeriodic() {
     Logger.recordOutput("RobotManager/State", state);
     flags.log();
-    DistanceAngle speakerVisionTargets = new DistanceAngle(0, null);
-    speakerVisionTargets = vision.getDistanceAngleSpeaker();
+    DistanceAngle speakerDistanceAngle = vision.getDistanceAngleSpeaker();
 
     // change to Speaker or MovedSpeaker
 
     DistanceAngle floorSpotVisionTargets = vision.getDistanceAngleFloorShot();
-    double speakerDistance = speakerVisionTargets.distance();
+    double speakerDistance = speakerDistanceAngle.distance();
     double floorSpotDistance = floorSpotVisionTargets.distance();
     Rotation2d wristAngleForSpeaker = wrist.getAngleFromDistanceToSpeaker(speakerDistance);
     Rotation2d wristAngleForFloorSpot = wrist.getAngleFromDistanceToFloorSpot(floorSpotDistance);
     var currentHeading = vision.getUsedRobotPose().getRotation();
     Rotation2d robotAngleToSpeaker =
         Rotation2d.fromDegrees(
-            currentHeading.getDegrees() + speakerVisionTargets.angle().getDegrees());
+            currentHeading.getDegrees() + speakerDistanceAngle.angle().getDegrees());
     shooter.setSpeakerDistance(speakerDistance);
     Rotation2d robotAngleToFloorSpot =
         Rotation2d.fromDegrees(
@@ -356,7 +357,10 @@ public class RobotManager extends LifecycleSubsystem {
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
-          boolean limelightWorking = vision.getState() == VisionState.SEES_TAGS;
+          boolean limelightWorking =
+              RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG
+                  ? speakerDistanceAngle.seesSpeakerTag()
+                  : vision.getState() == VisionState.SEES_TAGS;
 
           Logger.recordOutput("RobotManager/SpeakerShot/LimelightWorking", limelightWorking);
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);

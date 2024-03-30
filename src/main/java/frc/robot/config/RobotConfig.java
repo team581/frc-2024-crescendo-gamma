@@ -12,6 +12,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import frc.robot.vision.VisionStrategy;
 import java.util.function.Consumer;
 
 public record RobotConfig(
@@ -101,6 +102,7 @@ public record RobotConfig(
       boolean invertY) {}
 
   public record VisionConfig(
+      VisionStrategy strategy,
       int translationHistoryArraySize,
       double xyStdDev,
       double thetaStdDev,

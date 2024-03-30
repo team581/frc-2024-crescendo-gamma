@@ -63,6 +63,22 @@ public class ImuSubsystem extends LifecycleSubsystem {
     return Rotation2d.fromDegrees(robotHeadingLatency.lookupData(timestamp));
   }
 
+  public Rotation2d getPitch() {
+    return Rotation2d.fromDegrees(imu.getPitch().getValue());
+  }
+
+  public Rotation2d getPitchRate() {
+    return Rotation2d.fromDegrees(imu.getAngularVelocityYWorld().getValue());
+  }
+
+  public Rotation2d getRoll() {
+    return Rotation2d.fromDegrees(imu.getRoll().getValue());
+  }
+
+  public Rotation2d getRollRate() {
+    return Rotation2d.fromDegrees(imu.getAngularVelocityXWorld().getValue());
+  }
+
   public Rotation2d getRobotAngularVelocity() {
     return Rotation2d.fromDegrees(imu.getRate());
   }

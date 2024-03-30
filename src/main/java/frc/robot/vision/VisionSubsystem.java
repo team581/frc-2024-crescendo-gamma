@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
@@ -22,14 +21,6 @@ import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
   private static final boolean SHOOT_TO_SIDE_ENABLED = true;
-
-  private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
-  private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
-
-  private static final double principlePixelOffsetX =
-      RobotConfig.get().vision().principlePixelOffsetX();
-  private static final double principlePixelOffsetY =
-      RobotConfig.get().vision().principlePixelOffsetY();
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(
@@ -69,122 +60,22 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   private final ImuSubsystem imu;
 
-  public Optional<SpeakerBasePoseLatency> getSimpleSpeakerBaseResults() {
-    double start = Timer.getFPGATimestamp();
-    // If not valid, return None
-    double validReadings =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
-    if (validReadings == 0.0) {
+  public Optional<VisionResult> getVisionResult() {
+    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("");
+
+    if (estimatePose.tagCount == 0) {
       return Optional.empty();
     }
 
-    // Get corners from Limelight
+    for (int i = 0; i < estimatePose.rawFiducials.length; i++) {
+      var fiducial = estimatePose.rawFiducials[i];
 
-    // Make sure we have 2 sets of corners
-    double[] corners =
-        NetworkTableInstance.getDefault()
-            .getTable("limelight")
-            .getEntry("tcornxy")
-            .getDoubleArray(new double[16]);
-
-    if (corners.length < 16) {
-      return Optional.empty();
-    }
-    if (corners[0] == 0.0 && corners[15] == 0.0) {
-      return Optional.empty();
-    }
-    // COmbine corners into larger rectangle
-    double highestX = corners[0];
-    double lowestX = corners[0];
-    double highestY = corners[1];
-    double lowestY = corners[1];
-    for (int i = 0; i < 16; i = i + 2) {
-      if (highestX < corners[i]) {
-        highestX = corners[i];
-      } else if (lowestX > corners[i]) {
-        lowestX = corners[i];
-      }
-      if (highestY < corners[i + 1]) {
-        highestY = corners[i + 1];
-      } else if (lowestY > corners[i + 1]) {
-        lowestY = corners[i + 1];
+      if (fiducial.ambiguity > 0.5) {
+        return Optional.empty();
       }
     }
 
-    // Find center coordinates of rectange
-    double[] centerCoordinatesPixels = new double[2];
-    centerCoordinatesPixels[0] = lowestX + ((highestX - lowestX) / 2);
-    centerCoordinatesPixels[1] = lowestY + ((highestY - lowestY) / 2);
-    // Convert center coordinates into Angle and Distance
-
-    // Pixel X : 0 to 1280
-    // Angle X : -31.75 to 31.75
-
-    // Pixel Y : 0 to 960
-    // Angle Y : -24.85 to 24.85
-
-    double pixelX = centerCoordinatesPixels[0] - principlePixelOffsetX;
-    double pixelY = centerCoordinatesPixels[1] - principlePixelOffsetY;
-
-    double angleX = 0.0;
-    double angleY = 0.0;
-
-    angleX = -1 * (((pixelX / 1280.0) * FOV_HORIZONTAL) - (FOV_HORIZONTAL / 2.0));
-    angleY = -1 * (((pixelY / 800.0) * FOV_VERTICAL) - (FOV_VERTICAL / 2.0));
-    double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
-    double horizontalDistanceSpeakerToCamera =
-        verticalDistance
-            / Math.tan(Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY());
-
-    double distanceToSpeaker3D =
-        verticalDistance
-            / Math.sin(Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY());
-
-    Logger.recordOutput("Vision/Pixels/X", pixelX);
-    Logger.recordOutput("Vision/Pixels/Y", pixelY);
-    Logger.recordOutput(
-        "Vision/AngleRobotToSpeaker",
-        Units.radiansToDegrees(
-            Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY()));
-    Logger.recordOutput(
-        "Vision/Trig/DistanceHorizontal", Units.metersToInches(horizontalDistanceSpeakerToCamera));
-    Logger.recordOutput(
-        "Vision/Trig/DistanceHorizontal3D", Units.metersToInches(distanceToSpeaker3D));
-    Logger.recordOutput("Vision/Trig/VerticalDistance", Units.metersToInches(verticalDistance));
-    Logger.recordOutput("Vision/Trig/AngleY", angleY);
-    Logger.recordOutput("Vision/Trig/AngleX", angleX);
-
-    double end = Timer.getFPGATimestamp();
-    double cl =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("cl").getDouble(0.0);
-    double tl =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0.0);
-    double totalLatency = (end - start) + (cl + tl) / 1000;
-    double totalLatencyTimestamp = Timer.getFPGATimestamp() - totalLatency;
-
-    Rotation2d cameraToAngle =
-        Rotation2d.fromDegrees(
-            angleX
-                + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees()
-                + CAMERA_ON_BOT.getRotation().getZ()
-                + Units.radiansToDegrees(CAMERA_ON_BOT.getRotation().getZ()));
-
-    // double distanceFromSpeaker = getDistanceFromAngle(angleY);
-
-    double distanceX = Math.cos(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
-    double distanceY = Math.sin(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
-
-    Pose2d fieldPosition =
-        new Pose2d(
-            getAllianceDoubleTagCenterPose().getX() - distanceX,
-            getAllianceDoubleTagCenterPose().getY() - distanceY,
-            this.imu.getRobotHeading(totalLatencyTimestamp));
-
-    Logger.recordOutput("Vision/SimpleSpeakerPose", fieldPosition);
-    Logger.recordOutput("Vision/SimpleSpeakerAngleX", angleX);
-    Logger.recordOutput("Vision/SimpleSpeakerAngleY", angleY);
-
-    return Optional.of(new SpeakerBasePoseLatency(fieldPosition, totalLatencyTimestamp));
+    return Optional.of(new VisionResult(estimatePose.pose, estimatePose.timestampSeconds));
   }
 
   public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
@@ -200,7 +91,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     angle = angle.minus(target.getRotation());
 
-    return new DistanceAngle(distance, angle);
+    return new DistanceAngle(distance, angle, false);
   }
 
   private Pose2d robotPose = new Pose2d();
@@ -245,11 +136,45 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
   }
 
+  public Optional<DistanceAngle> getDistanceAngleTxTy() {
+    if (LimelightHelpers.getTA("") == 0.0) {
+      return Optional.empty();
+    }
+
+    Rotation2d tx = Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
+    Rotation2d ty = Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
+
+    // TODO: update to use blue if on blue, since heights may be different at comp
+    double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
+
+    double distance =
+        verticalDistance / (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY()));
+    double now = Timer.getFPGATimestamp();
+    double latency =
+        (LimelightHelpers.getLatency_Capture("")
+            + LimelightHelpers.getLatency_Pipeline("") / 1000.0);
+    double timestampAtCapture = now - latency;
+    Logger.recordOutput("Vision/timeStampAtCapture", timestampAtCapture);
+    Logger.recordOutput("Vision/now", now);
+    Logger.recordOutput("Vision/latency", latency);
+
+    // TODO: Double check that the latency is in the correct units here
+
+    Rotation2d angle =
+        Rotation2d.fromDegrees(
+            -1 * (tx.getDegrees() + imu.getRobotHeading(timestampAtCapture).getDegrees()));
+
+    return Optional.of(new DistanceAngle(distance, angle, true));
+  }
+
   public DistanceAngle getDistanceAngleSpeaker() {
+    var maybeTxTyDistanceAngle = getDistanceAngleTxTy();
+
     Pose2d goalPose = getSpeaker();
 
     var adjustedPose = goalPose;
 
+    // T
     if (SHOOT_TO_SIDE_ENABLED) {
       var yOffset =
           angleToPositionOffset.get(
@@ -262,10 +187,26 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
       adjustedPose = new Pose2d(goalPose.getX(), goalPose.getY() + yOffset, goalPose.getRotation());
     }
+    DistanceAngle distanceToTargetPose = distanceToTargetPose(adjustedPose, robotPose);
+
     Logger.recordOutput("Vision/OriginalSpeakerPose", goalPose);
     Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
 
-    return distanceToTargetPose(adjustedPose, robotPose);
+    Logger.recordOutput("Vision/PoseAngle", distanceToTargetPose.angle());
+    Logger.recordOutput("Vision/PoseDistance", distanceToTargetPose.distance());
+
+    if (maybeTxTyDistanceAngle.isPresent()) {
+
+      Logger.recordOutput("Vision/TxTyDistance", maybeTxTyDistanceAngle.get().distance());
+      Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().angle());
+
+
+      if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
+        return maybeTxTyDistanceAngle.get();
+      }
+    }
+
+    return distanceToTargetPose;
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
@@ -311,8 +252,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
+    if (FmsSubsystem.isRedAlliance()) {
+      LimelightHelpers.setPriorityTagID("", 4);
+    } else {
+      LimelightHelpers.setPriorityTagID("", 7);
+    }
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
-    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
     Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
@@ -327,6 +272,15 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
 
     limelightHeartbeat = newHeartbeat;
+
+    LimelightHelpers.SetRobotOrientation(
+        "",
+        imu.getRobotHeading().getDegrees(),
+        imu.getRobotAngularVelocity().getDegrees(),
+        imu.getPitch().getDegrees(),
+        imu.getPitchRate().getDegrees(),
+        imu.getRoll().getDegrees(),
+        imu.getRollRate().getDegrees());
   }
 
   public VisionState getState() {
