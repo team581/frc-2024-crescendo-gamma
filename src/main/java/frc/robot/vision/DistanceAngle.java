@@ -6,4 +6,5 @@ package frc.robot.vision;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 
-public record DistanceAngle(double distance, Rotation2d angle, boolean seesSpeakerTag) {}
+// Target angle should be the angle that the robot needs to be to be looking directly at the target
+public record DistanceAngle(double distance, Rotation2d targetAngle, boolean seesSpeakerTag) {}

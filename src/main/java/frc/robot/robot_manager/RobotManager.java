@@ -4,6 +4,7 @@
 
 package frc.robot.robot_manager;
 
+import dev.doglog.DogLog;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,8 +33,6 @@ import frc.robot.vision.VisionSubsystem;
 import frc.robot.wrist.WristPositions;
 import frc.robot.wrist.WristSubsystem;
 import org.littletonrobotics.junction.Logger;
-
-import dev.doglog.DogLog;
 
 public class RobotManager extends LifecycleSubsystem {
   public final WristSubsystem wrist;
@@ -82,20 +81,14 @@ public class RobotManager extends LifecycleSubsystem {
     DistanceAngle speakerDistanceAngle = vision.getDistanceAngleSpeaker();
 
     // change to Speaker or MovedSpeaker
-
+    DistanceAngle polarSpeakerCoordinate = vision.getDistanceAngleSpeaker();
+    DistanceAngle polarFloorShotCoordinate = vision.getDistanceAngleFloorShot();
     DistanceAngle floorSpotVisionTargets = vision.getDistanceAngleFloorShot();
     double speakerDistance = speakerDistanceAngle.distance();
     double floorSpotDistance = floorSpotVisionTargets.distance();
     Rotation2d wristAngleForSpeaker = wrist.getAngleFromDistanceToSpeaker(speakerDistance);
     Rotation2d wristAngleForFloorSpot = wrist.getAngleFromDistanceToFloorSpot(floorSpotDistance);
-    var currentHeading = vision.getUsedRobotPose().getRotation();
-    Rotation2d robotAngleToSpeaker =
-        Rotation2d.fromDegrees(
-            currentHeading.getDegrees() + speakerDistanceAngle.angle().getDegrees());
     shooter.setSpeakerDistance(speakerDistance);
-    Rotation2d robotAngleToFloorSpot =
-        Rotation2d.fromDegrees(
-            currentHeading.getDegrees() + floorSpotVisionTargets.angle().getDegrees());
     shooter.setFloorSpotDistance(floorSpotDistance);
 
     // State transitions from requests
@@ -300,7 +293,7 @@ public class RobotManager extends LifecycleSubsystem {
         {
           var wristAtGoal = wrist.atAngle(wristAngleForFloorSpot);
           var shooterAtGoal = shooter.atGoal(ShooterMode.FLOOR_SHOT);
-          var headingAtGoal = imu.atAngleForFloorSpot(robotAngleToFloorSpot);
+          var headingAtGoal = imu.atAngleForFloorSpot(floorSpotVisionTargets.targetAngle());
           var jitterAtGoal = localization.atSafeJitter();
           var swerveAtGoal = swerve.movingSlowEnoughForSpeakerShot();
           var angularVelocityAtGoal = Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 2.5;
@@ -310,7 +303,6 @@ public class RobotManager extends LifecycleSubsystem {
           DogLog.log("RobotManager/FloorShot/JitterAtGoal", jitterAtGoal);
           DogLog.log("RobotManager/FloorShot/SwerveAtGoal", swerveAtGoal);
           DogLog.log("RobotManager/FloorShot/AngularVelocityAtGoal", angularVelocityAtGoal);
-
 
           if (wristAtGoal
               && shooterAtGoal
@@ -357,7 +349,8 @@ public class RobotManager extends LifecycleSubsystem {
           boolean poseJitterSafe = localization.atSafeJitter();
           boolean swerveSlowEnough = swerve.movingSlowEnoughForSpeakerShot();
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
-          boolean robotHeadingAtGoal = imu.atAngleForSpeaker(robotAngleToSpeaker, speakerDistance);
+          boolean robotHeadingAtGoal =
+              imu.atAngleForSpeaker(speakerDistanceAngle.targetAngle(), speakerDistance);
           boolean limelightWorking =
               RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG
                   ? speakerDistanceAngle.seesSpeakerTag()
@@ -495,7 +488,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
-        snaps.setAngle(robotAngleToFloorSpot);
+        snaps.setAngle(polarFloorShotCoordinate.targetAngle());
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
@@ -505,7 +498,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
-        snaps.setAngle(robotAngleToFloorSpot);
+        snaps.setAngle(polarFloorShotCoordinate.targetAngle());
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
@@ -552,7 +545,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
-        snaps.setAngle(robotAngleToSpeaker);
+        snaps.setAngle(polarSpeakerCoordinate.targetAngle());
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
@@ -562,7 +555,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
-        snaps.setAngle(robotAngleToSpeaker);
+        snaps.setAngle(polarSpeakerCoordinate.targetAngle());
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;

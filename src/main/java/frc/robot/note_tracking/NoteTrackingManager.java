@@ -73,7 +73,7 @@ public class NoteTrackingManager extends LifecycleSubsystem {
     double rotation =
         VisionSubsystem.distanceToTargetPose(
                 new Pose2d(notePoseWithoutRotation, new Rotation2d()), robotPose)
-            .angle()
+            .targetAngle()
             .getRadians();
     return Optional.of(
         new Pose2d(

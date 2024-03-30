@@ -79,17 +79,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
-    double distance =
-        Math.sqrt(
-            (Math.pow(target.getY() - current.getY(), 2))
-                + (Math.pow(target.getX() - current.getX(), 2)));
+    double distance = target.getTranslation().getDistance(current.getTranslation());
     Rotation2d angle =
-        new Rotation2d(
-                Math.atan((target.getY() - current.getY()) / (target.getX() - current.getX()))
-                    - current.getRotation().getRadians())
-            .plus(Rotation2d.fromDegrees(180));
-
-    angle = angle.minus(target.getRotation());
+        Rotation2d.fromRadians(
+            Math.atan2(target.getY() - current.getY(), target.getX() - current.getX()));
 
     return new DistanceAngle(distance, angle, false);
   }
@@ -192,14 +185,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Vision/OriginalSpeakerPose", goalPose);
     Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
 
-    Logger.recordOutput("Vision/PoseAngle", distanceToTargetPose.angle());
+    Logger.recordOutput("Vision/PoseAngle", distanceToTargetPose.targetAngle());
     Logger.recordOutput("Vision/PoseDistance", distanceToTargetPose.distance());
 
     if (maybeTxTyDistanceAngle.isPresent()) {
 
       Logger.recordOutput("Vision/TxTyDistance", maybeTxTyDistanceAngle.get().distance());
-      Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().angle());
-
+      Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().targetAngle());
 
       if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
         return maybeTxTyDistanceAngle.get();
@@ -246,10 +238,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
     robotPose = pose;
   }
 
-  public Pose2d getUsedRobotPose() {
-    return robotPose;
-  }
-
   @Override
   public void robotPeriodic() {
     if (FmsSubsystem.isRedAlliance()) {
@@ -258,9 +246,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
       LimelightHelpers.setPriorityTagID("", 7);
     }
     Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
-    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
+    Logger.recordOutput(
+        "Vision/AngleFromSpeaker", getDistanceAngleSpeaker().targetAngle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
-    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
+    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().targetAngle());
     Logger.recordOutput("Vision/State", getState());
 
     var newHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
