@@ -9,6 +9,7 @@ public enum NoteState {
 
   /** Note is in intake, going to be sent to queuer for idle. */
   INTAKE_TO_QUEUER,
+  INTAKE_TO_QUEUER_FOR_SHOOTING,
   LAZY_INTAKE_TO_QUEUER,
   IDLE_IN_QUEUER,
   GROUND_NOTE_TO_INTAKE,

@@ -178,7 +178,21 @@ public class NoteManager extends LifecycleSubsystem {
           state = NoteState.OUTTAKING;
         }
         break;
-        // TODO: Fix missing states
+      case CONVEYOR_TO_INTAKE_FOR_SHOOTER_OUTTAKE:
+        if (intake.hasNote() && !conveyor.hasNote()) {
+          state = NoteState.SHOOTER_OUTTAKING;
+        }
+        break;
+      case CONVEYOR_TO_INTAKE_FOR_SHOOTER_SCORE:
+        if (intake.hasNote() && !conveyor.hasNote()) {
+          state = NoteState.INTAKE_TO_QUEUER_FOR_SHOOTING;
+        }
+        break;
+      case INTAKE_TO_QUEUER_FOR_SHOOTING:
+        if (queuer.hasNote()) {
+          state = NoteState.SHOOTING;
+        }
+        break;
       default:
         break;
     }
@@ -253,6 +267,20 @@ public class NoteManager extends LifecycleSubsystem {
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
         break;
+      case CONVEYOR_TO_INTAKE_FOR_SHOOTER_OUTTAKE:
+        intake.setState(IntakeState.FROM_CONVEYOR);
+        conveyor.setState(ConveyorState.CONVEYOR_TO_INTAKE);
+        queuer.setState(QueuerState.IDLE);
+      case CONVEYOR_TO_INTAKE_FOR_SHOOTER_SCORE:
+        intake.setState(IntakeState.FROM_CONVEYOR);
+        conveyor.setState(ConveyorState.CONVEYOR_TO_INTAKE);
+        queuer.setState(QueuerState.IDLE);
+        break;
+      case INTAKE_TO_QUEUER_FOR_SHOOTING:
+        intake.setState(IntakeState.TO_QUEUER_SHOOTING);
+        conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
+        queuer.setState(QueuerState.INTAKING);
+       break;
       default:
         break;
     }
