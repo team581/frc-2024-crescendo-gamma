@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import dev.doglog.DogLog;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -275,7 +276,11 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Swerve/SnapToAngle", snapToAngle);
     Logger.recordOutput("Swerve/SnapToAngleGoal", goalSnapAngle.getDegrees());
     Logger.recordOutput("Swerve/Pose", drivetrain.getState().Pose);
-    Logger.recordOutput("Swerve/ModuleStates", drivetrain.getState().ModuleStates);
+    // TODO: Fix logging SwerveModuleState[] struct array
+    DogLog.log("Swerve/ModuleStates/0", drivetrain.getState().ModuleStates[0]);
+    DogLog.log("Swerve/ModuleStates/1", drivetrain.getState().ModuleStates[1]);
+    DogLog.log("Swerve/ModuleStates/2", drivetrain.getState().ModuleStates[2]);
+    DogLog.log("Swerve/ModuleStates/3", drivetrain.getState().ModuleStates[3]);
     Logger.recordOutput("Swerve/ModuleTargets", drivetrain.getState().ModuleTargets);
 
     Logger.recordOutput(
