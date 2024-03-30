@@ -111,7 +111,8 @@ public class Robot extends TimedRobot {
     // Record metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("RoborioSerialNumber", RobotConfig.SERIAL_NUMBER);
-    Logger.recordMetadata("RobotConfig", RobotConfig.get().robotName());
+    Logger.recordMetadata("RobotName", RobotConfig.get().robotName());
+    Logger.recordMetadata("VisionStrategy", RobotConfig.get().vision().strategy().toString());
     Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
     Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
     Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
