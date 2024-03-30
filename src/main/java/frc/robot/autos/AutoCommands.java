@@ -89,7 +89,8 @@ public class AutoCommands {
     var stageWingShotTo5 = PathPlannerPath.fromPathFile("Red SWS to 5");
     var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
     var centerWingShotTo4 = PathPlannerPath.fromPathFile("Red CWS to 4");
-    /// var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
+    var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
+    var rightWingShotTo4 = PathPlannerPath.fromPathFile("Red RWS to 4");
 
     BooleanSupplier hasNote =
         () ->
@@ -107,6 +108,10 @@ public class AutoCommands {
                 .andThen(speakerShotWithTimeout())
                 .andThen(AutoBuilder.followPath(centerWingShotTo4)),
             AutoBuilder.followPath(red5To4),
-            hasNote));
+            hasNote)
+            .andThen(
+                AutoBuilder.followPath(red4ToRightWingShot)
+                    .andThen(speakerShotWithTimeout())
+                    .andThen(AutoBuilder.followPath(rightWingShotTo4))));
   }
 }
