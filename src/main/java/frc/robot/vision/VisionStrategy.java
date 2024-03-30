@@ -4,6 +4,7 @@
 
 package frc.robot.vision;
 
-import edu.wpi.first.math.geometry.Pose2d;
-
-public record VisionResult(Pose2d pose, double timestamp) {}
+public enum VisionStrategy {
+  MEGATAG,
+  TX_TY_AND_MEGATAG;
+}

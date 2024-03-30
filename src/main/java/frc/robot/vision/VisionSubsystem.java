@@ -63,8 +63,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public Optional<VisionResult> getVisionResult() {
     var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("");
 
-    if (Math.abs(estimatePose.pose.getRotation().getDegrees() - imu.getRobotHeading().getDegrees())
-        > 5) {
+    if (estimatePose.tagCount == 0) {
       return Optional.empty();
     }
 
@@ -76,7 +75,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
       }
     }
 
-    return Optional.of(new VisionResult(estimatePose.pose, estimatePose.latency));
+    return Optional.of(new VisionResult(estimatePose.pose, estimatePose.timestampSeconds));
   }
 
   public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
@@ -138,7 +137,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   public Optional<DistanceAngle> getDistanceAngleTxTy() {
-
     if (LimelightHelpers.getTA("") == 0.0) {
       return Optional.empty();
     }
@@ -202,7 +200,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
       Logger.recordOutput("Vision/TxTyDistance", maybeTxTyDistanceAngle.get().distance());
       Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().angle());
 
-      return maybeTxTyDistanceAngle.get();
+
+      if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
+        return maybeTxTyDistanceAngle.get();
+      }
     }
 
     return distanceToTargetPose;
