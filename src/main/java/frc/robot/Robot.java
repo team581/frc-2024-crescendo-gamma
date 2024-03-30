@@ -246,10 +246,10 @@ public class Robot extends TimedRobot {
     //     .onFalse(actions.stowCommand());
     operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
     operatorController.x().onTrue(actions.shooterOuttakeCommand()).onFalse(actions.stowCommand());
-    // operatorController
-    //     .leftBumper()
-    //     .onTrue(actions.waitForFloorShotCommand())
-    //     .onFalse(actions.stowCommand());
+    operatorController
+        .leftBumper()
+        .onTrue(actions.waitForFloorShotCommand())
+        .onFalse(actions.stowCommand());
     operatorController.back().onTrue(actions.homeCommand());
   }
 }

@@ -87,6 +87,10 @@ public class ImuSubsystem extends LifecycleSubsystem {
     return atAngle(angle, Rotation2d.fromDegrees(2.5));
   }
 
+  public boolean atAngleForFloorSpot(Rotation2d angle) {
+    return atAngle(angle, Rotation2d.fromDegrees(2.5));
+  }
+
   public double getYAcceleration() {
     return imu.getAccelerationY().getValueAsDouble();
   }

@@ -30,6 +30,8 @@ import frc.robot.wrist.WristPositions;
 import frc.robot.wrist.WristSubsystem;
 import org.littletonrobotics.junction.Logger;
 
+import dev.doglog.DogLog;
+
 public class RobotManager extends LifecycleSubsystem {
   public final WristSubsystem wrist;
   public final ElevatorSubsystem elevator;
@@ -293,15 +295,31 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case PREPARE_FLOOR_SHOT:
-        if (wrist.atAngle(wristAngleForFloorSpot)
-            && shooter.atGoal(ShooterMode.FLOOR_SHOT)
-            && Math.abs(robotAngleToFloorSpot.getDegrees()) < 2.5
-            && localization.atSafeJitter()
-            && swerve.movingSlowEnoughForSpeakerShot()
-            && Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 2.5) {
-          state = RobotState.FLOOR_SHOOT;
+        {
+          var wristAtGoal = wrist.atAngle(wristAngleForFloorSpot);
+          var shooterAtGoal = shooter.atGoal(ShooterMode.FLOOR_SHOT);
+          var headingAtGoal = imu.atAngleForFloorSpot(robotAngleToFloorSpot);
+          var jitterAtGoal = localization.atSafeJitter();
+          var swerveAtGoal = swerve.movingSlowEnoughForSpeakerShot();
+          var angularVelocityAtGoal = Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 2.5;
+          DogLog.log("RobotManager/FloorShot/WristAtGoal", wristAtGoal);
+          DogLog.log("RobotManager/FloorShot/ShooterAtGoal", shooterAtGoal);
+          DogLog.log("RobotManager/FloorShot/HeadingAtGoal", headingAtGoal);
+          DogLog.log("RobotManager/FloorShot/JitterAtGoal", jitterAtGoal);
+          DogLog.log("RobotManager/FloorShot/SwerveAtGoal", swerveAtGoal);
+          DogLog.log("RobotManager/FloorShot/AngularVelocityAtGoal", angularVelocityAtGoal);
+
+
+          if (wristAtGoal
+              && shooterAtGoal
+              && headingAtGoal
+              && jitterAtGoal
+              && swerveAtGoal
+              && angularVelocityAtGoal) {
+            state = RobotState.FLOOR_SHOOT;
+          }
+          break;
         }
-        break;
       case PREPARE_PODIUM_SHOT:
         if (wrist.atAngle(WristPositions.PODIUM_SHOT)
             && shooter.atGoal(ShooterMode.PODIUM_SHOT)
