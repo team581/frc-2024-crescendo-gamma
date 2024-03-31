@@ -4,6 +4,8 @@
 
 package frc.robot.vision;
 
+import dev.doglog.DogLog;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -54,9 +56,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
   private final Timer limelightTimer = new Timer();
   private double limelightHeartbeat = -1;
 
-  InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
-  InterpolatingDoubleTreeMap angleToDistance = new InterpolatingDoubleTreeMap();
-  InterpolatingDoubleTreeMap angleToPositionOffset = new InterpolatingDoubleTreeMap();
+  private final InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
+  private final InterpolatingDoubleTreeMap angleToSideShotOffset = new InterpolatingDoubleTreeMap();
 
   private final ImuSubsystem imu;
 
@@ -100,26 +101,15 @@ public class VisionSubsystem extends LifecycleSubsystem {
     distanceToDev.put(3.37, 2.45);
     distanceToDev.put(7.0, 10.0);
 
-    angleToDistance.put(-6.264, Units.inchesToMeters(277.5) - 0.12);
-    angleToDistance.put(6.316, Units.inchesToMeters(92) - 0.12);
-    angleToDistance.put(1.631, Units.inchesToMeters(127.25) - 0.12);
-    angleToDistance.put(17.24, Units.inchesToMeters(58.5) - 0.12);
-    angleToDistance.put(-2.589, Units.inchesToMeters(175) - 0.12);
-
-    // 96.5
-    angleToPositionOffset.put(Rotation2d.fromDegrees(100).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(35).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(30).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(0.0).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-30).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-35).getRadians(), -0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), -0.4825);
+    angleToSideShotOffset.put(Units.degreesToRadians(100), Units.degreesToRadians(5.0));
+    angleToSideShotOffset.put(Units.degreesToRadians(40), Units.degreesToRadians(1.75));
+    angleToSideShotOffset.put(Units.degreesToRadians(30), Units.degreesToRadians(0.0));
+    angleToSideShotOffset.put(Units.degreesToRadians(0.0), Units.degreesToRadians(0.0));
 
     limelightTimer.start();
   }
 
-  private Pose2d getSpeaker() {
-
+  private static Pose2d getSpeaker() {
     if (FmsSubsystem.isRedAlliance()) {
       return ORIGINAL_RED_SPEAKER;
     } else {
@@ -135,7 +125,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Rotation2d tx = Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
     Rotation2d ty = Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
 
-    // TODO: update to use blue if on blue, since heights may be different at comp
     double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
 
     double distance =
@@ -144,23 +133,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
     double latency =
         (LimelightHelpers.getLatency_Capture("") + LimelightHelpers.getLatency_Pipeline(""))
             / 1000.0;
+
     double timestampAtCapture = now - latency;
 
     var robotHeading = imu.getRobotHeading(timestampAtCapture);
 
-    double txToRobotScalar = 1.0;
-
-
-    Rotation2d angle =
-        Rotation2d.fromDegrees(robotHeading.getDegrees() - (tx.getDegrees() * txToRobotScalar));
-
-    // TODO: Make this legit
-    if (angle.getDegrees() > 30){
-      angle = Rotation2d.fromDegrees(angle.getDegrees() + 2);
-    }
-    if (angle.getDegrees() < -30){
-      angle = Rotation2d.fromDegrees(angle.getDegrees() - 2);
-    }
+    Rotation2d angle = Rotation2d.fromDegrees(robotHeading.getDegrees() - tx.getDegrees());
 
     return Optional.of(new DistanceAngle(distance, angle, true));
   }
@@ -168,42 +146,53 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public DistanceAngle getDistanceAngleSpeaker() {
     var maybeTxTyDistanceAngle = getDistanceAngleTxTy();
 
-    Pose2d goalPose = getSpeaker();
+    Pose2d speakerPose = getSpeaker();
 
-    var adjustedPose = goalPose;
+    DistanceAngle distanceToTargetPose = distanceToTargetPose(speakerPose, robotPose);
 
-    // T
-    if (SHOOT_TO_SIDE_ENABLED) {
-      var yOffset =
-          angleToPositionOffset.get(
-              Math.atan(
-                  (goalPose.getY() - robotPose.getY()) / (goalPose.getX() - robotPose.getX())));
-
-      if (!FmsSubsystem.isRedAlliance()) {
-        yOffset *= -1.0;
-      }
-
-      adjustedPose = new Pose2d(goalPose.getX(), goalPose.getY() + yOffset, goalPose.getRotation());
-    }
-    DistanceAngle distanceToTargetPose = distanceToTargetPose(adjustedPose, robotPose);
-
-    Logger.recordOutput("Vision/OriginalSpeakerPose", goalPose);
-    Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
-
-    Logger.recordOutput("Vision/PoseAngle", distanceToTargetPose.targetAngle());
-    Logger.recordOutput("Vision/PoseDistance", distanceToTargetPose.distance());
+    Logger.recordOutput("Vision/MegaTag2/TargetPose", speakerPose);
+    Logger.recordOutput("Vision/MegaTag2/WantedRobotAngle", distanceToTargetPose.targetAngle());
+    Logger.recordOutput("Vision/MegaTag2/RobotDistance", distanceToTargetPose.distance());
 
     if (maybeTxTyDistanceAngle.isPresent()) {
-
-      Logger.recordOutput("Vision/TxTyDistance", maybeTxTyDistanceAngle.get().distance());
-      Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().targetAngle().getDegrees());
+      Logger.recordOutput("Vision/TxTy/Distance", maybeTxTyDistanceAngle.get().distance());
+      Logger.recordOutput(
+          "Vision/TxTy/WantedRobotAngle", maybeTxTyDistanceAngle.get().targetAngle().getDegrees());
 
       if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
-        return maybeTxTyDistanceAngle.get();
+        return adjustForSideShot(maybeTxTyDistanceAngle.get());
       }
     }
 
-    return distanceToTargetPose;
+    return adjustForSideShot(distanceToTargetPose);
+  }
+
+  private DistanceAngle adjustForSideShot(DistanceAngle originalPosition) {
+    double rawAngleDegrees = originalPosition.targetAngle().getDegrees();
+    double angleDegrees = MathUtil.inputModulus(rawAngleDegrees, -180.0, 180.0);
+
+    // if (FmsSubsystem.isRedAlliance()) {
+    //   angleDegrees += 180.0;
+    // }
+
+    DogLog.log("Vision/ShootToTheSide/InputAngleRelativeToSpeaker", angleDegrees);
+    double absoluteOffsetRadians =
+        (angleToSideShotOffset.get(Units.degreesToRadians(Math.abs(angleDegrees))));
+    double offsetRadians = Math.copySign(absoluteOffsetRadians, angleDegrees);
+    Logger.recordOutput("Vision/ShootToTheSide/Offset", Units.radiansToDegrees(offsetRadians));
+
+    var adjustedAngle =
+        Rotation2d.fromRadians(originalPosition.targetAngle().getRadians() + offsetRadians);
+
+    DogLog.log(
+        "Vision/ShootToTheSide/OriginalShotPose",
+        new Pose2d(robotPose.getTranslation(), originalPosition.targetAngle()));
+    DogLog.log(
+        "Vision/ShootToTheSide/AdjustedResultShotPose",
+        new Pose2d(robotPose.getTranslation(), adjustedAngle));
+
+    return new DistanceAngle(
+        originalPosition.distance(), adjustedAngle, originalPosition.seesSpeakerTag());
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
@@ -224,19 +213,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return distanceToDev.get(distance);
   }
 
-  public double getDistanceFromAngle(double angle) {
-    return angleToDistance.get(angle);
-  }
-
-  public Pose3d getAllianceDoubleTagCenterPose() {
-    Pose3d goalPose;
+  public static Pose3d getAllianceDoubleTagCenterPose() {
     if (FmsSubsystem.isRedAlliance()) {
-      goalPose = RED_SPEAKER_DOUBLE_TAG_CENTER;
+      return RED_SPEAKER_DOUBLE_TAG_CENTER;
     } else {
-      goalPose = BLUE_SPEAKER_DOUBLE_TAG_CENTER;
+      return BLUE_SPEAKER_DOUBLE_TAG_CENTER;
     }
-
-    return goalPose;
   }
 
   public void setRobotPose(Pose2d pose) {
