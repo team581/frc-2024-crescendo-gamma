@@ -99,8 +99,11 @@ class PracticeConfig {
                 floorSpotDistanceToRPM.put(1.0, 1000.0);
                 floorSpotDistanceToRPM.put(1.2, 1500.0);
                 floorSpotDistanceToRPM.put(3.0, 1800.0);
-                floorSpotDistanceToRPM.put(5.8, 2500.0);
-                floorSpotDistanceToRPM.put(6.5, 2500.0);
+                floorSpotDistanceToRPM.put(5.8, 2700.0);
+                floorSpotDistanceToRPM.put(6.5, 2700.0);
+
+
+
               }),
           new ClimberConfig(
               19,
@@ -276,7 +279,7 @@ class PracticeConfig {
               }),
           new LightsConfig(3),
           new VisionConfig(
-              VisionStrategy.MEGATAG,
+              VisionStrategy.TX_TY_AND_MEGATAG,
               4,
               0.005,
               0.01,

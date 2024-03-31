@@ -294,9 +294,10 @@ public class RobotManager extends LifecycleSubsystem {
           var wristAtGoal = wrist.atAngle(wristAngleForFloorSpot);
           var shooterAtGoal = shooter.atGoal(ShooterMode.FLOOR_SHOT);
           var headingAtGoal = imu.atAngleForFloorSpot(floorSpotVisionTargets.targetAngle());
-          var jitterAtGoal = localization.atSafeJitter();
+          // If using TX TY, then don't care about pose jitter
+          var jitterAtGoal = localization.atSafeJitter() || RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG;
           var swerveAtGoal = swerve.movingSlowEnoughForFloorShot();
-          var angularVelocityAtGoal = Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 20.0;
+          var angularVelocityAtGoal = Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 360.0;
           DogLog.log("RobotManager/FloorShot/WristAtGoal", wristAtGoal);
           DogLog.log("RobotManager/FloorShot/ShooterAtGoal", shooterAtGoal);
           DogLog.log("RobotManager/FloorShot/HeadingAtGoal", headingAtGoal);
@@ -367,7 +368,8 @@ public class RobotManager extends LifecycleSubsystem {
           if ((limelightWorking || DriverStation.isAutonomous())
               && wristAtGoal
               && shooterAtGoal
-              && (poseJitterSafe || DriverStation.isAutonomous())
+              // If using TX TY, then don't care about pose jitter
+              && (poseJitterSafe || DriverStation.isAutonomous() || RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG)
               && swerveSlowEnough
               && angularVelocitySlowEnough
               && robotHeadingAtGoal) {

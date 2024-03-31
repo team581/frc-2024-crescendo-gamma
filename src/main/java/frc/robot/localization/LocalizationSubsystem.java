@@ -235,6 +235,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     double linearSpeed =
         Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
 
-    return linearSpeed < Units.feetToMeters(0.5);
+    return linearSpeed < Units.feetToMeters(0.3);
   }
 }
