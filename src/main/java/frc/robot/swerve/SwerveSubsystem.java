@@ -116,8 +116,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   private boolean closedLoop = false;
 
   // TODO: tune
-  private final PIDController xPid = new PIDController(0.5, 0, 0);
-  private final PIDController yPid = new PIDController(0.5, 0, 0);
+  private final PIDController xPid = new PIDController(1.5, 0, 0);
+  private final PIDController yPid = new PIDController(2.0, 0, 0);
   private final PIDController omegaPid = new PIDController(0.5, 0, 0);
 
   public SwerveSubsystem(CommandXboxController driveController) {
@@ -136,6 +136,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     applyCurrentLimits(frontRight);
     applyCurrentLimits(backLeft);
     applyCurrentLimits(backRight);
+
+    omegaPid.enableContinuousInput(-Math.PI, Math.PI);
   }
 
   public List<SwerveModulePosition> getModulePositions() {
@@ -405,7 +407,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
                       .getRadians(),
                   target.getRotation().getRadians());
 
-          var newSpeeds = new ChassisSpeeds(vx, vy, vomega);
+          var newSpeeds = new ChassisSpeeds(vx, vy, -vomega);
           setFieldRelativeSpeeds(newSpeeds, true);
         })
         .until(
