@@ -104,11 +104,11 @@ public class AutoCommands {
             AutoBuilder.followPath(red6To5),
             hasNote),
         Commands.either(
-            AutoBuilder.followPath(red5ToCenterWingShot)
-                .andThen(speakerShotWithTimeout())
-                .andThen(AutoBuilder.followPath(centerWingShotTo4)),
-            AutoBuilder.followPath(red5To4),
-            hasNote)
+                AutoBuilder.followPath(red5ToCenterWingShot)
+                    .andThen(speakerShotWithTimeout())
+                    .andThen(AutoBuilder.followPath(centerWingShotTo4)),
+                AutoBuilder.followPath(red5To4),
+                hasNote)
             .andThen(
                 AutoBuilder.followPath(red4ToRightWingShot)
                     .andThen(speakerShotWithTimeout())
