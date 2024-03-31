@@ -28,8 +28,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d ORIGINAL_BLUE_SPEAKER =
       new Pose2d(Units.inchesToMeters(0), Units.inchesToMeters(218.42), Rotation2d.fromDegrees(0));
 
-  public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 6.9, Rotation2d.fromDegrees(180));
-  public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 6.9, Rotation2d.fromDegrees(0));
+  public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 7.2, Rotation2d.fromDegrees(180));
+  public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 7.2, Rotation2d.fromDegrees(0));
 
   public static final Pose3d CAMERA_ON_BOT =
       new Pose3d(
@@ -108,13 +108,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     // 96.5
     angleToPositionOffset.put(Rotation2d.fromDegrees(100).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(75).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(60).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(40).getRadians(), 0.0);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(35).getRadians(), 0.4825);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(30).getRadians(), 0.0);
     angleToPositionOffset.put(Rotation2d.fromDegrees(0.0).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-40).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-75).getRadians(), -0.4825);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-30).getRadians(), 0.0);
+    angleToPositionOffset.put(Rotation2d.fromDegrees(-35).getRadians(), -0.4825);
     angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), -0.4825);
 
     limelightTimer.start();
@@ -150,10 +148,20 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     var robotHeading = imu.getRobotHeading(timestampAtCapture);
 
-    double txToRobotScalar = 0.6;
+    double txToRobotScalar = 1.0;
+
 
     Rotation2d angle =
         Rotation2d.fromDegrees(robotHeading.getDegrees() - (tx.getDegrees() * txToRobotScalar));
+
+    // TODO: Make this legit
+    if (angle.getDegrees() > 30){
+      angle = Rotation2d.fromDegrees(angle.getDegrees() + 2);
+    }
+    if (angle.getDegrees() < -30){
+      angle = Rotation2d.fromDegrees(angle.getDegrees() - 2);
+    }
+
     return Optional.of(new DistanceAngle(distance, angle, true));
   }
 
@@ -188,7 +196,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     if (maybeTxTyDistanceAngle.isPresent()) {
 
       Logger.recordOutput("Vision/TxTyDistance", maybeTxTyDistanceAngle.get().distance());
-      Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().targetAngle());
+      Logger.recordOutput("Vision/TXTYAngle", maybeTxTyDistanceAngle.get().targetAngle().getDegrees());
 
       if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
         return maybeTxTyDistanceAngle.get();

@@ -145,12 +145,12 @@ class PracticeConfig {
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(1.0)
+                          .withKG(0.0)
                           .withKP(300.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(1.0)
+                          .withKG(0.0)
                           .withKP(50.0))
                   .withFeedback(
                       new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
@@ -164,10 +164,10 @@ class PracticeConfig {
               new CurrentLimitsConfigs()
                   .withSupplyCurrentLimit(25)
                   .withSupplyCurrentLimitEnable(true),
-              Rotation2d.fromDegrees(0),
-              Rotation2d.fromDegrees(0),
-              Rotation2d.fromDegrees(61),
-              Rotation2d.fromDegrees(1),
+              Rotation2d.fromDegrees(0.0),
+              Rotation2d.fromDegrees(0.0),
+              Rotation2d.fromDegrees(61.0),
+              Rotation2d.fromDegrees(1.0),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
                 distanceToAngleTolerance.put(8.0, 0.5);
@@ -191,8 +191,8 @@ class PracticeConfig {
               21,
               0.10,
               new TalonFXConfiguration()
-                  .withSlot0(new Slot0Configs().withKP(20))
-                  .withSlot1(new Slot1Configs().withKP(10))
+                  .withSlot0(new Slot0Configs().withKP(20.0))
+                  .withSlot1(new Slot1Configs().withKP(10.0))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio((50.0 / 8.0)))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
@@ -210,7 +210,7 @@ class PracticeConfig {
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               0,
               0.0,
-              22,
+              20.9,
               4.0,
               0.75),
           new IntakeConfig(
@@ -256,12 +256,12 @@ class PracticeConfig {
           new SwerveConfig(
               new CurrentLimitsConfigs()
                   .withSupplyCurrentLimit(20)
-                  .withStatorCurrentLimit(150)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(80)
-                  .withStatorCurrentLimit(150)
+                  .withSupplyCurrentLimit(150)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new TorqueCurrentConfigs()

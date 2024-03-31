@@ -84,6 +84,7 @@ public class WristSubsystem extends LifecycleSubsystem {
         motor.setControl(
             positionRequest.withSlot(slot).withPosition(clampAngle(goalAngle).getRotations()));
         Logger.recordOutput("Wrist/MotorPidSlot", slot);
+        Logger.recordOutput("Wrist/MotorSetAngle", clampAngle(goalAngle).getRotations());
 
         break;
     }

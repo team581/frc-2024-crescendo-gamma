@@ -131,6 +131,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
     driveToAngle.HeadingController = RobotConfig.get().swerve().snapController();
     driveToAngle.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
+    driveToAngle.HeadingController.setTolerance(0.02);
 
     applyCurrentLimits(frontLeft);
     applyCurrentLimits(frontRight);
