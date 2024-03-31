@@ -158,6 +158,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   public void setFieldRelativeSpeeds(ChassisSpeeds speeds, boolean closedLoop) {
     this.fieldRelativeSpeeds = speeds;
     this.closedLoop = closedLoop;
+    // Send a swerve request each time new chassis speeds are provided
+    sendSwerveRequest();
   }
 
   public void setRobotRelativeSpeeds(ChassisSpeeds speeds, boolean closedLoop) {
@@ -324,6 +326,11 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
     Logger.recordOutput("Swerve/RobotSpeed", getRobotRelativeSpeeds());
 
+    // Send a swerve request at least once every loop
+    sendSwerveRequest();
+  }
+
+  private void sendSwerveRequest() {
     DriveRequestType driveType;
 
     if (closedLoop) {
