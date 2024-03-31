@@ -91,7 +91,8 @@ class PracticeConfig {
                 speakerDistanceToRPM.put(5.0, 4000.0);
                 speakerDistanceToRPM.put(5.5, 4500.0);
                 speakerDistanceToRPM.put(6.0, 4500.0);
-                speakerDistanceToRPM.put(9.0, 4500.0);
+                speakerDistanceToRPM.put(7.0, 4600.0);
+                speakerDistanceToRPM.put(9.0, 4600.0);
               },
               floorSpotDistanceToRPM -> {
                 floorSpotDistanceToRPM.put(0.0, 1000.0);
@@ -99,7 +100,10 @@ class PracticeConfig {
                 floorSpotDistanceToRPM.put(1.2, 1500.0);
                 floorSpotDistanceToRPM.put(3.0, 1800.0);
                 floorSpotDistanceToRPM.put(5.8, 2500.0);
-                floorSpotDistanceToRPM.put(6.5, 2900.0);
+                floorSpotDistanceToRPM.put(6.5, 2500.0);
+
+
+
               }),
           new ClimberConfig(
               19,
@@ -172,10 +176,11 @@ class PracticeConfig {
                 speakerDistanceToAngle.put(0.92, 58.1);
                 speakerDistanceToAngle.put(1.25, 58.1);
                 speakerDistanceToAngle.put(2.0, 46.0);
-                speakerDistanceToAngle.put(3.6, 32.0);
-                speakerDistanceToAngle.put(4.9, 26.0);
-                speakerDistanceToAngle.put(6.87, 19.0);
-                speakerDistanceToAngle.put(8.8, 12.0);
+                speakerDistanceToAngle.put(3.5, 32.0);
+                speakerDistanceToAngle.put(5.0, 26.0);
+                speakerDistanceToAngle.put(6.5, 22.0);
+                speakerDistanceToAngle.put(8.0, 17.0);
+                speakerDistanceToAngle.put(9.5, 12.0);
               },
               floorSpotDistanceToAngle -> {
                 floorSpotDistanceToAngle.put(3.4, 18.0);

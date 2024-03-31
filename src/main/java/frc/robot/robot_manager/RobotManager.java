@@ -295,8 +295,8 @@ public class RobotManager extends LifecycleSubsystem {
           var shooterAtGoal = shooter.atGoal(ShooterMode.FLOOR_SHOT);
           var headingAtGoal = imu.atAngleForFloorSpot(floorSpotVisionTargets.targetAngle());
           var jitterAtGoal = localization.atSafeJitter();
-          var swerveAtGoal = swerve.movingSlowEnoughForSpeakerShot();
-          var angularVelocityAtGoal = Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 2.5;
+          var swerveAtGoal = swerve.movingSlowEnoughForFloorShot();
+          var angularVelocityAtGoal = Math.abs(imu.getRobotAngularVelocity().getDegrees()) < 20.0;
           DogLog.log("RobotManager/FloorShot/WristAtGoal", wristAtGoal);
           DogLog.log("RobotManager/FloorShot/ShooterAtGoal", shooterAtGoal);
           DogLog.log("RobotManager/FloorShot/HeadingAtGoal", headingAtGoal);
@@ -307,7 +307,7 @@ public class RobotManager extends LifecycleSubsystem {
           if (wristAtGoal
               && shooterAtGoal
               && headingAtGoal
-              && jitterAtGoal
+              // && jitterAtGoal
               && swerveAtGoal
               && angularVelocityAtGoal) {
             state = RobotState.FLOOR_SHOOT;
