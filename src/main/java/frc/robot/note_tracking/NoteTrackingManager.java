@@ -11,7 +11,10 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.config.RobotConfig;
+import frc.robot.fms.FmsSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
+import frc.robot.robot_manager.RobotCommands;
+import frc.robot.robot_manager.RobotManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -22,15 +25,22 @@ import org.littletonrobotics.junction.Logger;
 public class NoteTrackingManager extends LifecycleSubsystem {
   private final LocalizationSubsystem localization;
   private final SwerveSubsystem swerve;
+  private final RobotCommands actions;
+  private final RobotManager robot;
   private static final String LIMELIGHT_NAME = "limelight-note";
   private final InterpolatingDoubleTreeMap tyToDistance = new InterpolatingDoubleTreeMap();
   private Pose2d lastNotePose = new Pose2d();
 
-  public NoteTrackingManager(LocalizationSubsystem localization, SwerveSubsystem swerve) {
+  private double midlineXValue = 8.3;
+
+  public NoteTrackingManager(
+      LocalizationSubsystem localization, SwerveSubsystem swerve, RobotCommands actions, RobotManager robot) {
     super(SubsystemPriority.NOTE_TRACKING);
 
     this.localization = localization;
     this.swerve = swerve;
+    this.actions = actions;
+    this.robot = robot;
     RobotConfig.get().vision().tyToNoteDistance().accept(tyToDistance);
   }
 
@@ -43,10 +53,18 @@ public class NoteTrackingManager extends LifecycleSubsystem {
     double tx =
         NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("tx").getDouble(0);
 
+  
+
+
     if (tx == 0) {
       return Optional.empty();
     }
 
+    if (ty< -15.0) {
+      return Optional.empty();
+    }
+
+    // TODO: This should probably be the robot pose at the time the image was taken, since there is latency
     var robotPose = getPose();
 
     Logger.recordOutput("NoteTracking/TY", ty);
@@ -67,22 +85,42 @@ public class NoteTrackingManager extends LifecycleSubsystem {
     Logger.recordOutput("NoteTracking/SidewaysDistance", sidewaysDistanceToNote);
     var notePoseWithoutRotation =
         new Translation2d(
-            robotPose.getX() - forwardDistanceToNote, robotPose.getY() - sidewaysDistanceToNote);
+           - forwardDistanceToNote, - sidewaysDistanceToNote).rotateBy(Rotation2d.fromDegrees(getPose().getRotation().getDegrees()));
 
+    var notePoseWithRobot = new Translation2d(getPose().getX() + notePoseWithoutRotation.getX(), getPose().getY() + notePoseWithoutRotation.getY());
     // Uses distance angle math to aim, inverses the angle for intake
     double rotation =
         VisionSubsystem.distanceToTargetPose(
-                new Pose2d(notePoseWithoutRotation, new Rotation2d()), robotPose)
+                new Pose2d(notePoseWithRobot, new Rotation2d()), robotPose)
             .targetAngle()
             .getRadians();
     return Optional.of(
         new Pose2d(
-            notePoseWithoutRotation,
-            new Rotation2d(rotation + getPose().getRotation().getRadians() + Math.PI)));
+            notePoseWithRobot,
+            new Rotation2d(rotation + Math.PI)));
   }
 
-  public Command driveToNotePose() {
-    return swerve.driveToPoseCommand(() -> lastNotePose, this::getPose);
+  private boolean pastMidline() {
+    Pose2d robotPose = getPose();
+    double pastMidlineThresholdMeters = 0.65;
+
+    // Red alliance
+    if (FmsSubsystem.isRedAlliance()) {
+      if (robotPose.getX() < (midlineXValue - pastMidlineThresholdMeters)) {
+        return true;
+      }
+      return false;
+    }
+
+    // Blue alliance
+    return robotPose.getX() > (midlineXValue + pastMidlineThresholdMeters);
+  }
+
+  public Command intakeDetectedNote() {
+    return swerve
+        .driveToPoseCommand(() -> lastNotePose, this::getPose)
+        .until(() -> pastMidline())
+        .raceWith(actions.intakeCommand().withTimeout(2)).finallyDo(robot::stowRequest);
   }
 
   private Pose2d getPose() {

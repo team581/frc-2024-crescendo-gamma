@@ -100,7 +100,7 @@ public class Robot extends TimedRobot {
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
   private final NoteTrackingManager noteTrackingManager =
-      new NoteTrackingManager(localization, swerve);
+      new NoteTrackingManager(localization, swerve, actions, robotManager);
 
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
