@@ -31,7 +31,7 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   private final InterpolatingDoubleTreeMap tyToDistance = new InterpolatingDoubleTreeMap();
   private Pose2d lastNotePose = new Pose2d();
 
-  private double x = 8.3;
+  private double midlineXValue = 8.3;
 
   public NoteTrackingManager(
       LocalizationSubsystem localization, SwerveSubsystem swerve, RobotCommands actions, RobotManager robot) {
@@ -106,14 +106,14 @@ public class NoteTrackingManager extends LifecycleSubsystem {
 
     // Red alliance
     if (FmsSubsystem.isRedAlliance()) {
-      if (robotPose.getX() < (x - pastMidlineThresholdMeters)) {
+      if (robotPose.getX() < (midlineXValue - pastMidlineThresholdMeters)) {
         return true;
       }
       return false;
     }
 
     // Blue alliance
-    return robotPose.getX() > (x + pastMidlineThresholdMeters);
+    return robotPose.getX() > (midlineXValue + pastMidlineThresholdMeters);
   }
 
   public Command intakeDetectedNote() {
