@@ -160,16 +160,18 @@ public class VisionSubsystem extends LifecycleSubsystem {
           "Vision/TxTy/WantedRobotAngle", maybeTxTyDistanceAngle.get().targetAngle().getDegrees());
 
       if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
-        return SHOOT_TO_SIDE_ENABLED
-            ? adjustForSideShot(maybeTxTyDistanceAngle.get())
-            : maybeTxTyDistanceAngle.get();
+        return adjustForSideShot(maybeTxTyDistanceAngle.get());
       }
     }
 
-    return SHOOT_TO_SIDE_ENABLED ? adjustForSideShot(distanceToTargetPose) : distanceToTargetPose;
+    return  adjustForSideShot(distanceToTargetPose);
   }
 
   private DistanceAngle adjustForSideShot(DistanceAngle originalPosition) {
+    if (!SHOOT_TO_SIDE_ENABLED) {
+      return originalPosition;
+    }
+
     double rawAngleDegrees = originalPosition.targetAngle().getDegrees();
     double angleDegrees = MathUtil.inputModulus(rawAngleDegrees, -180.0, 180.0);
 
