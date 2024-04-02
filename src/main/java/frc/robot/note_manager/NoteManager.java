@@ -271,6 +271,7 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.FROM_CONVEYOR);
         conveyor.setState(ConveyorState.CONVEYOR_TO_INTAKE);
         queuer.setState(QueuerState.IDLE);
+        break;
       case CONVEYOR_TO_INTAKE_FOR_SHOOTER_SCORE:
         intake.setState(IntakeState.FROM_CONVEYOR);
         conveyor.setState(ConveyorState.CONVEYOR_TO_INTAKE);
