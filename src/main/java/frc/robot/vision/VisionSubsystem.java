@@ -164,7 +164,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
       }
     }
 
-    return  adjustForSideShot(distanceToTargetPose);
+    return adjustForSideShot(distanceToTargetPose);
   }
 
   private DistanceAngle adjustForSideShot(DistanceAngle originalPosition) {
