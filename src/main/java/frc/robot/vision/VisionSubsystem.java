@@ -305,7 +305,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
 
     if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
-      return getDistanceAngleTxTy().isPresent() ? VisionState.SEES_TAGS : VisionState.ONLINE_NO_TAGS;
+      return getDistanceAngleTxTy().isPresent()
+          ? VisionState.SEES_TAGS
+          : VisionState.ONLINE_NO_TAGS;
     }
 
     if (getVisionResult().isPresent()) {
