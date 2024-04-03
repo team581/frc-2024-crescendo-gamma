@@ -94,9 +94,12 @@ class CompConfig {
                 speakerDistanceToRPM.put(6.5, 4500.0);
               },
               floorSpotDistanceToRPM -> {
-                floorSpotDistanceToRPM.put(1.6, 1700.0);
-                floorSpotDistanceToRPM.put(3.4, 2000.0);
-                floorSpotDistanceToRPM.put(4.8, 2700.0);
+                floorSpotDistanceToRPM.put(0.0, 1000.0);
+                floorSpotDistanceToRPM.put(1.0, 1000.0);
+                floorSpotDistanceToRPM.put(1.2, 1500.0);
+                floorSpotDistanceToRPM.put(3.0, 1800.0);
+                floorSpotDistanceToRPM.put(5.8, 2700.0);
+                floorSpotDistanceToRPM.put(6.5, 2700.0);
               }),
           new ClimberConfig(
               19,
@@ -176,9 +179,9 @@ class CompConfig {
                 speakerDistanceToAngle.put(8.368, 20.50);
               },
               floorSpotDistanceToAngle -> {
-                floorSpotDistanceToAngle.put(1.6, 30.0);
-                floorSpotDistanceToAngle.put(3.4, 60.0);
-                floorSpotDistanceToAngle.put(4.8, 80.0);
+                floorSpotDistanceToAngle.put(3.4, 18.0);
+                floorSpotDistanceToAngle.put(5.8, 27.0);
+                floorSpotDistanceToAngle.put(6.5, 50.0);
               }),
           new ElevatorConfig(
               21,
