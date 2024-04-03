@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.96,
+        "y": 0.78691236982474
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.179129112019176,
+        "y": 0.7742903848172127
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 8"
+    },
+    {
+      "anchor": {
+        "x": 8.96,
+        "y": 2.392293888781375
+      },
+      "prevControl": {
+        "x": 9.914146816706388,
+        "y": 2.4858251308898804
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Red 7"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red MNFS 8-6",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
