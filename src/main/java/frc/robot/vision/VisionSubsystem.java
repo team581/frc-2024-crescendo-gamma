@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
@@ -18,10 +19,12 @@ import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
+  private static final boolean CALIBRATION_RIG_ENABLED = true;
   private static final boolean SHOOT_TO_SIDE_ENABLED = true;
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
@@ -33,6 +36,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 8.0, Rotation2d.fromDegrees(180));
   public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 8.0, Rotation2d.fromDegrees(0));
 
+  // TODO: Update this
   public static final Pose3d CAMERA_ON_BOT =
       new Pose3d(
           0,
@@ -52,6 +56,27 @@ public class VisionSubsystem extends LifecycleSubsystem {
           Units.inchesToMeters(218.42 - 11.125),
           Units.inchesToMeters(57.25),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
+
+  public static final Pose3d ROBOT_TO_CALIBRATION_TAG_CENTER =
+      new Pose3d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(57.128),
+          Units.inchesToMeters(-64.75),
+          new Rotation3d(0, 0, 0));
+
+  public static void logCalibration() {
+    var json = LimelightHelpers.getLatestResults("");
+
+    for (LimelightTarget_Fiducial fiducial : json.targetingResults.targets_Fiducials) {
+      var prefix = "Vision/Calibration/Tag" + fiducial.fiducialID + "/";
+
+      Pose3d camPoseRelativeTag = fiducial.getCameraPose_TargetSpace();
+
+      Transform3d camPoseRelativeRobot = ROBOT_TO_CALIBRATION_TAG_CENTER.minus(camPoseRelativeTag);
+      DogLog.log(prefix + "camRelativeTag", camPoseRelativeTag);
+      DogLog.log(prefix + "camRelativeRobot", camPoseRelativeRobot);
+    }
+  }
 
   private final Timer limelightTimer = new Timer();
   private double limelightHeartbeat = -1;
@@ -258,6 +283,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
         imu.getPitchRate().getDegrees(),
         imu.getRoll().getDegrees(),
         imu.getRollRate().getDegrees());
+
+    if (CALIBRATION_RIG_ENABLED) {
+
+      logCalibration();
+    }
   }
 
   public VisionState getState() {
