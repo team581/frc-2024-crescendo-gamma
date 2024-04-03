@@ -1,41 +1,41 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 9.209999999999999,
-        "y": 7.429538020170265
+        "x": 7.5,
+        "y": 5.845068954575599
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.587920654564712,
-        "y": 7.342205079546938
+        "x": 7.199560579121156,
+        "y": 5.998173736347472
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 4"
+      "linkedName": "Dynamic Blue 5"
     },
     {
       "anchor": {
-        "x": 11.823188722377445,
-        "y": 6.631931419862839
+        "x": 5.637279106412315,
+        "y": 6.369066598315568
       },
       "prevControl": {
-        "x": 11.283242992017898,
-        "y": 6.755826763933163
+        "x": 6.340815341630682,
+        "y": 6.361640335280671
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic RWS"
+      "linkedName": "blue_Dynamic CWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "warmup",
-      "waypointRelativePos": 0.5,
+      "name": "Warmup",
+      "waypointRelativePos": 0.2,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -51,19 +51,19 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -12.90255779418525,
+    "rotation": 188.78925979020792,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromAmp",
+  "folder": "Blue MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 180,
     "velocity": 0
   },
   "useDefaultConstraints": true

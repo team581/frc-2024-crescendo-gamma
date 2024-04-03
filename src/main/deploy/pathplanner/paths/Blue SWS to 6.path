@@ -1,31 +1,31 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 11.823188722377445,
-        "y": 6.631931419862839
+        "x": 4.239999999999998,
+        "y": 4.92
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.51513487426975,
-        "y": 6.746091948183897
+        "x": 4.7239431038862065,
+        "y": 4.007881127762256
       },
       "isLocked": false,
-      "linkedName": "Dynamic RWS"
+      "linkedName": "blue_Dynamic SWS"
     },
     {
       "anchor": {
-        "x": 9.209999999999999,
-        "y": 7.429538020170265
+        "x": 7.58,
+        "y": 4.104648209296419
       },
       "prevControl": {
-        "x": 9.48307747015494,
-        "y": 7.306119888239776
+        "x": 6.395587503175005,
+        "y": 3.9065989331978668
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 4"
+      "linkedName": "Dynamic Blue 6"
     }
   ],
   "rotationTargets": [],
@@ -33,19 +33,19 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 180,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromSource",
+  "folder": "Blue MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 180,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -175,7 +175,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     DistanceAngle distanceToTargetPose = distanceToTargetPose(speakerPose, robotPose);
 
-    Logger.recordOutput("Vision/MegaTag2/TargetPose", speakerPose);
+    Logger.recordOutput("Vision/MegaTag2/SpeakerPose", speakerPose);
     Logger.recordOutput("Vision/MegaTag2/WantedRobotAngle", distanceToTargetPose.targetAngle());
     Logger.recordOutput("Vision/MegaTag2/RobotDistance", distanceToTargetPose.distance());
 
@@ -193,6 +193,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   private DistanceAngle adjustForSideShot(DistanceAngle originalPosition) {
+    if (!SHOOT_TO_SIDE_ENABLED) {
+      return originalPosition;
+    }
+
     double rawAngleDegrees = originalPosition.targetAngle().getDegrees();
     double angleDegrees = MathUtil.inputModulus(rawAngleDegrees, -180.0, 180.0);
 
