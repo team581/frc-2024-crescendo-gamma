@@ -3,34 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.3,
-        "y": 4.92
+        "x": 8.96,
+        "y": 2.392293888781375
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.816056896113793,
-        "y": 4.007881127762256
+        "x": 10.231200914401828,
+        "y": 3.945439166878334
       },
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic Red 7"
     },
     {
       "anchor": {
-        "x": 8.959999999999999,
-        "y": 4.104648209296419
+        "x": 12.3,
+        "y": 4.92
       },
       "prevControl": {
-        "x": 10.144412496824994,
-        "y": 3.9065989331978668
+        "x": 10.968241808483617,
+        "y": 4.304544577089154
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic SWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "warmup",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
@@ -39,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 11.150387077579008,
     "rotateFast": false
   },
   "reversed": false,

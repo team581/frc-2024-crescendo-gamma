@@ -24,7 +24,7 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
-  private static final boolean CALIBRATION_RIG_ENABLED = true;
+  private static final boolean CALIBRATION_RIG_ENABLED = false;
   private static final boolean SHOOT_TO_SIDE_ENABLED = true;
   public static final boolean LIMELIGHT_UPSIDE_DOWN = true;
 
@@ -304,7 +304,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
       return VisionState.OFFLINE;
     }
 
-    if (LimelightHelpers.getTV("")) {
+    if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
+      return getDistanceAngleTxTy().isPresent() ? VisionState.SEES_TAGS : VisionState.ONLINE_NO_TAGS;
+    }
+
+    if (getVisionResult().isPresent()) {
       return VisionState.SEES_TAGS;
     }
 
