@@ -42,7 +42,7 @@ public class AutoCommands {
     return actions
         .speakerShotCommand()
         .withTimeout(2)
-        .andThen(actions.forceSpeakerShotCommand().withTimeout(3))
+        .andThen(actions.forceSpeakerShotCommand().withTimeout(1))
         .withName("SpeakerShotWithTimeout");
   }
 
