@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.637279106412315,
-        "y": 6.369066598315568
+        "x": 7.5,
+        "y": 5.845068954575599
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.798683769367537,
-        "y": 6.420336804673609
+        "x": 6.904538989077977,
+        "y": 5.244560325120651
       },
       "isLocked": false,
-      "linkedName": "blue_Dynamic CWS"
+      "linkedName": "Dynamic Blue 5"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 4.104648209296419
       },
       "prevControl": {
-        "x": 6.000644145288289,
-        "y": 4.133380746761494
+        "x": 6.980013208026415,
+        "y": 4.815060198120396
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
