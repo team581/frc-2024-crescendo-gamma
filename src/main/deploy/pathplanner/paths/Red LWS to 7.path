@@ -3,34 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.3,
-        "y": 4.92
+        "x": 12.453303530607062,
+        "y": 2.512506477012954
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.816056896113793,
-        "y": 4.007881127762256
+        "x": 10.983685547371095,
+        "y": 1.3968630937261879
       },
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic LWS"
     },
     {
       "anchor": {
-        "x": 8.959999999999999,
-        "y": 4.104648209296419
+        "x": 8.96,
+        "y": 2.392293888781375
       },
       "prevControl": {
-        "x": 10.144412496824994,
-        "y": 3.9065989331978668
+        "x": 9.927559563119127,
+        "y": 1.921950215900432
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 7"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
@@ -39,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,

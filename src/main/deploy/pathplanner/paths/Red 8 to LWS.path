@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.04,
-        "y": 5.845068954575599
+        "x": 8.96,
+        "y": 0.78691236982474
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.77850952501905,
-        "y": 6.338859537719076
+        "x": 9.96,
+        "y": 0.7869123698247398
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 5"
+      "linkedName": "Dynamic Red 8"
     },
     {
       "anchor": {
-        "x": 9.21,
-        "y": 7.429538020170265
+        "x": 12.453303530607062,
+        "y": 2.512506477012954
       },
       "prevControl": {
-        "x": 9.820069088138176,
-        "y": 7.292625857251715
+        "x": 11.80635966471933,
+        "y": 1.873258826517653
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 4"
+      "linkedName": "Dynamic LWS"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 40.45,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 0.05,
+      "name": "warmup",
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +47,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -57,11 +63,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 40.45,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromSource",
+  "folder": "Red MNFS 8-6",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

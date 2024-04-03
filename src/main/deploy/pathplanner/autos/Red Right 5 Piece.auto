@@ -28,6 +28,12 @@
           "data": {
             "pathName": "Red 5 R, 3-4"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "midlineNotesFromAmp"
+          }
         }
       ]
     }
