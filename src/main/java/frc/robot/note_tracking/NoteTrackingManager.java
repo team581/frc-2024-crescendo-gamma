@@ -34,7 +34,10 @@ public class NoteTrackingManager extends LifecycleSubsystem {
   private double midlineXValue = 8.3;
 
   public NoteTrackingManager(
-      LocalizationSubsystem localization, SwerveSubsystem swerve, RobotCommands actions, RobotManager robot) {
+      LocalizationSubsystem localization,
+      SwerveSubsystem swerve,
+      RobotCommands actions,
+      RobotManager robot) {
     super(SubsystemPriority.NOTE_TRACKING);
 
     this.localization = localization;
@@ -53,18 +56,16 @@ public class NoteTrackingManager extends LifecycleSubsystem {
     double tx =
         NetworkTableInstance.getDefault().getTable(LIMELIGHT_NAME).getEntry("tx").getDouble(0);
 
-  
-
-
     if (tx == 0) {
       return Optional.empty();
     }
 
-    if (ty< -15.0) {
+    if (ty < -15.0) {
       return Optional.empty();
     }
 
-    // TODO: This should probably be the robot pose at the time the image was taken, since there is latency
+    // TODO: This should probably be the robot pose at the time the image was taken, since there is
+    // latency
     var robotPose = getPose();
 
     Logger.recordOutput("NoteTracking/TY", ty);
@@ -84,20 +85,20 @@ public class NoteTrackingManager extends LifecycleSubsystem {
 
     Logger.recordOutput("NoteTracking/SidewaysDistance", sidewaysDistanceToNote);
     var notePoseWithoutRotation =
-        new Translation2d(
-           - forwardDistanceToNote, - sidewaysDistanceToNote).rotateBy(Rotation2d.fromDegrees(getPose().getRotation().getDegrees()));
+        new Translation2d(-forwardDistanceToNote, -sidewaysDistanceToNote)
+            .rotateBy(Rotation2d.fromDegrees(getPose().getRotation().getDegrees()));
 
-    var notePoseWithRobot = new Translation2d(getPose().getX() + notePoseWithoutRotation.getX(), getPose().getY() + notePoseWithoutRotation.getY());
+    var notePoseWithRobot =
+        new Translation2d(
+            getPose().getX() + notePoseWithoutRotation.getX(),
+            getPose().getY() + notePoseWithoutRotation.getY());
     // Uses distance angle math to aim, inverses the angle for intake
     double rotation =
         VisionSubsystem.distanceToTargetPose(
                 new Pose2d(notePoseWithRobot, new Rotation2d()), robotPose)
             .targetAngle()
             .getRadians();
-    return Optional.of(
-        new Pose2d(
-            notePoseWithRobot,
-            new Rotation2d(rotation + Math.PI)));
+    return Optional.of(new Pose2d(notePoseWithRobot, new Rotation2d(rotation + Math.PI)));
   }
 
   private boolean pastMidline() {
@@ -120,7 +121,8 @@ public class NoteTrackingManager extends LifecycleSubsystem {
     return swerve
         .driveToPoseCommand(() -> lastNotePose, this::getPose)
         .until(() -> pastMidline())
-        .raceWith(actions.intakeCommand().withTimeout(2)).finallyDo(robot::stowRequest);
+        .raceWith(actions.intakeCommand().withTimeout(2))
+        .finallyDo(robot::stowRequest);
   }
 
   private Pose2d getPose() {

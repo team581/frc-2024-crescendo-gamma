@@ -101,9 +101,6 @@ class PracticeConfig {
                 floorSpotDistanceToRPM.put(3.0, 1800.0);
                 floorSpotDistanceToRPM.put(5.8, 2700.0);
                 floorSpotDistanceToRPM.put(6.5, 2700.0);
-
-
-
               }),
           new ClimberConfig(
               19,
