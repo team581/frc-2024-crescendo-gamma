@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.209999999999999,
+        "x": 9.21,
         "y": 7.429538020170265
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.775733807467615,
+        "x": 10.775733807467617,
         "y": 5.852510033020066
       },
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "MidlineNotesFromAmp",
+  "folder": "Red MidlineNotesFromAmp",
   "previewStartingState": {
     "rotation": -0.33505921860918053,
     "velocity": 0

@@ -11,8 +11,10 @@
     "Dev Red Mid 6 Piece 1-3,5-6",
     "Dev Red Mid 6 Piece 1-5",
     "Dev Red Right 5 Piece",
-    "MidlineNotesFromAmp",
-    "MidlineNotesFromSource"
+    "Red MidlineNotesFromAmp",
+    "Red MidlineNotesFromSource",
+    "Blue MidlineNotesFromAmp",
+    "Blue MidlineNotesFromSource"
   ],
   "autoFolders": [
     "New Blue Autos in Development",

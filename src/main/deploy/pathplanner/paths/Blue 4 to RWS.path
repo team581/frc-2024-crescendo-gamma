@@ -1,31 +1,31 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 9.209999999999999,
+        "x": 7.33,
         "y": 7.429538020170265
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.587920654564712,
+        "x": 6.952079345435287,
         "y": 7.342205079546938
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 4"
+      "linkedName": "Dynamic Blue 4"
     },
     {
       "anchor": {
-        "x": 11.823188722377445,
+        "x": 4.716811277622554,
         "y": 6.631931419862839
       },
       "prevControl": {
-        "x": 11.283242992017898,
+        "x": 5.256757007982101,
         "y": 6.755826763933163
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic RWS"
+      "linkedName": "blue_Dynamic RWS"
     }
   ],
   "rotationTargets": [],
@@ -51,19 +51,19 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -12.90255779418525,
+    "rotation": 192.90255779418524,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromAmp",
+  "folder": "Blue MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 180,
     "velocity": 0
   },
   "useDefaultConstraints": true
