@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.497992887981749,
-        "y": 1.5960924561817802
+        "x": 10.983685547371095,
+        "y": 1.3968630937261879
       },
       "isLocked": false,
       "linkedName": "Dynamic LWS"
@@ -20,8 +20,8 @@
         "y": 2.392293888781375
       },
       "prevControl": {
-        "x": 10.781788163572301,
-        "y": 2.0586863093694854
+        "x": 9.927559563119127,
+        "y": 1.921950215900432
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
