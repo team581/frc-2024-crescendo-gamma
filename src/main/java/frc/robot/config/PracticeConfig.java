@@ -21,6 +21,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
@@ -283,6 +284,8 @@ class PracticeConfig {
               tyToNoteDistance -> {
                 tyToNoteDistance.put(0.0, 0.0);
               },
+              // x=right, y= forward, z=up
+              new Translation3d(0, Units.inchesToMeters(-1.103), Units.inchesToMeters(24.418)),
               new Rotation3d(0.0, Units.degreesToRadians(13.8), Units.degreesToRadians(0.0)),
               55.296,
               80.477,

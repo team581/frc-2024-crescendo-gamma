@@ -11,6 +11,7 @@ import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import frc.robot.vision.VisionStrategy;
 import java.util.function.Consumer;
@@ -107,6 +108,7 @@ public record RobotConfig(
       double xyStdDev,
       double thetaStdDev,
       Consumer<InterpolatingDoubleTreeMap> tyToNoteDistance,
+      Translation3d lltranslation,
       Rotation3d llAngle,
       double fovVert,
       double fovHorz,

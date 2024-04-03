@@ -21,6 +21,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
@@ -282,6 +283,9 @@ class CompConfig {
                 tyToNoteDistance.put(10.5, Units.inchesToMeters(60.0 + 15));
                 tyToNoteDistance.put(12.5, Units.inchesToMeters(72.0 + 15));
               },
+
+              // x=right, y= forward, z=up
+              new Translation3d(-0.025, -0.125, 0.591),
               new Rotation3d(0.0, Units.degreesToRadians(14.2), Units.degreesToRadians(-1.0)),
               56.015,
               81.428,

@@ -38,11 +38,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   // TODO: Update this
   public static final Pose3d CAMERA_ON_BOT =
-      new Pose3d(
-          0,
-          Units.inchesToMeters(-1.103),
-          Units.inchesToMeters(24.418),
-          RobotConfig.get().vision().llAngle());
+      new Pose3d(RobotConfig.get().vision().lltranslation(), RobotConfig.get().vision().llAngle());
 
   public static final Pose3d RED_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
@@ -150,10 +146,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Rotation2d tx = Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
     Rotation2d ty = Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
 
-    double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
+    double heightCamToTag = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
 
-    double distance =
-        verticalDistance / (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY()));
+    double distanceTagToRobotCenter2d =
+        (heightCamToTag / (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY())))
+            + CAMERA_ON_BOT.getY();
     double now = Timer.getFPGATimestamp();
     double latency =
         (LimelightHelpers.getLatency_Capture("") + LimelightHelpers.getLatency_Pipeline(""))
@@ -161,11 +158,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
     double timestampAtCapture = now - latency;
 
-    var robotHeading = imu.getRobotHeading(timestampAtCapture);
+    var robotHeadingLatency = imu.getRobotHeading(timestampAtCapture);
 
-    Rotation2d angle = Rotation2d.fromDegrees(robotHeading.getDegrees() - tx.getDegrees());
+    Rotation2d goalAimingAngle =
+        Rotation2d.fromDegrees(robotHeadingLatency.getDegrees() - tx.getDegrees());
 
-    return Optional.of(new DistanceAngle(distance, angle, true));
+    return Optional.of(new DistanceAngle(distanceTagToRobotCenter2d, goalAimingAngle, true));
   }
 
   public DistanceAngle getDistanceAngleSpeaker() {
