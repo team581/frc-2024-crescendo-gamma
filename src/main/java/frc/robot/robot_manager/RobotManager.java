@@ -291,7 +291,7 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case PREPARE_FLOOR_SHOT:
         {
-          var wristAtGoal = wrist.atAngle(wristAngleForFloorSpot);
+          var wristAtGoal = wrist.atAngleForFloorSpot(floorSpotVisionTargets.distance());
           var shooterAtGoal = shooter.atGoal(ShooterMode.FLOOR_SHOT);
           var headingAtGoal = imu.atAngleForFloorSpot(floorSpotVisionTargets.targetAngle());
           // If using TX TY, then don't care about pose jitter

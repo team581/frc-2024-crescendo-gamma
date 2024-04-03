@@ -165,7 +165,6 @@ class PracticeConfig {
               Rotation2d.fromDegrees(0.0),
               Rotation2d.fromDegrees(0.0),
               Rotation2d.fromDegrees(61.0),
-              Rotation2d.fromDegrees(1.0),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
                 distanceToAngleTolerance.put(8.0, 0.5);

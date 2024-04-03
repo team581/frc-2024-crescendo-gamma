@@ -137,7 +137,7 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   public boolean atAngle(Rotation2d angle) {
-    return atAngle(angle, RobotConfig.get().wrist().tolerance());
+    return atAngle(angle, Rotation2d.fromDegrees(1));
   }
 
   private boolean atAngle(Rotation2d angle, Rotation2d tolerance) {
@@ -145,8 +145,11 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   public boolean atAngleForSpeaker(double distance) {
-    return atAngle(
-        getAngleFromDistanceToSpeaker(distance), getToleranceFromDistanceToSpeaker(distance));
+    return atAngle(getAngleFromDistanceToSpeaker(distance), getToleranceFromDistance(distance));
+  }
+
+  public boolean atAngleForFloorSpot(double distance) {
+    return atAngle(getAngleFromDistanceToFloorSpot(distance), Rotation2d.fromDegrees(5));
   }
 
   public HomingState getHomingState() {
@@ -157,7 +160,7 @@ public class WristSubsystem extends LifecycleSubsystem {
     return Rotation2d.fromDegrees(speakerDistanceToAngle.get(distance));
   }
 
-  private Rotation2d getToleranceFromDistanceToSpeaker(double distance) {
+  private Rotation2d getToleranceFromDistance(double distance) {
     return distance > 8
         ? Rotation2d.fromDegrees(0.5)
         : distance < 0.85
