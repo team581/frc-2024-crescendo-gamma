@@ -354,10 +354,15 @@ public class RobotManager extends LifecycleSubsystem {
           boolean angularVelocitySlowEnough = imu.belowVelocityForSpeaker(speakerDistance);
           boolean robotHeadingAtGoal =
               imu.atAngleForSpeaker(speakerDistanceAngle.targetAngle(), speakerDistance);
-          boolean limelightWorking =
-              RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG
-                  ? speakerDistanceAngle.seesSpeakerTag()
-                  : vision.getState() == VisionState.SEES_TAGS;
+          boolean limelightWorking = false;
+
+          if (DriverStation.isAutonomous() && vision.getState() == VisionState.OFFLINE) {
+            limelightWorking = true;
+          } else if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
+            limelightWorking = speakerDistanceAngle.seesSpeakerTag();
+          } else {
+            limelightWorking = vision.getState() == VisionState.SEES_TAGS;
+          }
 
           Logger.recordOutput("RobotManager/SpeakerShot/LimelightWorking", limelightWorking);
           Logger.recordOutput("RobotManager/SpeakerShot/WristAtGoal", wristAtGoal);
