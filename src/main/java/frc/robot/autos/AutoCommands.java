@@ -108,7 +108,7 @@ public class AutoCommands {
     var blue6To5 = PathPlannerPath.fromPathFile("Blue 6 to 5");
     var blue5To4 = PathPlannerPath.fromPathFile("Blue 5 to 4");
     var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Blue 6 to SWS");
-    var blueStageWingShotTo5 = PathPlannerPath.fromPathFile("Blue SWS tso 5");
+    var blueStageWingShotTo5 = PathPlannerPath.fromPathFile("Blue SWS to 5");
     var blue5ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 5 to CWS");
     var blueCenterWingShotTo4 = PathPlannerPath.fromPathFile("Blue CWS to 4");
     var blue4ToRightWingShot = PathPlannerPath.fromPathFile("Blue 4 to RWS");
