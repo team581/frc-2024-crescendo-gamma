@@ -63,10 +63,11 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
         motor.setControl(coastNeutralRequest);
         break;
       case PRE_MATCH_HOMING:
+        motor.setControl(brakeNeutralRequest);
+
         if (DriverStation.isDisabled()) {
-          motor.setControl(coastNeutralRequest);
+          // Wait until enable to do homing code
         } else {
-          motor.setControl(brakeNeutralRequest);
 
           if (!preMatchHomingOccured) {
             double homingEndPosition = RobotConfig.get().elevator().homingEndPosition();
@@ -92,10 +93,14 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
             }
           }
 
-          motor.setControl(
-              positionRequest
-                  .withSlot(slot)
-                  .withPosition(inchesToRotations(height).getRotations()));
+          if (DriverStation.isDisabled()) {
+            motor.setControl(brakeNeutralRequest);
+          } else {
+            motor.setControl(
+                positionRequest
+                    .withSlot(slot)
+                    .withPosition(inchesToRotations(height).getRotations()));
+          }
 
           break;
         }
