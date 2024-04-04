@@ -71,7 +71,6 @@ public class AutoCommands {
     ///    var blueStageWingShotTo7 = PathPlannerPath.fromPathFile("SWS to Red 7");
     ///    var blue7ToLeftWingShot= PathPlannerPath.fromPathFile("Red 7 to Left Wing Shot");
 
-
     BooleanSupplier hasNote =
         () ->
             robotManager.getState().hasNote
