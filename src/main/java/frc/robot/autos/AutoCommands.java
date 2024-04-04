@@ -49,15 +49,28 @@ public class AutoCommands {
   public Command getMidlineNotesAmpCommand() {
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
     var red4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
-    var rightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
+    var redRightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
     var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
     var red5To6 = PathPlannerPath.fromPathFile("Red 5 to 6");
-    var centerWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
+    var redCenterWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
     var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
-    var stageWingShotTo6 = PathPlannerPath.fromPathFile("Red SWS to 6");
+    var redStageWingShotTo6 = PathPlannerPath.fromPathFile("Red SWS to 6");
     ///    var red6To7 = PathPlannerPath.fromPathFile("Red 6 to 7");
-    ///    var stageWingShotTo7 = PathPlannerPath.fromPathFile("SWS to Red 7");
+    ///    var redStageWingShotTo7 = PathPlannerPath.fromPathFile("SWS to Red 7");
     ///    var red7ToLeftWingShot= PathPlannerPath.fromPathFile("Red 7 to Left Wing Shot");
+
+    var blue4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
+    var blue4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
+    var blueRightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
+    var blue5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
+    var blue5To6 = PathPlannerPath.fromPathFile("Red 5 to 6");
+    var blueCenterWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
+    var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
+    var blueStageWingShotTo6 = PathPlannerPath.fromPathFile("Red SWS to 6");
+    ///    var blue6To7 = PathPlannerPath.fromPathFile("Red 6 to 7");
+    ///    var blueStageWingShotTo7 = PathPlannerPath.fromPathFile("SWS to Red 7");
+    ///    var blue7ToLeftWingShot= PathPlannerPath.fromPathFile("Red 7 to Left Wing Shot");
+
 
     BooleanSupplier hasNote =
         () ->
@@ -65,32 +78,41 @@ public class AutoCommands {
                 || robotManager.getState() == RobotState.FINISH_INTAKING;
     return Commands.sequence(
         Commands.either(
-            AutoBuilder.followPath(red4ToRightWingShot)
+            followPathForAlliance(red4ToRightWingShot, blue4ToRightWingShot)
                 .andThen(speakerShotWithTimeout())
-                .andThen(AutoBuilder.followPath(rightWingShotTo5)),
-            AutoBuilder.followPath(red4To5),
+                .andThen(followPathForAlliance(redRightWingShotTo5, blueRightWingShotTo5)),
+            followPathForAlliance(red4To5, blue4To5),
             hasNote),
         Commands.either(
-                AutoBuilder.followPath(red5ToCenterWingShot)
+                followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
                     .andThen(speakerShotWithTimeout())
-                    .andThen(AutoBuilder.followPath(centerWingShotTo6)),
-                AutoBuilder.followPath(red5To6),
+                    .andThen(followPathForAlliance(redCenterWingShotTo6, blueCenterWingShotTo6)),
+                followPathForAlliance(red5To6, blue5To6),
                 hasNote)
             .andThen(
-                AutoBuilder.followPath(red6ToStageWingShot)
+                followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
                     .andThen(speakerShotWithTimeout())
-                    .andThen(AutoBuilder.followPath(stageWingShotTo6))));
+                    .andThen(followPathForAlliance(redStageWingShotTo6, blueStageWingShotTo6))));
   }
 
   public Command getMidlineNotesSourceCommand() {
     var red6To5 = PathPlannerPath.fromPathFile("Red 6 to 5");
     var red5To4 = PathPlannerPath.fromPathFile("Red 5 to 4");
     var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
-    var stageWingShotTo5 = PathPlannerPath.fromPathFile("Red SWS to 5");
+    var redStageWingShotTo5 = PathPlannerPath.fromPathFile("Red SWS to 5");
     var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
-    var centerWingShotTo4 = PathPlannerPath.fromPathFile("Red CWS to 4");
+    var redCenterWingShotTo4 = PathPlannerPath.fromPathFile("Red CWS to 4");
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
-    var rightWingShotTo4 = PathPlannerPath.fromPathFile("Red RWS to 4");
+    var redRightWingShotTo4 = PathPlannerPath.fromPathFile("Red RWS to 4");
+
+    var blue6To5 = PathPlannerPath.fromPathFile("Blue 6 to 5");
+    var blue5To4 = PathPlannerPath.fromPathFile("Blue 5 to 4");
+    var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Blue 6 to SWS");
+    var blueStageWingShotTo5 = PathPlannerPath.fromPathFile("Blue SWS tso 5");
+    var blue5ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 5 to CWS");
+    var blueCenterWingShotTo4 = PathPlannerPath.fromPathFile("Blue CWS to 4");
+    var blue4ToRightWingShot = PathPlannerPath.fromPathFile("Blue 4 to RWS");
+    var blueRightWingShotTo4 = PathPlannerPath.fromPathFile("Blue RWS to 4");
 
     BooleanSupplier hasNote =
         () ->
@@ -98,20 +120,20 @@ public class AutoCommands {
                 || robotManager.getState() == RobotState.FINISH_INTAKING;
     return Commands.sequence(
         Commands.either(
-            AutoBuilder.followPath(red6ToStageWingShot)
+            followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
                 .andThen(speakerShotWithTimeout())
-                .andThen(AutoBuilder.followPath(stageWingShotTo5)),
-            AutoBuilder.followPath(red6To5),
+                .andThen(followPathForAlliance(redStageWingShotTo5, blueStageWingShotTo5)),
+            followPathForAlliance(red6To5, blue6To5),
             hasNote),
         Commands.either(
-                AutoBuilder.followPath(red5ToCenterWingShot)
+                followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
                     .andThen(speakerShotWithTimeout())
-                    .andThen(AutoBuilder.followPath(centerWingShotTo4)),
-                AutoBuilder.followPath(red5To4),
+                    .andThen(followPathForAlliance(redCenterWingShotTo4, blueCenterWingShotTo4)),
+                followPathForAlliance(red5To4, blue5To4),
                 hasNote)
             .andThen(
-                AutoBuilder.followPath(red4ToRightWingShot)
+                followPathForAlliance(red4ToRightWingShot, blue4ToRightWingShot)
                     .andThen(speakerShotWithTimeout())
-                    .andThen(AutoBuilder.followPath(rightWingShotTo4))));
+                    .andThen(followPathForAlliance(redRightWingShotTo4, blueRightWingShotTo4))));
   }
 }
