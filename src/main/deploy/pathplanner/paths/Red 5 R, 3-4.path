@@ -48,16 +48,16 @@
     },
     {
       "anchor": {
-        "x": 8.46,
-        "y": 7.43
+        "x": 9.479999999999999,
+        "y": 7.4016555753111515
       },
       "prevControl": {
-        "x": 8.925415798831597,
-        "y": 7.445289814579629
+        "x": 9.945415798831595,
+        "y": 7.416945389890781
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red Amp 5, 5"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
