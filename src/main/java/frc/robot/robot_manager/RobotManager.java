@@ -858,8 +858,8 @@ public class RobotManager extends LifecycleSubsystem {
 
   @Override
   public void teleopInit() {
-    if (RobotConfig.IS_DEVELOPMENT) {
-      // Stow when entering teleop, but only when we're in dev mode
+    if (RobotConfig.IS_DEVELOPMENT && !getState().climbing) {
+      // Stow when entering teleop, but only when we're in dev mode and not mid-climb
       // Helps to avoid evil stuff happening after exiting auto
       stowRequest();
     }
