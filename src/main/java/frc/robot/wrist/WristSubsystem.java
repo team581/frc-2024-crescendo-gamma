@@ -32,7 +32,7 @@ public class WristSubsystem extends LifecycleSubsystem {
   private static final InterpolatingDoubleTreeMap distanceToAngleTolerance =
       new InterpolatingDoubleTreeMap();
 
-  private Rotation2d lowestSeenAngle = new Rotation2d();
+  private Rotation2d lowestSeenAngle = new Rotation2d(Double.MAX_VALUE);
 
   private boolean preMatchHomingOccured = false;
 
