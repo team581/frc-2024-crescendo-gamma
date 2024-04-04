@@ -287,8 +287,8 @@ class CompConfig {
               },
 
               // x=right, y= forward, z=up
-              new Translation3d(-0.025, -0.125, 0.591),
-              new Rotation3d(0.0, Units.degreesToRadians(14.2), Units.degreesToRadians(-1.0)),
+              new Translation3d(-0.025, Units.inchesToMeters(-1), Units.inchesToMeters(23.25)),
+              new Rotation3d(0.0, Units.degreesToRadians(14.86), Units.degreesToRadians(-1.0)),
               56.015,
               81.428,
               28.517,
