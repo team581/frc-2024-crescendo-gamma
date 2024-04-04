@@ -86,12 +86,14 @@ class CompConfig {
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
-                speakerDistanceToRPM.put(0.92, 3000.0);
-                speakerDistanceToRPM.put(1.37, 3000.0);
-                speakerDistanceToRPM.put(2.5, 3000.0);
-                speakerDistanceToRPM.put(3.5, 4000.0);
-                speakerDistanceToRPM.put(5.0, 4500.0);
-                speakerDistanceToRPM.put(6.5, 4500.0);
+                speakerDistanceToRPM.put(0.0, 3000.0);
+                speakerDistanceToRPM.put(2.0, 3000.0);
+                speakerDistanceToRPM.put(2.5, 3500.0);
+                speakerDistanceToRPM.put(4.0, 3500.0);
+                speakerDistanceToRPM.put(4.5, 4000.0);
+                speakerDistanceToRPM.put(6.0, 4000.0);
+                speakerDistanceToRPM.put(6.5, 4800.0);
+                speakerDistanceToRPM.put(8.0, 4800.0);
               },
               floorSpotDistanceToRPM -> {
                 floorSpotDistanceToRPM.put(0.0, 1000.0);
@@ -168,14 +170,14 @@ class CompConfig {
                 distanceToAngleTolerance.put(8.0, 0.5);
               },
               speakerDistanceToAngle -> {
-                speakerDistanceToAngle.put(0.92, 58.1);
-                speakerDistanceToAngle.put(1.37, 58.1);
-                speakerDistanceToAngle.put(2.5, 42.25);
-                speakerDistanceToAngle.put(3.5, 32.7);
-                speakerDistanceToAngle.put(5.0, 25.2);
-                speakerDistanceToAngle.put(6.5, 22.75);
-                speakerDistanceToAngle.put(8.0, 20.25);
-                speakerDistanceToAngle.put(8.368, 20.50);
+                speakerDistanceToAngle.put(1.38, 58.1);
+                speakerDistanceToAngle.put(2.5, 42.0);
+                speakerDistanceToAngle.put(3.5, 33.5);
+                speakerDistanceToAngle.put(4.5, 27.8);
+                speakerDistanceToAngle.put(5.5, 25.5);
+                speakerDistanceToAngle.put(6.5, 21.0);
+                speakerDistanceToAngle.put(7.5, 20.0);
+                speakerDistanceToAngle.put(9.0, 18.5);
               },
               floorSpotDistanceToAngle -> {
                 floorSpotDistanceToAngle.put(3.4, 18.0);
