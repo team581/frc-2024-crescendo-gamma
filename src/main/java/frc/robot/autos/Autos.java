@@ -79,7 +79,7 @@ public class Autos extends LifecycleSubsystem {
             new PIDConstants(4.0, 0.0, 0.0),
             4.4,
             0.387,
-            new ReplanningConfig()),
+            new ReplanningConfig(true, true)),
         () -> false,
         swerve);
 
