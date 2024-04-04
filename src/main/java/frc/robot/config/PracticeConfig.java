@@ -159,9 +159,6 @@ class PracticeConfig {
                   .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Brake))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
-              new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(25)
-                  .withSupplyCurrentLimitEnable(true),
               Rotation2d.fromDegrees(0.0),
               Rotation2d.fromDegrees(0.0),
               Rotation2d.fromDegrees(61.0),

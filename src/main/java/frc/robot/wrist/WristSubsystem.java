@@ -111,14 +111,6 @@ public class WristSubsystem extends LifecycleSubsystem {
   public void setAngle(Rotation2d angle) {
     angle = clampAngle(angle);
 
-    if (!angle.equals(goalAngle)) {
-      if (angle.equals(RobotConfig.get().wrist().minAngle())) {
-        motor.getConfigurator().apply(RobotConfig.get().wrist().strictCurrentLimits());
-      } else {
-        motor.getConfigurator().apply(RobotConfig.get().wrist().motorConfig().CurrentLimits);
-      }
-    }
-
     goalAngle = angle;
   }
 

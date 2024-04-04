@@ -69,7 +69,6 @@ public record RobotConfig(
   public record WristConfig(
       int motorID,
       TalonFXConfiguration motorConfig,
-      CurrentLimitsConfigs strictCurrentLimits,
       Rotation2d homingEndPosition,
       Rotation2d minAngle,
       Rotation2d maxAngle,
