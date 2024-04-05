@@ -45,13 +45,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
       new Pose3d(
           Units.inchesToMeters(652.73),
           Units.inchesToMeters(218.42 - 11.125),
-          Units.inchesToMeters(57.25),
+          Units.inchesToMeters(57.5),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
   public static final Pose3d BLUE_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(218.42 - 11.125),
-          Units.inchesToMeters(57.25),
+          Units.inchesToMeters(57.5),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
 
   public static final Pose3d ROBOT_TO_CALIBRATION_TAG_CENTER =
