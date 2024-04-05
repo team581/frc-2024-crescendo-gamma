@@ -88,8 +88,8 @@ class CompConfig {
               speakerDistanceToRPM -> {
                 speakerDistanceToRPM.put(0.0, 3000.0);
                 speakerDistanceToRPM.put(2.0, 3000.0);
-                speakerDistanceToRPM.put(2.5, 3500.0);
-                speakerDistanceToRPM.put(4.0, 3500.0);
+                speakerDistanceToRPM.put(2.5, 4000.0);
+                speakerDistanceToRPM.put(4.0, 4000.0);
                 speakerDistanceToRPM.put(4.5, 4000.0);
                 speakerDistanceToRPM.put(6.0, 4000.0);
                 speakerDistanceToRPM.put(6.5, 4800.0);
