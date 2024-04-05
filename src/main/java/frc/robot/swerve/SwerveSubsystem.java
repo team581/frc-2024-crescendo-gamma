@@ -325,6 +325,18 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     Logger.recordOutput(
         "Swerve/BackRight/DriveMotor/StatorCurrent",
         backRight.getDriveMotor().getStatorCurrent().getValue());
+    Logger.recordOutput(
+        "Swerve/FrontLeft/DriveMotor/Voltage",
+        frontLeft.getDriveMotor().getMotorVoltage().getValue());
+    Logger.recordOutput(
+        "Swerve/FrontRight/DriveMotor/Voltage",
+        frontRight.getDriveMotor().getMotorVoltage().getValue());
+    Logger.recordOutput(
+        "Swerve/BackLeft/DriveMotor/Voltage",
+        backLeft.getDriveMotor().getMotorVoltage().getValue());
+    Logger.recordOutput(
+        "Swerve/BackRight/DriveMotor/Voltage",
+        backRight.getDriveMotor().getMotorVoltage().getValue());
 
     Logger.recordOutput("Swerve/RobotSpeed", getRobotRelativeSpeeds());
 
