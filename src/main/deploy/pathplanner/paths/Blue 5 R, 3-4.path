@@ -1,5 +1,5 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
@@ -48,40 +48,19 @@
     },
     {
       "anchor": {
-        "x": 8.079999999999998,
-        "y": 7.43
+        "x": 7.808329692659383,
+        "y": 7.405298450596901
       },
       "prevControl": {
-        "x": 7.614584201168402,
-        "y": 7.445289814579629
-      },
-      "nextControl": {
-        "x": 8.545415798831595,
-        "y": 7.41471018542037
-      },
-      "isLocked": false,
-      "linkedName": "Blue Amp 5, 5"
-    },
-    {
-      "anchor": {
-        "x": 5.3946939293878575,
-        "y": 6.289244602489205
-      },
-      "prevControl": {
-        "x": 5.672886461772922,
-        "y": 6.4523530607006085
+        "x": 7.342913893827786,
+        "y": 7.420588265176531
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue R 5, 4 WS"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
-    {
-      "waypointRelativePos": 3,
-      "rotationDegrees": 180,
-      "rotateFast": false
-    },
     {
       "waypointRelativePos": 2,
       "rotationDegrees": 207.8444633684242,
@@ -135,12 +114,6 @@
               "data": {
                 "name": "speakerShotNoTimeout"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShot"
-              }
             }
           ]
         }
@@ -170,7 +143,7 @@
       }
     },
     {
-      "name": "New Event Marker",
+      "name": "intake and shoot",
       "waypointRelativePos": 2.75,
       "command": {
         "type": "sequential",
@@ -191,17 +164,51 @@
           ]
         }
       }
+    },
+    {
+      "name": "force shot of preload",
+      "waypointRelativePos": 1.1500000000000001,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of intaked piece",
+      "waypointRelativePos": 2.1999999999999997,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 190.9707738356406,
+    "rotation": 180.0507665524672,
     "rotateFast": false
   },
   "reversed": false,

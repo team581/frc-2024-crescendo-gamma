@@ -1,5 +1,5 @@
 {
-  "version": 1.0,
+  "version": 1,
   "startingPose": {
     "position": {
       "x": 1.3199999999999985,
@@ -30,33 +30,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Blue Mid Alt 6, 5 to 5-WS"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue Mid Alt 6, 5-WS to 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue Mid 6 Alt, 6 to 6-WS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
+            "name": "altMidlineNotesFromAmp"
           }
         }
       ]

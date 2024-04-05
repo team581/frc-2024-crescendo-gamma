@@ -3,24 +3,24 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.33,
-        "y": 7.429538020170265
+        "x": 7.81325527051054,
+        "y": 7.44100889001778
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.952079345435287,
-        "y": 7.342205079546938
+        "x": 7.435334615945827,
+        "y": 7.353675949394453
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 4"
     },
     {
       "anchor": {
-        "x": 4.716811277622554,
+        "x": 5.02,
         "y": 6.631931419862839
       },
       "prevControl": {
-        "x": 5.256757007982101,
+        "x": 5.559945730359546,
         "y": 6.755826763933163
       },
       "nextControl": null,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 192.90255779418524,
+    "rotation": 193.22473966354013,
     "rotateFast": false
   },
   "reversed": false,

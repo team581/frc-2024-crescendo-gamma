@@ -1,39 +1,45 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 7.894799632676186,
-        "y": 0.8386901389187392
+        "x": 7.77,
+        "y": 0.7582311404622813
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.527844082765085,
-        "y": 0.9303777182938983
+        "x": 6.77,
+        "y": 0.7582311404622811
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Blue 8"
     },
     {
       "anchor": {
-        "x": 3.138933197866397,
-        "y": 2.821945643891289
+        "x": 4.086696469392937,
+        "y": 2.512506477012954
       },
       "prevControl": {
-        "x": 3.60388722377445,
-        "y": 2.292138176276354
+        "x": 4.733640335280668,
+        "y": 1.873258826517653
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue LWS"
+      "linkedName": "blue_Dynamic LWS"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 139.55,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.6,
+      "name": "warmup",
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "sequential",
         "data": {
@@ -51,17 +57,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 128.80869257774535,
+    "rotation": 139.55,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Blue 4 Piece Source 8-6",
-  "previewStartingState": null,
+  "folder": "Blue MNFS",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

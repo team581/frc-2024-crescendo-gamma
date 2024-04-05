@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.239999999999998,
-        "y": 4.92
+        "x": 7.81325527051054,
+        "y": 4.1384089408178815
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.7239431038862065,
-        "y": 4.007881127762256
+        "x": 7.216336804673608,
+        "y": 4.486123952247905
       },
       "isLocked": false,
-      "linkedName": "blue_Dynamic SWS"
+      "linkedName": "Dynamic Blue 6"
     },
     {
       "anchor": {
-        "x": 7.775902971805943,
-        "y": 4.108085852171705
+        "x": 7.81325527051054,
+        "y": 7.44100889001778
       },
       "prevControl": {
-        "x": 6.591490474980947,
-        "y": 3.910036576073152
+        "x": 6.017163830327659,
+        "y": 7.669073406146812
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Blue 4"
     }
   ],
   "rotationTargets": [],
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue MNFS",
+  "folder": "Blue Alt MNFA 5,6,4",
   "previewStartingState": {
     "rotation": 180,
     "velocity": 0

@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.637279106412315,
-        "y": 6.369066598315568
+        "x": 0.7146766573533139,
+        "y": 4.410649733299467
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.165382778765556,
-        "y": 6.461691135382271
+        "x": 1.4418190344072954,
+        "y": 3.680369668431645
       },
       "isLocked": false,
-      "linkedName": "blue_Dynamic CWS"
+      "linkedName": "Blue Left"
     },
     {
       "anchor": {
-        "x": 7.81325527051054,
-        "y": 4.1384089408178815
+        "x": 2.389999999999999,
+        "y": 2.82
       },
       "prevControl": {
-        "x": 6.110707137414273,
-        "y": 3.3030617221234437
+        "x": 1.5799562337586206,
+        "y": 3.441617397080947
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 6"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 0.6,
+      "name": "speaker shot",
+      "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 134.42212539551215,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue MidlineNotesFromAmp",
+  "folder": "Dev Blue 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": 180,
+    "rotation": 120.77000000000001,
     "velocity": 0
   },
   "useDefaultConstraints": true

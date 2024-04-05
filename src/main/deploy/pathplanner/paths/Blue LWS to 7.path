@@ -1,57 +1,39 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 3.138933197866397,
-        "y": 2.821945643891289
+        "x": 4.086696469392937,
+        "y": 2.512506477012954
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.195970107467369,
-        "y": 0.4280456324490922
+        "x": 5.443539243078485,
+        "y": 1.1042529845059692
       },
       "isLocked": false,
-      "linkedName": "Blue LWS"
+      "linkedName": "blue_Dynamic LWS"
     },
     {
       "anchor": {
-        "x": 8.1,
-        "y": 2.5259373595670285
+        "x": 7.785754127508254,
+        "y": 2.43549301498603
       },
       "prevControl": {
-        "x": 7.322528321056643,
-        "y": 2.295769211230733
+        "x": 6.8181945643891275,
+        "y": 1.9651493421050867
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Blue 7"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 211.9976304566467,
-      "rotateFast": false
-    }
-  ],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.55,
-      "maxWaypointRelativePos": 0.9,
-      "constraints": {
-        "maxVelocity": 4.2,
-        "maxAcceleration": 4,
-        "maxAngularVelocity": 540,
-        "maxAngularAcceleration": 720
-      }
-    }
-  ],
+  "rotationTargets": [],
+  "constraintZones": [],
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -69,9 +51,9 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
@@ -79,9 +61,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Blue 4 Piece Source 8-6",
+  "folder": "Blue MNFS",
   "previewStartingState": {
-    "rotation": 132.28861454307292,
+    "rotation": 180,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -13,10 +13,12 @@
     "Dev Red Mid 6 Piece 1-3,5-6",
     "Dev Red Mid 6 Piece 1-5",
     "Dev Red Right 5 Piece",
-    "Red Alt MNFA 5,6,4",
+    "Red Alt MNFA 5.0,6,4",
     "Red MNFS",
     "Red MidlineNotesFromAmp",
-    "Red MidlineNotesFromSource"
+    "Red MidlineNotesFromSource",
+    "Blue Alt MNFA 5.0,6,4",
+    "Blue MNFS"
   ],
   "autoFolders": [
     "Blue Dynamic Autos in Development",
