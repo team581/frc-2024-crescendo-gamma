@@ -97,7 +97,7 @@ public class IntakeSubsystem extends LifecycleSubsystem {
     }
   }
 
-  private boolean sensorHasNote() {
+  public boolean sensorHasNote() {
     return sensor.get();
   }
 
