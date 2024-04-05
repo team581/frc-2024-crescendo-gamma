@@ -72,7 +72,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
     return debouncedSensor;
   }
 
-  private boolean sensorHasNote() {
+  public boolean sensorHasNote() {
     return sensor.get();
   }
 
