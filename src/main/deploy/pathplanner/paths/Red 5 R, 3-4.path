@@ -48,11 +48,11 @@
     },
     {
       "anchor": {
-        "x": 9.479999999999999,
+        "x": 9.08,
         "y": 7.4016555753111515
       },
       "prevControl": {
-        "x": 9.945415798831595,
+        "x": 9.545415798831597,
         "y": 7.416945389890781
       },
       "nextControl": null,
@@ -114,12 +114,6 @@
               "data": {
                 "name": "speakerShotNoTimeout"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShot"
-              }
             }
           ]
         }
@@ -149,7 +143,7 @@
       }
     },
     {
-      "name": "New Event Marker",
+      "name": "intake and shoot",
       "waypointRelativePos": 2.75,
       "command": {
         "type": "sequential",
@@ -165,6 +159,40 @@
               "type": "named",
               "data": {
                 "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of preload",
+      "waypointRelativePos": 1.1500000000000001,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of intaked piece",
+      "waypointRelativePos": 2.1999999999999997,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
               }
             }
           ]
