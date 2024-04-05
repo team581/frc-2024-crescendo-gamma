@@ -12,7 +12,6 @@ import frc.robot.fms.FmsSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
-import java.util.function.BooleanSupplier;
 
 public class AutoCommands {
   private static Command followPathForAlliance(PathPlannerPath redPath, PathPlannerPath bluePath) {
@@ -47,8 +46,10 @@ public class AutoCommands {
   }
 
   private boolean hasNote() {
-      return  robotManager.noteManager.intake.sensorHasNote() || robotManager.noteManager.queuer.sensorHasNote() || robotManager.getState().hasNote
-                || robotManager.getState() == RobotState.FINISH_INTAKING;
+    return robotManager.noteManager.intake.sensorHasNote()
+        || robotManager.noteManager.queuer.sensorHasNote()
+        || robotManager.getState().hasNote
+        || robotManager.getState() == RobotState.FINISH_INTAKING;
   }
 
   public Command getMidlineNotesAmpCommand() {
@@ -67,7 +68,6 @@ public class AutoCommands {
     var blue5To6 = PathPlannerPath.fromPathFile("Red 5 to 6");
     var blueCenterWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
     var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
-
 
     return Commands.sequence(
         Commands.either(
