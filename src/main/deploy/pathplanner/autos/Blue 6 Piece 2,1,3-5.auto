@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "startingPose": {
     "position": {
       "x": 1.3199999999999985,
@@ -21,6 +21,12 @@
           "type": "named",
           "data": {
             "name": "preloadNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
           }
         },
         {
