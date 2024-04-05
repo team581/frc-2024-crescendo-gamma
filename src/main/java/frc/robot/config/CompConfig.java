@@ -273,7 +273,7 @@ class CompConfig {
               }),
           new LightsConfig(3),
           new VisionConfig(
-              VisionStrategy.TX_TY_AND_MEGATAG,
+              VisionStrategy.MEGATAG,
               4,
               0.4,
               0.4,
