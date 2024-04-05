@@ -1,27 +1,27 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
-        "x": 7.329999999999998,
-        "y": 7.429538020170265
+        "x": 7.81325527051054,
+        "y": 7.44100889001778
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.764266192532382,
-        "y": 5.852510033020066
+        "x": 6.6451079502159,
+        "y": 6.57803576697731
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 4"
     },
     {
       "anchor": {
-        "x": 7.5,
-        "y": 5.845068954575599
+        "x": 7.81325527051054,
+        "y": 5.695558547117095
       },
       "prevControl": {
-        "x": 6.781654559309118,
-        "y": 5.839888239776479
+        "x": 6.719623063246125,
+        "y": 4.978579121158243
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,9 +51,9 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5,
-    "maxAngularVelocity": 540,
-    "maxAngularAcceleration": 720
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
