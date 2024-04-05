@@ -94,7 +94,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
       var fiducial = estimatePose.rawFiducials[i];
 
       if (fiducial.ambiguity > 0.5) {
-        return Optional.empty();
+        // return Optional.empty();
       }
     }
 
