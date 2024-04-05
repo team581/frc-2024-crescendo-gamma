@@ -42,51 +42,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Red 4, 8 to LWS"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 4, LWS to 7"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 4, 7 to CWS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 4, CWS to 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 4, 6 to CWS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
+            "name": "midlineNotesFromSource"
           }
         }
       ]
