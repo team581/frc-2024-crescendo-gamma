@@ -1,15 +1,15 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
-        "x": 7.81325527051054,
-        "y": 4.1384089408178815
+        "x": 8.209999999999999,
+        "y": 4.04
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.431895859791718,
-        "y": 4.025633731267462
+        "x": 6.828640589281177,
+        "y": 3.9272247904495803
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 6"
