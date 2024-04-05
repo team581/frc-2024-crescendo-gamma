@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.96,
-        "y": 0.78691236982474
+        "x": 8.774923037846076,
+        "y": 0.7582311404622813
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.179129112019176,
-        "y": 0.7742903848172127
+        "x": 9.99405214986525,
+        "y": 0.745609155454754
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 8"
     },
     {
       "anchor": {
-        "x": 8.96,
-        "y": 2.392293888781375
+        "x": 8.754245872491746,
+        "y": 2.43549301498603
       },
       "prevControl": {
-        "x": 9.914146816706388,
-        "y": 2.4858251308898804
+        "x": 9.708392689198133,
+        "y": 2.529024257094535
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MNFS 8-6",
+  "folder": "Red MNFS",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

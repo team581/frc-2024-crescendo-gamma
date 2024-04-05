@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.96,
-        "y": 2.392293888781375
+        "x": 8.754245872491746,
+        "y": 2.43549301498603
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.96,
-        "y": 2.392293888781375
+        "x": 9.754245872491746,
+        "y": 2.43549301498603
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 7"
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MNFS 8-6",
+  "folder": "Red MNFS",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

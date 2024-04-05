@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.983685547371095,
-        "y": 1.3968630937261879
+        "x": 11.096460756921514,
+        "y": 1.1042529845059692
       },
       "isLocked": false,
       "linkedName": "Dynamic LWS"
     },
     {
       "anchor": {
-        "x": 8.96,
-        "y": 2.392293888781375
+        "x": 8.754245872491746,
+        "y": 2.43549301498603
       },
       "prevControl": {
-        "x": 9.927559563119127,
-        "y": 1.921950215900432
+        "x": 9.721805435610872,
+        "y": 1.9651493421050867
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MNFS 8-6",
+  "folder": "Red MNFS",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
