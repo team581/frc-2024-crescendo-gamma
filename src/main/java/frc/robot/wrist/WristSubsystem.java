@@ -98,7 +98,6 @@ public class WristSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Wrist/HomingState", homingState);
     Logger.recordOutput("Wrist/GoalAngle", goalAngle.getDegrees());
     Logger.recordOutput("Wrist/Temperature", motor.getDeviceTemp().getValue());
-    Logger.recordOutput("Wrist/ControlMode", motor.getControlMode().toString());
     Logger.recordOutput("Wrist/LowestSeenAngle", lowestSeenAngle.getDegrees());
   }
 
