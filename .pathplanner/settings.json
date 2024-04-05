@@ -3,6 +3,8 @@
   "robotLength": 0.927,
   "holonomicMode": true,
   "pathFolders": [
+    "Blue Alt MNFA 5,6,4",
+    "Blue MNFS",
     "Blue MidlineNotesFromAmp",
     "Blue MidlineNotesFromSource",
     "Dev Blue 4 Piece Source 8-6",
@@ -13,12 +15,10 @@
     "Dev Red Mid 6 Piece 1-3,5-6",
     "Dev Red Mid 6 Piece 1-5",
     "Dev Red Right 5 Piece",
-    "Red Alt MNFA 5.0,6,4",
+    "Red Alt MNFA 5,6,4",
     "Red MNFS",
     "Red MidlineNotesFromAmp",
-    "Red MidlineNotesFromSource",
-    "Blue Alt MNFA 5.0,6,4",
-    "Blue MNFS"
+    "Red MidlineNotesFromSource"
   ],
   "autoFolders": [
     "Blue Dynamic Autos in Development",
