@@ -1,15 +1,15 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 8.77,
-        "y": 0.7582311404622813
+        "x": 7.934267403919421,
+        "y": 0.6906859967566095
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.77,
-        "y": 0.7582311404622811
+        "x": 6.934267403919421,
+        "y": 0.6906859967566092
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 8"

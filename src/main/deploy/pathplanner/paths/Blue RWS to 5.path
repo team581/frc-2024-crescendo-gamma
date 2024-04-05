@@ -1,27 +1,27 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 5.02,
-        "y": 6.631931419862839
+        "x": 4.84,
+        "y": 6.31
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.490387604775208,
-        "y": 6.6489144018288036
+        "x": 5.9312780133252545,
+        "y": 6.768722768214768
       },
       "isLocked": false,
       "linkedName": "blue_Dynamic RWS"
     },
     {
       "anchor": {
-        "x": 8.81,
-        "y": 5.695558547117095
+        "x": 8.04,
+        "y": 5.84
       },
       "prevControl": {
-        "x": 7.974098996891003,
-        "y": 5.633177875243289
+        "x": 7.460654149000604,
+        "y": 6.21617397080948
       },
       "nextControl": null,
       "isLocked": false,
