@@ -46,6 +46,11 @@ public class AutoCommands {
         .withName("SpeakerShotWithTimeout");
   }
 
+  private boolean hasNote() {
+      return  robotManager.noteManager.intake.sensorHasNote() || robotManager.noteManager.queuer.sensorHasNote() || robotManager.getState().hasNote
+                || robotManager.getState() == RobotState.FINISH_INTAKING;
+  }
+
   public Command getMidlineNotesAmpCommand() {
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
     var red4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
@@ -71,27 +76,23 @@ public class AutoCommands {
     ///    var blueStageWingShotTo7 = PathPlannerPath.fromPathFile("SWS to Red 7");
     ///    var blue7ToLeftWingShot= PathPlannerPath.fromPathFile("Red 7 to Left Wing Shot");
 
-    BooleanSupplier hasNote =
-        () ->
-            robotManager.getState().hasNote
-                || robotManager.getState() == RobotState.FINISH_INTAKING;
+
     return Commands.sequence(
         Commands.either(
             followPathForAlliance(red4ToRightWingShot, blue4ToRightWingShot)
                 .andThen(speakerShotWithTimeout())
                 .andThen(followPathForAlliance(redRightWingShotTo5, blueRightWingShotTo5)),
             followPathForAlliance(red4To5, blue4To5),
-            hasNote),
+            this::hasNote),
         Commands.either(
                 followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
                     .andThen(speakerShotWithTimeout())
                     .andThen(followPathForAlliance(redCenterWingShotTo6, blueCenterWingShotTo6)),
                 followPathForAlliance(red5To6, blue5To6),
-                hasNote)
+                this::hasNote)
             .andThen(
                 followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
-                    .andThen(speakerShotWithTimeout())
-                    .andThen(followPathForAlliance(redStageWingShotTo6, blueStageWingShotTo6))));
+                    .andThen(speakerShotWithTimeout())));
   }
 
   public Command getMidlineNotesSourceCommand() {
@@ -113,26 +114,21 @@ public class AutoCommands {
     var blue4ToRightWingShot = PathPlannerPath.fromPathFile("Blue 4 to RWS");
     var blueRightWingShotTo4 = PathPlannerPath.fromPathFile("Blue RWS to 4");
 
-    BooleanSupplier hasNote =
-        () ->
-            robotManager.getState().hasNote
-                || robotManager.getState() == RobotState.FINISH_INTAKING;
     return Commands.sequence(
         Commands.either(
             followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
                 .andThen(speakerShotWithTimeout())
                 .andThen(followPathForAlliance(redStageWingShotTo5, blueStageWingShotTo5)),
             followPathForAlliance(red6To5, blue6To5),
-            hasNote),
+            this::hasNote),
         Commands.either(
                 followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
                     .andThen(speakerShotWithTimeout())
                     .andThen(followPathForAlliance(redCenterWingShotTo4, blueCenterWingShotTo4)),
                 followPathForAlliance(red5To4, blue5To4),
-                hasNote)
+                this::hasNote)
             .andThen(
                 followPathForAlliance(red4ToRightWingShot, blue4ToRightWingShot)
-                    .andThen(speakerShotWithTimeout())
-                    .andThen(followPathForAlliance(redRightWingShotTo4, blueRightWingShotTo4))));
+                    .andThen(speakerShotWithTimeout())));
   }
 }
