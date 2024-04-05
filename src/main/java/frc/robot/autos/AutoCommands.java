@@ -14,6 +14,8 @@ import frc.robot.robot_manager.RobotManager;
 import frc.robot.robot_manager.RobotState;
 
 public class AutoCommands {
+  private static final boolean USE_DYNAMIC_AUTOS = false;
+
   private static Command followPathForAlliance(PathPlannerPath redPath, PathPlannerPath bluePath) {
     return Commands.either(
         AutoBuilder.followPath(redPath),
@@ -46,6 +48,10 @@ public class AutoCommands {
   }
 
   private boolean hasNote() {
+    if (!USE_DYNAMIC_AUTOS) {
+      return true;
+    }
+
     return robotManager.noteManager.intake.sensorHasNote()
         || robotManager.noteManager.queuer.sensorHasNote()
         || robotManager.getState().hasNote
