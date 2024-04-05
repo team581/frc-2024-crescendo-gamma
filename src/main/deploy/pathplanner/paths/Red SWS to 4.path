@@ -3,52 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.96,
-        "y": 2.392293888781375
+        "x": 12.3,
+        "y": 4.92
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.96,
-        "y": 2.392293888781375
+        "x": 12.444324612649226,
+        "y": 6.981544831089662
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 7"
+      "linkedName": "Dynamic SWS"
     },
     {
       "anchor": {
         "x": 8.72674472948946,
-        "y": 4.1384089408178815
+        "y": 7.44100889001778
       },
       "prevControl": {
-        "x": 9.584812801625604,
-        "y": 4.013730251460502
+        "x": 10.860802641605284,
+        "y": 7.259686055372111
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 4"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "intake",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeFloor"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
@@ -61,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MNFS 8-6",
+  "folder": "Red Alt MNFA 5,6,4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 11.151801104293234,
     "velocity": 0
   },
   "useDefaultConstraints": true

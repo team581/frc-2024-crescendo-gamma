@@ -28,6 +28,12 @@
           "data": {
             "pathName": "Red Mid Alt 6, 2 to 5"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "altMidlineNotesFromAmp"
+          }
         }
       ]
     }

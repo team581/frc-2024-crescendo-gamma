@@ -3,52 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.902720893587684,
-        "y": 6.369066598315568
+        "x": 8.72674472948946,
+        "y": 4.1384089408178815
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.374617221234443,
-        "y": 6.461691135382271
+        "x": 9.323663195326391,
+        "y": 4.486123952247905
       },
       "isLocked": false,
-      "linkedName": "Dynamic CWS"
+      "linkedName": "Dynamic Red 6"
     },
     {
       "anchor": {
         "x": 8.72674472948946,
-        "y": 4.1384089408178815
+        "y": 7.44100889001778
       },
       "prevControl": {
-        "x": 10.429292862585726,
-        "y": 3.3030617221234437
+        "x": 10.52283616967234,
+        "y": 7.669073406146812
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 4"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "intake",
-      "waypointRelativePos": 0.6,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeFloor"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
@@ -57,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromAmp",
+  "folder": "Red Alt MNFA 5,6,4",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
