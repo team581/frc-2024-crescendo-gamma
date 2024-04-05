@@ -202,6 +202,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
 
     double rawAngleDegrees = originalPosition.targetAngle().getDegrees();
+
+    if (!FmsSubsystem.isRedAlliance()) {
+      rawAngleDegrees += 180;
+    }
     double angleDegrees = MathUtil.inputModulus(rawAngleDegrees, -180.0, 180.0);
 
     // if (FmsSubsystem.isRedAlliance()) {
