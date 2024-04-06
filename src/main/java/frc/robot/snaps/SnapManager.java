@@ -4,6 +4,7 @@
 
 package frc.robot.snaps;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -14,6 +15,8 @@ import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
+
+import dev.doglog.DogLog;
 
 public class SnapManager extends LifecycleSubsystem {
   public static Rotation2d getSourceAngle() {
@@ -39,6 +42,13 @@ public class SnapManager extends LifecycleSubsystem {
         ? Rotation2d.fromDegrees(-90)
         : Rotation2d.fromDegrees(-90.0);
   }
+
+  public static Rotation2d getStageBackChain() {
+    return FmsSubsystem.isRedAlliance()
+        ? Rotation2d.fromDegrees(180)
+        : Rotation2d.fromDegrees(0);
+  }
+
 
   public static Rotation2d getPodiumAngle() {
     return FmsSubsystem.isRedAlliance() ? Rotation2d.fromDegrees(0) : Rotation2d.fromDegrees(180.0);
