@@ -598,7 +598,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.ANTI_JAM);
         shooter.setGoalMode(ShooterMode.OUTTAKE);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.outtakeRequest();
+        noteManager.unjamRequest();
         break;
       case CLIMB_1_LINEUP_OUTER:
         wrist.setAngle(WristPositions.FULLY_STOWED);

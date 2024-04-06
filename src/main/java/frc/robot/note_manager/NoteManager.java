@@ -103,6 +103,10 @@ public class NoteManager extends LifecycleSubsystem {
           } else {
             state = NoteState.SHOOTING;
           }
+          break;
+        case UNJAM:
+         state = NoteState.UNJAM;
+         break;
       }
     }
 
@@ -115,6 +119,7 @@ public class NoteManager extends LifecycleSubsystem {
       case IDLE_IN_CONVEYOR:
       case IDLE_IN_QUEUER:
       case TRAP_SCORING:
+      case UNJAM:
         // Do nothing
         break;
       case AMP_SCORING:
@@ -286,6 +291,11 @@ public class NoteManager extends LifecycleSubsystem {
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
         break;
+      case UNJAM:
+        intake.setState(IntakeState.OUTTAKING);
+        conveyor.setState(ConveyorState.AMP_SHOT);
+        queuer.setState(QueuerState.PASS_TO_SHOOTER);
+        break;
       default:
         break;
     }
@@ -344,5 +354,9 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void evilStateOverride(NoteState newState) {
     state = newState;
+  }
+
+  public void unjamRequest() {
+    flags.check(NoteFlag.UNJAM);
   }
 }
