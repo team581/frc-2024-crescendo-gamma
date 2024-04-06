@@ -19,8 +19,8 @@ import org.littletonrobotics.junction.Logger;
 public class AutoChooser {
   private final SendableChooser<AutoSelection> chooser = new SendableChooser<>();
   private final Set<String> brokenAutoNames = new HashSet<>();
-  private AutoSelection previousSelection = AutoSelection.DO_NOTHING;
   private Optional<Command> cachedCommand = Optional.empty();
+  private String cachedAutoName = "";
 
   public AutoChooser() {
     SmartDashboard.putData("Autos/SelectedAuto", chooser);
@@ -34,12 +34,15 @@ public class AutoChooser {
   public Command getAutoCommand() {
     var selection = getAutoSelection();
 
-    if (selection != previousSelection) {
+    String autoName = FmsSubsystem.isRedAlliance() ? selection.redAutoName : selection.blueAutoName;
+
+
+    // When the name of the auto changes (either from changing alliance color or from making a new selection), clear out the cached command
+    if (autoName.equals(cachedAutoName)) {
       cachedCommand = Optional.empty();
-      previousSelection = selection;
     }
 
-    String autoName = FmsSubsystem.isRedAlliance() ? selection.redAutoName : selection.blueAutoName;
+    cachedAutoName = autoName;
 
     Logger.recordOutput(
         "Autos/BrokenAutoNames", brokenAutoNames.toArray(new String[brokenAutoNames.size()]));
