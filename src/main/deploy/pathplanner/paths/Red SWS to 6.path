@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.816056896113793,
-        "y": 4.007881127762256
+        "x": 12.088763408296051,
+        "y": 3.8283738105937757
       },
       "isLocked": false,
       "linkedName": "Dynamic SWS"
     },
     {
       "anchor": {
-        "x": 8.201187940837421,
-        "y": 4.075047380863993
+        "x": 8.44,
+        "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 9.385600437662415,
-        "y": 3.876998104765441
+        "x": 9.624412496824993,
+        "y": 3.7419507239014473
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Red 6"
     }
   ],
   "rotationTargets": [],

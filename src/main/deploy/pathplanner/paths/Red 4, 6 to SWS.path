@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.44,
-        "y": 4.14
+        "y": 3.9399999999999995
       },
       "prevControl": null,
       "nextControl": {
         "x": 10.362048416404527,
-        "y": 3.7593052109181144
+        "y": 3.5593052109181142
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 6"

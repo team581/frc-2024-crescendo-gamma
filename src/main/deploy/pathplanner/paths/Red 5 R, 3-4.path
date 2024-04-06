@@ -48,16 +48,16 @@
     },
     {
       "anchor": {
-        "x": 8.530000000000001,
-        "y": 7.405298450596901
+        "x": 8.53,
+        "y": 7.41
       },
       "prevControl": {
-        "x": 8.995415798831598,
-        "y": 7.420588265176531
+        "x": 8.995415798831596,
+        "y": 7.42528981457963
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Red 4"
     }
   ],
   "rotationTargets": [

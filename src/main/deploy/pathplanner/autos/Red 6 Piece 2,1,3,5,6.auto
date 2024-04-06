@@ -24,6 +24,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red Mid Alt 6, 2 to 5"

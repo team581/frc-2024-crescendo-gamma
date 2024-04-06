@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.55,
-        "y": 7.45
+        "x": 8.53,
+        "y": 7.41
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.71814732029464,
-        "y": 6.58702687695953
+        "x": 9.69814732029464,
+        "y": 6.54702687695953
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 4"
