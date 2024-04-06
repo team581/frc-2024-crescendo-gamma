@@ -3,37 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.44,
-        "y": 4.144115980539654
+        "x": 12.3,
+        "y": 4.92
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.482457161837399,
-        "y": 4.499325921728767
+        "x": 9.24708387878314,
+        "y": 3.798772982161349
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic SWS"
+    },
+    {
+      "anchor": {
+        "x": 10.006838475215408,
+        "y": 2.062191047459019
+      },
+      "prevControl": {
+        "x": 9.699824072569331,
+        "y": 3.525347261879068
+      },
+      "nextControl": {
+        "x": 10.06780223618139,
+        "y": 1.771652541958931
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.1,
-        "y": 5.11
+        "x": 8.41,
+        "y": 0.69
       },
       "prevControl": {
-        "x": 12.436102264512225,
-        "y": 4.726265606377368
+        "x": 10.579121158242314,
+        "y": 0.7202868251890333
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red CWS"
+      "linkedName": "Dynamic Red 8"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.65,
+      "name": "intake",
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "intakeFloor"
               }
             }
           ]
@@ -57,13 +73,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 8.07050776143947,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Dev Red 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": -2.178485881140043,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

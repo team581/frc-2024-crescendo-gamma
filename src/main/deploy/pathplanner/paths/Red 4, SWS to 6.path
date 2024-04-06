@@ -3,55 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.15,
-        "y": 2.82
+        "x": 12.3,
+        "y": 4.92
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.674351810242083,
-        "y": 0.23680662745940947
+        "x": 11.47701295402591,
+        "y": 3.581700240323558
       },
       "isLocked": false,
-      "linkedName": "Red 4, LWS"
+      "linkedName": "Dynamic SWS"
     },
     {
       "anchor": {
-        "x": 8.41,
-        "y": 2.3779332174048973
+        "x": 8.44,
+        "y": 4.14
       },
       "prevControl": {
-        "x": 9.148015279107483,
-        "y": 2.3779332174048973
+        "x": 9.523358277485787,
+        "y": 4.09478126648561
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 7"
+      "linkedName": "Dynamic Red 6"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 0.0,
+      "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.55,
-      "maxWaypointRelativePos": 0.9,
-      "constraints": {
-        "maxVelocity": 4.2,
-        "maxAcceleration": 4.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    }
-  ],
+  "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 0.4,
+      "name": "intake and warmup",
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "sequential",
         "data": {
@@ -60,6 +48,12 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -81,8 +75,8 @@
   "reversed": false,
   "folder": "Dev Red 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": 47.711385456927076,
+    "rotation": 13.131074706592676,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

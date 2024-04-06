@@ -166,7 +166,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.8,
-      "maxWaypointRelativePos": 1.1,
+      "maxWaypointRelativePos": 1.05,
       "constraints": {
         "maxVelocity": 0.5,
         "maxAcceleration": 5.0,
