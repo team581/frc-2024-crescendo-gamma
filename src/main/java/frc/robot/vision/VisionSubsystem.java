@@ -98,6 +98,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
       }
     }
 
+    // This prevents pose estimator from having crazy poses if the Limelight loses power
+    if (estimatePose.pose.getX() == 0.0 && estimatePose.pose.getY() == 0.0) {
+      return Optional.empty();
+    }
+
     return Optional.of(new VisionResult(estimatePose.pose, estimatePose.timestampSeconds));
   }
 
