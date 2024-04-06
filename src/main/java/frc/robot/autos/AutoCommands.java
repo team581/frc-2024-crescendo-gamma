@@ -58,7 +58,7 @@ public class AutoCommands {
         || robotManager.getState() == RobotState.FINISH_INTAKING;
   }
 
-  public Command getMidlineNotesAmpCommand() {
+  public Command getMidlineNotesAmp456Command() {
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
     var red4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
     var redRightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
@@ -91,6 +91,33 @@ public class AutoCommands {
             .andThen(
                 followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
                     .andThen(speakerShotWithTimeout())));
+  }
+
+   public Command getMidlineNotesAmp45Command() {
+    var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
+    var red4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
+    var redRightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
+    var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
+    var red5To6 = PathPlannerPath.fromPathFile("Red 5 to 6");
+
+    var blue4ToRightWingShot = PathPlannerPath.fromPathFile("Blue 4 to RWS");
+    var blue4To5 = PathPlannerPath.fromPathFile("Blue 4 to 5");
+    var blueRightWingShotTo5 = PathPlannerPath.fromPathFile("Blue RWS to 5");
+    var blue5ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 5 to CWS");
+    var blue5To6 = PathPlannerPath.fromPathFile("Blue 5 to 6");
+
+    return Commands.sequence(
+        Commands.either(
+            followPathForAlliance(red4ToRightWingShot, blue4ToRightWingShot)
+                .andThen(speakerShotWithTimeout())
+                .andThen(followPathForAlliance(redRightWingShotTo5, blueRightWingShotTo5)),
+            followPathForAlliance(red4To5, blue4To5),
+            this::hasNote),
+        Commands.either(
+                followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
+                    .andThen(speakerShotWithTimeout()),
+            followPathForAlliance(red5To6, blue5To6),
+            this::hasNote));
   }
 
   public Command getMidlineNotesAltAmpCommand() {

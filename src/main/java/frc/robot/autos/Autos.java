@@ -92,7 +92,8 @@ public class Autos extends LifecycleSubsystem {
     registerCommand("outtakeShooter", actions.outtakeShooterCommand());
     registerCommand("homeClimber", actions.homeCommand());
     registerCommand("stow", actions.stowCommand());
-    registerCommand("midlineNotesFromAmp", autoCommands.getMidlineNotesAmpCommand());
+    registerCommand("midlineNotesFromAmp", autoCommands.getMidlineNotesAmp456Command());
+    registerCommand("midlineNotesFromAmp45", autoCommands.getMidlineNotesAmp45Command());
     registerCommand("midlineNotesFromSource", autoCommands.getMidlineNotesSourceCommand());
     registerCommand("altMidlineNotesFromAmp", autoCommands.getMidlineNotesAltAmpCommand());
 
