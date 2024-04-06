@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7146766573533139,
-        "y": 4.410649733299467
+        "x": 8.129999999999999,
+        "y": 2.3779332174048973
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4418190344072954,
-        "y": 3.680369668431645
+        "x": 6.461819659639318,
+        "y": 3.9383152341689307
       },
       "isLocked": false,
-      "linkedName": "Blue Left"
+      "linkedName": "Dynamic Blue 7"
     },
     {
       "anchor": {
-        "x": 2.389999999999999,
-        "y": 2.82
+        "x": 4.239999999999998,
+        "y": 4.92
       },
       "prevControl": {
-        "x": 1.5799562337586206,
-        "y": 3.441617397080947
+        "x": 5.398463101541585,
+        "y": 4.232918465836932
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue 4, LWS"
+      "linkedName": "blue_Dynamic SWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0,
+      "name": "warmup",
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 134.42212539551215,
+    "rotation": 167.4711922908485,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Dev Blue 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": 120.77000000000001,
+    "rotation": 149.69053115770825,
     "velocity": 0
   },
   "useDefaultConstraints": true
