@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.239999999999998,
-        "y": 4.92
+        "x": 4.866161270784081,
+        "y": 6.561516969187785
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.095675387350774,
-        "y": 6.981544831089662
+        "x": 4.796324210145182,
+        "y": 7.5590753809919855
       },
       "isLocked": false,
       "linkedName": "blue_Dynamic SWS"
@@ -63,7 +63,7 @@
   "reversed": false,
   "folder": "Blue Alt MNFA 5,6,4",
   "previewStartingState": {
-    "rotation": 168.84819889570676,
+    "rotation": -167.3349362349576,
     "velocity": 0
   },
   "useDefaultConstraints": true

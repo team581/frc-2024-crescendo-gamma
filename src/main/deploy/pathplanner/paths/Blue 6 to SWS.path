@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.718640589281177,
-        "y": 3.8272247904495797
+        "x": 7.747308571540221,
+        "y": 6.21617397080948
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 6"
     },
     {
       "anchor": {
-        "x": 4.239999999999998,
-        "y": 4.92
+        "x": 4.866161270784081,
+        "y": 6.561516969187785
       },
       "prevControl": {
-        "x": 5.3034168148336285,
-        "y": 4.15005588011176
+        "x": 6.010726636837891,
+        "y": 7.13379965221469
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 170.78933627349022,
+    "rotation": -167.68755483856535,
     "rotateFast": false
   },
   "reversed": false,

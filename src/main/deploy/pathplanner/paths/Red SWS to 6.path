@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.522316875402986,
-        "y": 5.2528180379437694
+        "x": 7.638772200621325,
+        "y": 6.679920282917489
       },
       "isLocked": false,
       "linkedName": "Dynamic SWS"
@@ -20,8 +20,8 @@
         "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 9.624412496824993,
-        "y": 3.7419507239014473
+        "x": 11.437545182782673,
+        "y": 3.8283738105937757
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "Red MNFS",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -10.169128334490658,
     "velocity": 0
   },
   "useDefaultConstraints": true
