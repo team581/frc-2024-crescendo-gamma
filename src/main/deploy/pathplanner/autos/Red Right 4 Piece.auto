@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.81,
+      "y": 6.69
+    },
+    "rotation": -59.69
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "homeClimber"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "preloadNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4 R, 3-5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "midlineNotesOP4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Red Dynamic Autos in Development",
+  "choreoAuto": false
+}
