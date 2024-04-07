@@ -14,7 +14,7 @@ import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
 
 public class QueuerSubsystem extends LifecycleSubsystem {
-  private static final double NOTE_SHUFFLE_DURATION = 0.5;
+  private static final double NOTE_SHUFFLE_DURATION = 0.375;
   private final TalonFX motor;
   private final DigitalInput sensor;
   private QueuerState goalState = QueuerState.IDLE;
@@ -55,7 +55,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
               shuffleTimer.reset();
             } else {
               // Push note towards intake
-              motor.setVoltage(-2);
+              motor.setVoltage(-1.5);
             }
           }
         } else {
