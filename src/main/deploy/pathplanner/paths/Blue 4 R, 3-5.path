@@ -48,16 +48,16 @@
     },
     {
       "anchor": {
-        "x": 7.9446474277563945,
-        "y": 7.410074050917332
+        "x": 8.04,
+        "y": 5.64
       },
       "prevControl": {
-        "x": 7.479231628924798,
-        "y": 7.425363865496962
+        "x": 7.46116723002677,
+        "y": 6.166839256755436
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 4"
+      "linkedName": "Dynamic Blue 5"
     }
   ],
   "rotationTargets": [
@@ -72,7 +72,7 @@
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 2.65,
+      "waypointRelativePos": 2.55,
       "rotationDegrees": 180,
       "rotateFast": false
     }

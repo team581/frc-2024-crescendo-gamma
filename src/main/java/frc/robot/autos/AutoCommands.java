@@ -147,6 +147,26 @@ public class AutoCommands {
             this::hasNote));
   }
 
+  public Command getMidlineNotesOP4Command() {
+    var red6To4 = PathPlannerPath.fromPathFile("Red 6 to 4");
+    var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
+    var redCenterWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
+    var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
+
+    var blue6To4 = PathPlannerPath.fromPathFile("Blue 6 to 4");
+    var blue5ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 5 to CWS");
+    var blueCenterWingShotTo6 = PathPlannerPath.fromPathFile("Blue CWS to 6");
+    var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Blue 6 to SWS");
+
+    return Commands.sequence(
+        followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
+            .andThen(speakerShotWithTimeout())
+            .andThen(followPathForAlliance(redCenterWingShotTo6, blueCenterWingShotTo6)),
+        followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
+            .andThen(speakerShotWithTimeout())
+            .andThen(followPathForAlliance(red6To4, blue6To4)));
+  }
+
   public Command getMidlineNotes64Command() {
     var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
