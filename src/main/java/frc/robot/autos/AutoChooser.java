@@ -36,8 +36,8 @@ public class AutoChooser {
 
     String autoName = FmsSubsystem.isRedAlliance() ? selection.redAutoName : selection.blueAutoName;
 
-
-    // When the name of the auto changes (either from changing alliance color or from making a new selection), clear out the cached command
+    // When the name of the auto changes (either from changing alliance color or from making a new
+    // selection), clear out the cached command
     if (autoName.equals(cachedAutoName)) {
       cachedCommand = Optional.empty();
     }

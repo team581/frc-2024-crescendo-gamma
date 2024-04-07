@@ -93,7 +93,7 @@ public class AutoCommands {
                     .andThen(speakerShotWithTimeout())));
   }
 
-   public Command getMidlineNotesAmp45Command() {
+  public Command getMidlineNotesAmp45Command() {
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
     var red4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
     var redRightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
@@ -114,8 +114,8 @@ public class AutoCommands {
             followPathForAlliance(red4To5, blue4To5),
             this::hasNote),
         Commands.either(
-                followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
-                    .andThen(speakerShotWithTimeout()),
+            followPathForAlliance(red5ToCenterWingShot, blue5ToCenterWingShot)
+                .andThen(speakerShotWithTimeout()),
             followPathForAlliance(red5To6, blue5To6),
             this::hasNote));
   }
@@ -141,11 +141,27 @@ public class AutoCommands {
             followPathForAlliance(red5To6, blue5To6),
             this::hasNote),
         Commands.either(
-                followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
-                    .andThen(speakerShotWithTimeout()),
-                followPathForAlliance(red6To4, blue6To4),
-                this::hasNote)
-);
+            followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
+                .andThen(speakerShotWithTimeout()),
+            followPathForAlliance(red6To4, blue6To4),
+            this::hasNote));
+  }
+
+  public Command getMidlineNotes64Command() {
+    var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
+    var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
+    var redStageWingShotTo4 = PathPlannerPath.fromPathFile("Red SWS to 4");
+
+    var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Blue 6 to SWS");
+    var blue4ToRightWingShot = PathPlannerPath.fromPathFile("Blue 4 to RWS");
+    var blueStageWingShotTo4 = PathPlannerPath.fromPathFile("Blue SWS to 4");
+
+    return Commands.sequence(
+        followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
+            .andThen(speakerShotWithTimeout())
+            .andThen(followPathForAlliance(redStageWingShotTo4, blueStageWingShotTo4)),
+        followPathForAlliance(red4ToRightWingShot, blue4ToRightWingShot)
+            .andThen(speakerShotWithTimeout()));
   }
 
   public Command getMidlineNotesSourceCommand() {
