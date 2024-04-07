@@ -105,8 +105,8 @@ public class NoteManager extends LifecycleSubsystem {
           }
           break;
         case UNJAM:
-         state = NoteState.UNJAM;
-         break;
+          state = NoteState.UNJAM;
+          break;
       }
     }
 
