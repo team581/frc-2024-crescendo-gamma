@@ -34,8 +34,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d ORIGINAL_BLUE_SPEAKER =
       new Pose2d(Units.inchesToMeters(0), Units.inchesToMeters(218.42), Rotation2d.fromDegrees(0));
 
-  public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 8.0, Rotation2d.fromDegrees(180));
-  public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 8.0, Rotation2d.fromDegrees(0));
+  public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 7.6, Rotation2d.fromDegrees(180));
+  public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 7.6, Rotation2d.fromDegrees(0));
 
   // TODO: Update this
   public static final Pose3d CAMERA_ON_BOT =
