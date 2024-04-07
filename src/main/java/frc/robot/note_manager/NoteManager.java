@@ -69,6 +69,9 @@ public class NoteManager extends LifecycleSubsystem {
             state = NoteState.IDLE_IN_QUEUER;
           }
           break;
+        case IDLE_IN_QUEUER_SHUFFLE:
+          state = NoteState.IDLE_IN_QUEUER_SHUFFLE;
+          break;
         case IDLE_NO_GP:
           state = NoteState.IDLE_NO_GP;
           break;
@@ -117,6 +120,7 @@ public class NoteManager extends LifecycleSubsystem {
       case OUTTAKING:
       case IDLE_NO_GP:
       case IDLE_IN_CONVEYOR:
+      case IDLE_IN_QUEUER_SHUFFLE:
       case IDLE_IN_QUEUER:
       case TRAP_SCORING:
       case UNJAM:
@@ -136,14 +140,14 @@ public class NoteManager extends LifecycleSubsystem {
       case INTAKE_TO_QUEUER:
       case LAZY_INTAKE_TO_QUEUER:
         if (queuer.hasNote()) {
-          state = NoteState.IDLE_IN_QUEUER;
+          state = NoteState.IDLE_IN_QUEUER_SHUFFLE;
         }
         break;
       case GROUND_NOTE_TO_INTAKE:
         if (queuer.hasNote()) {
           // Trying to restart the intake sequence, even though a note is already fully inside the
           // robot
-          state = NoteState.IDLE_IN_QUEUER;
+          state = NoteState.IDLE_IN_QUEUER_SHUFFLE;
         } else if (intake.hasNote()) {
           state = NoteState.INTAKE_TO_QUEUER;
         }
@@ -220,6 +224,15 @@ public class NoteManager extends LifecycleSubsystem {
         }
         conveyor.setState(ConveyorState.IDLE);
         queuer.setState(QueuerState.INTAKING);
+        break;
+      case IDLE_IN_QUEUER_SHUFFLE:
+        if (queuer.hasNote()) {
+          intake.setState(IntakeState.IDLE);
+        } else {
+          intake.setState(IntakeState.TO_QUEUER_SLOW);
+        }
+        conveyor.setState(ConveyorState.IDLE);
+        queuer.setState(QueuerState.SHUFFLE);
         break;
       case LAZY_INTAKE_TO_QUEUER:
         intake.setState(IntakeState.TO_QUEUER_SLOW);
@@ -314,6 +327,10 @@ public class NoteManager extends LifecycleSubsystem {
 
   public void shooterOuttakeRequest() {
     flags.check(NoteFlag.SHOOTER_OUTTAKE);
+  }
+
+  public void idleInQueuerShuffleRequest() {
+    flags.check(NoteFlag.IDLE_IN_QUEUER_SHUFFLE);
   }
 
   public void idleInQueuerRequest() {
