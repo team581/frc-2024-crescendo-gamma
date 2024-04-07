@@ -7,7 +7,6 @@ package frc.robot.queuer;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -27,8 +26,6 @@ public class QueuerSubsystem extends LifecycleSubsystem {
 
     this.sensor = sensor;
     this.motor = motor;
-
-    shuffleTimer.start();
   }
 
   @Override
