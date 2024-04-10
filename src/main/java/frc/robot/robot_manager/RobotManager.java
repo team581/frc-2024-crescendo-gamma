@@ -179,7 +179,7 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case OUTTAKE_SHOOTER:
           if (!state.climbing) {
-            state = RobotState.OUTTAKING_SHOOTER;
+            state = RobotState.PREPARE_OUTTAKING_SHOOTER;
           }
           break;
         case WAIT_SHOOTER_AMP:
@@ -387,6 +387,12 @@ public class RobotManager extends LifecycleSubsystem {
           }
         }
         break;
+      case PREPARE_OUTTAKING_SHOOTER:
+        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER
+            && shooter.atGoal(ShooterMode.OUTTAKE)) {
+          state = RobotState.OUTTAKING_SHOOTER;
+        }
+        break;
       case OUTTAKING_SHOOTER:
       case SHOOTER_AMP:
       case FLOOR_SHOOT:
@@ -470,6 +476,13 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.outtakeRequest();
+        break;
+      case PREPARE_OUTTAKING_SHOOTER:
+        wrist.setAngle(WristPositions.OUTTAKING_SHOOTER);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.OUTTAKE);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.idleInQueuerRequest();
         break;
       case OUTTAKING_SHOOTER:
         wrist.setAngle(WristPositions.OUTTAKING_SHOOTER);
@@ -744,13 +757,15 @@ public class RobotManager extends LifecycleSubsystem {
   }
 
   public void stopShootingRequest() {
-    if (state == RobotState.PREPARE_PODIUM_SHOT|| state == RobotState.WAITING_PODIUM_SHOT) {
+    if (state == RobotState.PREPARE_PODIUM_SHOT || state == RobotState.WAITING_PODIUM_SHOT) {
       waitPodiumShotRequest();
     } else if (state == RobotState.PREPARE_FLOOR_SHOT || state == RobotState.WAITING_FLOOR_SHOT) {
       waitFloorShotRequest();
-    } else if (state == RobotState.PREPARE_SPEAKER_SHOT|| state == RobotState.WAITING_SPEAKER_SHOT) {
+    } else if (state == RobotState.PREPARE_SPEAKER_SHOT
+        || state == RobotState.WAITING_SPEAKER_SHOT) {
       waitSpeakerShotRequest();
-    } else if (state == RobotState.PREPARE_SUBWOOFER_SHOT|| state == RobotState.WAITING_SUBWOOFER_SHOT) {
+    } else if (state == RobotState.PREPARE_SUBWOOFER_SHOT
+        || state == RobotState.WAITING_SUBWOOFER_SHOT) {
       waitSpeakerShotRequest();
     } else {
       // Otherwise do generic stop shooting request
