@@ -261,7 +261,7 @@ class CompConfig {
               new TorqueCurrentConfigs()
                   .withPeakForwardTorqueCurrent(80)
                   .withPeakReverseTorqueCurrent(-80),
-              new PhoenixPIDController(11, 0, 1),
+              new PhoenixPIDController(50, 0, 5),
               true,
               true,
               true),
