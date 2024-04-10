@@ -46,6 +46,18 @@ public enum RobotState {
   /** Actively doing the subwoofer shot. */
   SUBWOOFER_SHOOT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
 
+  PREPARE_PRESET_RIGHT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
+  PRESET_RIGHT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
+
+  PREPARE_PRESET_LEFT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
+  PRESET_LEFT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
+
+  PREPARE_PRESET_MIDDLE(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
+  PRESET_MIDDLE(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
+
+  PREPARE_PRESET_3(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
+  PRESET_3(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),
+
   WAITING_PODIUM_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   PREPARE_PODIUM_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   PODIUM_SHOOT(true, false, true, new LightsState(null, BlinkPattern.BLINK_FAST)),

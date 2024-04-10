@@ -249,6 +249,47 @@ public class RobotManager extends LifecycleSubsystem {
           if (!state.climbing) {
             state = RobotState.UNJAM;
           }
+          break;
+        case PRESET_3:
+          if (!state.climbing) {
+            state = RobotState.PRESET_3;
+          }
+          break;
+        case PRESET_RIGHT:
+          if (!state.climbing) {
+            state = RobotState.PRESET_RIGHT;
+          }
+          break;
+        case PRESET_LEFT:
+          if (!state.climbing) {
+            state = RobotState.PRESET_LEFT;
+          }
+          break;
+        case PRESET_MIDDLE:
+          if (!state.climbing) {
+            state = RobotState.PRESET_MIDDLE;
+          }
+          break;
+        case PREPARE_PRESET_3:
+          if (!state.climbing) {
+            state = RobotState.PREPARE_PRESET_3;
+          }
+          break;
+        case PREPARE_PRESET_MIDDLE:
+          if (!state.climbing) {
+            state = RobotState.PREPARE_PRESET_MIDDLE;
+          }
+          break;
+        case PREPARE_PRESET_RIGHT:
+          if (!state.climbing) {
+            state = RobotState.PREPARE_PRESET_RIGHT;
+          }
+          break;
+        case PREPARE_PRESET_LEFT:
+          if (!state.climbing) {
+            state = RobotState.PREPARE_PRESET_LEFT;
+          }
+          break;
       }
     }
 
@@ -671,6 +712,62 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.idleNoGPRequest();
         break;
+      case PRESET_RIGHT:
+        wrist.setAngle(WristPositions.PRESET_RIGHT);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        break;
+      case PRESET_LEFT:
+        wrist.setAngle(WristPositions.PRESET_LEFT);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_LEFT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        break;
+      case PRESET_MIDDLE:
+        wrist.setAngle(WristPositions.PRESET_MIDDLE);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_MIDDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        break;
+      case PRESET_3:
+        wrist.setAngle(WristPositions.PRESET_3);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_3);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        break;
+      case PREPARE_PRESET_3:
+        wrist.setAngle(WristPositions.PRESET_3);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_3);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.idleInQueuerRequest();
+        break;
+      case PREPARE_PRESET_RIGHT:
+        wrist.setAngle(WristPositions.PRESET_3);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        break;
+      case PREPARE_PRESET_LEFT:
+        wrist.setAngle(WristPositions.PRESET_3);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_LEFT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        break;
+      case PREPARE_PRESET_MIDDLE:
+        wrist.setAngle(WristPositions.PRESET_3);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.PRESET_MIDDLE);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.shooterScoreRequest();
+        break;
       default:
         // Should never happen
         break;
@@ -726,6 +823,38 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void waitShooterAmpRequest() {
     flags.check(RobotFlag.WAIT_SHOOTER_AMP);
+  }
+
+  public void preparePresetRightRequest() {
+    flags.check(RobotFlag.PRESET_RIGHT);
+  }
+
+  public void preparePresetLeftRequest() {
+    flags.check(RobotFlag.PRESET_LEFT);
+  }
+
+  public void preparePresetMiddleRequest() {
+    flags.check(RobotFlag.PRESET_MIDDLE);
+  }
+
+  public void preparePreset3Request() {
+    flags.check(RobotFlag.PRESET_3);
+  }
+
+  public void presetRightRequest() {
+    flags.check(RobotFlag.PRESET_RIGHT);
+  }
+
+  public void presetLeftRequest() {
+    flags.check(RobotFlag.PRESET_LEFT);
+  }
+
+  public void presetMiddleRequest() {
+    flags.check(RobotFlag.PRESET_MIDDLE);
+  }
+
+  public void preset3Request() {
+    flags.check(RobotFlag.PRESET_3);
   }
 
   public void waitFloorShotRequest() {
