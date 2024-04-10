@@ -3,41 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.44,
-        "y": 3.9399999999999995
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 9.454289677810126,
-        "y": 4.913737519782733
-      },
-      "isLocked": false,
-      "linkedName": "Dynamic Red 6"
-    },
-    {
-      "anchor": {
         "x": 11.733553467106935,
         "y": 6.344444227349993
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 13.391574803149606,
+        "y": 3.232615697231395
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red Alt CWS"
+    },
+    {
+      "anchor": {
+        "x": 8.44,
+        "y": 3.9399999999999995
+      },
       "prevControl": {
-        "x": 9.750297962134388,
-        "y": 7.2522029659443925
+        "x": 9.585180594361189,
+        "y": 4.002237236474473
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic Red 6"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "warmup",
-      "waypointRelativePos": 0.3,
+      "name": "intake and warmup",
+      "waypointRelativePos": 0.35,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -57,14 +69,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -9.673355432403493,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromAmp",
+  "folder": "Dev Red 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -10.420799455652007,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

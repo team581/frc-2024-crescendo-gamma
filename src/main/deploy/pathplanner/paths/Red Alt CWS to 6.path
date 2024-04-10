@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.866161270784081,
-        "y": 6.561516969187785
+        "x": 11.733553467106935,
+        "y": 6.344444227349993
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.171587112404994,
-        "y": 6.758855825403959
+        "x": 7.638772200621325,
+        "y": 6.679920282917489
       },
       "isLocked": false,
-      "linkedName": "blue_Dynamic SWS"
+      "linkedName": "Dynamic Red Alt CWS"
     },
     {
       "anchor": {
-        "x": 8.1,
+        "x": 8.44,
         "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 5.517379496297456,
-        "y": 3.8678415818370104
+        "x": 11.437545182782673,
+        "y": 3.8283738105937757
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 6"
+      "linkedName": "Dynamic Red 6"
     }
   ],
   "rotationTargets": [],
@@ -33,19 +33,19 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5,
-    "maxAngularVelocity": 540,
-    "maxAngularAcceleration": 720
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue MNFS",
+  "folder": "Red MNFS",
   "previewStartingState": {
-    "rotation": 180,
+    "rotation": -10.169128334490658,
     "velocity": 0
   },
   "useDefaultConstraints": true

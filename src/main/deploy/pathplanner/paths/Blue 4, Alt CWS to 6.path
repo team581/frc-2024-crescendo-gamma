@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.689148316758173,
-        "y": 5.223217209511343
+        "x": 7.822695961391923,
+        "y": 6.858610617221235
       },
       "isLocked": false,
-      "linkedName": "blue_Dynamic SWS"
+      "linkedName": "Dynamic Blue Alt CWS"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 7.016641722514212,
-        "y": 3.8947812664856096
+        "x": 5.844973837947676,
+        "y": 3.923530607061214
       },
       "nextControl": null,
       "isLocked": false,
@@ -75,7 +75,7 @@
   "reversed": false,
   "folder": "Dev Blue 4 Piece Source 8-6",
   "previewStartingState": {
-    "rotation": 166.86892529340733,
+    "rotation": -166.9591992309618,
     "velocity": 0
   },
   "useDefaultConstraints": false
