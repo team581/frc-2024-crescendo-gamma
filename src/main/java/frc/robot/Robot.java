@@ -223,7 +223,10 @@ public class Robot extends TimedRobot {
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
         .onFalse(actions.stopShootingCommand());
-    driverController.rightBumper().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
+    driverController
+        .rightBumper()
+        .onTrue(actions.shooterOuttakeCommand())
+        .onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
@@ -244,7 +247,7 @@ public class Robot extends TimedRobot {
     //     .onTrue(actions.waitShooterAmpCommand())
     //     .onFalse(actions.stowCommand());
     operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
-    operatorController.x().onTrue(actions.shooterOuttakeCommand()).onFalse(actions.stowCommand());
+    operatorController.x().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
     operatorController
         .leftBumper()
         .onTrue(actions.waitForFloorShotCommand())
