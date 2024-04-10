@@ -744,7 +744,18 @@ public class RobotManager extends LifecycleSubsystem {
   }
 
   public void stopShootingRequest() {
-    flags.check(RobotFlag.STOP_SHOOTING);
+    if (state == RobotState.PREPARE_PODIUM_SHOT|| state == RobotState.WAITING_PODIUM_SHOT) {
+      waitPodiumShotRequest();
+    } else if (state == RobotState.PREPARE_FLOOR_SHOT || state == RobotState.WAITING_FLOOR_SHOT) {
+      waitFloorShotRequest();
+    } else if (state == RobotState.PREPARE_SPEAKER_SHOT|| state == RobotState.WAITING_SPEAKER_SHOT) {
+      waitSpeakerShotRequest();
+    } else if (state == RobotState.PREPARE_SUBWOOFER_SHOT|| state == RobotState.WAITING_SUBWOOFER_SHOT) {
+      waitSpeakerShotRequest();
+    } else {
+      // Otherwise do generic stop shooting request
+      flags.check(RobotFlag.STOP_SHOOTING);
+    }
   }
 
   public void preloadNoteRequest() {
