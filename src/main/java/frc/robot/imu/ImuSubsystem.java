@@ -8,7 +8,6 @@ import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
@@ -50,7 +49,8 @@ public class ImuSubsystem extends LifecycleSubsystem {
   public void robotPeriodic() {
     Rotation2d robotHeading = this.getRobotHeading();
     Logger.recordOutput("Imu/RobotHeading", robotHeading.getDegrees());
-    Logger.recordOutput("Imu/RobotHeadingModulo", MathUtil.inputModulus(robotHeading.getDegrees(), 0, 360));
+    Logger.recordOutput(
+        "Imu/RobotHeadingModulo", MathUtil.inputModulus(robotHeading.getDegrees(), 0, 360));
     Logger.recordOutput("Imu/RobotHeadingRadians", robotHeading.getRadians());
 
     var yaw = this.imu.getYaw();
