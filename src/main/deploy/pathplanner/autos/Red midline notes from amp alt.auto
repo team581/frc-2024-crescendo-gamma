@@ -32,13 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 6 to SWS"
+            "pathName": "Red 6 to Alt CWS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red SWS to 4"
+            "pathName": "Red Alt CWS to 4"
           }
         },
         {

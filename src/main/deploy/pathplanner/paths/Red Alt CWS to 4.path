@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.158636017272034,
-        "y": 7.976386315234169
+        "x": 11.733553467106884,
+        "y": 7.577812078704576
       },
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic Red Alt CWS"
     },
     {
       "anchor": {
-        "x": 8.5,
-        "y": 5.64
+        "x": 8.53,
+        "y": 7.41
       },
       "prevControl": {
-        "x": 9.537225298450599,
-        "y": 7.172420504403319
+        "x": 10.664057912115824,
+        "y": 7.2286771653543305
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 5"
+      "linkedName": "Dynamic Red 4"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {
@@ -61,9 +61,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromSource",
+  "folder": "Red Alt MNFA 5,6,4",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -9.494331798577267,
     "velocity": 0
   },
   "useDefaultConstraints": true

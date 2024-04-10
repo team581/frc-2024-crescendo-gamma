@@ -8,38 +8,32 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.910566421132843,
-        "y": 5.006144467673551
+        "x": 12.158636017272034,
+        "y": 7.976386315234169
       },
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic Red Alt CWS"
     },
     {
       "anchor": {
-        "x": 8.44,
-        "y": 3.9399999999999995
+        "x": 8.5,
+        "y": 5.64
       },
       "prevControl": {
-        "x": 9.523358277485787,
-        "y": 3.8947812664856096
+        "x": 9.537225298450599,
+        "y": 7.172420504403319
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0.35,
+      "name": "intake",
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -48,12 +42,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -69,14 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red 4 Piece Source 8-6",
+  "folder": "Red MidlineNotesFromSource",
   "previewStartingState": {
-    "rotation": 13.131074706592676,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

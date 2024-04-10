@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.44,
-        "y": 3.9399999999999995
+        "x": 8.41,
+        "y": 2.3779332174048973
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.362048416404527,
-        "y": 3.5593052109181142
+        "x": 8.566264824837344,
+        "y": 5.476153259998827
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 7"
     },
     {
       "anchor": {
@@ -20,20 +20,20 @@
         "y": 6.344444227349993
       },
       "prevControl": {
-        "x": 11.551917703835406,
-        "y": 5.3810882944842815
+        "x": 9.789765733377621,
+        "y": 7.163400480647115
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic Red Alt CWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.65,
+      "name": "warmup",
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 12.168657000729736,
+    "rotation": -11.00429538811725,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red 4 Piece Source 8-6",
+  "folder": "Red MNFS",
   "previewStartingState": {
-    "rotation": -2.178485881140043,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
