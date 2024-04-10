@@ -20,19 +20,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 7 to SWS"
+            "pathName": "Red 7 to Alt CWS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red SWS to 6"
+            "pathName": "Red Alt CWS to 6"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 6 to SWS"
+            "pathName": "Red 6 to Alt CWS"
           }
         },
         {

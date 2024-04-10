@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 11.733553467106935,
-        "y": 6.344444227349993
+        "x": 4.866161270784081,
+        "y": 6.561516969187785
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.733553467106884,
-        "y": 7.577812078704576
+        "x": 4.796324210145182,
+        "y": 7.5590753809919855
       },
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic Blue Alt CWS"
     },
     {
       "anchor": {
-        "x": 8.53,
-        "y": 7.41
+        "x": 7.9446474277563945,
+        "y": 7.410074050917332
       },
       "prevControl": {
-        "x": 10.664057912115824,
-        "y": 7.2286771653543305
+        "x": 5.81058951564057,
+        "y": 7.228751216271663
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 4"
+      "linkedName": "Dynamic Blue 4"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -51,19 +51,19 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 180,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red Alt MNFA 5,6,4",
+  "folder": "Blue Alt MNFA 5,6,4",
   "previewStartingState": {
-    "rotation": 11.151801104293234,
+    "rotation": -167.3349362349576,
     "velocity": 0
   },
   "useDefaultConstraints": true

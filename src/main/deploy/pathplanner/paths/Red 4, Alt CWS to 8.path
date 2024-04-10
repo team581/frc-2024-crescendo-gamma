@@ -3,37 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.41,
-        "y": 2.3779332174048973
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 8.566264824837344,
-        "y": 5.476153259998827
-      },
-      "isLocked": false,
-      "linkedName": "Dynamic Red 7"
-    },
-    {
-      "anchor": {
         "x": 11.733553467106935,
         "y": 6.344444227349993
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.843167894335789,
+        "y": 6.901863347726696
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red Alt CWS"
+    },
+    {
+      "anchor": {
+        "x": 10.006838475215408,
+        "y": 2.062191047459019
+      },
       "prevControl": {
-        "x": 9.789765733377621,
-        "y": 7.163400480647115
+        "x": 9.706225218225454,
+        "y": 3.526675810421755
+      },
+      "nextControl": {
+        "x": 10.18630632461265,
+        "y": 1.1878851917703834
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.41,
+        "y": 0.69
+      },
+      "prevControl": {
+        "x": 10.266808737617476,
+        "y": 0.5341686563373129
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic SWS"
+      "linkedName": "Dynamic Red 8"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "warmup",
-      "waypointRelativePos": 0.15,
+      "name": "intake",
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "intakeFloor"
               }
             }
           ]
@@ -57,11 +73,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 11.150387077579008,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MNFS",
+  "folder": "Dev Red 4 Piece Source 8-6",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
