@@ -46,16 +46,12 @@ public class AutoCommands {
         .withName("PresetLeftShot");
   }
 
-    public Command preparePresetRightShot() {
-    return actions
-        .preparePresetRightShotCommand()
-        .withName("PreparePresetRightShot");
+  public Command preparePresetRightShot() {
+    return actions.preparePresetRightShotCommand().withName("PreparePresetRightShot");
   }
 
   public Command presetRightShot() {
-    return actions
-        .presetRightShotCommand()
-        .withName("PresetRightShot");
+    return actions.presetRightShotCommand().withName("PresetRightShot");
   }
 
   public Command presetMiddleShot() {
@@ -66,9 +62,7 @@ public class AutoCommands {
   }
 
   public Command preset3Shot() {
-    return actions
-        .preset3ShotCommand()
-        .withName("Preset3Shot");
+    return actions.preset3ShotCommand().withName("Preset3Shot");
   }
 
   public Command speakerShotWithTimeout() {
@@ -243,7 +237,8 @@ public class AutoCommands {
         Commands.either(
                 followPathForAlliance(red7ToAltCenterWingShot, blue7ToAltCenterWingShot)
                     .andThen(speakerShotWithTimeout())
-                    .andThen(followPathForAlliance(redAltCenterWingShotTo6, blueAltCenterWingShotTo6)),
+                    .andThen(
+                        followPathForAlliance(redAltCenterWingShotTo6, blueAltCenterWingShotTo6)),
                 followPathForAlliance(red7To6, blue7To6),
                 this::hasNote)
             .andThen(

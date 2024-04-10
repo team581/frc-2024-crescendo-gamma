@@ -232,7 +232,8 @@ class PracticeConfig {
                           .withSupplyCurrentLimit(20)
                           .withSupplyCurrentLimitEnable(true))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
-                  .withMotorOutput(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
+                  .withMotorOutput(
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new QueuerConfig(
               16,

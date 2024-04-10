@@ -151,10 +151,12 @@ public class RobotCommands {
     return Commands.runOnce(() -> robot.presetRightRequest(), requirements)
         .withName("PresetRightShot");
   }
+
   public Command preparePresetLeftShotCommand() {
     return Commands.runOnce(() -> robot.preparePresetLeftRequest(), requirements)
         .withName("PreparePresetLeftShot");
   }
+
   public Command presetLeftShotCommand() {
     return Commands.runOnce(() -> robot.presetLeftRequest(), requirements)
         .withName("PresetLeftShot");
