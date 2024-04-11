@@ -89,6 +89,9 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         motor.setVoltage(12);
         shuffleTimeoutTimer.reset();
         break;
+      case PASS_TO_CONVEYOR:
+        motor.setVoltage(-8); // TODO: adjust voltage
+        break;
       default:
         break;
     }
