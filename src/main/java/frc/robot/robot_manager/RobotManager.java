@@ -241,7 +241,8 @@ public class RobotManager extends LifecycleSubsystem {
           if (!state.climbing
               && state != RobotState.IDLE_NO_GP
               && state != RobotState.WAITING_PODIUM_SHOT
-              && state != RobotState.WAITING_SUBWOOFER_SHOT && !state.shootingMode) {
+              && state != RobotState.WAITING_SUBWOOFER_SHOT
+              && !state.shootingMode) {
             state = RobotState.IDLE_WITH_GP;
           }
           break;
@@ -725,6 +726,9 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       case PRESET_LEFT:
         wrist.setAngle(WristPositions.PRESET_LEFT);
@@ -732,6 +736,9 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.PRESET_LEFT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       case PRESET_MIDDLE:
         wrist.setAngle(WristPositions.PRESET_MIDDLE);
@@ -739,6 +746,9 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.PRESET_MIDDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       case PRESET_3:
         wrist.setAngle(WristPositions.PRESET_3);
@@ -746,34 +756,49 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.PRESET_3);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       case PREPARE_PRESET_3:
         wrist.setAngle(WristPositions.PRESET_3);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.PRESET_3);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.idleInQueuerRequest();
+        noteManager.intakeRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       case PREPARE_PRESET_RIGHT:
-        wrist.setAngle(WristPositions.PRESET_3);
+        wrist.setAngle(WristPositions.PRESET_RIGHT);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.shooterScoreRequest();
+        noteManager.intakeRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       case PREPARE_PRESET_LEFT:
-        wrist.setAngle(WristPositions.PRESET_3);
+        wrist.setAngle(WristPositions.PRESET_LEFT);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.PRESET_LEFT);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.shooterScoreRequest();
+        noteManager.intakeRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       case PREPARE_PRESET_MIDDLE:
-        wrist.setAngle(WristPositions.PRESET_3);
+        wrist.setAngle(WristPositions.PRESET_MIDDLE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.PRESET_MIDDLE);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.shooterScoreRequest();
+        noteManager.intakeRequest();
+        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setEnabled(true);
+        snaps.cancelCurrentCommand();
         break;
       default:
         // Should never happen
@@ -833,19 +858,19 @@ public class RobotManager extends LifecycleSubsystem {
   }
 
   public void preparePresetRightRequest() {
-    flags.check(RobotFlag.PRESET_RIGHT);
+    flags.check(RobotFlag.PREPARE_PRESET_RIGHT);
   }
 
   public void preparePresetLeftRequest() {
-    flags.check(RobotFlag.PRESET_LEFT);
+    flags.check(RobotFlag.PREPARE_PRESET_LEFT);
   }
 
   public void preparePresetMiddleRequest() {
-    flags.check(RobotFlag.PRESET_MIDDLE);
+    flags.check(RobotFlag.PREPARE_PRESET_MIDDLE);
   }
 
   public void preparePreset3Request() {
-    flags.check(RobotFlag.PRESET_3);
+    flags.check(RobotFlag.PREPARE_PRESET_3);
   }
 
   public void presetRightRequest() {
