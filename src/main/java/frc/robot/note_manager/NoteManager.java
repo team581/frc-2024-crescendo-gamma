@@ -305,7 +305,7 @@ public class NoteManager extends LifecycleSubsystem {
         queuer.setState(QueuerState.INTAKING);
         break;
       case UNJAM:
-        intake.setState(IntakeState.OUTTAKING);
+        intake.setState(IntakeState.TO_QUEUER);
         conveyor.setState(ConveyorState.AMP_SHOT);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
         break;
