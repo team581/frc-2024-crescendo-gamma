@@ -17,6 +17,8 @@ import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
 
 public class WristSubsystem extends LifecycleSubsystem {
+  public static final Rotation2d MAX_SAFE_ANGLE_FOR_SHUFFLE = Rotation2d.fromDegrees(40);
+
   private final TalonFX motor;
   private final PositionVoltage positionRequest =
       new PositionVoltage(WristPositions.STOWED.getRotations()).withEnableFOC(true);
@@ -123,7 +125,7 @@ public class WristSubsystem extends LifecycleSubsystem {
     return angle;
   }
 
-  private Rotation2d getAngle() {
+  public Rotation2d getAngle() {
     return Rotation2d.fromRotations(motor.getPosition().getValueAsDouble());
   }
 

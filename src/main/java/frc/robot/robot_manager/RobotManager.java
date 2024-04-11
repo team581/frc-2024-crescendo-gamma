@@ -241,7 +241,7 @@ public class RobotManager extends LifecycleSubsystem {
           if (!state.climbing
               && state != RobotState.IDLE_NO_GP
               && state != RobotState.WAITING_PODIUM_SHOT
-              && state != RobotState.WAITING_SUBWOOFER_SHOT) {
+              && state != RobotState.WAITING_SUBWOOFER_SHOT && !state.shootingMode) {
             state = RobotState.IDLE_WITH_GP;
           }
           break;
@@ -494,7 +494,14 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
-        noteManager.idleInQueuerShuffleRequest();
+        if (wristAngleForSpeaker.getDegrees()
+                <= WristSubsystem.MAX_SAFE_ANGLE_FOR_SHUFFLE.getDegrees()
+            || wrist.getAngle().getDegrees()
+                <= WristSubsystem.MAX_SAFE_ANGLE_FOR_SHUFFLE.getDegrees()) {
+          noteManager.idleInQueuerShuffleRequest();
+        } else {
+          noteManager.idleInQueuerRequest();
+        }
         break;
       case LAZY_INTAKING:
         wrist.setAngle(wristAngleForSpeaker);

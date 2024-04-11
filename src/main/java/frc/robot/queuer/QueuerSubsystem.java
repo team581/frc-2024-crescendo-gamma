@@ -14,8 +14,9 @@ import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
 
 public class QueuerSubsystem extends LifecycleSubsystem {
-  private static final double NOTE_SHUFFLE_ON_DURATION = 0.2;
-  private static final double NOTE_SHUFFLE_OFF_DURATION = 0.2;
+  private static final double NOTE_SHUFFLE_ON_DURATION = 0.5;
+  private static final double NOTE_SHUFFLE_OFF_DURATION = 0.5;
+  private static final double NOTE_SHUFFLE_TIMEOUT_DURATION = 5;
   private boolean noteShuffleOn = false;
   private final TalonFX motor;
   private final DigitalInput sensor;
@@ -23,6 +24,7 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   private final Debouncer debouncer = RobotConfig.get().queuer().debouncer();
   private boolean debouncedSensor = false;
   private final Timer shuffleTimer = new Timer();
+  private final Timer shuffleTimeoutTimer = new Timer();
 
   public QueuerSubsystem(TalonFX motor, DigitalInput sensor) {
     super(SubsystemPriority.QUEUER);
@@ -33,6 +35,8 @@ public class QueuerSubsystem extends LifecycleSubsystem {
     this.motor = motor;
 
     shuffleTimer.start();
+
+    shuffleTimeoutTimer.start();
   }
 
   @Override
@@ -45,38 +49,45 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         if (hasNote()) {
           motor.disable();
         } else {
+        shuffleTimeoutTimer.reset();
           motor.setVoltage(1);
         }
         break;
       case SHUFFLE:
-        if (sensorHasNote()) {
-          if (noteShuffleOn) {
-            // Push note towards intake
-            motor.setVoltage(-1.5);
+        if (shuffleTimeoutTimer.hasElapsed(NOTE_SHUFFLE_TIMEOUT_DURATION)) {
+        motor.disable();
+        } else {
+            if (sensorHasNote()) {
+            if (noteShuffleOn) {
+              // Push note towards intake
+              motor.setVoltage(-1.5);
 
-            if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_ON_DURATION)) {
-              shuffleTimer.reset();
-              noteShuffleOn = false;
+              if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_ON_DURATION)) {
+                shuffleTimer.reset();
+                noteShuffleOn = false;
+              }
+            } else {
+              // Allow note to expand
+              motor.disable();
+
+              if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_OFF_DURATION)) {
+                shuffleTimer.reset();
+                noteShuffleOn = true;
+              }
             }
           } else {
-            // Allow note to expand
-            motor.disable();
-
-            if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_OFF_DURATION)) {
-              shuffleTimer.reset();
-              noteShuffleOn = true;
-            }
+            // Note is out of sensor range, try intaking it
+            motor.setVoltage(1);
           }
-        } else {
-          // Note is out of sensor range, try intaking it
-          motor.setVoltage(1);
         }
         break;
       case PASS_TO_INTAKE:
         motor.setVoltage(-1);
+        shuffleTimeoutTimer.reset();
         break;
       case PASS_TO_SHOOTER:
         motor.setVoltage(12);
+        shuffleTimeoutTimer.reset();
         break;
       default:
         break;
