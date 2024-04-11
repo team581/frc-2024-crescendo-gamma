@@ -436,14 +436,14 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case WAITING_MULTI_SPEAKER_SHOT:
-      if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
-        state = RobotState.PREPARE_SPEAKER_SHOT;
-      }
-      break;
+        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
+          state = RobotState.PREPARE_SPEAKER_SHOT;
+        }
+        break;
       case WAITING_MULTI_FLOOR_SHOT:
-      if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
-        state = RobotState.PREPARE_FLOOR_SHOT;
-      }
+        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
+          state = RobotState.PREPARE_FLOOR_SHOT;
+        }
         break;
       case OUTTAKING_SHOOTER:
       case SHOOTER_AMP:

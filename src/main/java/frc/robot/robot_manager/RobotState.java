@@ -34,7 +34,7 @@ public enum RobotState {
 
   /** Preparing for floor shot, waiting for driver to commit. */
   WAITING_FLOOR_SHOT(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
-   /** Run intake until with gp, then automatically transition to PREPARE_SPEAKER_SHOT. */
+  /** Run intake until with gp, then automatically transition to PREPARE_SPEAKER_SHOT. */
   WAITING_MULTI_FLOOR_SHOT(false, false, false, new LightsState(null, BlinkPattern.BLINK_SLOW)),
   /** Preparing for floor shot, should shoot when ready. */
   PREPARE_FLOOR_SHOT(true, true, false, new LightsState(null, BlinkPattern.SOLID)),
