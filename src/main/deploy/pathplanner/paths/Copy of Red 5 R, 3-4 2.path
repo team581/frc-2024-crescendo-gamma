@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.087985633898372,
-        "y": 6.776850263692871
+        "x": 15.393965862335692,
+        "y": 6.74584566929019
       },
       "isLocked": false,
       "linkedName": null
@@ -20,12 +20,12 @@
         "y": 6.952914909835333
       },
       "prevControl": {
-        "x": 14.321388252466932,
-        "y": 6.867611328809358
+        "x": 14.628346355096678,
+        "y": 6.833603048004948
       },
       "nextControl": {
-        "x": 13.301075573352342,
-        "y": 7.01033949919595
+        "x": 13.300544960769777,
+        "y": 7.006409401475454
       },
       "isLocked": false,
       "linkedName": null
@@ -47,33 +47,38 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1.0,
-      "rotationDegrees": -16.639999999999986,
+      "rotationDegrees": -19.59382949386151,
       "rotateFast": false
     },
     {
       "waypointRelativePos": 1.65,
       "rotationDegrees": 0,
       "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": -26.3421764006026,
+      "rotateFast": false
     }
   ],
   "constraintZones": [
     {
-      "name": "1",
-      "minWaypointRelativePos": 0.0,
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.15,
       "maxWaypointRelativePos": 0.8,
       "constraints": {
-        "maxVelocity": 1.5,
+        "maxVelocity": 2.6,
         "maxAcceleration": 5.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
       }
     },
     {
-      "name": "2",
-      "minWaypointRelativePos": 0.8,
-      "maxWaypointRelativePos": 1.1,
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 1.1,
+      "maxWaypointRelativePos": 1.3,
       "constraints": {
-        "maxVelocity": 1.5,
+        "maxVelocity": 2.6,
         "maxAcceleration": 5.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
@@ -83,7 +88,7 @@
   "eventMarkers": [
     {
       "name": "Intake and Shoot",
-      "waypointRelativePos": 0.75,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "sequential",
         "data": {
@@ -135,7 +140,7 @@
     },
     {
       "name": "PresetShot",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
