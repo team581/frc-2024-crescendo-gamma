@@ -80,7 +80,8 @@ public enum RobotState {
   UNJAM(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
 
   /** Hooks move to top of the robot so we can start to grab the chain. */
-  CLIMB_1_LINEUP_OUTER(true, true, false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
+  // We say this isn't climbing so that we can go into intake mode
+  CLIMB_1_LINEUP_OUTER(true, false, false, new LightsState(Color.kRed, BlinkPattern.SOLID)),
 
   /** Climber moves down a little, so you can fully grab the chain. */
   CLIMB_2_LINEUP_INNER(true, true, false, new LightsState(Color.kOrangeRed, BlinkPattern.SOLID)),
