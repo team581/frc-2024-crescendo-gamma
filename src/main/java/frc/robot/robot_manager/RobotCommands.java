@@ -142,6 +142,35 @@ public class RobotCommands {
         .withName("SubwooferShotCommand");
   }
 
+  public Command preparePresetRightShotCommand() {
+    return Commands.runOnce(() -> robot.preparePresetRightRequest(), requirements)
+        .withName("PreparePresetRightShot");
+  }
+
+  public Command presetRightShotCommand() {
+    return Commands.runOnce(() -> robot.presetRightRequest(), requirements)
+        .withName("PresetRightShot");
+  }
+
+  public Command preparePresetLeftShotCommand() {
+    return Commands.runOnce(() -> robot.preparePresetLeftRequest(), requirements)
+        .withName("PreparePresetLeftShot");
+  }
+
+  public Command presetLeftShotCommand() {
+    return Commands.runOnce(() -> robot.presetLeftRequest(), requirements)
+        .withName("PresetLeftShot");
+  }
+
+  public Command presetMiddleShotCommand() {
+    return Commands.runOnce(() -> robot.presetMiddleRequest(), requirements)
+        .withName("PresetMiddleShot");
+  }
+
+  public Command preset3ShotCommand() {
+    return Commands.runOnce(() -> robot.preset3Request(), requirements).withName("Preset3Shot");
+  }
+
   public Command podiumShotCommand() {
     return Commands.runOnce(() -> robot.podiumShotRequest(), requirements)
         .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))

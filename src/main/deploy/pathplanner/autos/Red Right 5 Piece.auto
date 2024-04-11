@@ -24,15 +24,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red 5 R, 3-4"
+            "name": "preparePresetRightShot"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "midlineNotesFromAmp"
+            "pathName": "Copy of Red 5 R, 3-4"
           }
         }
       ]

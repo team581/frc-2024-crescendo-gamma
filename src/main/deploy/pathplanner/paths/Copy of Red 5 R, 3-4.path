@@ -77,48 +77,8 @@
       "rotateFast": false
     }
   ],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.9,
-      "maxWaypointRelativePos": 1.15,
-      "constraints": {
-        "maxVelocity": 0.4,
-        "maxAcceleration": 5.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    },
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 1.85,
-      "maxWaypointRelativePos": 2.1,
-      "constraints": {
-        "maxVelocity": 0.4,
-        "maxAcceleration": 5.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    }
-  ],
+  "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "Shoot",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "Intake and Shoot",
       "waypointRelativePos": 1.5,
@@ -135,7 +95,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShot"
+                "name": "preset3Shot"
               }
             }
           ]
@@ -159,23 +119,6 @@
               "type": "named",
               "data": {
                 "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "force shot of preload",
-      "waypointRelativePos": 1.1500000000000001,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "forceSpeakerShot"
               }
             }
           ]
@@ -207,7 +150,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -0.05076655246718394,
     "rotateFast": false
   },
