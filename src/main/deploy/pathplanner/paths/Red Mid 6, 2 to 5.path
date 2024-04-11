@@ -80,12 +80,12 @@
     },
     {
       "anchor": {
-        "x": 9.360000000000001,
-        "y": 7.43
+        "x": 8.746087884175768,
+        "y": 7.448602489204978
       },
       "prevControl": {
-        "x": 11.694354471935155,
-        "y": 7.476840769827635
+        "x": 11.080442356110922,
+        "y": 7.495443259032613
       },
       "nextControl": null,
       "isLocked": false,
@@ -154,19 +154,8 @@
     },
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.2,
-      "maxWaypointRelativePos": 0.35000000000000003,
-      "constraints": {
-        "maxVelocity": 0.7,
-        "maxAcceleration": 5.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    },
-    {
-      "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.8,
-      "maxWaypointRelativePos": 1.1,
+      "maxWaypointRelativePos": 1.05,
       "constraints": {
         "maxVelocity": 0.5,
         "maxAcceleration": 5.0,
@@ -177,18 +166,12 @@
   ],
   "eventMarkers": [
     {
-      "name": "shoot, intake and shoot",
-      "waypointRelativePos": 0.05,
+      "name": "intake and shoot",
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShot"
-              }
-            },
             {
               "type": "named",
               "data": {

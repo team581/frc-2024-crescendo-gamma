@@ -11,7 +11,9 @@ import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import frc.robot.vision.VisionStrategy;
 import java.util.function.Consumer;
 
 public record RobotConfig(
@@ -67,11 +69,9 @@ public record RobotConfig(
   public record WristConfig(
       int motorID,
       TalonFXConfiguration motorConfig,
-      CurrentLimitsConfigs strictCurrentLimits,
       Rotation2d homingEndPosition,
       Rotation2d minAngle,
       Rotation2d maxAngle,
-      Rotation2d tolerance,
       Consumer<InterpolatingDoubleTreeMap> distanceToAngleTolerance,
       Consumer<InterpolatingDoubleTreeMap> speakerShotAngles,
       Consumer<InterpolatingDoubleTreeMap> floorShotAngles) {}
@@ -101,10 +101,12 @@ public record RobotConfig(
       boolean invertY) {}
 
   public record VisionConfig(
+      VisionStrategy strategy,
       int translationHistoryArraySize,
       double xyStdDev,
       double thetaStdDev,
       Consumer<InterpolatingDoubleTreeMap> tyToNoteDistance,
+      Translation3d lltranslation,
       Rotation3d llAngle,
       double fovVert,
       double fovHorz,
@@ -112,7 +114,7 @@ public record RobotConfig(
       double principlePixelOffsetY) {}
 
   // TODO: Change this to false during events
-  public static final boolean IS_DEVELOPMENT = false;
+  public static final boolean IS_DEVELOPMENT = true;
   private static final String PRACTICE_BOT_SERIAL_NUMBER = "0322443D";
   public static final String SERIAL_NUMBER = System.getenv("serialnum");
   public static final boolean IS_PRACTICE_BOT =

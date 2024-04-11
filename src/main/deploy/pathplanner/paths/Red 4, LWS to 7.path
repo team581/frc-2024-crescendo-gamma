@@ -3,35 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.401066802133602,
-        "y": 2.821945643891289
+        "x": 14.15,
+        "y": 2.82
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.34402989253263,
-        "y": 0.4280456324490922
+        "x": 11.674351810242083,
+        "y": 0.23680662745940947
       },
       "isLocked": false,
-      "linkedName": "Red LWS"
+      "linkedName": "Red 4, LWS"
     },
     {
       "anchor": {
-        "x": 8.44,
-        "y": 2.5259373595670285
+        "x": 8.41,
+        "y": 2.3779332174048973
       },
       "prevControl": {
-        "x": 9.217471678943356,
-        "y": 2.295769211230733
+        "x": 9.148015279107483,
+        "y": 2.3779332174048973
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Red 7"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": -31.99763045664671,
+      "rotationDegrees": 0.0,
       "rotateFast": false
     }
   ],

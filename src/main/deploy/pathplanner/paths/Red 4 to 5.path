@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.360000000000001,
-        "y": 7.429538020170265
+        "x": 10.129999999999999,
+        "y": 7.41
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.89023571092735,
-        "y": 7.030301720177907
+        "x": 11.298147320294639,
+        "y": 6.54702687695953
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 4"
     },
     {
       "anchor": {
-        "x": 9.34,
-        "y": 5.845068954575599
+        "x": 8.5,
+        "y": 5.64
       },
       "prevControl": {
-        "x": 9.926378315613775,
-        "y": 6.294209792067001
+        "x": 9.681229362458726,
+        "y": 5.30841523221508
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 52.21,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "MidlineNotesFromAmp",
+  "folder": "Red MidlineNotesFromAmp",
   "previewStartingState": {
     "rotation": -0.33505921860918053,
     "velocity": 0

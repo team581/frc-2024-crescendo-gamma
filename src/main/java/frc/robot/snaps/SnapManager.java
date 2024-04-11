@@ -40,10 +40,12 @@ public class SnapManager extends LifecycleSubsystem {
         : Rotation2d.fromDegrees(-90.0);
   }
 
+  public static Rotation2d getStageBackChain() {
+    return FmsSubsystem.isRedAlliance() ? Rotation2d.fromDegrees(180) : Rotation2d.fromDegrees(0);
+  }
+
   public static Rotation2d getPodiumAngle() {
-    return FmsSubsystem.isRedAlliance()
-        ? Rotation2d.fromDegrees(30.4)
-        : Rotation2d.fromDegrees(180.0 - 30.4);
+    return FmsSubsystem.isRedAlliance() ? Rotation2d.fromDegrees(0) : Rotation2d.fromDegrees(180.0);
   }
 
   private final SwerveSubsystem swerve;

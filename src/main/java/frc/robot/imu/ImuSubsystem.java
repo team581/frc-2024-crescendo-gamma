@@ -8,12 +8,14 @@ import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.swerve.SwerveSubsystem;
-import frc.robot.util.TimedDataBuffer;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import org.littletonrobotics.junction.Logger;
@@ -22,8 +24,8 @@ public class ImuSubsystem extends LifecycleSubsystem {
   private final Pigeon2 imu;
   private final InterpolatingDoubleTreeMap distanceToAngleTolerance =
       new InterpolatingDoubleTreeMap();
-  private final TimedDataBuffer robotHeadingLatency = new TimedDataBuffer(20);
-  private final TimedDataBuffer robotAngularVelocityLatency = new TimedDataBuffer(6);
+  private final TimeInterpolatableBuffer<Double> robotHeadingHistory =
+      TimeInterpolatableBuffer.createDoubleBuffer(3);
 
   public ImuSubsystem(SwerveSubsystem swerve) {
     super(SubsystemPriority.IMU);
@@ -45,14 +47,18 @@ public class ImuSubsystem extends LifecycleSubsystem {
 
   @Override
   public void robotPeriodic() {
-
     Rotation2d robotHeading = this.getRobotHeading();
     Logger.recordOutput("Imu/RobotHeading", robotHeading.getDegrees());
+    Logger.recordOutput(
+        "Imu/RobotHeadingModulo", MathUtil.inputModulus(robotHeading.getDegrees(), 0, 360));
     Logger.recordOutput("Imu/RobotHeadingRadians", robotHeading.getRadians());
 
     var yaw = this.imu.getYaw();
-    double offset = Utils.getCurrentTimeSeconds() - yaw.getTimestamp().getTime();
-    robotHeadingLatency.addData(Timer.getFPGATimestamp() - offset, yaw.getValue());
+
+    double yawOffset = Utils.getCurrentTimeSeconds() - yaw.getTimestamp().getTime();
+
+    robotHeadingHistory.addSample(
+        Timer.getFPGATimestamp() - yawOffset, Units.degreesToRadians(yaw.getValueAsDouble()));
   }
 
   public Rotation2d getRobotHeading() {
@@ -60,15 +66,28 @@ public class ImuSubsystem extends LifecycleSubsystem {
   }
 
   public Rotation2d getRobotHeading(double timestamp) {
-    return Rotation2d.fromDegrees(robotHeadingLatency.lookupData(timestamp));
+    return Rotation2d.fromRadians(
+        robotHeadingHistory.getSample(timestamp).orElseGet(() -> getRobotHeading().getRadians()));
+  }
+
+  public Rotation2d getPitch() {
+    return Rotation2d.fromDegrees(imu.getPitch().getValue());
+  }
+
+  public Rotation2d getPitchRate() {
+    return Rotation2d.fromDegrees(imu.getAngularVelocityYWorld().getValue());
+  }
+
+  public Rotation2d getRoll() {
+    return Rotation2d.fromDegrees(imu.getRoll().getValue());
+  }
+
+  public Rotation2d getRollRate() {
+    return Rotation2d.fromDegrees(imu.getAngularVelocityXWorld().getValue());
   }
 
   public Rotation2d getRobotAngularVelocity() {
     return Rotation2d.fromDegrees(imu.getRate());
-  }
-
-  public Rotation2d getRobotAngularVelocity(double timestamp) {
-    return Rotation2d.fromDegrees(robotAngularVelocityLatency.lookupData(timestamp));
   }
 
   public void setAngle(Rotation2d zeroAngle) {
@@ -85,6 +104,10 @@ public class ImuSubsystem extends LifecycleSubsystem {
 
   public boolean atAngleForSpeaker(Rotation2d angle, double distance) {
     return atAngle(angle, Rotation2d.fromDegrees(2.5));
+  }
+
+  public boolean atAngleForFloorSpot(Rotation2d angle) {
+    return atAngle(angle, Rotation2d.fromDegrees(10));
   }
 
   public double getYAcceleration() {

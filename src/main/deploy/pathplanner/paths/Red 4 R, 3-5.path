@@ -1,0 +1,221 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 15.797975551958627,
+        "y": 6.694775266418152
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 15.488896113796239,
+        "y": 6.5738506477068075
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 14.612194564393139,
+        "y": 6.567180594366701
+      },
+      "prevControl": {
+        "x": 14.911956189537683,
+        "y": 6.507947971410357
+      },
+      "nextControl": {
+        "x": 14.342929641863293,
+        "y": 6.620387096779706
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 13.711583439170889,
+        "y": 6.952914909835333
+      },
+      "prevControl": {
+        "x": 14.047497586995174,
+        "y": 6.7978105156210304
+      },
+      "nextControl": {
+        "x": 13.335258453203396,
+        "y": 7.126678531743651
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.5,
+        "y": 5.64
+      },
+      "prevControl": {
+        "x": 8.980676422891309,
+        "y": 6.008968171782498
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Red 5"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": -27.844463368424176,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": -32.789348870431965,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2.45,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.9,
+      "maxWaypointRelativePos": 1.15,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    },
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 1.85,
+      "maxWaypointRelativePos": 2.1,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "Shoot",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Intake and Shoot",
+      "waypointRelativePos": 1.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "intake and shoot",
+      "waypointRelativePos": 2.75,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of preload",
+      "waypointRelativePos": 1.1500000000000001,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of intaked piece",
+      "waypointRelativePos": 2.1999999999999997,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -0.05076655246718394,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Red Right 4 & 5 Piece",
+  "previewStartingState": {
+    "rotation": -60.67615309904059,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

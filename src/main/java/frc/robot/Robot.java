@@ -30,7 +30,6 @@ import frc.robot.intake.IntakeSubsystem;
 import frc.robot.lights.LightsSubsystem;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.note_manager.NoteManager;
-import frc.robot.note_tracking.NoteTrackingManager;
 import frc.robot.queuer.QueuerSubsystem;
 import frc.robot.robot_manager.RobotCommands;
 import frc.robot.robot_manager.RobotManager;
@@ -95,25 +94,22 @@ public class Robot extends TimedRobot {
       new RobotManager(
           wrist, elevator, shooter, localization, vision, climber, swerve, snaps, imu, noteManager);
   private final RobotCommands actions = new RobotCommands(robotManager);
-  private final Autos autos = new Autos(swerve, localization, actions);
+  private final Autos autos = new Autos(swerve, localization, actions, robotManager);
   private final LightsSubsystem lightsSubsystem =
       new LightsSubsystem(
           new CANdle(RobotConfig.get().lights().deviceID(), "rio"), robotManager, vision, intake);
-  private final NoteTrackingManager noteTrackingManager =
-      new NoteTrackingManager(localization, swerve);
 
   public Robot() {
     System.out.println("roboRIO serial number: " + RobotConfig.SERIAL_NUMBER);
 
     DogLog.setOptions(
-        new DogLogOptions()
-            .withCaptureNt(RobotConfig.IS_DEVELOPMENT)
-            .withNtPublish(RobotConfig.IS_DEVELOPMENT));
+        new DogLogOptions().withCaptureNt(false).withNtPublish(RobotConfig.IS_DEVELOPMENT));
 
     // Record metadata
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("RoborioSerialNumber", RobotConfig.SERIAL_NUMBER);
-    Logger.recordMetadata("RobotConfig", RobotConfig.get().robotName());
+    Logger.recordMetadata("RobotName", RobotConfig.get().robotName());
+    Logger.recordMetadata("VisionStrategy", RobotConfig.get().vision().strategy().toString());
     Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
     Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
     Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
@@ -206,6 +202,7 @@ public class Robot extends TimedRobot {
     driverController.x().onTrue(snaps.getCommand(() -> SnapManager.getStageLeftAngle()));
     driverController.b().onTrue(snaps.getCommand(() -> SnapManager.getStageRightAngle()));
     driverController.a().onTrue(snaps.getCommand(() -> SnapManager.getAmpAngle()));
+    driverController.povDown().onTrue(snaps.getCommand(() -> SnapManager.getStageBackChain()));
 
     driverController
         .leftTrigger()
@@ -226,7 +223,10 @@ public class Robot extends TimedRobot {
         .rightTrigger()
         .onTrue(actions.confirmShotCommand())
         .onFalse(actions.stopShootingCommand());
-    driverController.rightBumper().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
+    driverController
+        .rightBumper()
+        .onTrue(actions.shooterOuttakeCommand())
+        .onFalse(actions.stowCommand());
 
     operatorController.povUp().onTrue(actions.getClimberForwardCommand());
     operatorController.povDown().onTrue(actions.getClimberBackwardCommand());
@@ -247,11 +247,11 @@ public class Robot extends TimedRobot {
     //     .onTrue(actions.waitShooterAmpCommand())
     //     .onFalse(actions.stowCommand());
     operatorController.rightBumper().onTrue(actions.waitForAmpShotCommand());
-    operatorController.x().onTrue(actions.shooterOuttakeCommand()).onFalse(actions.stowCommand());
-    // operatorController
-    //     .leftBumper()
-    //     .onTrue(actions.waitForFloorShotCommand())
-    //     .onFalse(actions.stowCommand());
+    operatorController.x().onTrue(actions.outtakeCommand()).onFalse(actions.stowCommand());
+    operatorController
+        .leftBumper()
+        .onTrue(actions.waitForFloorShotCommand())
+        .onFalse(actions.stowCommand());
     operatorController.back().onTrue(actions.homeCommand());
   }
 }

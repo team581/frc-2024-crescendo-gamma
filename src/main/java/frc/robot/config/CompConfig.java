@@ -21,6 +21,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
@@ -33,6 +34,7 @@ import frc.robot.config.RobotConfig.ShooterConfig;
 import frc.robot.config.RobotConfig.SwerveConfig;
 import frc.robot.config.RobotConfig.VisionConfig;
 import frc.robot.config.RobotConfig.WristConfig;
+import frc.robot.vision.VisionStrategy;
 
 class CompConfig {
   private static final ClosedLoopRampsConfigs CLOSED_LOOP_RAMP =
@@ -84,17 +86,22 @@ class CompConfig {
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               speakerDistanceToRPM -> {
-                speakerDistanceToRPM.put(0.92, 3000.0);
-                speakerDistanceToRPM.put(1.37, 3000.0);
-                speakerDistanceToRPM.put(2.5, 3000.0);
-                speakerDistanceToRPM.put(3.5, 4000.0);
-                speakerDistanceToRPM.put(5.0, 4500.0);
-                speakerDistanceToRPM.put(6.5, 4500.0);
+                speakerDistanceToRPM.put(0.0, 3000.0);
+                speakerDistanceToRPM.put(2.0, 3000.0);
+                speakerDistanceToRPM.put(2.5, 4000.0);
+                speakerDistanceToRPM.put(4.0, 4000.0);
+                speakerDistanceToRPM.put(4.5, 4000.0);
+                speakerDistanceToRPM.put(6.0, 4000.0);
+                speakerDistanceToRPM.put(6.5, 4800.0);
+                speakerDistanceToRPM.put(8.0, 4800.0);
               },
               floorSpotDistanceToRPM -> {
-                floorSpotDistanceToRPM.put(1.6, 1700.0);
-                floorSpotDistanceToRPM.put(3.4, 2000.0);
-                floorSpotDistanceToRPM.put(4.8, 2700.0);
+                floorSpotDistanceToRPM.put(0.0, 1000.0);
+                floorSpotDistanceToRPM.put(1.0, 1000.0);
+                floorSpotDistanceToRPM.put(1.2, 1500.0);
+                floorSpotDistanceToRPM.put(3.0, 1800.0);
+                floorSpotDistanceToRPM.put(5.8, 2700.0);
+                floorSpotDistanceToRPM.put(6.5, 2700.0);
               }),
           new ClimberConfig(
               19,
@@ -152,30 +159,27 @@ class CompConfig {
                   .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Brake))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
-              new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(25)
-                  .withSupplyCurrentLimitEnable(true),
               Rotation2d.fromDegrees(0.0),
               Rotation2d.fromDegrees(0.0),
               Rotation2d.fromDegrees(58.0),
-              Rotation2d.fromDegrees(1.0),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
                 distanceToAngleTolerance.put(8.0, 0.5);
               },
               speakerDistanceToAngle -> {
-                speakerDistanceToAngle.put(0.92, 58.1);
-                speakerDistanceToAngle.put(1.37, 58.1);
-                speakerDistanceToAngle.put(2.5, 42.25);
-                speakerDistanceToAngle.put(3.5, 32.7);
-                speakerDistanceToAngle.put(5.0, 25.2);
-                speakerDistanceToAngle.put(6.5, 22.75);
-                speakerDistanceToAngle.put(8.0, 20.25);
+                speakerDistanceToAngle.put(1.38, 58.1);
+                speakerDistanceToAngle.put(2.5, 42.0);
+                speakerDistanceToAngle.put(3.5, 33.5);
+                speakerDistanceToAngle.put(4.5, 27.8);
+                speakerDistanceToAngle.put(5.5, 25.5);
+                speakerDistanceToAngle.put(6.5, 21.0);
+                speakerDistanceToAngle.put(7.5, 20.0);
+                speakerDistanceToAngle.put(9.0, 18.5);
               },
               floorSpotDistanceToAngle -> {
-                floorSpotDistanceToAngle.put(1.6, 70.0);
-                floorSpotDistanceToAngle.put(3.4, 60.0);
-                floorSpotDistanceToAngle.put(4.8, 50.0);
+                floorSpotDistanceToAngle.put(3.4, 18.0);
+                floorSpotDistanceToAngle.put(5.8, 27.0);
+                floorSpotDistanceToAngle.put(6.5, 50.0);
               }),
           new ElevatorConfig(
               21,
@@ -246,17 +250,18 @@ class CompConfig {
           new SwerveConfig(
               new CurrentLimitsConfigs()
                   .withSupplyCurrentLimit(20)
-                  .withStatorCurrentLimit(150)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(80)
-                  .withStatorCurrentLimit(150)
+                  .withSupplyCurrentLimit(120)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new TorqueCurrentConfigs()
                   .withPeakForwardTorqueCurrent(80)
                   .withPeakReverseTorqueCurrent(-80),
+              // new PhoenixPIDController(50, 0, 5),
               new PhoenixPIDController(11, 0, 1),
               true,
               true,
@@ -269,6 +274,7 @@ class CompConfig {
               }),
           new LightsConfig(3),
           new VisionConfig(
+              VisionStrategy.TX_TY_AND_MEGATAG,
               4,
               0.4,
               0.4,
@@ -279,7 +285,9 @@ class CompConfig {
                 tyToNoteDistance.put(10.5, Units.inchesToMeters(60.0 + 15));
                 tyToNoteDistance.put(12.5, Units.inchesToMeters(72.0 + 15));
               },
-              new Rotation3d(0.0, Units.degreesToRadians(14.2), Units.degreesToRadians(-1.0)),
+              // x=right, y= forward, z=up
+              new Translation3d(-0.025, Units.inchesToMeters(-1), Units.inchesToMeters(23.25)),
+              new Rotation3d(0.0, Units.degreesToRadians(15.2), Units.degreesToRadians(-1.0)),
               56.015,
               81.428,
               28.517,

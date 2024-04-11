@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 4 to RWS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 4 to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue RWS to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 5 to CWS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 5 to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue CWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue 6 to Alt CWS"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Blue dynamic autos",
+  "choreoAuto": false
+}

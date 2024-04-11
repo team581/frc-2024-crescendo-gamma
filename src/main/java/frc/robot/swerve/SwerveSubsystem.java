@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import dev.doglog.DogLog;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -33,9 +34,10 @@ import org.littletonrobotics.junction.Logger;
 public class SwerveSubsystem extends LifecycleSubsystem {
   private static final double MAX_SPEED_SHOOTING =
       Units.feetToMeters(LocalizationSubsystem.USE_SHOOT_WHILE_MOVE ? 3 : 3);
+  private static final double MAX_FLOOR_SPEED_SHOOTING = Units.feetToMeters(18);
   public static final double MaxSpeed = 4.75;
   private static final double MaxAngularRate = Units.rotationsToRadians(4);
-  private static final Rotation2d TELEOP_MAX_ANGULAR_RATE = Rotation2d.fromRotations(3);
+  private static final Rotation2d TELEOP_MAX_ANGULAR_RATE = Rotation2d.fromRotations(2);
   private boolean isShooting = false;
 
   private double leftXDeadband = 0.05;
@@ -114,8 +116,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   private boolean closedLoop = false;
 
   // TODO: tune
-  private final PIDController xPid = new PIDController(0.5, 0, 0);
-  private final PIDController yPid = new PIDController(0.5, 0, 0);
+  private final PIDController xPid = new PIDController(1.5, 0, 0);
+  private final PIDController yPid = new PIDController(2.0, 0, 0);
   private final PIDController omegaPid = new PIDController(0.5, 0, 0);
 
   public SwerveSubsystem(CommandXboxController driveController) {
@@ -128,11 +130,14 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
     driveToAngle.HeadingController = RobotConfig.get().swerve().snapController();
     driveToAngle.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
+    driveToAngle.HeadingController.setTolerance(0.02);
 
     applyCurrentLimits(frontLeft);
     applyCurrentLimits(frontRight);
     applyCurrentLimits(backLeft);
     applyCurrentLimits(backRight);
+
+    omegaPid.enableContinuousInput(-Math.PI, Math.PI);
   }
 
   public List<SwerveModulePosition> getModulePositions() {
@@ -155,6 +160,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   public void setFieldRelativeSpeeds(ChassisSpeeds speeds, boolean closedLoop) {
     this.fieldRelativeSpeeds = speeds;
     this.closedLoop = closedLoop;
+    // Send a swerve request each time new chassis speeds are provided
+    sendSwerveRequest();
   }
 
   public void setRobotRelativeSpeeds(ChassisSpeeds speeds, boolean closedLoop) {
@@ -232,7 +239,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
 
           Logger.recordOutput("Swerve/UsedTeleopSpeeds", teleopSpeeds);
 
-          setFieldRelativeSpeeds(teleopSpeeds, true);
+          setFieldRelativeSpeeds(teleopSpeeds, false);
         });
   }
 
@@ -275,7 +282,11 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Swerve/SnapToAngle", snapToAngle);
     Logger.recordOutput("Swerve/SnapToAngleGoal", goalSnapAngle.getDegrees());
     Logger.recordOutput("Swerve/Pose", drivetrain.getState().Pose);
-    Logger.recordOutput("Swerve/ModuleStates", drivetrain.getState().ModuleStates);
+    // TODO: Fix logging SwerveModuleState[] struct array
+    DogLog.log("Swerve/ModuleStates/0", drivetrain.getState().ModuleStates[0]);
+    DogLog.log("Swerve/ModuleStates/1", drivetrain.getState().ModuleStates[1]);
+    DogLog.log("Swerve/ModuleStates/2", drivetrain.getState().ModuleStates[2]);
+    DogLog.log("Swerve/ModuleStates/3", drivetrain.getState().ModuleStates[3]);
     Logger.recordOutput("Swerve/ModuleTargets", drivetrain.getState().ModuleTargets);
 
     Logger.recordOutput(
@@ -314,9 +325,26 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     Logger.recordOutput(
         "Swerve/BackRight/DriveMotor/StatorCurrent",
         backRight.getDriveMotor().getStatorCurrent().getValue());
+    Logger.recordOutput(
+        "Swerve/FrontLeft/DriveMotor/Voltage",
+        frontLeft.getDriveMotor().getMotorVoltage().getValue());
+    Logger.recordOutput(
+        "Swerve/FrontRight/DriveMotor/Voltage",
+        frontRight.getDriveMotor().getMotorVoltage().getValue());
+    Logger.recordOutput(
+        "Swerve/BackLeft/DriveMotor/Voltage",
+        backLeft.getDriveMotor().getMotorVoltage().getValue());
+    Logger.recordOutput(
+        "Swerve/BackRight/DriveMotor/Voltage",
+        backRight.getDriveMotor().getMotorVoltage().getValue());
 
     Logger.recordOutput("Swerve/RobotSpeed", getRobotRelativeSpeeds());
 
+    // Send a swerve request at least once every loop
+    sendSwerveRequest();
+  }
+
+  private void sendSwerveRequest() {
     DriveRequestType driveType;
 
     if (closedLoop) {
@@ -354,6 +382,14 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     return movingSlowEnoughForSpeakerShot(getRobotRelativeSpeeds());
   }
 
+  public boolean movingSlowEnoughForFloorShot() {
+    ChassisSpeeds speeds = getRobotRelativeSpeeds();
+    double linearSpeed =
+        Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
+
+    return linearSpeed < MAX_FLOOR_SPEED_SHOOTING;
+  }
+
   public boolean movingSlowEnoughForSpeakerShot(ChassisSpeeds speeds) {
     double linearSpeed =
         Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
@@ -383,7 +419,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
                       .getRadians(),
                   target.getRotation().getRadians());
 
-          var newSpeeds = new ChassisSpeeds(vx, vy, vomega);
+          var newSpeeds = new ChassisSpeeds(vx, vy, -vomega);
           setFieldRelativeSpeeds(newSpeeds, true);
         })
         .until(

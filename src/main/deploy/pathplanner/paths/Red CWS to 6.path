@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.542822246738718,
-        "y": 6.294209792067001
+        "x": 8.374617221234443,
+        "y": 6.461691135382271
       },
       "isLocked": false,
-      "linkedName": "Dynamic CWS"
+      "linkedName": "Dynamic Red CWS"
     },
     {
       "anchor": {
-        "x": 9.26,
-        "y": 4.104648209296419
+        "x": 8.44,
+        "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 10.594946378099442,
-        "y": 4.135838545233322
+        "x": 11.111936070025989,
+        "y": 3.709970496864071
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "MidlineNotesFromAmp",
+  "folder": "Red MidlineNotesFromAmp",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

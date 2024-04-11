@@ -1,0 +1,221 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7420244480413718,
+        "y": 6.694775266418152
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.0511038862037605,
+        "y": 6.5738506477068075
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.9278054356068601,
+        "y": 6.567180594366701
+      },
+      "prevControl": {
+        "x": 1.6280438104623158,
+        "y": 6.507947971410357
+      },
+      "nextControl": {
+        "x": 2.197070358136706,
+        "y": 6.620387096779706
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.82841656082911,
+        "y": 6.952914909835333
+      },
+      "prevControl": {
+        "x": 2.492502413004825,
+        "y": 6.7978105156210304
+      },
+      "nextControl": {
+        "x": 3.204741546796603,
+        "y": 7.126678531743651
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.04,
+        "y": 5.64
+      },
+      "prevControl": {
+        "x": 7.46116723002677,
+        "y": 6.166839256755436
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 5"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 207.8444633684242,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 212.78934887043198,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2.55,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.9,
+      "maxWaypointRelativePos": 1.15,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    },
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 1.85,
+      "maxWaypointRelativePos": 2.1,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "Shoot",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Intake and Shoot",
+      "waypointRelativePos": 1.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "intake and shoot",
+      "waypointRelativePos": 2.75,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of preload",
+      "waypointRelativePos": 1.1500000000000001,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of intaked piece",
+      "waypointRelativePos": 2.1999999999999997,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0507665524672,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Blue Right 4 & 5 Piece",
+  "previewStartingState": {
+    "rotation": 240.6761530990406,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

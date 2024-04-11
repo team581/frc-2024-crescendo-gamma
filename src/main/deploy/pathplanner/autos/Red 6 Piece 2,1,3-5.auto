@@ -24,6 +24,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red Mid 6, 2 to 5"
@@ -32,12 +38,12 @@
         {
           "type": "named",
           "data": {
-            "name": "midlineNotesFromAmp"
+            "name": "midlineNotesFromAmp45"
           }
         }
       ]
     }
   },
-  "folder": "New Red Autos in Development",
+  "folder": "Red Dynamic Autos in Development",
   "choreoAuto": false
 }

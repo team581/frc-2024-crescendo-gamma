@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 11.733553467106935,
+        "y": 6.344444227349993
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.733553467106884,
+        "y": 7.577812078704576
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red Alt CWS"
+    },
+    {
+      "anchor": {
+        "x": 10.129999999999999,
+        "y": 7.41
+      },
+      "prevControl": {
+        "x": 12.264057912115824,
+        "y": 7.2286771653543305
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Red 4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red Alt MNFA 5,6,4",
+  "previewStartingState": {
+    "rotation": -9.494331798577267,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

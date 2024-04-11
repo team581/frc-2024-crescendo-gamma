@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.config.RobotConfig;
 import frc.robot.localization.LocalizationSubsystem;
 import frc.robot.robot_manager.RobotCommands;
+import frc.robot.robot_manager.RobotManager;
 import frc.robot.swerve.SwerveSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
@@ -52,11 +53,18 @@ public class Autos extends LifecycleSubsystem {
 
   private final SwerveSubsystem swerve;
   private final AutoChooser autoChooser;
+  private final RobotManager robotManager;
 
-  public Autos(SwerveSubsystem swerve, LocalizationSubsystem localization, RobotCommands actions) {
+  public Autos(
+      SwerveSubsystem swerve,
+      LocalizationSubsystem localization,
+      RobotCommands actions,
+      RobotManager robotManager) {
     super(SubsystemPriority.AUTOS);
     this.swerve = swerve;
-    var autoCommands = new AutoCommands(actions, null);
+    this.robotManager = robotManager;
+
+    var autoCommands = new AutoCommands(actions, robotManager);
 
     // Configure AutoBuilder last
     AutoBuilder.configureHolonomic(
@@ -69,21 +77,32 @@ public class Autos extends LifecycleSubsystem {
         new HolonomicPathFollowerConfig(
             new PIDConstants(4.0, 0.0, 0.0),
             new PIDConstants(4.0, 0.0, 0.0),
-            SwerveSubsystem.MaxSpeed,
+            4.4,
             0.387,
-            new ReplanningConfig()),
+            new ReplanningConfig(true, true)),
         () -> false,
         swerve);
 
     registerCommand("preloadNote", actions.preloadNoteCommand());
     registerCommand("speakerShotNoTimeout", actions.speakerShotCommand());
+    registerCommand("preparePresetRightShot", autoCommands.preparePresetRightShot());
+    registerCommand("presetRightShot", autoCommands.presetRightShot());
+    registerCommand("presetLeftShot", autoCommands.presetLeftShot());
+    registerCommand("presetMiddleShot", autoCommands.presetMiddleShot());
+    registerCommand("preset3Shot", autoCommands.preset3Shot());
     registerCommand("speakerShot", autoCommands.speakerShotWithTimeout());
+    registerCommand("forceSpeakerShot", actions.forceSpeakerShotCommand());
     registerCommand("subwooferShot", autoCommands.subwooferShotWithTimeout());
     registerCommand("intakeFloor", actions.intakeCommand());
     registerCommand("outtakeShooter", actions.outtakeShooterCommand());
     registerCommand("homeClimber", actions.homeCommand());
     registerCommand("stow", actions.stowCommand());
-    registerCommand("midlineNotesFromAmp", autoCommands.getMidlineNotesAmpCommand());
+    registerCommand("midlineNotesFromAmp", autoCommands.getMidlineNotesAmp456Command());
+    registerCommand("midlineNotesFromAmp45", autoCommands.getMidlineNotesAmp45Command());
+    registerCommand("midlineNotes64", autoCommands.getMidlineNotes64Command());
+    registerCommand("midlineNotesOP4", autoCommands.getMidlineNotesOP4Command());
+    registerCommand("midlineNotesFromSource", autoCommands.getMidlineNotesSourceCommand());
+    registerCommand("altMidlineNotesFromAmp", autoCommands.getMidlineNotesAltAmpCommand());
 
     PathPlannerLogging.setLogActivePathCallback(
         (activePath) -> {

@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Left to LWS"
+            "pathName": "Blue 4, Left to LWS"
           }
         },
         {
@@ -38,60 +38,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue LWS to 8"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 8 to LWS"
+            "pathName": "Blue 4, LWS to 8"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue LWS to 7"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 7 to CWS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue CWS to 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue 6 to CWS"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "speakerShot"
+            "name": "midlineNotesFromSource"
           }
         }
       ]
     }
   },
-  "folder": "New Blue Autos in Development",
+  "folder": "Blue Dynamic Autos in Development",
   "choreoAuto": false
 }

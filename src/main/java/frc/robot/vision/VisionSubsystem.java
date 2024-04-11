@@ -4,32 +4,29 @@
 
 package frc.robot.vision;
 
+import dev.doglog.DogLog;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
+import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
+  private static final boolean CALIBRATION_RIG_ENABLED = false;
   private static final boolean SHOOT_TO_SIDE_ENABLED = true;
-
-  private static final double FOV_HORIZONTAL = RobotConfig.get().vision().fovHorz();
-  private static final double FOV_VERTICAL = RobotConfig.get().vision().fovVert();
-
-  private static final double principlePixelOffsetX =
-      RobotConfig.get().vision().principlePixelOffsetX();
-  private static final double principlePixelOffsetY =
-      RobotConfig.get().vision().principlePixelOffsetY();
+  public static final boolean LIMELIGHT_UPSIDE_DOWN = true;
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(
@@ -37,169 +34,85 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d ORIGINAL_BLUE_SPEAKER =
       new Pose2d(Units.inchesToMeters(0), Units.inchesToMeters(218.42), Rotation2d.fromDegrees(0));
 
-  public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 6.9, Rotation2d.fromDegrees(180));
-  public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 6.9, Rotation2d.fromDegrees(0));
+  public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 7.6, Rotation2d.fromDegrees(180));
+  public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 7.6, Rotation2d.fromDegrees(0));
 
+  // TODO: Update this
   public static final Pose3d CAMERA_ON_BOT =
-      new Pose3d(
-          0,
-          Units.inchesToMeters(-1.103),
-          Units.inchesToMeters(24.418),
-          RobotConfig.get().vision().llAngle());
+      new Pose3d(RobotConfig.get().vision().lltranslation(), RobotConfig.get().vision().llAngle());
 
   public static final Pose3d RED_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
           Units.inchesToMeters(652.73),
           Units.inchesToMeters(218.42 - 11.125),
-          Units.inchesToMeters(57.25),
+          Units.inchesToMeters(57.5),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
   public static final Pose3d BLUE_SPEAKER_DOUBLE_TAG_CENTER =
       new Pose3d(
           Units.inchesToMeters(0),
           Units.inchesToMeters(218.42 - 11.125),
-          Units.inchesToMeters(57.25),
+          Units.inchesToMeters(57.5),
           new Rotation3d(0, 0, Units.degreesToRadians(180)));
+
+  public static final Pose3d ROBOT_TO_CALIBRATION_TAG_CENTER =
+      new Pose3d(
+          Units.inchesToMeters(0),
+          Units.inchesToMeters(57.128),
+          Units.inchesToMeters(-64.75),
+          new Rotation3d(0, 0, 0));
+
+  public static void logCalibration() {
+    var json = LimelightHelpers.getLatestResults("");
+
+    for (LimelightTarget_Fiducial fiducial : json.targetingResults.targets_Fiducials) {
+      var prefix = "Vision/Calibration/Tag" + fiducial.fiducialID + "/";
+
+      Pose3d camPoseRelativeTag = fiducial.getCameraPose_TargetSpace();
+
+      Transform3d camPoseRelativeRobot = ROBOT_TO_CALIBRATION_TAG_CENTER.minus(camPoseRelativeTag);
+      DogLog.log(prefix + "camRelativeTag", camPoseRelativeTag);
+      DogLog.log(prefix + "camRelativeRobot", camPoseRelativeRobot);
+    }
+  }
 
   private final Timer limelightTimer = new Timer();
   private double limelightHeartbeat = -1;
 
-  InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
-  InterpolatingDoubleTreeMap angleToDistance = new InterpolatingDoubleTreeMap();
-  InterpolatingDoubleTreeMap angleToPositionOffset = new InterpolatingDoubleTreeMap();
+  private final InterpolatingDoubleTreeMap distanceToDev = new InterpolatingDoubleTreeMap();
+  private final InterpolatingDoubleTreeMap angleToSideShotOffset = new InterpolatingDoubleTreeMap();
 
   private final ImuSubsystem imu;
 
-  public Optional<SpeakerBasePoseLatency> getSimpleSpeakerBaseResults() {
-    double start = Timer.getFPGATimestamp();
-    // If not valid, return None
-    double validReadings =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
-    if (validReadings == 0.0) {
+  public Optional<VisionResult> getVisionResult() {
+    var estimatePose = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("");
+
+    if (estimatePose.tagCount == 0) {
       return Optional.empty();
     }
 
-    // Get corners from Limelight
+    for (int i = 0; i < estimatePose.rawFiducials.length; i++) {
+      var fiducial = estimatePose.rawFiducials[i];
 
-    // Make sure we have 2 sets of corners
-    double[] corners =
-        NetworkTableInstance.getDefault()
-            .getTable("limelight")
-            .getEntry("tcornxy")
-            .getDoubleArray(new double[16]);
-    if (corners.length < 16) {
-      return Optional.empty();
-    }
-    if (corners[0] == 0.0 & corners[15] == 0.0) {
-      return Optional.empty();
-    }
-    // COmbine corners into larger rectangle
-    double highestX = corners[0];
-    double lowestX = corners[0];
-    double highestY = corners[1];
-    double lowestY = corners[1];
-    for (int i = 0; i < 16; i = i + 2) {
-      if (highestX < corners[i]) {
-        highestX = corners[i];
-      } else if (lowestX > corners[i]) {
-        lowestX = corners[i];
-      }
-      if (highestY < corners[i + 1]) {
-        highestY = corners[i + 1];
-      } else if (lowestY > corners[i + 1]) {
-        lowestY = corners[i + 1];
+      if (fiducial.ambiguity > 0.5) {
+        // return Optional.empty();
       }
     }
 
-    // Find center coordinates of rectange
-    double[] centerCoordinatesPixels = new double[2];
-    centerCoordinatesPixels[0] = lowestX + ((highestX - lowestX) / 2);
-    centerCoordinatesPixels[1] = lowestY + ((highestY - lowestY) / 2);
-    // Convert center coordinates into Angle and Distance
+    // This prevents pose estimator from having crazy poses if the Limelight loses power
+    if (estimatePose.pose.getX() == 0.0 && estimatePose.pose.getY() == 0.0) {
+      return Optional.empty();
+    }
 
-    // Pixel X : 0 to 1280
-    // Angle X : -31.75 to 31.75
-
-    // Pixel Y : 0 to 960
-    // Angle Y : -24.85 to 24.85
-
-    double pixelX = centerCoordinatesPixels[0] - principlePixelOffsetX;
-    double pixelY = centerCoordinatesPixels[1] - principlePixelOffsetY;
-
-    double angleX = 0.0;
-    double angleY = 0.0;
-
-    angleX = -1 * (((pixelX / 1280.0) * FOV_HORIZONTAL) - (FOV_HORIZONTAL / 2.0));
-    angleY = -1 * (((pixelY / 800.0) * FOV_VERTICAL) - (FOV_VERTICAL / 2.0));
-    double verticalDistance = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
-    double horizontalDistanceSpeakerToCamera =
-        verticalDistance
-            / Math.tan(Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY());
-
-    double distanceToSpeaker3D =
-        verticalDistance
-            / Math.sin(Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY());
-
-    Logger.recordOutput("Vision/Pixels/X", pixelX);
-    Logger.recordOutput("Vision/Pixels/Y", pixelY);
-    Logger.recordOutput(
-        "Vision/AngleRobotToSpeaker",
-        Units.radiansToDegrees(
-            Units.degreesToRadians(angleY) + CAMERA_ON_BOT.getRotation().getY()));
-    Logger.recordOutput(
-        "Vision/Trig/DistanceHorizontal", Units.metersToInches(horizontalDistanceSpeakerToCamera));
-    Logger.recordOutput(
-        "Vision/Trig/DistanceHorizontal3D", Units.metersToInches(distanceToSpeaker3D));
-    Logger.recordOutput("Vision/Trig/VerticalDistance", Units.metersToInches(verticalDistance));
-    Logger.recordOutput("Vision/Trig/AngleY", angleY);
-    Logger.recordOutput("Vision/Trig/AngleX", angleX);
-
-    double end = Timer.getFPGATimestamp();
-    double cl =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("cl").getDouble(0.0);
-    double tl =
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0.0);
-    double totalLatency = (end - start) + (cl + tl) / 1000;
-    double totalLatencyTimestamp = Timer.getFPGATimestamp() - totalLatency;
-
-    Rotation2d cameraToAngle =
-        Rotation2d.fromDegrees(
-            angleX
-                + this.imu.getRobotHeading(totalLatencyTimestamp).getDegrees()
-                + CAMERA_ON_BOT.getRotation().getZ()
-                + Units.radiansToDegrees(CAMERA_ON_BOT.getRotation().getZ()));
-
-    // double distanceFromSpeaker = getDistanceFromAngle(angleY);
-
-    double distanceX = Math.cos(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
-    double distanceY = Math.sin(cameraToAngle.getRadians()) * horizontalDistanceSpeakerToCamera;
-
-    Pose2d fieldPosition =
-        new Pose2d(
-            getAllianceDoubleTagCenterPose().getX() - distanceX,
-            getAllianceDoubleTagCenterPose().getY() - distanceY,
-            this.imu.getRobotHeading(totalLatencyTimestamp));
-
-    Logger.recordOutput("Vision/SimpleSpeakerPose", fieldPosition);
-    Logger.recordOutput("Vision/SimpleSpeakerAngleX", angleX);
-    Logger.recordOutput("Vision/SimpleSpeakerAngleY", angleY);
-
-    return Optional.of(new SpeakerBasePoseLatency(fieldPosition, totalLatencyTimestamp));
+    return Optional.of(new VisionResult(estimatePose.pose, estimatePose.timestampSeconds));
   }
 
   public static DistanceAngle distanceToTargetPose(Pose2d target, Pose2d current) {
-    double distance =
-        Math.sqrt(
-            (Math.pow(target.getY() - current.getY(), 2))
-                + (Math.pow(target.getX() - current.getX(), 2)));
+    double distance = target.getTranslation().getDistance(current.getTranslation());
     Rotation2d angle =
-        new Rotation2d(
-                Math.atan((target.getY() - current.getY()) / (target.getX() - current.getX()))
-                    - current.getRotation().getRadians())
-            .plus(Rotation2d.fromDegrees(180));
+        Rotation2d.fromRadians(
+            Math.atan2(target.getY() - current.getY(), target.getX() - current.getX()));
 
-    angle = angle.minus(target.getRotation());
-
-    return new DistanceAngle(distance, angle);
+    return new DistanceAngle(distance, angle, false);
   }
 
   private Pose2d robotPose = new Pose2d();
@@ -215,28 +128,15 @@ public class VisionSubsystem extends LifecycleSubsystem {
     distanceToDev.put(3.37, 2.45);
     distanceToDev.put(7.0, 10.0);
 
-    angleToDistance.put(-6.264, Units.inchesToMeters(277.5) - 0.12);
-    angleToDistance.put(6.316, Units.inchesToMeters(92) - 0.12);
-    angleToDistance.put(1.631, Units.inchesToMeters(127.25) - 0.12);
-    angleToDistance.put(17.24, Units.inchesToMeters(58.5) - 0.12);
-    angleToDistance.put(-2.589, Units.inchesToMeters(175) - 0.12);
-
-    // 96.5
-    angleToPositionOffset.put(Rotation2d.fromDegrees(100).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(75).getRadians(), 0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(60).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(40).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(0.0).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-40).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-60).getRadians(), 0.0);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-75).getRadians(), -0.4825);
-    angleToPositionOffset.put(Rotation2d.fromDegrees(-100).getRadians(), -0.4825);
+    angleToSideShotOffset.put(Units.degreesToRadians(100), Units.degreesToRadians(5.0));
+    angleToSideShotOffset.put(Units.degreesToRadians(40), Units.degreesToRadians(1.75));
+    angleToSideShotOffset.put(Units.degreesToRadians(30), Units.degreesToRadians(0.0));
+    angleToSideShotOffset.put(Units.degreesToRadians(0.0), Units.degreesToRadians(0.0));
 
     limelightTimer.start();
   }
 
-  private Pose2d getSpeaker() {
-
+  private static Pose2d getSpeaker() {
     if (FmsSubsystem.isRedAlliance()) {
       return ORIGINAL_RED_SPEAKER;
     } else {
@@ -244,27 +144,97 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
   }
 
-  public DistanceAngle getDistanceAngleSpeaker() {
-    Pose2d goalPose = getSpeaker();
-
-    var adjustedPose = goalPose;
-
-    if (SHOOT_TO_SIDE_ENABLED) {
-      var yOffset =
-          angleToPositionOffset.get(
-              Math.atan(
-                  (goalPose.getY() - robotPose.getY()) / (goalPose.getX() - robotPose.getX())));
-
-      if (!FmsSubsystem.isRedAlliance()) {
-        yOffset *= -1.0;
-      }
-
-      adjustedPose = new Pose2d(goalPose.getX(), goalPose.getY() + yOffset, goalPose.getRotation());
+  public Optional<DistanceAngle> getDistanceAngleTxTy() {
+    if (LimelightHelpers.getTA("") == 0.0) {
+      return Optional.empty();
     }
-    Logger.recordOutput("Vision/OriginalSpeakerPose", goalPose);
-    Logger.recordOutput("Vision/SpeakerPose", adjustedPose);
 
-    return distanceToTargetPose(adjustedPose, robotPose);
+    Rotation2d tx = Rotation2d.fromDegrees(LimelightHelpers.getTX(""));
+    Rotation2d ty = Rotation2d.fromDegrees(LimelightHelpers.getTY(""));
+
+    if (LIMELIGHT_UPSIDE_DOWN) {
+      tx = tx.unaryMinus();
+      ty = ty.unaryMinus();
+    }
+
+    double heightCamToTag = getAllianceDoubleTagCenterPose().getZ() - CAMERA_ON_BOT.getZ();
+
+    double distanceTagToRobotCenter2d =
+        (heightCamToTag / (Math.tan(ty.getRadians() + CAMERA_ON_BOT.getRotation().getY())))
+            + CAMERA_ON_BOT.getY();
+    double now = Timer.getFPGATimestamp();
+    double latency =
+        (LimelightHelpers.getLatency_Capture("") + LimelightHelpers.getLatency_Pipeline(""))
+            / 1000.0;
+
+    double timestampAtCapture = now - latency;
+
+    var robotHeadingLatency = imu.getRobotHeading(timestampAtCapture);
+
+    Rotation2d goalAimingAngle =
+        Rotation2d.fromDegrees(robotHeadingLatency.getDegrees() - tx.getDegrees());
+
+    return Optional.of(new DistanceAngle(distanceTagToRobotCenter2d, goalAimingAngle, true));
+  }
+
+  public DistanceAngle getDistanceAngleSpeaker() {
+    var maybeTxTyDistanceAngle = getDistanceAngleTxTy();
+
+    Pose2d speakerPose = getSpeaker();
+
+    DistanceAngle distanceToTargetPose = distanceToTargetPose(speakerPose, robotPose);
+
+    Logger.recordOutput("Vision/MegaTag2/SpeakerPose", speakerPose);
+    Logger.recordOutput("Vision/MegaTag2/WantedRobotAngle", distanceToTargetPose.targetAngle());
+    Logger.recordOutput("Vision/MegaTag2/RobotDistance", distanceToTargetPose.distance());
+
+    if (maybeTxTyDistanceAngle.isPresent()) {
+      Logger.recordOutput("Vision/TxTy/Distance", maybeTxTyDistanceAngle.get().distance());
+      Logger.recordOutput(
+          "Vision/TxTy/WantedRobotAngle", maybeTxTyDistanceAngle.get().targetAngle().getDegrees());
+
+      if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
+        return adjustForSideShot(maybeTxTyDistanceAngle.get());
+      }
+    }
+
+    return adjustForSideShot(distanceToTargetPose);
+  }
+
+  private DistanceAngle adjustForSideShot(DistanceAngle originalPosition) {
+    if (!SHOOT_TO_SIDE_ENABLED) {
+      return originalPosition;
+    }
+
+    double rawAngleDegrees = originalPosition.targetAngle().getDegrees();
+
+    if (!FmsSubsystem.isRedAlliance()) {
+      rawAngleDegrees += 180;
+    }
+    double angleDegrees = MathUtil.inputModulus(rawAngleDegrees, -180.0, 180.0);
+
+    // if (FmsSubsystem.isRedAlliance()) {
+    //   angleDegrees += 180.0;
+    // }
+
+    DogLog.log("Vision/ShootToTheSide/InputAngleRelativeToSpeaker", angleDegrees);
+    double absoluteOffsetRadians =
+        (angleToSideShotOffset.get(Units.degreesToRadians(Math.abs(angleDegrees))));
+    double offsetRadians = Math.copySign(absoluteOffsetRadians, angleDegrees);
+    Logger.recordOutput("Vision/ShootToTheSide/Offset", Units.radiansToDegrees(offsetRadians));
+
+    var adjustedAngle =
+        Rotation2d.fromRadians(originalPosition.targetAngle().getRadians() + offsetRadians);
+
+    DogLog.log(
+        "Vision/ShootToTheSide/OriginalShotPose",
+        new Pose2d(robotPose.getTranslation(), originalPosition.targetAngle()));
+    DogLog.log(
+        "Vision/ShootToTheSide/AdjustedResultShotPose",
+        new Pose2d(robotPose.getTranslation(), adjustedAngle));
+
+    return new DistanceAngle(
+        originalPosition.distance(), adjustedAngle, originalPosition.seesSpeakerTag());
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
@@ -285,38 +255,32 @@ public class VisionSubsystem extends LifecycleSubsystem {
     return distanceToDev.get(distance);
   }
 
-  public double getDistanceFromAngle(double angle) {
-    return angleToDistance.get(angle);
-  }
-
-  public Pose3d getAllianceDoubleTagCenterPose() {
-    Pose3d goalPose;
+  public static Pose3d getAllianceDoubleTagCenterPose() {
     if (FmsSubsystem.isRedAlliance()) {
-      goalPose = RED_SPEAKER_DOUBLE_TAG_CENTER;
+      return RED_SPEAKER_DOUBLE_TAG_CENTER;
     } else {
-      goalPose = BLUE_SPEAKER_DOUBLE_TAG_CENTER;
+      return BLUE_SPEAKER_DOUBLE_TAG_CENTER;
     }
-
-    return goalPose;
   }
 
   public void setRobotPose(Pose2d pose) {
     robotPose = pose;
   }
 
-  public Pose2d getUsedRobotPose() {
-    return robotPose;
-  }
-
   @Override
   public void robotPeriodic() {
+    if (FmsSubsystem.isRedAlliance()) {
+      LimelightHelpers.setPriorityTagID("", 4);
+    } else {
+      LimelightHelpers.setPriorityTagID("", 7);
+    }
+    Logger.recordOutput("Vision/DistanceFromSpeaker", getDistanceAngleSpeaker().distance());
     Logger.recordOutput(
-        "Vision/DistanceFromSpeaker", Units.metersToInches(getDistanceAngleSpeaker().distance()));
-    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
-    Logger.recordOutput("Vision/AngleFromSpeaker", getDistanceAngleSpeaker().angle().getDegrees());
+        "Vision/AngleFromSpeaker", getDistanceAngleSpeaker().targetAngle().getDegrees());
     Logger.recordOutput("Vision/DistanceFromFloorSpot", getDistanceAngleFloorShot().distance());
-    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().angle());
+    Logger.recordOutput("Vision/AngleFromFloorSpot", getDistanceAngleFloorShot().targetAngle());
     Logger.recordOutput("Vision/State", getState());
+    Logger.recordOutput("Vision/VisionMethod", RobotConfig.get().vision().strategy());
 
     var newHeartbeat = LimelightHelpers.getLimelightNTDouble("", "hb");
 
@@ -327,6 +291,20 @@ public class VisionSubsystem extends LifecycleSubsystem {
     }
 
     limelightHeartbeat = newHeartbeat;
+
+    LimelightHelpers.SetRobotOrientation(
+        "",
+        imu.getRobotHeading().getDegrees(),
+        imu.getRobotAngularVelocity().getDegrees(),
+        imu.getPitch().getDegrees(),
+        imu.getPitchRate().getDegrees(),
+        imu.getRoll().getDegrees(),
+        imu.getRollRate().getDegrees());
+
+    if (CALIBRATION_RIG_ENABLED) {
+
+      logCalibration();
+    }
   }
 
   public VisionState getState() {
@@ -335,7 +313,13 @@ public class VisionSubsystem extends LifecycleSubsystem {
       return VisionState.OFFLINE;
     }
 
-    if (LimelightHelpers.getTV("")) {
+    if (RobotConfig.get().vision().strategy() == VisionStrategy.TX_TY_AND_MEGATAG) {
+      return getDistanceAngleTxTy().isPresent()
+          ? VisionState.SEES_TAGS
+          : VisionState.ONLINE_NO_TAGS;
+    }
+
+    if (getVisionResult().isPresent()) {
       return VisionState.SEES_TAGS;
     }
 

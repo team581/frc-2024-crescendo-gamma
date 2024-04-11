@@ -48,16 +48,16 @@
     },
     {
       "anchor": {
-        "x": 8.46,
-        "y": 7.43
+        "x": 10.129999999999999,
+        "y": 7.41
       },
       "prevControl": {
-        "x": 8.925415798831597,
-        "y": 7.445289814579629
+        "x": 10.595415798831596,
+        "y": 7.42528981457963
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red Amp 5, 5"
+      "linkedName": "Dynamic Red 4"
     }
   ],
   "rotationTargets": [
@@ -114,12 +114,6 @@
               "data": {
                 "name": "speakerShotNoTimeout"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShot"
-              }
             }
           ]
         }
@@ -149,7 +143,7 @@
       }
     },
     {
-      "name": "New Event Marker",
+      "name": "intake and shoot",
       "waypointRelativePos": 2.75,
       "command": {
         "type": "sequential",
@@ -170,6 +164,40 @@
           ]
         }
       }
+    },
+    {
+      "name": "force shot of preload",
+      "waypointRelativePos": 1.1500000000000001,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "force shot of intaked piece",
+      "waypointRelativePos": 2.1999999999999997,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "forceSpeakerShot"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -184,7 +212,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red Right 5 Piece",
+  "folder": "Dev Red Right 4 & 5 Piece",
   "previewStartingState": {
     "rotation": -60.67615309904059,
     "velocity": 0

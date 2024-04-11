@@ -21,6 +21,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import frc.robot.config.RobotConfig.ClimberConfig;
 import frc.robot.config.RobotConfig.ConveyorConfig;
@@ -33,6 +34,7 @@ import frc.robot.config.RobotConfig.ShooterConfig;
 import frc.robot.config.RobotConfig.SwerveConfig;
 import frc.robot.config.RobotConfig.VisionConfig;
 import frc.robot.config.RobotConfig.WristConfig;
+import frc.robot.vision.VisionStrategy;
 
 class PracticeConfig {
   private static final ClosedLoopRampsConfigs CLOSED_LOOP_RAMP =
@@ -90,12 +92,16 @@ class PracticeConfig {
                 speakerDistanceToRPM.put(5.0, 4000.0);
                 speakerDistanceToRPM.put(5.5, 4500.0);
                 speakerDistanceToRPM.put(6.0, 4500.0);
-                speakerDistanceToRPM.put(9.0, 4500.0);
+                speakerDistanceToRPM.put(7.0, 4600.0);
+                speakerDistanceToRPM.put(9.0, 4600.0);
               },
               floorSpotDistanceToRPM -> {
-                floorSpotDistanceToRPM.put(1.6, 1700.0);
-                floorSpotDistanceToRPM.put(3.4, 2000.0);
-                floorSpotDistanceToRPM.put(4.8, 2700.0);
+                floorSpotDistanceToRPM.put(0.0, 1000.0);
+                floorSpotDistanceToRPM.put(1.0, 1000.0);
+                floorSpotDistanceToRPM.put(1.2, 1500.0);
+                floorSpotDistanceToRPM.put(3.0, 1800.0);
+                floorSpotDistanceToRPM.put(5.8, 2700.0);
+                floorSpotDistanceToRPM.put(6.5, 2700.0);
               }),
           new ClimberConfig(
               19,
@@ -137,12 +143,12 @@ class PracticeConfig {
                   .withSlot0(
                       new Slot0Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(1.0)
+                          .withKG(0.0)
                           .withKP(300.0))
                   .withSlot1(
                       new Slot1Configs()
                           .withGravityType(GravityTypeValue.Arm_Cosine)
-                          .withKG(1.0)
+                          .withKG(0.0)
                           .withKP(50.0))
                   .withFeedback(
                       new FeedbackConfigs().withSensorToMechanismRatio(60.0 / 8.0 * 100.0 / 10.0))
@@ -153,13 +159,9 @@ class PracticeConfig {
                   .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Brake))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
-              new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(25)
-                  .withSupplyCurrentLimitEnable(true),
-              Rotation2d.fromDegrees(0),
-              Rotation2d.fromDegrees(0),
-              Rotation2d.fromDegrees(61),
-              Rotation2d.fromDegrees(1),
+              Rotation2d.fromDegrees(0.0),
+              Rotation2d.fromDegrees(0.0),
+              Rotation2d.fromDegrees(61.0),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
                 distanceToAngleTolerance.put(8.0, 0.5);
@@ -168,22 +170,23 @@ class PracticeConfig {
                 speakerDistanceToAngle.put(0.92, 58.1);
                 speakerDistanceToAngle.put(1.25, 58.1);
                 speakerDistanceToAngle.put(2.0, 46.0);
-                speakerDistanceToAngle.put(3.6, 32.0);
-                speakerDistanceToAngle.put(4.9, 26.0);
-                speakerDistanceToAngle.put(6.87, 19.0);
-                speakerDistanceToAngle.put(8.8, 12.0);
+                speakerDistanceToAngle.put(3.5, 32.0);
+                speakerDistanceToAngle.put(5.0, 26.0);
+                speakerDistanceToAngle.put(6.5, 22.0);
+                speakerDistanceToAngle.put(8.0, 17.0);
+                speakerDistanceToAngle.put(9.5, 12.0);
               },
               floorSpotDistanceToAngle -> {
-                floorSpotDistanceToAngle.put(1.6, 70.0);
-                floorSpotDistanceToAngle.put(3.4, 60.0);
-                floorSpotDistanceToAngle.put(4.8, 50.0);
+                floorSpotDistanceToAngle.put(3.4, 18.0);
+                floorSpotDistanceToAngle.put(5.8, 27.0);
+                floorSpotDistanceToAngle.put(6.5, 50.0);
               }),
           new ElevatorConfig(
               21,
               0.10,
               new TalonFXConfiguration()
-                  .withSlot0(new Slot0Configs().withKP(20))
-                  .withSlot1(new Slot1Configs().withKP(10))
+                  .withSlot0(new Slot0Configs().withKP(20.0))
+                  .withSlot1(new Slot1Configs().withKP(10.0))
                   .withFeedback(new FeedbackConfigs().withSensorToMechanismRatio((50.0 / 8.0)))
                   .withCurrentLimits(
                       new CurrentLimitsConfigs()
@@ -201,7 +204,7 @@ class PracticeConfig {
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               0,
               0.0,
-              22,
+              20.9,
               4.0,
               0.75),
           new IntakeConfig(
@@ -229,6 +232,8 @@ class PracticeConfig {
                           .withSupplyCurrentLimit(20)
                           .withSupplyCurrentLimitEnable(true))
                   .withClosedLoopRamps(CLOSED_LOOP_RAMP)
+                  .withMotorOutput(
+                      new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive))
                   .withOpenLoopRamps(OPEN_LOOP_RAMP)),
           new QueuerConfig(
               16,
@@ -247,12 +252,12 @@ class PracticeConfig {
           new SwerveConfig(
               new CurrentLimitsConfigs()
                   .withSupplyCurrentLimit(20)
-                  .withStatorCurrentLimit(150)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new CurrentLimitsConfigs()
-                  .withSupplyCurrentLimit(80)
-                  .withStatorCurrentLimit(150)
+                  .withSupplyCurrentLimit(150)
+                  .withStatorCurrentLimit(70)
                   .withSupplyCurrentLimitEnable(true)
                   .withStatorCurrentLimitEnable(true),
               new TorqueCurrentConfigs()
@@ -270,12 +275,15 @@ class PracticeConfig {
               }),
           new LightsConfig(3),
           new VisionConfig(
+              VisionStrategy.TX_TY_AND_MEGATAG,
               4,
               0.005,
               0.01,
               tyToNoteDistance -> {
                 tyToNoteDistance.put(0.0, 0.0);
               },
+              // x=right, y= forward, z=up
+              new Translation3d(0, Units.inchesToMeters(-1.103), Units.inchesToMeters(24.418)),
               new Rotation3d(0.0, Units.degreesToRadians(13.8), Units.degreesToRadians(0.0)),
               55.296,
               80.477,

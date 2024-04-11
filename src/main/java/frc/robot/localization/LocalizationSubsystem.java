@@ -73,14 +73,13 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     odometry.update(imu.getRobotHeading(), modulePositions);
     poseEstimator.update(imu.getRobotHeading(), modulePositions);
 
-    var maybeResults = vision.getSimpleSpeakerBaseResults();
-    var timestamp = Timer.getFPGATimestamp();
+    var maybeResults = vision.getVisionResult();
 
     if (maybeResults.isPresent()) {
       var results = maybeResults.get();
       Pose2d visionPose = results.pose();
 
-      double visionTimestamp = results.totalLatency();
+      double visionTimestamp = results.timestamp();
 
       if (visionTimestamp == lastAddedVisionTimestamp) {
         // Don't add the same vision pose over and over
@@ -102,8 +101,11 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Localization/ChangedDirection", changedDirection());
     Logger.recordOutput(
         "Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
-    Logger.recordOutput("Localization/LimelightPose", LimelightHelpers.getBotPose2d_wpiBlue(""));
+    Logger.recordOutput(
+        "Localization/LimelightPoseRaw",
+        LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("").pose);
 
+    var timestamp = Timer.getFPGATimestamp();
     xHistory.addData(timestamp, getPose().getX());
     yHistory.addData(timestamp, getPose().getY());
     distanceToSavedHistory.addData(
@@ -233,6 +235,6 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     double linearSpeed =
         Math.sqrt(Math.pow(speeds.vxMetersPerSecond, 2) + Math.pow(speeds.vyMetersPerSecond, 2));
 
-    return linearSpeed < Units.feetToMeters(0.5);
+    return linearSpeed < Units.feetToMeters(0.3);
   }
 }

@@ -80,12 +80,12 @@
     },
     {
       "anchor": {
-        "x": 8.079999999999998,
-        "y": 7.429538020170265
+        "x": 7.793912115824231,
+        "y": 7.448602489204978
       },
       "prevControl": {
-        "x": 5.745645528064845,
-        "y": 7.4763787899979
+        "x": 5.459557643889077,
+        "y": 7.495443259032613
       },
       "nextControl": null,
       "isLocked": false,
@@ -133,7 +133,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 2.8499999999999996,
-      "maxWaypointRelativePos": 3.2,
+      "maxWaypointRelativePos": 3.1,
       "constraints": {
         "maxVelocity": 0.4,
         "maxAcceleration": 5,
@@ -154,19 +154,8 @@
     },
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.2,
-      "maxWaypointRelativePos": 0.35000000000000003,
-      "constraints": {
-        "maxVelocity": 0.7,
-        "maxAcceleration": 5,
-        "maxAngularVelocity": 540,
-        "maxAngularAcceleration": 720
-      }
-    },
-    {
-      "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.8,
-      "maxWaypointRelativePos": 1.1,
+      "maxWaypointRelativePos": 1.05,
       "constraints": {
         "maxVelocity": 0.5,
         "maxAcceleration": 5,
@@ -177,18 +166,12 @@
   ],
   "eventMarkers": [
     {
-      "name": "shoot, intake and shoot",
-      "waypointRelativePos": 0.05,
+      "name": "intake and shoot",
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShot"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -288,9 +271,9 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,

@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.129999999999999,
+        "y": 2.3779332174048973
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.845977999648308,
+        "y": 3.4435630409722364
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 7"
+    },
+    {
+      "anchor": {
+        "x": 4.866161270784081,
+        "y": 6.561516969187785
+      },
+      "prevControl": {
+        "x": 7.313163087864639,
+        "y": 7.637013735565933
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Blue Alt CWS"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "warmup",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -165.71437495340513,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blue MNFS",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

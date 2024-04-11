@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.04,
+        "y": 5.64
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.7395605791211555,
+        "y": 5.793104781771873
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 5"
+    },
+    {
+      "anchor": {
+        "x": 5.637279106412315,
+        "y": 6.369066598315568
+      },
+      "prevControl": {
+        "x": 6.340815341630682,
+        "y": 6.361640335280671
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Blue CWS"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Warmup",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 188.78925979020792,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blue MidlineNotesFromAmp",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

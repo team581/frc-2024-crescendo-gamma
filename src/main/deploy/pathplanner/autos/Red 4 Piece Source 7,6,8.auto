@@ -1,0 +1,97 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.83,
+      "y": 4.41
+    },
+    "rotation": 59.23
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "homeClimber"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "preloadNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4, Left to LWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4, LWS to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4, 7 to Alt CWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4, Alt CWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4, 6 to Alt CWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4, Alt CWS to 8"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 8 to LWS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Red Dynamic Autos in Development",
+  "choreoAuto": false
+}

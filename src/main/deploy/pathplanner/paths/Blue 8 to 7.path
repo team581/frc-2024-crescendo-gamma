@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.129999999999999,
+        "y": 0.6906859967566095
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.910870887980824,
+        "y": 0.6780640117490822
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 8"
+    },
+    {
+      "anchor": {
+        "x": 8.129999999999999,
+        "y": 2.3779332174048973
+      },
+      "prevControl": {
+        "x": 6.717173951270977,
+        "y": 2.379575076688616
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 7"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blue MNFS",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

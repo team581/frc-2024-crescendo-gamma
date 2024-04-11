@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.9446474277563945,
+        "y": 7.410074050917332
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.776500107461755,
+        "y": 6.547100927876862
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 4"
+    },
+    {
+      "anchor": {
+        "x": 8.04,
+        "y": 5.64
+      },
+      "prevControl": {
+        "x": 6.691545690783689,
+        "y": 5.298548289404272
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 5"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blue MidlineNotesFromAmp",
+  "previewStartingState": {
+    "rotation": 180.3350592186092,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

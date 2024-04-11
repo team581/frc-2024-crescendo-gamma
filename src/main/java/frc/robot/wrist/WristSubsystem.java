@@ -32,7 +32,7 @@ public class WristSubsystem extends LifecycleSubsystem {
   private static final InterpolatingDoubleTreeMap distanceToAngleTolerance =
       new InterpolatingDoubleTreeMap();
 
-  private Rotation2d lowestSeenAngle = new Rotation2d();
+  private Rotation2d lowestSeenAngle = new Rotation2d(Double.MAX_VALUE);
 
   private boolean preMatchHomingOccured = false;
 
@@ -84,6 +84,7 @@ public class WristSubsystem extends LifecycleSubsystem {
         motor.setControl(
             positionRequest.withSlot(slot).withPosition(clampAngle(goalAngle).getRotations()));
         Logger.recordOutput("Wrist/MotorPidSlot", slot);
+        Logger.recordOutput("Wrist/MotorSetAngle", clampAngle(goalAngle).getRotations());
 
         break;
     }
@@ -91,12 +92,12 @@ public class WristSubsystem extends LifecycleSubsystem {
     Logger.recordOutput(
         "Wrist/Position", Rotation2d.fromRotations(motor.getPosition().getValue()).getDegrees());
     Logger.recordOutput("Wrist/StatorCurrent", motor.getStatorCurrent().getValue());
+    Logger.recordOutput("Wrist/SupplyCurrent", motor.getSupplyCurrent().getValue());
     Logger.recordOutput("Wrist/Voltage", motor.getMotorVoltage().getValue());
     Logger.recordOutput("Wrist/RPM", motor.getVelocity().getValue() * 60.0);
     Logger.recordOutput("Wrist/HomingState", homingState);
     Logger.recordOutput("Wrist/GoalAngle", goalAngle.getDegrees());
     Logger.recordOutput("Wrist/Temperature", motor.getDeviceTemp().getValue());
-    Logger.recordOutput("Wrist/ControlMode", motor.getControlMode().toString());
     Logger.recordOutput("Wrist/LowestSeenAngle", lowestSeenAngle.getDegrees());
   }
 
@@ -108,14 +109,6 @@ public class WristSubsystem extends LifecycleSubsystem {
 
   public void setAngle(Rotation2d angle) {
     angle = clampAngle(angle);
-
-    if (!angle.equals(goalAngle)) {
-      if (angle.equals(RobotConfig.get().wrist().minAngle())) {
-        motor.getConfigurator().apply(RobotConfig.get().wrist().strictCurrentLimits());
-      } else {
-        motor.getConfigurator().apply(RobotConfig.get().wrist().motorConfig().CurrentLimits);
-      }
-    }
 
     goalAngle = angle;
   }
@@ -135,7 +128,7 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   public boolean atAngle(Rotation2d angle) {
-    return atAngle(angle, RobotConfig.get().wrist().tolerance());
+    return atAngle(angle, Rotation2d.fromDegrees(1));
   }
 
   private boolean atAngle(Rotation2d angle, Rotation2d tolerance) {
@@ -143,8 +136,11 @@ public class WristSubsystem extends LifecycleSubsystem {
   }
 
   public boolean atAngleForSpeaker(double distance) {
-    return atAngle(
-        getAngleFromDistanceToSpeaker(distance), getToleranceFromDistanceToSpeaker(distance));
+    return atAngle(getAngleFromDistanceToSpeaker(distance), getToleranceFromDistance(distance));
+  }
+
+  public boolean atAngleForFloorSpot(double distance) {
+    return atAngle(getAngleFromDistanceToFloorSpot(distance), Rotation2d.fromDegrees(5));
   }
 
   public HomingState getHomingState() {
@@ -155,9 +151,12 @@ public class WristSubsystem extends LifecycleSubsystem {
     return Rotation2d.fromDegrees(speakerDistanceToAngle.get(distance));
   }
 
-  private Rotation2d getToleranceFromDistanceToSpeaker(double distance) {
-    return Rotation2d.fromDegrees(
-        distance > 8 ? 0.5 : distance < 0.85 ? 5.0 : distanceToAngleTolerance.get(distance));
+  private Rotation2d getToleranceFromDistance(double distance) {
+    return distance > 8
+        ? Rotation2d.fromDegrees(0.5)
+        : distance < 0.85
+            ? Rotation2d.fromDegrees(5.0)
+            : Rotation2d.fromDegrees(distanceToAngleTolerance.get(distance));
   }
 
   public Rotation2d getAngleFromDistanceToFloorSpot(double distance) {

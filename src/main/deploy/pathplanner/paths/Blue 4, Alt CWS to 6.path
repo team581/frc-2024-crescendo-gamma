@@ -1,0 +1,82 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.866161270784081,
+        "y": 6.561516969187785
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.822695961391923,
+        "y": 6.858610617221235
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue Alt CWS"
+    },
+    {
+      "anchor": {
+        "x": 8.1,
+        "y": 3.9399999999999995
+      },
+      "prevControl": {
+        "x": 5.844973837947676,
+        "y": 3.923530607061214
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 6"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "intake and warmup",
+      "waypointRelativePos": 0.35,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerShotNoTimeout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Dev Blue 4 Piece Source 8-6",
+  "previewStartingState": {
+    "rotation": -166.9591992309618,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
