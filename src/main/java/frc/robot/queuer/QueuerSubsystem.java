@@ -49,15 +49,15 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         if (hasNote()) {
           motor.disable();
         } else {
-        shuffleTimeoutTimer.reset();
+          shuffleTimeoutTimer.reset();
           motor.setVoltage(1);
         }
         break;
       case SHUFFLE:
         if (shuffleTimeoutTimer.hasElapsed(NOTE_SHUFFLE_TIMEOUT_DURATION)) {
-        motor.disable();
+          motor.disable();
         } else {
-            if (sensorHasNote()) {
+          if (sensorHasNote()) {
             if (noteShuffleOn) {
               // Push note towards intake
               motor.setVoltage(-1.5);

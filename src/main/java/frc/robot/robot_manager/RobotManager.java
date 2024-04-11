@@ -241,7 +241,8 @@ public class RobotManager extends LifecycleSubsystem {
           if (!state.climbing
               && state != RobotState.IDLE_NO_GP
               && state != RobotState.WAITING_PODIUM_SHOT
-              && state != RobotState.WAITING_SUBWOOFER_SHOT && !state.shootingMode) {
+              && state != RobotState.WAITING_SUBWOOFER_SHOT
+              && !state.shootingMode) {
             state = RobotState.IDLE_WITH_GP;
           }
           break;
@@ -434,15 +435,33 @@ public class RobotManager extends LifecycleSubsystem {
           state = RobotState.OUTTAKING_SHOOTER;
         }
         break;
+      case WAITING_MULTI_SPEAKER_SHOT:
+      if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
+        state = RobotState.PREPARE_SPEAKER_SHOT;
+      }
+      break;
+      case WAITING_MULTI_FLOOR_SHOT:
+      if (noteManager.getState() == NoteState.IDLE_IN_QUEUER) {
+        state = RobotState.PREPARE_FLOOR_SHOT;
+      }
+        break;
       case OUTTAKING_SHOOTER:
       case SHOOTER_AMP:
-      case FLOOR_SHOOT:
       case SUBWOOFER_SHOOT:
       case PODIUM_SHOOT:
-      case SPEAKER_SHOOT:
       case AMP_SHOT:
         if (noteManager.getState() == NoteState.IDLE_NO_GP) {
           state = RobotState.IDLE_NO_GP;
+        }
+        break;
+      case FLOOR_SHOOT:
+        if (noteManager.getState() == NoteState.IDLE_NO_GP) {
+          state = RobotState.WAITING_MULTI_FLOOR_SHOT;
+        }
+        break;
+      case SPEAKER_SHOOT:
+        if (noteManager.getState() == NoteState.IDLE_NO_GP) {
+          state = RobotState.WAITING_MULTI_SPEAKER_SHOT;
         }
         break;
       case UNJAM:
@@ -774,6 +793,20 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.PRESET_MIDDLE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
+        break;
+      case WAITING_MULTI_SPEAKER_SHOT:
+        wrist.setAngle(wristAngleForSpeaker);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.SPEAKER_SHOT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.intakeRequest();
+        break;
+      case WAITING_MULTI_FLOOR_SHOT:
+        wrist.setAngle(wristAngleForFloorSpot);
+        elevator.setGoalHeight(ElevatorPositions.STOWED);
+        shooter.setGoalMode(ShooterMode.FLOOR_SHOT);
+        climber.setGoalMode(ClimberMode.STOWED);
+        noteManager.intakeRequest();
         break;
       default:
         // Should never happen
