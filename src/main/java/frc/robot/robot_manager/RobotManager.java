@@ -307,6 +307,10 @@ public class RobotManager extends LifecycleSubsystem {
       case WAITING_PODIUM_SHOT:
       case WAIT_SHOOTER_AMP:
       case OUTTAKING:
+      case PREPARE_PRESET_3:
+      case PREPARE_PRESET_RIGHT:
+      case PREPARE_PRESET_LEFT:
+      case PREPARE_PRESET_MIDDLE:
         // Do nothing
         break;
       case PREPARE_WAITING_AMP_SHOT:
@@ -447,6 +451,10 @@ public class RobotManager extends LifecycleSubsystem {
       case SUBWOOFER_SHOOT:
       case PODIUM_SHOOT:
       case AMP_SHOT:
+      case PRESET_3:
+      case PRESET_MIDDLE:
+      case PRESET_RIGHT:
+      case PRESET_LEFT:
         if (noteManager.getState() == NoteState.IDLE_NO_GP) {
           state = RobotState.IDLE_NO_GP;
         }
@@ -740,7 +748,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
-        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setAngle(SnapManager.getPresetAmpAngle());
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
@@ -790,7 +798,7 @@ public class RobotManager extends LifecycleSubsystem {
         shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeRequest();
-        snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
+        snaps.setAngle(SnapManager.getPresetAmpAngle());
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;

@@ -85,11 +85,14 @@ public class Autos extends LifecycleSubsystem {
 
     registerCommand("preloadNote", actions.preloadNoteCommand());
     registerCommand("speakerShotNoTimeout", actions.speakerShotCommand());
-    registerCommand("preparePresetRightShot", autoCommands.preparePresetRightShot());
-    registerCommand("presetRightShot", autoCommands.presetRightShot());
-    registerCommand("presetLeftShot", autoCommands.presetLeftShot());
-    registerCommand("presetMiddleShot", autoCommands.presetMiddleShot());
-    registerCommand("preset3Shot", autoCommands.preset3Shot());
+    registerCommand("preparePresetRightShot", actions.preparePresetRightShotCommand());
+    registerCommand("presetRightShot", actions.presetRightShotCommand());
+    registerCommand("preparePresetLeftShot", actions.preparePresetLeftShotCommand());
+    registerCommand("presetLeftShot", actions.presetLeftShotCommand());
+    registerCommand("preparePresetMiddleShot", actions.preparePresetMiddleShotCommand());
+    registerCommand("presetMiddleShot", actions.presetMiddleShotCommand());
+    registerCommand("preparePreset3Shot", actions.preparePreset3ShotCommand());
+    registerCommand("preset3Shot", actions.preset3ShotCommand());
     registerCommand("speakerShot", autoCommands.speakerShotWithTimeout());
     registerCommand("forceSpeakerShot", actions.forceSpeakerShotCommand());
     registerCommand("subwooferShot", autoCommands.subwooferShotWithTimeout());
@@ -97,11 +100,11 @@ public class Autos extends LifecycleSubsystem {
     registerCommand("outtakeShooter", actions.outtakeShooterCommand());
     registerCommand("homeClimber", actions.homeCommand());
     registerCommand("stow", actions.stowCommand());
-    registerCommand("midlineNotesFromAmp", autoCommands.getMidlineNotesAmp456Command());
+    registerCommand("midlineNotesFromAmp456", autoCommands.getMidlineNotesAmp456Command());
     registerCommand("midlineNotesFromAmp45", autoCommands.getMidlineNotesAmp45Command());
     registerCommand("midlineNotes64", autoCommands.getMidlineNotes64Command());
     registerCommand("midlineNotesOP4", autoCommands.getMidlineNotesOP4Command());
-    registerCommand("midlineNotesFromSource", autoCommands.getMidlineNotesSourceCommand());
+    registerCommand("midlineNotesFromSource876", autoCommands.getMidlineNotesSourceCommand());
     registerCommand("altMidlineNotesFromAmp", autoCommands.getMidlineNotesAltAmpCommand());
 
     PathPlannerLogging.setLogActivePathCallback(

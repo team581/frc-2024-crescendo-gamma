@@ -46,23 +46,11 @@ public class AutoCommands {
         .withName("PresetLeftShot");
   }
 
-  public Command preparePresetRightShot() {
-    return actions.preparePresetRightShotCommand().withName("PreparePresetRightShot");
-  }
-
-  public Command presetRightShot() {
-    return actions.presetRightShotCommand().withName("PresetRightShot");
-  }
-
   public Command presetMiddleShot() {
     return actions
         .presetMiddleShotCommand()
         .andThen(actions.forceSpeakerShotCommand().withTimeout(1))
         .withName("PresetMiddleShot");
-  }
-
-  public Command preset3Shot() {
-    return actions.preset3ShotCommand().withName("Preset3Shot");
   }
 
   public Command speakerShotWithTimeout() {

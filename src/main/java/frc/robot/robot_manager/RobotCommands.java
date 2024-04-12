@@ -149,6 +149,11 @@ public class RobotCommands {
 
   public Command presetRightShotCommand() {
     return Commands.runOnce(() -> robot.presetRightRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .finallyDo(
+            () -> {
+              robot.snaps.setEnabled(false);
+            })
         .withName("PresetRightShot");
   }
 
@@ -159,16 +164,42 @@ public class RobotCommands {
 
   public Command presetLeftShotCommand() {
     return Commands.runOnce(() -> robot.presetLeftRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .finallyDo(
+            () -> {
+              robot.snaps.setEnabled(false);
+            })
         .withName("PresetLeftShot");
+  }
+
+  public Command preparePresetMiddleShotCommand() {
+    return Commands.runOnce(() -> robot.preparePresetLeftRequest(), requirements)
+        .withName("PreparePresetMiddleShot");
   }
 
   public Command presetMiddleShotCommand() {
     return Commands.runOnce(() -> robot.presetMiddleRequest(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .finallyDo(
+            () -> {
+              robot.snaps.setEnabled(false);
+            })
         .withName("PresetMiddleShot");
   }
 
+  public Command preparePreset3ShotCommand() {
+    return Commands.runOnce(() -> robot.preparePresetLeftRequest(), requirements)
+        .withName("PreparePreset3Shot");
+  }
+
   public Command preset3ShotCommand() {
-    return Commands.runOnce(() -> robot.preset3Request(), requirements).withName("Preset3Shot");
+    return Commands.runOnce(() -> robot.preset3Request(), requirements)
+        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .finallyDo(
+            () -> {
+              robot.snaps.setEnabled(false);
+            })
+        .withName("Preset3Shot");
   }
 
   public Command podiumShotCommand() {

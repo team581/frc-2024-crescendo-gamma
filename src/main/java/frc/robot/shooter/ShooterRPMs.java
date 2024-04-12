@@ -11,7 +11,7 @@ public class ShooterRPMs {
   public static final double SUBWOOFER = 3000;
   public static final double PODIUM = 4400;
   public static final double SHOOTER_AMP = 600;
-  public static final double PRESET_RIGHT = 3581;
+  public static final double PRESET_RIGHT = 3000;
   public static final double PRESET_LEFT = 3000;
   public static final double PRESET_MIDDLE = 3000;
   public static final double PRESET_3 = 4400;
