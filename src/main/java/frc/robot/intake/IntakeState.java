@@ -11,6 +11,7 @@ public enum IntakeState {
   FROM_CONVEYOR,
   TO_QUEUER,
   TO_QUEUER_SLOW,
+  SHUFFLE,
   TO_CONVEYOR,
   TO_QUEUER_SHOOTING;
 }
