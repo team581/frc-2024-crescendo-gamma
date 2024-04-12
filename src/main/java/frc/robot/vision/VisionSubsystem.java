@@ -14,12 +14,14 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.config.RobotConfig;
 import frc.robot.fms.FmsSubsystem;
 import frc.robot.imu.ImuSubsystem;
 import frc.robot.util.scheduling.LifecycleSubsystem;
 import frc.robot.util.scheduling.SubsystemPriority;
 import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
+import java.util.ArrayList;
 import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
@@ -27,6 +29,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
   private static final boolean CALIBRATION_RIG_ENABLED = false;
   private static final boolean SHOOT_TO_SIDE_ENABLED = true;
   public static final boolean LIMELIGHT_UPSIDE_DOWN = true;
+  public static final boolean IS_CALIBRATION = true;
+
+  private ArrayList<MTDistanceTYDistance> calibrationSnaps = new ArrayList<>();
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(
@@ -60,6 +65,24 @@ public class VisionSubsystem extends LifecycleSubsystem {
           Units.inchesToMeters(57.128),
           Units.inchesToMeters(-64.75),
           new Rotation3d(0, 0, 0));
+
+  public Command addCalibrationSnap() {
+
+    return run(
+        () -> {
+          double txtyDistance = 0.0;
+          double megatag2Distance = distanceToTargetPose(getSpeaker(), robotPose).distance();
+          var maybeTxTyDistanceAngle = getDistanceAngleTxTy();
+          if (maybeTxTyDistanceAngle.isPresent()) {
+            txtyDistance = maybeTxTyDistanceAngle.get().distance();
+          }
+
+          calibrationSnaps.add(new MTDistanceTYDistance(megatag2Distance, txtyDistance));
+          var latest = calibrationSnaps.get(calibrationSnaps.size()-1);
+          String logString = new String("MT2:"+" " + latest.megatag2Distance() + "TY:" + " " + latest.txtyDistance());
+          Logger.recordOutput("Vision/LatestCalibrationSnap", logString);
+        });
+  }
 
   public static void logCalibration() {
     var json = LimelightHelpers.getLatestResults("");
