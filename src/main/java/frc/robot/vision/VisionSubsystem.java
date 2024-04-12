@@ -32,10 +32,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final boolean IS_CALIBRATION = true;
 
   private ArrayList<Double> calibrationSnapsMT = new ArrayList<>();
-    private ArrayList<Double> calibrationSnapsTy = new ArrayList<>();
+  private ArrayList<Double> calibrationSnapsTy = new ArrayList<>();
 
-  private static double latestMT =0.0;
-  private static double latestTy =0.0;
+  private static double latestMT = 0.0;
+  private static double latestTy = 0.0;
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(
@@ -83,9 +83,8 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
           calibrationSnapsMT.add(megatag2Distance);
           calibrationSnapsTy.add(txtyDistance);
-          latestMT = calibrationSnapsMT.get(calibrationSnapsMT.size()-1);
-          latestTy = calibrationSnapsTy.get(calibrationSnapsTy.size()-1);
-          
+          latestMT = calibrationSnapsMT.get(calibrationSnapsMT.size() - 1);
+          latestTy = calibrationSnapsTy.get(calibrationSnapsTy.size() - 1);
         });
   }
 
@@ -301,7 +300,6 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
       DogLog.log("Vision/CalibrationSnap/MT2", latestMT);
       DogLog.log("Vision/CalibrationSnap/TxTy", latestTy);
-
     }
 
     if (FmsSubsystem.isRedAlliance()) {
