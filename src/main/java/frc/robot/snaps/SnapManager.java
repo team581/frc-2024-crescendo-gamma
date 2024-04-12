@@ -50,8 +50,8 @@ public class SnapManager extends LifecycleSubsystem {
 
   public static Rotation2d getPresetAmpAngle() {
     return FmsSubsystem.isRedAlliance()
-        ? Rotation2d.fromDegrees(312)
-        : Rotation2d.fromDegrees(312 + 180.0);
+        ? Rotation2d.fromDegrees(315)
+        : Rotation2d.fromDegrees(315 + 180.0);
   }
 
   private final SwerveSubsystem swerve;

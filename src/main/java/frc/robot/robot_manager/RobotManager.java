@@ -262,7 +262,7 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case PRESET_RIGHT:
           if (!state.climbing) {
-            state = RobotState.PRESET_RIGHT;
+            state = RobotState.PRESET_AMP;
           }
           break;
         case PRESET_LEFT:
@@ -287,12 +287,12 @@ public class RobotManager extends LifecycleSubsystem {
           break;
         case PREPARE_PRESET_RIGHT:
           if (!state.climbing) {
-            state = RobotState.PREPARE_PRESET_RIGHT;
+            state = RobotState.PREPARE_PRESET_AMP;
           }
           break;
         case PREPARE_PRESET_LEFT:
           if (!state.climbing) {
-            state = RobotState.PREPARE_PRESET_LEFT;
+            state = RobotState.PREPARE_PRESET_SOURCE;
           }
           break;
       }
@@ -312,8 +312,8 @@ public class RobotManager extends LifecycleSubsystem {
       case WAIT_SHOOTER_AMP:
       case OUTTAKING:
       case PREPARE_PRESET_3:
-      case PREPARE_PRESET_RIGHT:
-      case PREPARE_PRESET_LEFT:
+      case PREPARE_PRESET_AMP:
+      case PREPARE_PRESET_SOURCE:
       case PREPARE_PRESET_MIDDLE:
         // Do nothing
         break;
@@ -457,7 +457,7 @@ public class RobotManager extends LifecycleSubsystem {
       case AMP_SHOT:
       case PRESET_3:
       case PRESET_MIDDLE:
-      case PRESET_RIGHT:
+      case PRESET_AMP:
       case PRESET_LEFT:
         if (noteManager.getState() == NoteState.IDLE_NO_GP) {
           state = RobotState.IDLE_NO_GP;
@@ -522,14 +522,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
-        if (wristAngleForSpeaker.getDegrees()
-                <= WristSubsystem.MAX_SAFE_ANGLE_FOR_SHUFFLE.getDegrees()
-            || wrist.getAngle().getDegrees()
-                <= WristSubsystem.MAX_SAFE_ANGLE_FOR_SHUFFLE.getDegrees()) {
           noteManager.idleInQueuerShuffleRequest();
-        } else {
-          noteManager.idleInQueuerRequest();
-        }
         break;
       case LAZY_INTAKING:
         wrist.setAngle(wristAngleForSpeaker);
@@ -746,8 +739,8 @@ public class RobotManager extends LifecycleSubsystem {
         climber.setGoalMode(ClimberMode.HANGING);
         noteManager.idleNoGPRequest();
         break;
-      case PRESET_RIGHT:
-        wrist.setAngle(WristPositions.PRESET_RIGHT);
+      case PRESET_AMP:
+        wrist.setAngle(WristPositions.PRESET_AMP);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
         climber.setGoalMode(ClimberMode.STOWED);
@@ -757,9 +750,9 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.cancelCurrentCommand();
         break;
       case PRESET_LEFT:
-        wrist.setAngle(WristPositions.PRESET_LEFT);
+        wrist.setAngle(WristPositions.PRESET_SOURCE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.PRESET_LEFT);
+        shooter.setGoalMode(ShooterMode.PRESET_SOURCE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.shooterScoreRequest();
         snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());
@@ -796,8 +789,8 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
-      case PREPARE_PRESET_RIGHT:
-        wrist.setAngle(WristPositions.PRESET_RIGHT);
+      case PREPARE_PRESET_AMP:
+        wrist.setAngle(WristPositions.PRESET_AMP);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.PRESET_RIGHT);
         climber.setGoalMode(ClimberMode.STOWED);
@@ -806,10 +799,10 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.setEnabled(true);
         snaps.cancelCurrentCommand();
         break;
-      case PREPARE_PRESET_LEFT:
-        wrist.setAngle(WristPositions.PRESET_LEFT);
+      case PREPARE_PRESET_SOURCE:
+        wrist.setAngle(WristPositions.PRESET_SOURCE);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
-        shooter.setGoalMode(ShooterMode.PRESET_LEFT);
+        shooter.setGoalMode(ShooterMode.PRESET_SOURCE);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.intakeRequest();
         snaps.setAngle(vision.getDistanceAngleSpeaker().targetAngle());

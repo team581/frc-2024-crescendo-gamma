@@ -76,7 +76,7 @@ public class Autos extends LifecycleSubsystem {
         },
         new HolonomicPathFollowerConfig(
             new PIDConstants(4.0, 0.0, 0.0),
-            new PIDConstants(4.0, 0.0, 0.0),
+            new PIDConstants(3, 0.0, 0.0),
             4.4,
             0.387,
             new ReplanningConfig(true, true)),
@@ -85,6 +85,7 @@ public class Autos extends LifecycleSubsystem {
 
     registerCommand("preloadNote", actions.preloadNoteCommand());
     registerCommand("speakerShotNoTimeout", actions.speakerShotCommand());
+    registerCommand("speakerSnap", autoCommands.speakerSnapCommand());
     registerCommand("preparePresetRightShot", actions.preparePresetRightShotCommand());
     registerCommand("presetRightShot", actions.presetRightShotCommand());
     registerCommand("preparePresetLeftShot", actions.preparePresetLeftShotCommand());

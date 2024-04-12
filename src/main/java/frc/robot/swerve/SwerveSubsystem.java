@@ -240,7 +240,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
           Logger.recordOutput("Swerve/UsedTeleopSpeeds", teleopSpeeds);
 
           setFieldRelativeSpeeds(teleopSpeeds, false);
-        });
+        }).withName("DriveTeleopCommand");
   }
 
   private ChassisSpeeds accelerationLimitChassisSpeeds(ChassisSpeeds speeds) {

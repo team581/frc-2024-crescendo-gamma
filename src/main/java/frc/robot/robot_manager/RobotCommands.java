@@ -112,7 +112,7 @@ public class RobotCommands {
 
   public Command speakerShotCommand() {
     return Commands.runOnce(() -> robot.speakerShotRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .andThen(Commands.waitUntil(() -> !robot.getState().hasNote))
         .finallyDo(
             () -> {
               robot.snaps.setEnabled(false);
@@ -122,7 +122,7 @@ public class RobotCommands {
 
   public Command forceSpeakerShotCommand() {
     return Commands.runOnce(() -> robot.forceSpeakerShotRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .andThen(Commands.waitUntil(() -> !robot.getState().hasNote))
         .finallyDo(
             () -> {
               robot.snaps.setEnabled(false);
@@ -138,7 +138,7 @@ public class RobotCommands {
 
   public Command subwooferShotCommand() {
     return Commands.runOnce(() -> robot.subwooferShotRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .andThen(Commands.waitUntil(() -> !robot.getState().hasNote))
         .withName("SubwooferShotCommand");
   }
 
@@ -149,7 +149,7 @@ public class RobotCommands {
 
   public Command presetRightShotCommand() {
     return Commands.runOnce(() -> robot.presetRightRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .andThen(Commands.waitUntil(() -> !robot.getState().hasNote))
         .finallyDo(
             () -> {
               robot.snaps.setEnabled(false);
@@ -164,7 +164,7 @@ public class RobotCommands {
 
   public Command presetLeftShotCommand() {
     return Commands.runOnce(() -> robot.presetLeftRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .andThen(Commands.waitUntil(() -> !robot.getState().hasNote))
         .finallyDo(
             () -> {
               robot.snaps.setEnabled(false);
@@ -179,7 +179,7 @@ public class RobotCommands {
 
   public Command presetMiddleShotCommand() {
     return Commands.runOnce(() -> robot.presetMiddleRequest(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .andThen(Commands.waitUntil(() -> !robot.getState().hasNote))
         .finallyDo(
             () -> {
               robot.snaps.setEnabled(false);
@@ -194,7 +194,7 @@ public class RobotCommands {
 
   public Command preset3ShotCommand() {
     return Commands.runOnce(() -> robot.preset3Request(), requirements)
-        .andThen(robot.waitForStateCommand(RobotState.IDLE_NO_GP))
+        .andThen(Commands.waitUntil(() -> !robot.getState().hasNote))
         .finallyDo(
             () -> {
               robot.snaps.setEnabled(false);
