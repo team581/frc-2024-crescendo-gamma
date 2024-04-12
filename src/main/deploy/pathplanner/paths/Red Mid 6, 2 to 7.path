@@ -96,16 +96,16 @@
     },
     {
       "anchor": {
-        "x": 9.33,
-        "y": 3.9399999999999995
+        "x": 8.959999999999999,
+        "y": 3.64
       },
       "prevControl": {
-        "x": 9.498352269396884,
-        "y": 3.8981100164130353
+        "x": 9.128352269396883,
+        "y": 3.598110016413036
       },
       "nextControl": {
-        "x": 9.161647730603116,
-        "y": 3.9818899835869637
+        "x": 8.791647730603115,
+        "y": 3.6818899835869643
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 6"
@@ -313,7 +313,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": ".Red Parent Paths",
+  "folder": "Red Parent Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

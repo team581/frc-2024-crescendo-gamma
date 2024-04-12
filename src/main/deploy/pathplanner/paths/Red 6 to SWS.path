@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.214492288633702,
-        "y": 3.9399999999999995
+        "x": 9.31,
+        "y": 3.64
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.163032676942548,
-        "y": 3.950487725536855
+        "x": 8.7445999491999,
+        "y": 6.341424942849886
       },
       "isLocked": false,
       "linkedName": "Dynamic Pre-Red 7"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 11.733553467106935,
-        "y": 6.344444227349993
+        "y": 6.34
       },
       "prevControl": {
-        "x": 12.477930920774122,
-        "y": 4.213467374303169
+        "x": 10.685021082042164,
+        "y": 7.210378968757938
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "warmup",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "speakerSnap"
               }
             }
           ]
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -9.673355432403493,
+    "rotation": -9.830498617069912,
     "rotateFast": false
   },
   "reversed": false,

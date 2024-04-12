@@ -8,13 +8,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 4 to RWS"
+            "pathName": "Red 5 R, Snake 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 4 to 5"
+            "pathName": "Red 4 to RWS"
           }
         },
         {
@@ -26,30 +26,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 5 to CWS"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 5 to 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red CWS to 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red 6 to SWS"
+            "pathName": "Red 5 to RWS"
           }
         }
       ]
     }
   },
-  "folder": "Red dynamic autos",
+  "folder": "Red Dynamic Autos in Development",
   "choreoAuto": false
 }

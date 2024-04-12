@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.857202696861535,
-        "y": 5.791345266901061
+        "x": 9.194212852425705,
+        "y": 5.701151130302261
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.284539684237265,
-        "y": 6.314489347575188
+        "x": 9.621549839801435,
+        "y": 6.224295210976388
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 5 after"
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "speakerSnap"
               }
             }
           ]

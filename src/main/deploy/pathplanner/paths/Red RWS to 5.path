@@ -8,36 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.608721986674745,
-        "y": 6.768722768214768
+        "x": 10.20087782575565,
+        "y": 6.63747269494539
       },
       "isLocked": false,
       "linkedName": "Dynamic Red RWS"
     },
     {
       "anchor": {
-        "x": 9.33,
-        "y": 5.64
+        "x": 8.329999999999998,
+        "y": 5.4399999999999995
       },
       "prevControl": {
-        "x": 9.472848273773472,
-        "y": 5.880318245540336
+        "x": 9.131873507747017,
+        "y": 5.7060254000508
       },
       "nextControl": {
-        "x": 9.294232798554857,
-        "y": 5.579827686592731
+        "x": 8.263560773624196,
+        "y": 5.4179584665100755
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 5"
     },
     {
       "anchor": {
-        "x": 9.857202696861535,
-        "y": 5.791345266901061
+        "x": 9.194212852425705,
+        "y": 5.701151130302261
       },
       "prevControl": {
-        "x": 9.598978944694732,
-        "y": 5.743129509545006
+        "x": 8.935989100258903,
+        "y": 5.652935372946206
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,7 +46,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.4,
+      "waypointRelativePos": 0.55,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -78,14 +78,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.5,
     "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": -12.661368403079557,
+    "rotation": -10.092405122302825,
     "velocity": 0
   },
   "useDefaultConstraints": true
