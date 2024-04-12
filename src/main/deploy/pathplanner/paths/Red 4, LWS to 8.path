@@ -20,12 +20,28 @@
         "y": 0.8386901389187392
       },
       "prevControl": {
-        "x": 8.979113499150076,
-        "y": 0.9379713174810963
+        "x": 9.615011241964794,
+        "y": 1.154316372286591
+      },
+      "nextControl": {
+        "x": 8.57863681886876,
+        "y": 0.8170269439311142
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 9.693973949351408,
+        "y": 1.1937355453658274
+      },
+      "prevControl": {
+        "x": 9.367516454331154,
+        "y": 1.048643325356826
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Pre-Red 7 Source"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "intake and warmup",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.6,
       "command": {
         "type": "sequential",
         "data": {
@@ -62,12 +78,12 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 17.886892475032653,
+    "velocity": 1.75,
+    "rotation": 17.89,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red 4 Piece Source 8-6",
+  "folder": "Red MNFS",
   "previewStartingState": {
     "rotation": 46.446074498933285,
     "velocity": 0

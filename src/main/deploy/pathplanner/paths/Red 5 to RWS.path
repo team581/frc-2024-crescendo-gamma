@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.33,
-        "y": 5.64
+        "x": 9.857202696861535,
+        "y": 5.791345266901061
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.630439420878844,
-        "y": 5.793104781771873
+        "x": 10.284539684237265,
+        "y": 6.314489347575188
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 5"
+      "linkedName": "Dynamic Red 5 after"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 6.31
       },
       "prevControl": {
-        "x": 10.322580645161292,
-        "y": 6.916726910376898
+        "x": 10.963530874430171,
+        "y": 6.462396784442692
       },
       "nextControl": null,
       "isLocked": false,

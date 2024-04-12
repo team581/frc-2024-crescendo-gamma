@@ -8,24 +8,40 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.096460756921514,
-        "y": 1.1042529845059692
+        "x": 11.616445864470679,
+        "y": 1.4023056116287673
       },
       "isLocked": false,
       "linkedName": "Dynamic Red LWS"
     },
     {
       "anchor": {
-        "x": 8.41,
-        "y": 2.3779332174048973
+        "x": 8.424417024272646,
+        "y": 2.512506477012954
       },
       "prevControl": {
-        "x": 9.377559563119126,
-        "y": 1.9075895445239541
+        "x": 9.06369917149045,
+        "y": 2.2005728302323675
+      },
+      "nextControl": {
+        "x": 8.361506672850094,
+        "y": 2.54320318178547
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 7"
+    },
+    {
+      "anchor": {
+        "x": 9.358448190580592,
+        "y": 2.512506477012954
+      },
+      "prevControl": {
+        "x": 8.741806255542336,
+        "y": 2.499565525446841
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 7"
+      "linkedName": "Dynamic Red 7 after"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -56,7 +72,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.75,
     "rotation": 0.0,
     "rotateFast": false
   },

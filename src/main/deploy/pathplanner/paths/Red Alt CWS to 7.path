@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.638772200621325,
-        "y": 6.679920282917489
+        "x": 12.486999184524684,
+        "y": 4.431105704316672
       },
       "isLocked": false,
       "linkedName": "Dynamic Red Alt CWS"
@@ -20,8 +20,8 @@
         "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 12.327545182782673,
-        "y": 3.8283738105937757
+        "x": 12.205883008257247,
+        "y": 3.868873351781792
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 0.3,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,

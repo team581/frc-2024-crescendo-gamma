@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.885445770891543,
-        "y": 6.630585568863446
+        "x": 8.351870914268146,
+        "y": 6.426123729440442
       },
       "isLocked": false,
       "linkedName": "Dynamic Red RWS"
@@ -20,12 +20,28 @@
         "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 12.00193607002599,
-        "y": 3.709970496864071
+        "x": 11.4169440619583,
+        "y": 3.89607814303348
+      },
+      "nextControl": {
+        "x": 9.26001549756869,
+        "y": 3.9414728949192703
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 6"
+    },
+    {
+      "anchor": {
+        "x": 10.214492288633702,
+        "y": 3.9399999999999995
+      },
+      "prevControl": {
+        "x": 9.75267319046356,
+        "y": 3.9337625496283186
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Pre-Red 7"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {

@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.41,
-        "y": 2.3779332174048973
+        "x": 9.358448190580592,
+        "y": 2.512506477012954
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.566264824837344,
-        "y": 5.476153259998827
+        "x": 9.514713015417936,
+        "y": 5.610726519606883
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 7"
+      "linkedName": "Dynamic Red 7 after"
     },
     {
       "anchor": {

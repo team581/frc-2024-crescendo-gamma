@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red Alt MNFA 5,6,4",
+  "folder": "Red MidlineNotesFromAmp",
   "previewStartingState": {
     "rotation": -9.494331798577267,
     "velocity": 0

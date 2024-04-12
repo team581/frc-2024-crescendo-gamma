@@ -80,16 +80,16 @@
     },
     {
       "anchor": {
-        "x": 11.664484867431273,
-        "y": 4.1499999999999995
+        "x": 11.571104545717864,
+        "y": 4.3585595943121715
       },
       "prevControl": {
-        "x": 12.01354395215904,
-        "y": 4.511525480608244
+        "x": 12.008803002544838,
+        "y": 4.605466416112003
       },
       "nextControl": {
-        "x": 11.388210468728749,
-        "y": 3.8638586584887733
+        "x": 11.217442259445923,
+        "y": 4.159057791799794
       },
       "isLocked": false,
       "linkedName": null
@@ -100,12 +100,28 @@
         "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 11.084310388620779,
-        "y": 3.9665110099450973
+        "x": 9.498352269396884,
+        "y": 3.8981100164130353
+      },
+      "nextControl": {
+        "x": 9.161647730603116,
+        "y": 3.9818899835869637
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 6"
+    },
+    {
+      "anchor": {
+        "x": 10.247138038135727,
+        "y": 3.9399999999999995
+      },
+      "prevControl": {
+        "x": 9.721178740603097,
+        "y": 3.9414194617862925
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 6 Decision"
     }
   ],
   "rotationTargets": [
@@ -125,7 +141,7 @@
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 5.5,
+      "waypointRelativePos": 6.0,
       "rotationDegrees": 0,
       "rotateFast": false
     },
@@ -297,7 +313,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red Mid 6 Piece 1-5",
+  "folder": ".Red Parent Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

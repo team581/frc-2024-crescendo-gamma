@@ -52,12 +52,28 @@
         "y": 5.64
       },
       "prevControl": {
-        "x": 9.810676422891309,
-        "y": 6.008968171782498
+        "x": 10.217667472385761,
+        "y": 5.953348327095964
+      },
+      "nextControl": {
+        "x": 9.28285138232042,
+        "y": 5.623356447167004
+      },
+      "isLocked": false,
+      "linkedName": "Red 4 R, 3-5, 5"
+    },
+    {
+      "anchor": {
+        "x": 9.857202696861535,
+        "y": 5.791345266901061
+      },
+      "prevControl": {
+        "x": 9.540942056691133,
+        "y": 5.770393522541433
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 5"
+      "linkedName": "Dynamic Red 5 after"
     }
   ],
   "rotationTargets": [
@@ -72,7 +88,7 @@
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 2.45,
+      "waypointRelativePos": 2.9,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -92,7 +108,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 1.85,
-      "maxWaypointRelativePos": 2.1,
+      "maxWaypointRelativePos": 2.2,
       "constraints": {
         "maxVelocity": 0.4,
         "maxAcceleration": 5.0,
@@ -144,7 +160,7 @@
     },
     {
       "name": "intake and shoot",
-      "waypointRelativePos": 2.75,
+      "waypointRelativePos": 3.5,
       "command": {
         "type": "sequential",
         "data": {
@@ -184,7 +200,7 @@
     },
     {
       "name": "force shot of intaked piece",
-      "waypointRelativePos": 2.1999999999999997,
+      "waypointRelativePos": 2.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -212,7 +228,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red Right 4 & 5 Piece",
+  "folder": ".Red Parent Paths",
   "previewStartingState": {
     "rotation": -60.67615309904059,
     "velocity": 0

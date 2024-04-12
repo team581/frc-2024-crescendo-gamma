@@ -20,17 +20,33 @@
         "y": 5.64
       },
       "prevControl": {
-        "x": 9.909345850999395,
-        "y": 6.01617397080948
+        "x": 9.472848273773472,
+        "y": 5.880318245540336
+      },
+      "nextControl": {
+        "x": 9.294232798554857,
+        "y": 5.579827686592731
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 5"
+    },
+    {
+      "anchor": {
+        "x": 9.857202696861535,
+        "y": 5.791345266901061
+      },
+      "prevControl": {
+        "x": 9.598978944694732,
+        "y": 5.743129509545006
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 5"
+      "linkedName": "Dynamic Red 5 after"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.7,
+      "waypointRelativePos": 1.4,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -39,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "parallel",
         "data": {

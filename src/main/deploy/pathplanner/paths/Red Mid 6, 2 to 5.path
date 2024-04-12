@@ -84,12 +84,28 @@
         "y": 7.448602489204978
       },
       "prevControl": {
-        "x": 11.080442356110922,
-        "y": 7.495443259032613
+        "x": 9.477631843724872,
+        "y": 7.391943553605039
+      },
+      "nextControl": {
+        "x": 8.676296898218483,
+        "y": 7.454007882725345
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.065772763124475,
+        "y": 7.260403994492201
+      },
+      "prevControl": {
+        "x": 9.548881729342407,
+        "y": 7.369223159498953
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red M 6, 3.5"
+      "linkedName": "Dynamic Red 4 after"
     }
   ],
   "rotationTargets": [
@@ -104,12 +120,12 @@
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 4.15,
+      "waypointRelativePos": 4.3,
       "rotationDegrees": -27.447754260724107,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 4.75,
+      "waypointRelativePos": 4.5,
       "rotationDegrees": 0,
       "rotateFast": false
     },
@@ -144,7 +160,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 3.75,
-      "maxWaypointRelativePos": 4.1499999999999995,
+      "maxWaypointRelativePos": 4.3,
       "constraints": {
         "maxVelocity": 0.4,
         "maxAcceleration": 5.0,
@@ -230,7 +246,7 @@
     },
     {
       "name": "intake",
-      "waypointRelativePos": 4.4,
+      "waypointRelativePos": 4.55,
       "command": {
         "type": "sequential",
         "data": {
@@ -276,12 +292,12 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.75,
     "rotation": 0.018133488005024657,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red Mid 6 Piece 1-5",
+  "folder": ".Red Parent Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

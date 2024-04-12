@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.91237236474473,
-        "y": 6.8905755651511305
+        "x": 10.065772763124475,
+        "y": 7.260403994492201
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.290293019309443,
-        "y": 6.803242624527803
+        "x": 10.446639840648103,
+        "y": 7.047579241474273
       },
       "isLocked": false,
-      "linkedName": "Dynamic Pre-Red 5"
+      "linkedName": "Dynamic Red 4 after"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 6.31
       },
       "prevControl": {
-        "x": 11.210723901447803,
-        "y": 6.498889509779019
+        "x": 11.226510523196485,
+        "y": 6.607489004451693
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "warmup",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "sequential",
         "data": {

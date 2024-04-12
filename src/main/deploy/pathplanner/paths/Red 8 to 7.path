@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.41,
-        "y": 0.69
+        "x": 9.693973949351408,
+        "y": 1.1937355453658274
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.629129112019175,
-        "y": 0.6773780149924726
+        "x": 9.639564366848033,
+        "y": 2.3272685141861515
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 8"
+      "linkedName": "Dynamic Pre-Red 7 Source"
     },
     {
       "anchor": {
-        "x": 8.41,
-        "y": 2.3779332174048973
+        "x": 8.424417024272646,
+        "y": 2.512506477012954
       },
       "prevControl": {
-        "x": 9.822826048729022,
-        "y": 2.379575076688616
+        "x": 8.350057261518034,
+        "y": 2.510447441947516
+      },
+      "nextControl": {
+        "x": 8.494390203586665,
+        "y": 2.514444046802186
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 7"
+    },
+    {
+      "anchor": {
+        "x": 9.358448190580592,
+        "y": 2.512506477012954
+      },
+      "prevControl": {
+        "x": 8.977581113056964,
+        "y": 2.490497261696279
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 7"
+      "linkedName": "Dynamic Red 7 after"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -56,7 +72,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.75,
     "rotation": 0,
     "rotateFast": false
   },
@@ -64,7 +80,7 @@
   "folder": "Red MNFS",
   "previewStartingState": {
     "rotation": 0,
-    "velocity": 0
+    "velocity": 0.5
   },
   "useDefaultConstraints": true
 }

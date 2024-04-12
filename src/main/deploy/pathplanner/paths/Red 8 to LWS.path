@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.41,
-        "y": 0.69
+        "x": 9.693973949351408,
+        "y": 1.1937355453658274
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.41,
-        "y": 0.6899999999999997
+        "x": 10.40129852189529,
+        "y": 1.5383295678872067
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 8"
+      "linkedName": "Dynamic Pre-Red 7 Source"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 2.512506477012954
       },
       "prevControl": {
-        "x": 11.80635966471933,
-        "y": 1.873258826517653
+        "x": 11.317193160702113,
+        "y": 1.9282649091613973
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "warmup",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -69,8 +69,8 @@
   "reversed": false,
   "folder": "Red MNFS",
   "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
+    "rotation": 17.89,
+    "velocity": 1.75
   },
   "useDefaultConstraints": true
 }
