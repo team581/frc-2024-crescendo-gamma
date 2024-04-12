@@ -19,7 +19,7 @@ import org.littletonrobotics.junction.Logger;
 public class NoteManager extends LifecycleSubsystem {
   private final FlagManager<NoteFlag> flags = new FlagManager<>("NoteManager", NoteFlag.class);
   private final Timer shuffleTimeoutTimer = new Timer();
-  private static final double NOTE_SHUFFLE_TIMEOUT_DURATION = 4;
+  private static final double NOTE_SHUFFLE_TIMEOUT_DURATION = 2;
 
   public final QueuerSubsystem queuer;
   public final IntakeSubsystem intake;
