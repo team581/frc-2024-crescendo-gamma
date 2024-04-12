@@ -41,6 +41,9 @@ public class NoteManager extends LifecycleSubsystem {
     Logger.recordOutput("NoteManager/State", state);
     flags.log();
 
+    if (state != NoteState.IDLE_IN_QUEUER_SHUFFLE) {
+      shuffleTimeoutTimer.reset();
+    }
     // State transitions from requests
     for (NoteFlag flag : flags.getChecked()) {
       switch (flag) {
@@ -216,9 +219,13 @@ public class NoteManager extends LifecycleSubsystem {
         break;
       case IDLE_IN_QUEUER_SHUFFLE:
         if (shuffleTimeoutTimer.hasElapsed(NOTE_SHUFFLE_TIMEOUT_DURATION)) {
-          intake.setState(IntakeState.IDLE);
+          if (queuer.hasNote()) {
+            intake.setState(IntakeState.IDLE);
+          } else {
+            intake.setState(IntakeState.TO_QUEUER_SLOW);
+          }
           conveyor.setState(ConveyorState.IDLE);
-          queuer.setState(QueuerState.IDLE);
+          queuer.setState(QueuerState.INTAKING);
         } else {
           if (queuer.hasNote()) {
             intake.setState(IntakeState.SHUFFLE);
@@ -234,14 +241,12 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.TO_QUEUER_SLOW);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
-        shuffleTimeoutTimer.reset();
         break;
       case INTAKE_TO_QUEUER:
       case GROUND_NOTE_TO_INTAKE:
         intake.setState(IntakeState.TO_QUEUER);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
-        shuffleTimeoutTimer.reset();
         break;
       case AMP_SCORING:
         intake.setState(IntakeState.IDLE);
@@ -264,7 +269,6 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.FROM_QUEUER);
         conveyor.setState(ConveyorState.QUEUER_TO_INTAKE);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
-        shuffleTimeoutTimer.reset();
         break;
       case INTAKE_TO_CONVEYOR:
         intake.setState(IntakeState.TO_CONVEYOR);
@@ -286,13 +290,11 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.TO_QUEUER_SHOOTING);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
-        shuffleTimeoutTimer.reset();
         break;
       case UNJAM:
         intake.setState(IntakeState.TO_QUEUER);
         conveyor.setState(ConveyorState.AMP_SHOT);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
-        shuffleTimeoutTimer.reset();
         break;
       default:
         break;

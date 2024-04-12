@@ -49,30 +49,29 @@ public class QueuerSubsystem extends LifecycleSubsystem {
         }
         break;
       case SHUFFLE:
-      if(sensorHasNote()){
-        if (noteShuffleOn) {
-          // Push note towards intake
-          motor.setVoltage(-1.5);
+        if (sensorHasNote()) {
+          if (noteShuffleOn) {
+            // Push note towards intake
+            motor.setVoltage(-1.5);
 
-          if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_ON_DURATION)) {
-            shuffleTimer.reset();
-            noteShuffleOn = false;
+            if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_ON_DURATION)) {
+              shuffleTimer.reset();
+              noteShuffleOn = false;
+            }
+          } else {
+            // Allow note to expand
+            motor.disable();
+
+            if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_OFF_DURATION)) {
+              shuffleTimer.reset();
+              noteShuffleOn = true;
+            }
           }
         }
-         else {
-          // Allow note to expand
-          motor.disable();
-
-          if (shuffleTimer.hasElapsed(NOTE_SHUFFLE_OFF_DURATION)) {
-            shuffleTimer.reset();
-            noteShuffleOn = true;
-          }
+        // if no note seen, try intaking it
+        else {
+          motor.setVoltage(1);
         }
-      } 
-      //if no note seen, try intaking it
-      else {
-        motor.setVoltage(1);
-      }
         break;
       case PASS_TO_INTAKE:
         motor.setVoltage(-1);
