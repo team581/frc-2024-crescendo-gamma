@@ -11,8 +11,6 @@ import frc.robot.lights.LightsState;
 public enum RobotState {
   /** Idling without a note. */
   IDLE_NO_GP(false, false, false, new LightsState(Color.kBlue, BlinkPattern.SOLID)),
-  /** Idling with a note in the conveyor, going to stow everything. */
-  PREPARE_IDLE_WITH_GP_FROM_CONVEYOR(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
   /** Idling with a note in the queuer. */
   IDLE_WITH_GP(true, false, false, new LightsState(null, BlinkPattern.SOLID)),
 
