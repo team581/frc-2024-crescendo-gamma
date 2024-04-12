@@ -50,10 +50,13 @@ public class RumbleControllerSubsystem extends LifecycleSubsystem {
   }
 
   private Command getVibrateOnceCommand() {
+    return getVibrateOnceCommand(0.2, 0.1);
+  }
+  private Command getVibrateOnceCommand(double durationOn, double durationOff) {
     return Commands.runOnce(() -> controller.setRumble(RumbleType.kBothRumble, 1))
-        .andThen(Commands.waitSeconds(0.2))
+        .andThen(Commands.waitSeconds(durationOn))
         .andThen(() -> controller.setRumble(RumbleType.kBothRumble, 0))
-        .andThen(Commands.waitSeconds(0.1))
+        .andThen(Commands.waitSeconds(durationOff))
         .finallyDo(
             () -> {
               controller.setRumble(RumbleType.kBothRumble, 0);
@@ -65,8 +68,8 @@ public class RumbleControllerSubsystem extends LifecycleSubsystem {
   }
 
   public Command getRumbleLongCommand() {
-    return getVibrateOnceCommand()
-        .andThen(getVibrateOnceCommand())
-        .andThen(getVibrateOnceCommand());
+    return getVibrateOnceCommand(0.4, 0.1)
+        .andThen(getVibrateOnceCommand(0.4, 0.1))
+        .andThen(getVibrateOnceCommand(0.4, 0.1));
   }
 }
