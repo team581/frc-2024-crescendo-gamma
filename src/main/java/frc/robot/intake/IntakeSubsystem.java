@@ -63,6 +63,9 @@ public class IntakeSubsystem extends LifecycleSubsystem {
       case TO_QUEUER_SHOOTING:
         motor.setVoltage(8);
         break;
+      case SHUFFLE:
+        motor.setVoltage(-0.35);
+        break;
       default:
         break;
     }

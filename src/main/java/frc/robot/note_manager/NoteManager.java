@@ -4,6 +4,7 @@
 
 package frc.robot.note_manager;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.conveyor.ConveyorState;
 import frc.robot.conveyor.ConveyorSubsystem;
 import frc.robot.intake.IntakeState;
@@ -17,6 +18,8 @@ import org.littletonrobotics.junction.Logger;
 
 public class NoteManager extends LifecycleSubsystem {
   private final FlagManager<NoteFlag> flags = new FlagManager<>("NoteManager", NoteFlag.class);
+  private final Timer shuffleTimeoutTimer = new Timer();
+  private static final double NOTE_SHUFFLE_TIMEOUT_DURATION = 4;
 
   public final QueuerSubsystem queuer;
   public final IntakeSubsystem intake;
@@ -29,6 +32,8 @@ public class NoteManager extends LifecycleSubsystem {
     this.queuer = queuer;
     this.intake = intake;
     this.conveyor = conveyor;
+
+    shuffleTimeoutTimer.start();
   }
 
   @Override
@@ -210,24 +215,33 @@ public class NoteManager extends LifecycleSubsystem {
         queuer.setState(QueuerState.INTAKING);
         break;
       case IDLE_IN_QUEUER_SHUFFLE:
-        if (queuer.hasNote()) {
+        if (shuffleTimeoutTimer.hasElapsed(NOTE_SHUFFLE_TIMEOUT_DURATION)) {
           intake.setState(IntakeState.IDLE);
+          conveyor.setState(ConveyorState.IDLE);
+          queuer.setState(QueuerState.IDLE);
         } else {
-          intake.setState(IntakeState.TO_QUEUER_SLOW);
+          if (queuer.hasNote()) {
+            intake.setState(IntakeState.SHUFFLE);
+            conveyor.setState(ConveyorState.SHUFFLE);
+          } else {
+            intake.setState(IntakeState.TO_QUEUER_SLOW);
+            conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
+          }
+          queuer.setState(QueuerState.SHUFFLE);
         }
-        conveyor.setState(ConveyorState.IDLE);
-        queuer.setState(QueuerState.SHUFFLE);
         break;
       case LAZY_INTAKE_TO_QUEUER:
         intake.setState(IntakeState.TO_QUEUER_SLOW);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
+        shuffleTimeoutTimer.reset();
         break;
       case INTAKE_TO_QUEUER:
       case GROUND_NOTE_TO_INTAKE:
         intake.setState(IntakeState.TO_QUEUER);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
+        shuffleTimeoutTimer.reset();
         break;
       case AMP_SCORING:
         intake.setState(IntakeState.IDLE);
@@ -250,11 +264,13 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.FROM_QUEUER);
         conveyor.setState(ConveyorState.QUEUER_TO_INTAKE);
         queuer.setState(QueuerState.PASS_TO_INTAKE);
+        shuffleTimeoutTimer.reset();
         break;
       case INTAKE_TO_CONVEYOR:
         intake.setState(IntakeState.TO_CONVEYOR);
         conveyor.setState(ConveyorState.INTAKE_TO_SELF);
         queuer.setState(QueuerState.IDLE);
+
         break;
       case SHOOTER_OUTTAKING:
         intake.setState(IntakeState.TO_QUEUER);
@@ -270,11 +286,13 @@ public class NoteManager extends LifecycleSubsystem {
         intake.setState(IntakeState.TO_QUEUER_SHOOTING);
         conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
         queuer.setState(QueuerState.INTAKING);
+        shuffleTimeoutTimer.reset();
         break;
       case UNJAM:
         intake.setState(IntakeState.TO_QUEUER);
         conveyor.setState(ConveyorState.AMP_SHOT);
         queuer.setState(QueuerState.PASS_TO_SHOOTER);
+        shuffleTimeoutTimer.reset();
         break;
       default:
         break;

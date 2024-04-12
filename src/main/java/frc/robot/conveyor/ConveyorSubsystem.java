@@ -76,6 +76,9 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
           motor.setVoltage(outVoltage);
         }
         break;
+      case SHUFFLE:
+        motor.setVoltage(-0.5);
+        break;
       default:
         break;
     }
