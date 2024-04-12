@@ -8,24 +8,40 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.087985633898372,
-        "y": 6.776850263692871
+        "x": 14.952931673863347,
+        "y": 7.9514732029464055
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.711583439170889,
-        "y": 6.952914909835333
+        "x": 14.43709973145624,
+        "y": 7.7700000000000005
       },
       "prevControl": {
-        "x": 14.321388252466932,
-        "y": 6.867611328809358
+        "x": 15.217335014849407,
+        "y": 7.7700000000000005
       },
       "nextControl": {
-        "x": 13.301075573352342,
-        "y": 7.01033949919595
+        "x": 13.167260287833287,
+        "y": 7.7700000000000005
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 12.5,
+        "y": 7.7700000000000005
+      },
+      "prevControl": {
+        "x": 13.1248732506958,
+        "y": 7.7700000000000005
+      },
+      "nextControl": {
+        "x": 11.8751267493042,
+        "y": 7.7700000000000005
       },
       "isLocked": false,
       "linkedName": null
@@ -39,20 +55,36 @@
         "x": 9.795415798831597,
         "y": 7.42528981457963
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 8.864584201168404,
+        "y": 7.3947101854203705
+      },
       "isLocked": false,
       "linkedName": "Dynamic Red 4"
+    },
+    {
+      "anchor": {
+        "x": 9.91237236474473,
+        "y": 6.8905755651511305
+      },
+      "prevControl": {
+        "x": 9.631306578613158,
+        "y": 7.141061722123445
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Pre-Red 5"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": -16.639999999999986,
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": 0.0,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 1.65,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 0.2,
+      "rotationDegrees": -48.0,
       "rotateFast": false
     }
   ],
@@ -60,20 +92,9 @@
     {
       "name": "1",
       "minWaypointRelativePos": 0.0,
-      "maxWaypointRelativePos": 0.8,
+      "maxWaypointRelativePos": 1.85,
       "constraints": {
-        "maxVelocity": 1.5,
-        "maxAcceleration": 5.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    },
-    {
-      "name": "2",
-      "minWaypointRelativePos": 0.8,
-      "maxWaypointRelativePos": 1.1,
-      "constraints": {
-        "maxVelocity": 1.5,
+        "maxVelocity": 1.0,
         "maxAcceleration": 5.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
@@ -82,37 +103,8 @@
   ],
   "eventMarkers": [
     {
-      "name": "Intake and Shoot",
-      "waypointRelativePos": 0.75,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "preparePreset3Shot"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "preset3Shot"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
       "name": "intake and shoot",
-      "waypointRelativePos": 1.75,
+      "waypointRelativePos": 1.6,
       "command": {
         "type": "sequential",
         "data": {
@@ -121,12 +113,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -135,7 +121,7 @@
     },
     {
       "name": "PresetShot",
-      "waypointRelativePos": 0.4,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -158,14 +144,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -0.05076655246718394,
+    "velocity": 1.5,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Dev Red Right 4 & 5 Piece",
   "previewStartingState": {
-    "rotation": -60.67615309904059,
+    "rotation": -60.68000000000001,
     "velocity": 0
   },
   "useDefaultConstraints": true

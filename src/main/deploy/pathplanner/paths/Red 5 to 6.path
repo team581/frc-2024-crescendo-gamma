@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.5,
+        "x": 9.847005842011685,
         "y": 5.64
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.853890506242552,
-        "y": 4.98644922920615
+        "x": 10.316423672852975,
+        "y": 4.383918211838468
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 5"
+      "linkedName": "Dynamic Pre-Red 6"
     },
     {
       "anchor": {
-        "x": 8.44,
+        "x": 9.33,
         "y": 3.9399999999999995
       },
       "prevControl": {
-        "x": 9.688317500635002,
+        "x": 10.578317500635002,
         "y": 3.9856642113284213
+      },
+      "nextControl": {
+        "x": 9.26004678797568,
+        "y": 3.9374410690746897
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 6"
+    },
+    {
+      "anchor": {
+        "x": 10.201134366274363,
+        "y": 3.9204521209062864
+      },
+      "prevControl": {
+        "x": 9.14140843281968,
+        "y": 3.9073939547889323
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Pre-Red 7"
     }
   ],
   "rotationTargets": [],
