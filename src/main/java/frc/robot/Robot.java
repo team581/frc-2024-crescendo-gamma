@@ -205,9 +205,9 @@ public class Robot extends TimedRobot {
     driverController.povDown().onTrue(snaps.getCommand(() -> SnapManager.getStageBackChain()));
     
     if (VisionSubsystem.IS_CALIBRATION){
-      driverController.povUp().onTrue(vision.addCalibrationSnap());
+      driverController.povUp().onTrue(vision.addCalibrationSnap().ignoringDisable(true));
     }
-    
+
     driverController
         .leftTrigger()
         .onTrue(

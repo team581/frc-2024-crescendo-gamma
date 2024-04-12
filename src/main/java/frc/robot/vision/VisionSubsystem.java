@@ -31,7 +31,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final boolean LIMELIGHT_UPSIDE_DOWN = true;
   public static final boolean IS_CALIBRATION = true;
 
-  private ArrayList<MTDistanceTYDistance> calibrationSnaps = new ArrayList<>();
+  private ArrayList<Double> calibrationSnapsMT = new ArrayList<>();
+    private ArrayList<Double> calibrationSnapsTy = new ArrayList<>();
+
 
   public static final Pose2d ORIGINAL_RED_SPEAKER =
       new Pose2d(
@@ -77,10 +79,12 @@ public class VisionSubsystem extends LifecycleSubsystem {
             txtyDistance = maybeTxTyDistanceAngle.get().distance();
           }
 
-          calibrationSnaps.add(new MTDistanceTYDistance(megatag2Distance, txtyDistance));
-          var latest = calibrationSnaps.get(calibrationSnaps.size()-1);
-          String logString = new String("MT2:"+" " + latest.megatag2Distance() + "TY:" + " " + latest.txtyDistance());
-          Logger.recordOutput("Vision/LatestCalibrationSnap", logString);
+          calibrationSnapsMT.add(megatag2Distance);
+          calibrationSnapsTy.add(txtyDistance);
+          var latestMT = calibrationSnapsMT.get(calibrationSnapsMT.size()-1);
+          var latestTy = calibrationSnapsTy.get(calibrationSnapsTy.size()-1);
+          Logger.recordOutput("Vision/CalibrationSnap/MT2", latestMT);
+          Logger.recordOutput("Vision/CalibrationSnap/TxTy", latestTy);
         });
   }
 
