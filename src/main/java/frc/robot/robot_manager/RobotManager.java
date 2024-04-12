@@ -97,7 +97,7 @@ public class RobotManager extends LifecycleSubsystem {
         case STOW:
           if (state.hasNote) {
             if (state == RobotState.WAITING_AMP_SHOT) {
-              state = RobotState.PREPARE_IDLE_WITH_GP_FROM_CONVEYOR;
+              state = RobotState.AMP_SHOT;
             } else {
               state = RobotState.IDLE_WITH_GP;
             }
@@ -309,11 +309,6 @@ public class RobotManager extends LifecycleSubsystem {
       case OUTTAKING:
         // Do nothing
         break;
-      case PREPARE_IDLE_WITH_GP_FROM_CONVEYOR:
-        if (elevator.atPosition(ElevatorPositions.STOWED)) {
-          state = RobotState.IDLE_WITH_GP;
-        }
-        break;
       case PREPARE_WAITING_AMP_SHOT:
         if (noteManager.getState() == NoteState.IDLE_IN_CONVEYOR
             && wrist.atAngle(WristPositions.FULLY_STOWED)) {
@@ -436,12 +431,14 @@ public class RobotManager extends LifecycleSubsystem {
         }
         break;
       case WAITING_MULTI_SPEAKER_SHOT:
-        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER || noteManager.getState() == NoteState.IDLE_IN_QUEUER_SHUFFLE) {
+        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER
+            || noteManager.getState() == NoteState.IDLE_IN_QUEUER_SHUFFLE) {
           state = RobotState.PREPARE_SPEAKER_SHOT;
         }
         break;
       case WAITING_MULTI_FLOOR_SHOT:
-        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER || noteManager.getState() == NoteState.IDLE_IN_QUEUER_SHUFFLE) {
+        if (noteManager.getState() == NoteState.IDLE_IN_QUEUER
+            || noteManager.getState() == NoteState.IDLE_IN_QUEUER_SHUFFLE) {
           state = RobotState.PREPARE_FLOOR_SHOT;
         }
         break;
@@ -652,7 +649,6 @@ public class RobotManager extends LifecycleSubsystem {
         snaps.cancelCurrentCommand();
         break;
       case PREPARE_WAITING_AMP_SHOT:
-      case PREPARE_IDLE_WITH_GP_FROM_CONVEYOR:
         wrist.setAngle(WristPositions.FULLY_STOWED);
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
@@ -952,7 +948,7 @@ public class RobotManager extends LifecycleSubsystem {
   public void stopShootingRequest() {
     if (state == RobotState.PREPARE_PODIUM_SHOT || state == RobotState.WAITING_PODIUM_SHOT) {
       waitPodiumShotRequest();
-    } else if (state == RobotState.PREPARE_FLOOR_SHOT || state == RobotState.WAITING_FLOOR_SHOT) {
+    } else if (state == RobotState.PREPARE_FLOOR_SHOT || state == RobotState.WAITING_FLOOR_SHOT || state == RobotState.WAITING_MULTI_FLOOR_SHOT) {
       waitFloorShotRequest();
     } else if (state == RobotState.PREPARE_SUBWOOFER_SHOT
         || state == RobotState.WAITING_SUBWOOFER_SHOT) {
