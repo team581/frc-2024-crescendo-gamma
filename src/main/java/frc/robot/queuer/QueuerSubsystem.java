@@ -87,7 +87,8 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   @Override
   public void robotPeriodic() {
     debouncedSensor = debouncer.calculate(sensorHasNote());
-    // TODO: We accidentally were calling .calculate() twice for a very long time, and don't have time to validate behavior when we call it just once
+    // TODO: We accidentally were calling .calculate() twice for a very long time, and don't have
+    // time to validate behavior when we call it just once
     debouncer.calculate(sensorHasNote());
     Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput("Queuer/State", goalState);
