@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.78,
+        "y": 7.5600000000000005
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.747062738125477,
+        "y": 6.6957586995174
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 4 after"
+    },
+    {
+      "anchor": {
+        "x": 8.650808737617476,
+        "y": 3.251240538481077
+      },
+      "prevControl": {
+        "x": 8.747883667767336,
+        "y": 4.346668529337059
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.75150057769721,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red MidlineNotesFromAmp",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
