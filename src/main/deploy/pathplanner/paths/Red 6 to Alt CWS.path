@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.447064262128526,
-        "y": 3.7261996443992893
+        "x": 10.214492288633702,
+        "y": 3.9399999999999995
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.7763332486665,
-        "y": 3.898646685293372
+        "x": 10.198979425958852,
+        "y": 5.350819405638812
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 6 After"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 6.344444227349993
       },
       "prevControl": {
-        "x": 8.253530099060198,
-        "y": 7.292933705867412
+        "x": 10.733553467106935,
+        "y": 6.344444227349993
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "speaker shot",
-      "waypointRelativePos": 0.65,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.2,
     "maxAcceleration": 5.0,
@@ -57,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.802491218231697,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Dev Red 4 Piece Source 8-6",
+  "folder": "Red MNFS",
   "previewStartingState": {
-    "rotation": -2.178485881140043,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

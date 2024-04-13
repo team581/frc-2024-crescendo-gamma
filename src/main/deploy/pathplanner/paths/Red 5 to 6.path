@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9399999999999995,
-        "y": 5.701151130302261
+        "x": 8.64224028448057,
+        "y": 5.736912877825756
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.40941783084129,
-        "y": 4.445069342140729
+        "x": 9.802150368300738,
+        "y": 4.674188468376937
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 5 after"
     },
     {
       "anchor": {
-        "x": 7.71,
-        "y": 3.64
+        "x": 8.447064262128526,
+        "y": 3.7261996443992893
       },
       "prevControl": {
-        "x": 8.958317500635001,
-        "y": 3.685664211328422
-      },
-      "nextControl": {
-        "x": 7.64004678797568,
-        "y": 3.6374410690746903
-      },
-      "isLocked": false,
-      "linkedName": "Dynamic Red 6"
-    },
-    {
-      "anchor": {
-        "x": 8.06,
-        "y": 3.64
-      },
-      "prevControl": {
-        "x": 7.000274066545318,
-        "y": 3.6269418338826456
+        "x": 9.724147828295663,
+        "y": 3.6572435864871737
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Pre-Red 7"
+      "linkedName": "Dynamic Red 6"
     }
   ],
   "rotationTargets": [],
@@ -72,7 +56,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 0.0,
     "rotateFast": false
   },

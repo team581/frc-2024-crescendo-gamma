@@ -171,8 +171,7 @@ public class SwerveSubsystem extends LifecycleSubsystem {
   }
 
   public Command driveTeleopCommand() {
-    return run(
-        () -> {
+    return run(() -> {
           if (!DriverStation.isTeleop()) {
             return;
           }
@@ -240,7 +239,8 @@ public class SwerveSubsystem extends LifecycleSubsystem {
           Logger.recordOutput("Swerve/UsedTeleopSpeeds", teleopSpeeds);
 
           setFieldRelativeSpeeds(teleopSpeeds, false);
-        }).withName("DriveTeleopCommand");
+        })
+        .withName("DriveTeleopCommand");
   }
 
   private ChassisSpeeds accelerationLimitChassisSpeeds(ChassisSpeeds speeds) {

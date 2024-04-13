@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.62,
-        "y": 7.56
+        "x": 8.930540513081027,
+        "y": 7.59
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.00086707752363,
-        "y": 7.347175246982072
+        "x": 9.311407590604656,
+        "y": 7.377175246982072
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 4 after"
     },
     {
       "anchor": {
-        "x": 11.7,
-        "y": 6.31
+        "x": 11.139999999999999,
+        "y": 6.45
       },
       "prevControl": {
-        "x": 11.226510523196485,
-        "y": 6.607489004451693
+        "x": 10.666510523196484,
+        "y": 6.747489004451694
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red RWS"
+      "linkedName": "Dynamic Red CWS"
     }
   ],
   "rotationTargets": [],
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -9.922997917766368,
+    "rotation": -7.868619246247001,
     "rotateFast": false
   },
   "reversed": false,

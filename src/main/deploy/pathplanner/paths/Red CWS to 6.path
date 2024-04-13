@@ -3,48 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.902720893587684,
-        "y": 6.369066598315568
+        "x": 11.139999999999999,
+        "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.679182118364237,
-        "y": 6.46913081026162
+        "x": 9.152837185674372,
+        "y": 5.963746507493015
       },
       "isLocked": false,
       "linkedName": "Dynamic Red CWS"
     },
     {
       "anchor": {
-        "x": 7.71,
-        "y": 3.64
+        "x": 8.447064262128526,
+        "y": 3.7261996443992893
       },
       "prevControl": {
-        "x": 9.787285242570487,
-        "y": 3.347852171704344
-      },
-      "nextControl": {
-        "x": 7.640682175653667,
-        "y": 3.649748806485479
-      },
-      "isLocked": false,
-      "linkedName": "Dynamic Red 6"
-    },
-    {
-      "anchor": {
-        "x": 8.06,
-        "y": 3.64
-      },
-      "prevControl": {
-        "x": 8.10571551943104,
-        "y": 3.6188097536195074
+        "x": 9.497519939039883,
+        "y": 4.839741427482856
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Pre-Red 7"
+      "linkedName": "Dynamic Red 6"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": 41.0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -73,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 1.5,
-    "rotation": 0.0,
+    "rotation": 40.9980773751438,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -20.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

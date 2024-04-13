@@ -522,7 +522,7 @@ public class RobotManager extends LifecycleSubsystem {
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.IDLE);
         climber.setGoalMode(ClimberMode.STOWED);
-          noteManager.idleInQueuerShuffleRequest();
+        noteManager.idleInQueuerShuffleRequest();
         break;
       case LAZY_INTAKING:
         wrist.setAngle(wristAngleForSpeaker);

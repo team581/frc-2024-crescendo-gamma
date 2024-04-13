@@ -24,6 +24,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red 5 R, Snake 5"

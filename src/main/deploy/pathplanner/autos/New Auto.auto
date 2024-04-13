@@ -28,6 +28,18 @@
           "data": {
             "pathName": "Red 5 to RWS"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red CWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 6 to SWS"
+          }
         }
       ]
     }
