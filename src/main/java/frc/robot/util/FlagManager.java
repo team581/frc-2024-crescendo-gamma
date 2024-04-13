@@ -4,28 +4,26 @@
 
 package frc.robot.util;
 
+import dev.doglog.DogLog;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import org.littletonrobotics.junction.Logger;
 
 public class FlagManager<T extends Enum<T>> {
   private final String loggerCategory;
-  private final EnumSet<T> allMembers;
 
   private final Set<T> checked;
 
   public FlagManager(String loggerCategory, Class<T> flag) {
     this.loggerCategory = loggerCategory;
-    this.allMembers = EnumSet.allOf(flag);
     this.checked = EnumSet.noneOf(flag);
   }
 
   public void log() {
-    for (T flag : allMembers) {
-      Logger.recordOutput(loggerCategory + "/Flags/" + flag.toString(), checked.contains(flag));
-    }
+    DogLog.log(
+        loggerCategory + "/Flags",
+        checked.stream().map(value -> value.toString()).toArray(String[]::new));
   }
 
   public void check(T flag) {
