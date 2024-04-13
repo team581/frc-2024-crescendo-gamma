@@ -32,11 +32,8 @@ public class AutoCommands {
   }
 
   public Command speakerSnapCommand() {
-    return Commands.runOnce(
-        () -> {
-          robotManager.snaps.setAngle(robotManager.vision.getDistanceAngleSpeaker().targetAngle());
-          robotManager.snaps.setEnabled(true);
-        });
+    return robotManager.snaps.getCommand(
+        () -> robotManager.vision.getDistanceAngleSpeaker().targetAngle());
   }
 
   public Command subwooferShotWithTimeout() {
