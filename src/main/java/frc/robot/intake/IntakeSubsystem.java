@@ -29,7 +29,16 @@ public class IntakeSubsystem extends LifecycleSubsystem {
   }
 
   @Override
-  public void enabledPeriodic() {
+  public void robotPeriodic() {
+    debouncedSensor = debouncer.calculate(sensorHasNote());
+    Logger.recordOutput("Intake/State", goalState);
+    Logger.recordOutput("Intake/DebouncedHasNote", debouncedSensor);
+    Logger.recordOutput("Intake/HasNote", hasNote());
+    Logger.recordOutput("Intake/SensorHasNote", sensorHasNote());
+    Logger.recordOutput("Intake/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Intake/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput("Intake/Voltage", motor.getMotorVoltage().getValueAsDouble());
+
     switch (goalState) {
       case IDLE:
         motor.disable();
@@ -69,18 +78,6 @@ public class IntakeSubsystem extends LifecycleSubsystem {
       default:
         break;
     }
-  }
-
-  @Override
-  public void robotPeriodic() {
-    debouncedSensor = debouncer.calculate(sensorHasNote());
-    Logger.recordOutput("Intake/State", goalState);
-    Logger.recordOutput("Intake/DebouncedHasNote", debouncedSensor);
-    Logger.recordOutput("Intake/HasNote", hasNote());
-    Logger.recordOutput("Intake/SensorHasNote", sensorHasNote());
-    Logger.recordOutput("Intake/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
-    Logger.recordOutput("Intake/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
-    Logger.recordOutput("Intake/Voltage", motor.getMotorVoltage().getValueAsDouble());
   }
 
   public void setState(IntakeState state) {

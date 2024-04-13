@@ -35,7 +35,15 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
   }
 
   @Override
-  public void enabledPeriodic() {
+  public void robotPeriodic() {
+    scoringDebouncedSensor = scoringDebouncer.calculate(sensorHasNote());
+    handoffDebouncedSensor = handoffDebouncer.calculate(sensorHasNote());
+    Logger.recordOutput("Conveyor/State", goalState);
+    Logger.recordOutput("Conveyor/SensorHasNote", sensorHasNote());
+    Logger.recordOutput("Conveyor/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput("Conveyor/Voltage", motor.getMotorVoltage().getValueAsDouble());
+
     switch (goalState) {
       case IDLE:
         motor.disable();
@@ -82,17 +90,6 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
       default:
         break;
     }
-  }
-
-  @Override
-  public void robotPeriodic() {
-    scoringDebouncedSensor = scoringDebouncer.calculate(sensorHasNote());
-    handoffDebouncedSensor = handoffDebouncer.calculate(sensorHasNote());
-    Logger.recordOutput("Conveyor/State", goalState);
-    Logger.recordOutput("Conveyor/SensorHasNote", sensorHasNote());
-    Logger.recordOutput("Conveyor/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
-    Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
-    Logger.recordOutput("Conveyor/Voltage", motor.getMotorVoltage().getValueAsDouble());
   }
 
   public void setState(ConveyorState state) {

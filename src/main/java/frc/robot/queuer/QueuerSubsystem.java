@@ -36,7 +36,17 @@ public class QueuerSubsystem extends LifecycleSubsystem {
   }
 
   @Override
-  public void enabledPeriodic() {
+  public void robotPeriodic() {
+    debouncedSensor = debouncer.calculate(sensorHasNote());
+    // TODO: We accidentally were calling .calculate() twice for a very long time, and don't have
+    // time to validate behavior when we call it just once
+    debouncer.calculate(sensorHasNote());
+    Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
+    Logger.recordOutput("Queuer/State", goalState);
+    Logger.recordOutput("Queuer/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
+    Logger.recordOutput("Queuer/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
+    Logger.recordOutput("Queuer/SensorHasNote", sensorHasNote());
+
     switch (goalState) {
       case IDLE:
         motor.disable();
@@ -82,19 +92,6 @@ public class QueuerSubsystem extends LifecycleSubsystem {
       default:
         break;
     }
-  }
-
-  @Override
-  public void robotPeriodic() {
-    debouncedSensor = debouncer.calculate(sensorHasNote());
-    // TODO: We accidentally were calling .calculate() twice for a very long time, and don't have
-    // time to validate behavior when we call it just once
-    debouncer.calculate(sensorHasNote());
-    Logger.recordOutput("Queuer/Voltage", motor.getMotorVoltage().getValueAsDouble());
-    Logger.recordOutput("Queuer/State", goalState);
-    Logger.recordOutput("Queuer/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
-    Logger.recordOutput("Queuer/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
-    Logger.recordOutput("Queuer/SensorHasNote", sensorHasNote());
   }
 
   public void setState(QueuerState state) {

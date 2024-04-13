@@ -83,10 +83,7 @@ public class SnapManager extends LifecycleSubsystem {
   public void robotPeriodic() {
     Logger.recordOutput("SnapManager/Enabled", enabled);
     Logger.recordOutput("SnapManager/GoalAngle", angle.getDegrees());
-  }
 
-  @Override
-  public void enabledPeriodic() {
     if (enabled) {
       swerve.setSnapToAngle(angle);
     }
