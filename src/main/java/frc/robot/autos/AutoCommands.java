@@ -115,7 +115,7 @@ public class AutoCommands {
                     .andThen(speakerShotWithTimeout())));
   }
 
-   public Command getMidlineNotesAmp45Command() {
+  public Command getMidlineNotesAmp45Command() {
     var red4ToRightWingShot = PathPlannerPath.fromPathFile("Red 4 to RWS");
     var red4To5 = PathPlannerPath.fromPathFile("Red 4 to 5");
     var redRightWingShotTo5 = PathPlannerPath.fromPathFile("Red RWS to 5");
