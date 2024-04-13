@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.358448190580592,
-        "y": 2.51
+        "x": 9.297598679197359,
+        "y": 2.327232918465837
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.769470030168131,
-        "y": 3.852550477030779
+        "x": 10.90872440944882,
+        "y": 4.378736093472187
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 7 after"
     },
     {
       "anchor": {
-        "x": 8.447064262128526,
-        "y": 3.7261996443992893
+        "x": 8.180000000000001,
+        "y": 4.24
       },
       "prevControl": {
-        "x": 8.70040539372307,
-        "y": 3.722178147935245
+        "x": 8.433341131594545,
+        "y": 4.235978503535956
       },
       "nextControl": {
-        "x": 8.377073079719496,
-        "y": 3.7273106731959187
+        "x": 8.110008817590971,
+        "y": 4.24111102879663
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 6"
     },
     {
       "anchor": {
-        "x": 10.214492288633702,
-        "y": 3.9399999999999995
+        "x": 9.465017018034036,
+        "y": 3.0535504191008385
       },
       "prevControl": {
-        "x": 9.988448047978187,
-        "y": 3.915626022127193
+        "x": 9.137671323342648,
+        "y": 3.6550353060706113
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 6 After"
+      "linkedName": "Dynamic Red 6 After Source"
     }
   ],
   "rotationTargets": [],
@@ -72,8 +72,8 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0,
+    "velocity": 2.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,

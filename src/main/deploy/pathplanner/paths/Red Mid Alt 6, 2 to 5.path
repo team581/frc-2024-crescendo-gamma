@@ -80,16 +80,32 @@
     },
     {
       "anchor": {
-        "x": 8.41,
-        "y": 5.9947825670727335
+        "x": 8.64,
+        "y": 5.736912877825756
       },
       "prevControl": {
-        "x": 9.625733171308289,
-        "y": 6.37800762001524
+        "x": 9.665313849278302,
+        "y": 5.980609839922036
+      },
+      "nextControl": {
+        "x": 8.571897203855656,
+        "y": 5.720726180901375
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 5 intake"
+    },
+    {
+      "anchor": {
+        "x": 9.13,
+        "y": 5.882781813563627
+      },
+      "prevControl": {
+        "x": 8.752193548387098,
+        "y": 5.781397002794006
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red Mid Alt 6, 5"
+      "linkedName": "dynamic red 5 after"
     }
   ],
   "rotationTargets": [
@@ -104,12 +120,12 @@
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 4.15,
+      "waypointRelativePos": 4.1,
       "rotationDegrees": -27.447754260724107,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 4.75,
+      "waypointRelativePos": 5.5,
       "rotationDegrees": 0,
       "rotateFast": false
     },
@@ -131,7 +147,7 @@
   ],
   "constraintZones": [
     {
-      "name": "New Constraints Zone",
+      "name": "2",
       "minWaypointRelativePos": 2.8499999999999996,
       "maxWaypointRelativePos": 3.2,
       "constraints": {
@@ -142,9 +158,9 @@
       }
     },
     {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 3.75,
-      "maxWaypointRelativePos": 4.1499999999999995,
+      "name": "3",
+      "minWaypointRelativePos": 3.8,
+      "maxWaypointRelativePos": 4.199999999999999,
       "constraints": {
         "maxVelocity": 0.4,
         "maxAcceleration": 5.0,
@@ -153,7 +169,7 @@
       }
     },
     {
-      "name": "New Constraints Zone",
+      "name": "1",
       "minWaypointRelativePos": 0.8,
       "maxWaypointRelativePos": 1.05,
       "constraints": {
@@ -230,7 +246,7 @@
     },
     {
       "name": "intake",
-      "waypointRelativePos": 4.4,
+      "waypointRelativePos": 4.8,
       "command": {
         "type": "sequential",
         "data": {
@@ -276,7 +292,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 2.0,
     "rotation": 0.018133488005024657,
     "rotateFast": false
   },

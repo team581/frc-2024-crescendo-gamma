@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.83,
-      "y": 4.41
+      "x": 15.81,
+      "y": 6.69
     },
-    "rotation": 59.23
+    "rotation": -59.69
   },
   "command": {
     "type": "sequential",
@@ -24,27 +24,21 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Red 4, Left to LWS"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "speakerShot"
+            "name": "subwooferShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 4, LWS to 8"
+            "pathName": "Red 4 R, 3-5"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "midlineNotesFromSource876"
+            "name": "midlineNotesOP4"
           }
         }
       ]

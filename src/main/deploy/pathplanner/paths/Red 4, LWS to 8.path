@@ -16,15 +16,15 @@
     },
     {
       "anchor": {
-        "x": 8.645200367323813,
+        "x": 8.25,
         "y": 0.8386901389187392
       },
       "prevControl": {
-        "x": 9.615011241964794,
+        "x": 9.21981087464098,
         "y": 1.154316372286591
       },
       "nextControl": {
-        "x": 8.57863681886876,
+        "x": 8.183436451544948,
         "y": 0.8170269439311142
       },
       "isLocked": false,
@@ -32,19 +32,30 @@
     },
     {
       "anchor": {
-        "x": 9.693973949351408,
-        "y": 1.1937355453658274
+        "x": 9.659474726949455,
+        "y": 1.2919380238760476
       },
       "prevControl": {
-        "x": 9.367516454331154,
-        "y": 1.048643325356826
+        "x": 9.333017231929201,
+        "y": 1.1468458038670462
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Dynamic Pre-Red 7 Source"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.0,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -78,12 +89,12 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 1.75,
-    "rotation": 17.89,
+    "velocity": 2.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MNFS",
+  "folder": "Red Parent Paths",
   "previewStartingState": {
     "rotation": 46.446074498933285,
     "velocity": 0

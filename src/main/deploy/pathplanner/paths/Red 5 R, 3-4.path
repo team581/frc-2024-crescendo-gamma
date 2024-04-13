@@ -48,28 +48,28 @@
     },
     {
       "anchor": {
-        "x": 8.63,
-        "y": 7.41
+        "x": 8.379999999999999,
+        "y": 7.46
       },
       "prevControl": {
-        "x": 9.520528839396958,
-        "y": 7.347163019071502
+        "x": 9.270528839396956,
+        "y": 7.397163019071502
       },
       "nextControl": {
-        "x": 8.56017361395945,
-        "y": 7.414927049067729
+        "x": 8.310173613959448,
+        "y": 7.464927049067729
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.930540513081027,
-        "y": 7.59
+        "x": 8.78,
+        "y": 7.5600000000000005
       },
       "prevControl": {
-        "x": 8.529782477054178,
-        "y": 7.66617341550271
+        "x": 8.542604158445572,
+        "y": 7.507940641783791
       },
       "nextControl": null,
       "isLocked": false,
@@ -79,12 +79,12 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 2,
-      "rotationDegrees": -27.844463368424176,
+      "rotationDegrees": -30.605172511736455,
       "rotateFast": false
     },
     {
       "waypointRelativePos": 1,
-      "rotationDegrees": -32.789348870431965,
+      "rotationDegrees": -35.45456432713239,
       "rotateFast": false
     },
     {
@@ -95,20 +95,9 @@
   ],
   "constraintZones": [
     {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.9,
-      "maxWaypointRelativePos": 1.15,
-      "constraints": {
-        "maxVelocity": 0.4,
-        "maxAcceleration": 5.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    },
-    {
-      "name": "New Constraints Zone",
+      "name": "2",
       "minWaypointRelativePos": 1.85,
-      "maxWaypointRelativePos": 2.2,
+      "maxWaypointRelativePos": 2.1,
       "constraints": {
         "maxVelocity": 0.4,
         "maxAcceleration": 5.0,
@@ -118,23 +107,6 @@
     }
   ],
   "eventMarkers": [
-    {
-      "name": "Shoot",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "Intake and Shoot",
       "waypointRelativePos": 1.5,
@@ -175,23 +147,6 @@
               "type": "named",
               "data": {
                 "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "force shot of preload",
-      "waypointRelativePos": 1.1500000000000001,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "forceSpeakerShot"
               }
             }
           ]

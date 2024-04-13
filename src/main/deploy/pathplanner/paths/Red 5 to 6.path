@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.64224028448057,
+        "x": 8.64,
         "y": 5.736912877825756
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.802150368300738,
+        "x": 9.79991008382017,
         "y": 4.674188468376937
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 5 after"
+      "linkedName": "Dynamic Red 5 intake"
     },
     {
       "anchor": {
-        "x": 8.447064262128526,
-        "y": 3.7261996443992893
+        "x": 8.180000000000001,
+        "y": 4.24
       },
       "prevControl": {
-        "x": 9.724147828295663,
-        "y": 3.6572435864871737
+        "x": 9.457083566167139,
+        "y": 4.171043942087885
       },
       "nextControl": null,
       "isLocked": false,

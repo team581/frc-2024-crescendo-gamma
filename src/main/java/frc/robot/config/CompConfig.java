@@ -262,7 +262,7 @@ class CompConfig {
                   .withPeakForwardTorqueCurrent(80)
                   .withPeakReverseTorqueCurrent(-80),
               // new PhoenixPIDController(50, 0, 5),
-              new PhoenixPIDController(11, 0, 1),
+              new PhoenixPIDController(20, 0, 2),
               true,
               true,
               true),
@@ -287,7 +287,8 @@ class CompConfig {
               },
               // x=right, y= forward, z=up
               new Translation3d(-0.025, Units.inchesToMeters(-1), Units.inchesToMeters(23.25)),
-              new Rotation3d(0.0, Units.degreesToRadians(15.2), Units.degreesToRadians(-1.0)),
+              // new Rotation3d(0.0, Units.degreesToRadians(15.2), Units.degreesToRadians(-1.0)),
+              new Rotation3d(0.0, Units.degreesToRadians(14.3), Units.degreesToRadians(-1.0)),
               56.015,
               81.428,
               28.517,

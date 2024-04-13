@@ -3,28 +3,28 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.930540513081027,
-        "y": 7.59
+        "x": 8.78,
+        "y": 7.5600000000000005
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.590106172212346,
-        "y": 7.0429204978409965
+        "x": 9.439565659131318,
+        "y": 7.012920497840997
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 4 after"
     },
     {
       "anchor": {
-        "x": 8.27974853949708,
+        "x": 8.53,
         "y": 5.736912877825756
       },
       "prevControl": {
-        "x": 9.448160628129898,
+        "x": 9.698412088632818,
         "y": 5.876745585563545
       },
       "nextControl": {
-        "x": 8.210244513184497,
+        "x": 8.460495973687417,
         "y": 5.728594805552695
       },
       "isLocked": false,
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 8.64224028448057,
+        "x": 8.64,
         "y": 5.736912877825756
       },
       "prevControl": {
-        "x": 8.373857861315724,
+        "x": 8.371617576835154,
         "y": 5.712428651257304
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 5 after"
+      "linkedName": "Dynamic Red 5 intake"
     }
   ],
   "rotationTargets": [],

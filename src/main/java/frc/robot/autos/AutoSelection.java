@@ -8,7 +8,8 @@ public enum AutoSelection {
   DO_NOTHING("", ""),
 
   FOUR_PIECE_SOURCE_8_6_DYN("Red 4 Piece Source 8-6", "Blue 4 Piece Source 8-6"),
-  FOUR_PIECE_SOURCE_7_8_DYN("Red 4 Piece Source 7,6,8", "Blue 4 Piece Source 7,6,8"),
+  OP_FIVE_PIECE("Red 5 Piece OP", ""),
+  OP_FIVE_PIECE_OFFSET("Red 5 Piece OP offset", ""),
   SNAKE_FOUR_DYN("Red Right Snake, 4", ""),
   SNAKE_FIVE_DYN("Red Right Snake, 5", ""),
   SIX_PIECE_2_5_DYN("Red 6 Piece 2,1,3-5", "Blue 6 Piece 2,1,3-5"),

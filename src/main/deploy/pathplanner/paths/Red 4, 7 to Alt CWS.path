@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.424417024272646,
-        "y": 2.512506477012954
+        "x": 8.22,
+        "y": 2.71
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.092597364633328,
-        "y": 4.072888493776988
+        "x": 8.695543859649122,
+        "y": 6.829527559055117
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 7"
@@ -20,8 +20,8 @@
         "y": 6.344444227349993
       },
       "prevControl": {
-        "x": 10.575090365565348,
-        "y": 5.657362693186926
+        "x": 10.536535433070867,
+        "y": 6.491501143002287
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 12.528807709151506,
+    "rotation": -10.678224902318092,
     "rotateFast": false
   },
   "reversed": false,

@@ -48,32 +48,32 @@
     },
     {
       "anchor": {
-        "x": 9.33,
-        "y": 5.64
-      },
-      "prevControl": {
-        "x": 10.217667472385761,
-        "y": 5.953348327095964
-      },
-      "nextControl": {
-        "x": 9.28285138232042,
-        "y": 5.623356447167004
-      },
-      "isLocked": false,
-      "linkedName": "Red 4 R, 3-5, 5"
-    },
-    {
-      "anchor": {
-        "x": 8.64224028448057,
+        "x": 8.64,
         "y": 5.736912877825756
       },
       "prevControl": {
-        "x": 8.325979644310168,
-        "y": 5.715961133466128
+        "x": 9.84903310058969,
+        "y": 6.099142969741931
+      },
+      "nextControl": {
+        "x": 8.572944839884444,
+        "y": 5.716822942487952
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 5 intake"
+    },
+    {
+      "anchor": {
+        "x": 9.13,
+        "y": 5.882781813563627
+      },
+      "prevControl": {
+        "x": 8.7814127508255,
+        "y": 5.803972567945136
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 5 after"
+      "linkedName": "dynamic red 5 after"
     }
   ],
   "rotationTargets": [
@@ -95,20 +95,9 @@
   ],
   "constraintZones": [
     {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.9,
-      "maxWaypointRelativePos": 1.15,
-      "constraints": {
-        "maxVelocity": 0.4,
-        "maxAcceleration": 5.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    },
-    {
-      "name": "New Constraints Zone",
+      "name": "2",
       "minWaypointRelativePos": 1.85,
-      "maxWaypointRelativePos": 2.2,
+      "maxWaypointRelativePos": 2.15,
       "constraints": {
         "maxVelocity": 0.4,
         "maxAcceleration": 5.0,
@@ -118,23 +107,6 @@
     }
   ],
   "eventMarkers": [
-    {
-      "name": "Shoot",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "Intake and Shoot",
       "waypointRelativePos": 1.5,
@@ -182,25 +154,8 @@
       }
     },
     {
-      "name": "force shot of preload",
-      "waypointRelativePos": 1.1500000000000001,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "forceSpeakerShot"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
       "name": "force shot of intaked piece",
-      "waypointRelativePos": 2.4,
+      "waypointRelativePos": 2.25,
       "command": {
         "type": "sequential",
         "data": {
@@ -223,7 +178,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 2.0,
     "rotation": -0.05076655246718394,
     "rotateFast": false
   },

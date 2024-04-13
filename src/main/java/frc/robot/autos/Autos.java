@@ -105,7 +105,7 @@ public class Autos extends LifecycleSubsystem {
     registerCommand("midlineNotesFromAmp45", autoCommands.getMidlineNotesAmp45Command());
     registerCommand("midlineNotes64", autoCommands.getMidlineNotes64Command());
     registerCommand("midlineNotesOP4", autoCommands.getMidlineNotesOP4Command());
-    registerCommand("midlineNotesFromSource876", autoCommands.getMidlineNotesSourceCommand());
+    registerCommand("midlineNotesFromSource876", autoCommands.getMidlineNotesSource876Command());
     registerCommand("altMidlineNotesFromAmp", autoCommands.getMidlineNotesAltAmpCommand());
 
     PathPlannerLogging.setLogActivePathCallback(

@@ -3,24 +3,24 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.447064262128526,
-        "y": 3.7261996443992893
+        "x": 9.214120396240792,
+        "y": 5.04
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.98335636271273,
-        "y": 6.033578359156719
+        "x": 9.794165143596544,
+        "y": 5.857712552079869
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 6"
+      "linkedName": "Dynamic Red 6 After"
     },
     {
       "anchor": {
-        "x": 11.139999999999999,
+        "x": 11.44,
         "y": 6.45
       },
       "prevControl": {
-        "x": 9.936671069342138,
+        "x": 10.236671069342139,
         "y": 6.547126238252477
       },
       "nextControl": null,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "warmup",
+      "name": "speaker snap",
       "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
@@ -64,7 +64,7 @@
   "folder": "Red MidlineNotesFromAmp",
   "previewStartingState": {
     "rotation": 0,
-    "velocity": 0
+    "velocity": 2.0
   },
   "useDefaultConstraints": true
 }

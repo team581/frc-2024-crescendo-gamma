@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.64224028448057,
-        "y": 5.736912877825756
+        "x": 9.13,
+        "y": 5.882781813563627
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.98641883280433,
-        "y": 5.801199801798565
+        "x": 9.474178548323762,
+        "y": 5.947068737536435
       },
       "isLocked": false,
-      "linkedName": "Dynamic Red 5 after"
+      "linkedName": "dynamic red 5 after"
     },
     {
       "anchor": {
-        "x": 11.139999999999999,
+        "x": 11.44,
         "y": 6.45
       },
       "prevControl": {
-        "x": 10.641747483349068,
-        "y": 6.716353772525173
+        "x": 10.936533401066804,
+        "y": 6.336037592075185
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Warmup",
-      "waypointRelativePos": 0.2,
+      "name": "speaker snap",
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "speakerSnap"
               }
             }
           ]

@@ -3,24 +3,24 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.930540513081027,
-        "y": 7.59
+        "x": 8.78,
+        "y": 7.5600000000000005
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.311407590604656,
-        "y": 7.377175246982072
+        "x": 9.160867077523628,
+        "y": 7.347175246982073
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 4 after"
     },
     {
       "anchor": {
-        "x": 11.139999999999999,
+        "x": 11.44,
         "y": 6.45
       },
       "prevControl": {
-        "x": 10.666510523196484,
+        "x": 10.966510523196485,
         "y": 6.747489004451694
       },
       "nextControl": null,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "warmup",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.693973949351408,
-        "y": 1.1937355453658274
+        "x": 9.659474726949455,
+        "y": 1.2919380238760476
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.40129852189529,
-        "y": 1.5383295678872067
+        "x": 10.43395035849721,
+        "y": 1.494962956031175
       },
       "isLocked": false,
       "linkedName": "Dynamic Pre-Red 7 Source"
@@ -20,8 +20,8 @@
         "y": 2.512506477012954
       },
       "prevControl": {
-        "x": 11.317193160702113,
-        "y": 1.9282649091613973
+        "x": 11.46239014478029,
+        "y": 1.7246705613411233
       },
       "nextControl": null,
       "isLocked": false,
@@ -69,8 +69,8 @@
   "reversed": false,
   "folder": "Red MNFS",
   "previewStartingState": {
-    "rotation": 17.89,
-    "velocity": 1.75
+    "rotation": 0.0,
+    "velocity": 2.0
   },
   "useDefaultConstraints": true
 }
