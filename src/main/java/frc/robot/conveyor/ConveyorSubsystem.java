@@ -89,12 +89,9 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
     scoringDebouncedSensor = scoringDebouncer.calculate(sensorHasNote());
     handoffDebouncedSensor = handoffDebouncer.calculate(sensorHasNote());
     Logger.recordOutput("Conveyor/State", goalState);
-    Logger.recordOutput("Conveyor/DebouncedScoringHasNote", scoringDebouncedSensor);
-    Logger.recordOutput("Conveyor/DebouncedHandoffHasNote", handoffDebouncedSensor);
     Logger.recordOutput("Conveyor/SensorHasNote", sensorHasNote());
     Logger.recordOutput("Conveyor/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Conveyor/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
-    Logger.recordOutput("Conveyor/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Conveyor/Voltage", motor.getMotorVoltage().getValueAsDouble());
   }
 
