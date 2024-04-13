@@ -96,11 +96,11 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     }
 
     Logger.recordOutput("Localization/OdometryPose", getOdometryPose());
-    Logger.recordOutput("Localization/SavedExpectedPose", getSavedExpectedPose(false));
+    // Logger.recordOutput("Localization/SavedExpectedPose", getSavedExpectedPose(false));
     Logger.recordOutput("Localization/EstimatedPose", getPose());
     Logger.recordOutput("Localization/ChangedDirection", changedDirection());
-    Logger.recordOutput(
-        "Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
+    // Logger.recordOutput(
+    //     "Localization/ExpectedPose", getExpectedPose(SHOOT_WHILE_MOVE_LOOKAHEAD, true));
     Logger.recordOutput(
         "Localization/LimelightPoseRaw",
         LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("").pose);
@@ -210,10 +210,7 @@ public class LocalizationSubsystem extends LifecycleSubsystem {
     } else {
       movingSlowEnough = false;
     }
-    Logger.recordOutput("Localization/movingSlowEnough", movingSlowEnough);
-    Logger.recordOutput("Localization/xDifference", xDifference);
-    Logger.recordOutput("Localization/yDifference", yDifference);
-    Logger.recordOutput("Localization/Vector", vector);
+
     if (!shootWhileMove || movingSlowEnough) {
       return getPose();
     }

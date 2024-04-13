@@ -290,30 +290,6 @@ public class SwerveSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Swerve/ModuleTargets", drivetrain.getState().ModuleTargets);
 
     Logger.recordOutput(
-        "Swerve/FrontLeft/DriveMotor/Temperature",
-        frontLeft.getDriveMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
-        "Swerve/FrontLeft/SteerMotor/Temperature",
-        frontLeft.getSteerMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
-        "Swerve/FrontRight/DriveMotor/Temperature",
-        frontRight.getDriveMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
-        "Swerve/FrontRight/SteerMotor/Temperature",
-        frontRight.getSteerMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
-        "Swerve/BackLeft/DriveMotor/Temperature",
-        backLeft.getDriveMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
-        "Swerve/BackLeft/SteerMotor/Temperature",
-        backLeft.getSteerMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
-        "Swerve/BackRight/DriveMotor/Temperature",
-        backRight.getDriveMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
-        "Swerve/BackRight/SteerMotor/Temperature",
-        backRight.getSteerMotor().getDeviceTemp().getValueAsDouble());
-    Logger.recordOutput(
         "Swerve/FrontLeft/DriveMotor/StatorCurrent",
         frontLeft.getDriveMotor().getStatorCurrent().getValue());
     Logger.recordOutput(

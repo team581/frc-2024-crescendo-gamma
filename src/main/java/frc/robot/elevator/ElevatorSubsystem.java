@@ -111,10 +111,8 @@ public class ElevatorSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Elevator/Voltage", motor.getMotorVoltage().getValueAsDouble());
     Logger.recordOutput("Elevator/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
     Logger.recordOutput("Elevator/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
-    Logger.recordOutput("Elevator/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Elevator/Height", getHeight());
     Logger.recordOutput("Elevator/GoalHeight", goalHeight);
-    Logger.recordOutput("Elevator/Rotations", getMechanismRotations().getRotations());
   }
 
   public void setPulsing(boolean shouldPulse) {

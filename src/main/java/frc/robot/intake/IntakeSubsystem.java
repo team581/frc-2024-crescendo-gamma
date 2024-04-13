@@ -80,7 +80,6 @@ public class IntakeSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Intake/SensorHasNote", sensorHasNote());
     Logger.recordOutput("Intake/SupplyCurrent", motor.getSupplyCurrent().getValueAsDouble());
     Logger.recordOutput("Intake/StatorCurrent", motor.getStatorCurrent().getValueAsDouble());
-    Logger.recordOutput("Intake/Velocity", motor.getVelocity().getValueAsDouble());
     Logger.recordOutput("Intake/Voltage", motor.getMotorVoltage().getValueAsDouble());
   }
 

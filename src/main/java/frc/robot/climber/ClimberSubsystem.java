@@ -74,21 +74,7 @@ public class ClimberSubsystem extends LifecycleSubsystem {
     Logger.recordOutput("Climber/GoalDistance", goalDistance);
     Logger.recordOutput("Climber/HomingState", homingState);
     Logger.recordOutput("Climber/Left/Distance", getDistance(leftMotor));
-    Logger.recordOutput(
-        "Climber/Left/SupplyCurrent", leftMotor.getSupplyCurrent().getValueAsDouble());
-    Logger.recordOutput("Climber/Left/Rotations", leftMotor.getPosition().getValueAsDouble());
-    Logger.recordOutput("Climber/Left/Voltage", leftMotor.getMotorVoltage().getValueAsDouble());
-    Logger.recordOutput(
-        "Climber/Left/VelocityDistance",
-        rotationsToInches(Rotation2d.fromRotations(leftMotor.getVelocity().getValueAsDouble())));
     Logger.recordOutput("Climber/Right/Distance", getDistance(rightMotor));
-    Logger.recordOutput(
-        "Climber/Right/SupplyCurrent", rightMotor.getSupplyCurrent().getValueAsDouble());
-    Logger.recordOutput("Climber/Right/Rotations", rightMotor.getPosition().getValueAsDouble());
-    Logger.recordOutput("Climber/Right/Voltage", rightMotor.getMotorVoltage().getValueAsDouble());
-    Logger.recordOutput(
-        "Climber/Right/VelocityDistance",
-        rotationsToInches(Rotation2d.fromRotations(rightMotor.getVelocity().getValueAsDouble())));
   }
 
   public boolean atGoal(ClimberMode goal) {
