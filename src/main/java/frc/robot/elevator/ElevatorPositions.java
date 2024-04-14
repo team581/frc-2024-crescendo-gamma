@@ -11,7 +11,7 @@ public class ElevatorPositions {
   public static final double CLIMBING = 20.25;
   public static final double TRAP_SHOT = 20.25;
   public static final double CLIMBING_FINISHED = 14;
-  public static final double ANTI_JAM = 5;
+  public static final double ANTI_JAM = 20.25;
 
   private ElevatorPositions() {}
 }
