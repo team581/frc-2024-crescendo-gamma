@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.8,
+      "y": 6.69
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4 R, 3-5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4, LWS to 8"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 R, 3-4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 R, Snake 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 R, Snake 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Mid 6, 2 to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Mid 6, 2 to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Mid 6, 2 to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Mid Alt 6, 2 to 5"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Red dynamic autos",
+  "choreoAuto": false
+}
