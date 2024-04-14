@@ -13,7 +13,6 @@ public enum AutoSelection {
   SNAKE_FOUR_DYN("Red Right Snake, 4", "Blue Right Snake, 4"),
   SNAKE_FIVE_DYN("Red Right Snake, 5", "Blue Right Snake, 5"),
   SIX_PIECE_2_5_DYN("Red 6 Piece 2,1,3-5", "Blue 6 Piece 2,1,3-5"),
-  SIX_PIECE_2_6_4("Red 6 Piece 6,4", "Blue 6 Piece 6,4"),
   SIX_PIECE_2_6_DYN("Red 6 Piece 2,1,3,5,6", "Blue 6 Piece 2,1,3,5,6");
 
   public final String redAutoName;
