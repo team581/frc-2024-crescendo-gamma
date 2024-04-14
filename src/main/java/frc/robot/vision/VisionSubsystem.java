@@ -38,8 +38,10 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 7.6, Rotation2d.fromDegrees(180));
   public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 7.6, Rotation2d.fromDegrees(0));
 
-  private static final Pose2d RED_FLOOR_SHOT_ROBOT_FALLBACK_POSE = new Pose2d(new Translation2d(16.54 / 2.0 - 0.5,1.25), new Rotation2d());
-  private static final Pose2d BLUE_FLOOR_SHOT_ROBOT_FALLBACK_POSE = new Pose2d(new Translation2d(16.54 / 2.0 + 0.5,1.25), new Rotation2d());
+  private static final Pose2d RED_FLOOR_SHOT_ROBOT_FALLBACK_POSE =
+      new Pose2d(new Translation2d(16.54 / 2.0 - 0.5, 1.25), new Rotation2d());
+  private static final Pose2d BLUE_FLOOR_SHOT_ROBOT_FALLBACK_POSE =
+      new Pose2d(new Translation2d(16.54 / 2.0 + 0.5, 1.25), new Rotation2d());
 
   // TODO: Update this
   public static final Pose3d CAMERA_ON_BOT =
