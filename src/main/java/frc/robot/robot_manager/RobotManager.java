@@ -987,7 +987,13 @@ public class RobotManager extends LifecycleSubsystem {
   }
 
   public void stopIntakingRequest() {
-    flags.check(RobotFlag.STOP_INTAKING);
+    if (state == RobotState.WAITING_FLOOR_SHOT) {
+      // We are switching back & forth between intaking on driver controller & floor shot on
+      // operator controller
+      // So, ignore this request, stay in the floor shot state
+    } else {
+      flags.check(RobotFlag.STOP_INTAKING);
+    }
   }
 
   public void climb1LineupOutterRequest() {
