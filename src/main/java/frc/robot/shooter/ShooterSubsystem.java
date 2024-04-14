@@ -57,11 +57,7 @@ public class ShooterSubsystem extends LifecycleSubsystem {
         goalRPM = speakerDistanceToRPM.get(speakerDistance);
         break;
       case SUBWOOFER_SHOT:
-        if (DriverStation.isAutonomous()) {
-          goalRPM = ShooterRPMs.AUTO_SUBWOOFER;
-        } else {
-          goalRPM = ShooterRPMs.SUBWOOFER;
-        }
+        goalRPM = ShooterRPMs.SUBWOOFER;
         break;
       case PODIUM_SHOT:
         goalRPM = ShooterRPMs.PODIUM;

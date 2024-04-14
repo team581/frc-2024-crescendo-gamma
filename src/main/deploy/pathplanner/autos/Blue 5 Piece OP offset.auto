@@ -2,10 +2,10 @@
   "version": 1,
   "startingPose": {
     "position": {
-      "x": 1.3199999999999985,
-      "y": 5.57
+      "x": 0.7299999999999986,
+      "y": 6.69
     },
-    "rotation": 180
+    "rotation": 239.69
   },
   "command": {
     "type": "sequential",
@@ -32,13 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Mid 6, 2 to 5"
+            "pathName": "Blue 4 R, 3-5"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "midlineNotesFromAmp45"
+            "name": "midlineNotesOP4"
           }
         }
       ]

@@ -1,6 +1,12 @@
 {
-  "version": 1.0,
-  "startingPose": null,
+  "version": 1,
+  "startingPose": {
+    "position": {
+      "x": 0.7399999999999984,
+      "y": 6.69
+    },
+    "rotation": 180
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -8,43 +14,55 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 5 to 6"
+            "pathName": "Blue 4 R, 3-5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 6 to 4"
+            "pathName": "Blue 4, LWS to 8"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 5 to CWS"
+            "pathName": "Blue 5 R, 3-4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue CWS to 6"
+            "pathName": "Blue 5 R, Snake 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 6 to Alt CWS"
+            "pathName": "Blue 5 R, Snake 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Alt CWS to 4"
+            "pathName": "Blue Mid 6, 2 to 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 4 to RWS"
+            "pathName": "Blue Mid 6, 2 to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue Mid 6, 2 to 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue Mid Alt 6, 2 to 5"
           }
         }
       ]

@@ -8,32 +8,54 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.448129085731853,
-        "y": 6.566123729440442
+        "x": 6.498096520193039,
+        "y": 6.283837439674881
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue CWS"
     },
     {
       "anchor": {
-        "x": 7.959999999999999,
-        "y": 3.9400000000000004
+        "x": 8.01,
+        "y": 5.736912877825756
       },
       "prevControl": {
-        "x": 5.655390398780796,
-        "y": 3.5730429260858525
+        "x": 7.201025146050293,
+        "y": 5.900637033274067
+      },
+      "nextControl": {
+        "x": 8.07860900282335,
+        "y": 5.723027463478746
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 5"
+    },
+    {
+      "anchor": {
+        "x": 7.241477774955548,
+        "y": 5.904331216662434
+      },
+      "prevControl": {
+        "x": 7.503231580571967,
+        "y": 5.882213109016367
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 6"
+      "linkedName": "Dynamic Blue 5 intake"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.55,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "parallel",
         "data": {
@@ -56,14 +78,14 @@
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 2,
     "rotation": 180,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": 180,
+    "rotation": 190.09240512230284,
     "velocity": 0
   },
   "useDefaultConstraints": true

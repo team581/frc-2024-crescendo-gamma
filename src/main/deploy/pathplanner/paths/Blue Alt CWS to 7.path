@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.1,
-        "y": 6.45
+        "x": 4.806446532893064,
+        "y": 6.344444227349993
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.448129085731853,
-        "y": 6.566123729440442
+        "x": 9.38261620523241,
+        "y": 6.819975615951233
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue CWS"
+      "linkedName": "Dynamic Blue Alt CWS"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 3.9400000000000004
       },
       "prevControl": {
-        "x": 5.655390398780796,
-        "y": 3.5730429260858525
+        "x": 4.364251968503936,
+        "y": 3.755959867919737
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "parallel",
         "data": {
@@ -61,9 +61,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue MidlineNotesFromAmp",
+  "folder": "Blue MNFS",
   "previewStartingState": {
-    "rotation": 180,
+    "rotation": 190.16912833449067,
     "velocity": 0
   },
   "useDefaultConstraints": true

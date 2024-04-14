@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.439999999999948,
-        "y": 7.683367851354583
+        "x": 10.445535382270766,
+        "y": 7.491413970027939
       },
       "isLocked": false,
       "linkedName": "Dynamic Red CWS"
@@ -20,12 +20,28 @@
         "y": 7.50252730505461
       },
       "prevControl": {
-        "x": 10.598926085852174,
-        "y": 7.32120447040894
+        "x": 8.753050990601984,
+        "y": 7.578969519939039
+      },
+      "nextControl": {
+        "x": 8.176685356870713,
+        "y": 7.42608509017018
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Red 4"
+    },
+    {
+      "anchor": {
+        "x": 8.78,
+        "y": 7.5600000000000005
+      },
+      "prevControl": {
+        "x": 8.62695046990094,
+        "y": 7.488068681737364
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Red 4 after"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 1.2,
       "command": {
         "type": "sequential",
         "data": {
@@ -56,7 +72,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 2.0,
     "rotation": 0,
     "rotateFast": false
   },

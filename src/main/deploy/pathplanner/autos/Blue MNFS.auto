@@ -1,6 +1,12 @@
 {
-  "version": 1.0,
-  "startingPose": null,
+  "version": 1,
+  "startingPose": {
+    "position": {
+      "x": 7.0699999999999985,
+      "y": 3.05
+    },
+    "rotation": 180
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -8,48 +14,54 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red 5 to 6"
+            "pathName": "Blue 6 to LWS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 6 to 4"
+            "pathName": "Blue 7 to 6"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 5 to CWS"
+            "pathName": "Blue 7 to LWS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red CWS to 6"
+            "pathName": "Blue 8 to 7"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 6 to SWS"
+            "pathName": "Blue 8 to LWS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red Alt CWS to 4"
+            "pathName": "Blue Alt CWS to 7"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 4 to RWS"
+            "pathName": "Blue LWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blue LWS to 7"
           }
         }
       ]
     }
   },
-  "folder": "Red dynamic autos",
+  "folder": "Blue dynamic autos",
   "choreoAuto": false
 }

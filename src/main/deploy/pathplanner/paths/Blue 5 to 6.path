@@ -1,27 +1,27 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 8.04,
-        "y": 5.64
+        "x": 7.241477774955548,
+        "y": 5.904331216662434
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.6861094937574475,
-        "y": 4.98644922920615
+        "x": 6.150462280924559,
+        "y": 3.952622301244603
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue 5"
+      "linkedName": "Dynamic Blue 5 intake"
     },
     {
       "anchor": {
-        "x": 8.1,
-        "y": 3.9399999999999995
+        "x": 7.959999999999999,
+        "y": 3.9400000000000004
       },
       "prevControl": {
-        "x": 6.851682499364998,
-        "y": 3.9856642113284213
+        "x": 6.768827533655065,
+        "y": 3.8368712217424434
       },
       "nextControl": null,
       "isLocked": false,

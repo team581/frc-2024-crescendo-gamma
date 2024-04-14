@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7420244480413718,
+        "y": 6.694775266418152
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.2315552522320505,
+        "y": 6.9753011783774905
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.119999999999999,
+        "y": 6.69
+      },
+      "prevControl": {
+        "x": 1.5977922275844545,
+        "y": 7.529152597437576
+      },
+      "nextControl": {
+        "x": 2.2746070813175336,
+        "y": 6.441556869271161
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.889999999999999,
+        "y": 6.239999999999999
+      },
+      "prevControl": {
+        "x": 2.5925909031379177,
+        "y": 6.200657540701236
+      },
+      "nextControl": {
+        "x": 5.728299212598424,
+        "y": 6.615461518923038
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.01,
+        "y": 5.736912877825756
+      },
+      "prevControl": {
+        "x": 7.009999999999998,
+        "y": 5.736912877825756
+      },
+      "nextControl": {
+        "x": 8.079999999999988,
+        "y": 5.736912877825756
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 5"
+    },
+    {
+      "anchor": {
+        "x": 7.241477774955548,
+        "y": 5.904331216662434
+      },
+      "prevControl": {
+        "x": 7.460929757719164,
+        "y": 5.960554451915921
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 5 intake"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.25,
+      "rotationDegrees": 180,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "1",
+      "minWaypointRelativePos": 0.25,
+      "maxWaypointRelativePos": 2,
+      "constraints": {
+        "maxVelocity": 2.3,
+        "maxAcceleration": 5,
+        "maxAngularVelocity": 540,
+        "maxAngularAcceleration": 720
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "intake",
+      "waypointRelativePos": 2.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "intakeFloor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 2,
+    "rotation": 180,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Blue Parent Paths",
+  "previewStartingState": {
+    "rotation": 240.68,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
