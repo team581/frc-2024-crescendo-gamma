@@ -1,0 +1,91 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 8.78,
+      "y": 7.56
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4 to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4 to 7 position"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4 to CWS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 to CWS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 to RWS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 6 to 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 6 to CWS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red CWS to 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red CWS to 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red CWS to 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RWS to 6"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Red dynamic autos",
+  "choreoAuto": false
+}
