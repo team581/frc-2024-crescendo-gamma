@@ -246,8 +246,7 @@ public class AutoCommands {
         Commands.either(
                 followPathForAlliance(red7ToLeftWingShot, blue7ToLeftWingShot)
                     .andThen(speakerShotWithTimeout())
-                    .andThen(
-                        followPathForAlliance(redLeftWingShotTo6, blueLeftWingShotTo6)),
+                    .andThen(followPathForAlliance(redLeftWingShotTo6, blueLeftWingShotTo6)),
                 followPathForAlliance(red7To6, blue7To6),
                 this::hasNote)
             .andThen(
