@@ -83,7 +83,7 @@ public class AutoCommands {
     var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
     var red5To6 = PathPlannerPath.fromPathFile("Red 5 to 6");
     var redCenterWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
-    var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
+    var red6ToCenterWingShot = PathPlannerPath.fromPathFile("Red 6 to CWS");
 
     var blue4ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 4 to CWS");
     var blue4To5 = PathPlannerPath.fromPathFile("Blue 4 to 5");
@@ -91,7 +91,7 @@ public class AutoCommands {
     var blue5ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 5 to CWS");
     var blue5To6 = PathPlannerPath.fromPathFile("Blue 5 to 6");
     var blueCenterWingShotTo6 = PathPlannerPath.fromPathFile("Blue CWS to 6");
-    var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Blue 6 to SWS");
+    var blue6ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 6 to CWS");
 
     return Commands.sequence(
         Commands.either(
@@ -107,7 +107,7 @@ public class AutoCommands {
                 followPathForAlliance(red5To6, blue5To6),
                 this::hasNote)
             .andThen(
-                followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
+                followPathForAlliance(red6ToCenterWingShot, blue6ToCenterWingShot)
                     .andThen(speakerShotWithTimeout())));
   }
 
@@ -143,13 +143,13 @@ public class AutoCommands {
     var red6To4 = PathPlannerPath.fromPathFile("Red 6 to 4");
     var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
     var redCenterWingShotTo6 = PathPlannerPath.fromPathFile("Red CWS to 6");
-    var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
+    var red6ToCenterWingShot = PathPlannerPath.fromPathFile("Red 6 to CWS");
 
     var blue5To6 = PathPlannerPath.fromPathFile("Blue 5 to 6");
     var blue6To4 = PathPlannerPath.fromPathFile("Blue 6 to 4");
     var blue5ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 5 to CWS");
     var blueCenterWingShotTo6 = PathPlannerPath.fromPathFile("Blue CWS to 6");
-    var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Blue 6 to SWS");
+    var blue6ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 6 to CWS");
 
     return Commands.sequence(
         Commands.either(
@@ -159,7 +159,7 @@ public class AutoCommands {
             followPathForAlliance(red5To6, blue5To6),
             this::hasNote),
         Commands.either(
-            followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
+            followPathForAlliance(red6ToCenterWingShot, blue6ToCenterWingShot)
                 .andThen(speakerShotWithTimeout()),
             followPathForAlliance(red6To4, blue6To4),
             this::hasNote));
@@ -168,7 +168,7 @@ public class AutoCommands {
   public Command getMidlineNotesOP4Command() {
     var red5ToCenterWingShot = PathPlannerPath.fromPathFile("Red 5 to CWS");
     var redRightWingShotTo6 = PathPlannerPath.fromPathFile("Red RWS to 6");
-    var red6ToCenterWingShot = PathPlannerPath.fromPathFile("Red 6 to SWS");
+    var red6ToCenterWingShot = PathPlannerPath.fromPathFile("Red 6 to CWS");
     var redAltCenterWingShotTo4 = PathPlannerPath.fromPathFile("Red Alt CWS to 4");
     var red5To6 = PathPlannerPath.fromPathFile("Red 5 to 6");
     var red6To4 = PathPlannerPath.fromPathFile("Red 6 to 4");
@@ -224,7 +224,7 @@ public class AutoCommands {
     var redLeftWingShotTo7 = PathPlannerPath.fromPathFile("Red LWS to 7");
     var red7ToAltCenterWingShot = PathPlannerPath.fromPathFile("Red 7 to Alt CWS");
     var redAltCenterWingShotTo6 = PathPlannerPath.fromPathFile("Red Alt CWS to 6");
-    var red6ToStageWingShot = PathPlannerPath.fromPathFile("Red 6 to Alt CWS");
+    var red6ToCenterWingShot = PathPlannerPath.fromPathFile("Red 6 to Alt CWS");
     var red8To7 = PathPlannerPath.fromPathFile("Red 8 to 7");
     var red7To6 = PathPlannerPath.fromPathFile("Red 7 to 6");
 
@@ -232,7 +232,7 @@ public class AutoCommands {
     var blueLeftWingShotTo7 = PathPlannerPath.fromPathFile("Blue LWS to 7");
     var blue7ToAltCenterWingShot = PathPlannerPath.fromPathFile("Blue 7 to Alt CWS");
     var blueAltCenterWingShotTo6 = PathPlannerPath.fromPathFile("Blue Alt CWS to 6");
-    var blue6ToStageWingShot = PathPlannerPath.fromPathFile("Blue 6 to SWS");
+    var blue6ToCenterWingShot = PathPlannerPath.fromPathFile("Blue 6 to CWS");
     var blue8To7 = PathPlannerPath.fromPathFile("Blue 8 to 7");
     var blue7To6 = PathPlannerPath.fromPathFile("Blue 7 to 6");
 
@@ -251,7 +251,7 @@ public class AutoCommands {
                 followPathForAlliance(red7To6, blue7To6),
                 this::hasNote)
             .andThen(
-                followPathForAlliance(red6ToStageWingShot, blue6ToStageWingShot)
+                followPathForAlliance(red6ToCenterWingShot, blue6ToCenterWingShot)
                     .andThen(speakerShotWithTimeout())));
   }
 }
