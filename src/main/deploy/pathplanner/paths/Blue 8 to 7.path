@@ -1,31 +1,47 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 8.129999999999999,
-        "y": 0.6906859967566095
+        "x": 6.880525273050544,
+        "y": 1.2919380238760476
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.910870887980824,
-        "y": 0.6780640117490822
+        "x": 6.456304800609599,
+        "y": 2.365764073633411
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue 8"
+      "linkedName": "Dynamic Pre-Blue 7 Source"
     },
     {
       "anchor": {
-        "x": 8.129999999999999,
-        "y": 2.3779332174048973
+        "x": 8.319999999999999,
+        "y": 2.71
       },
       "prevControl": {
-        "x": 6.717173951270977,
-        "y": 2.379575076688616
+        "x": 8.394359762754611,
+        "y": 2.707940964934562
+      },
+      "nextControl": {
+        "x": 8.25002682068598,
+        "y": 2.7119375697892316
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 7"
+    },
+    {
+      "anchor": {
+        "x": 7.2424013208026405,
+        "y": 2.327232918465837
+      },
+      "prevControl": {
+        "x": 7.623268398326269,
+        "y": 2.305223703149162
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 7"
+      "linkedName": "Dynamic Blue 7 after"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -56,7 +72,7 @@
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.75,
     "rotation": 180,
     "rotateFast": false
   },
@@ -64,7 +80,7 @@
   "folder": "Blue MNFS",
   "previewStartingState": {
     "rotation": 180,
-    "velocity": 0
+    "velocity": 0.5
   },
   "useDefaultConstraints": true
 }

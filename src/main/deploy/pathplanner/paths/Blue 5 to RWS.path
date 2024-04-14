@@ -1,38 +1,38 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 8.04,
-        "y": 5.64
+        "x": 7.409999999999998,
+        "y": 5.882781813563627
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.776909399972647,
-        "y": 6.078036771458159
+        "x": 6.911775545480944,
+        "y": 5.9248816107031725
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue 5"
+      "linkedName": "dynamic blue 5 after"
     },
     {
       "anchor": {
-        "x": 4.84,
-        "y": 6.31
+        "x": 5.1,
+        "y": 6.45
       },
       "prevControl": {
-        "x": 5.537113381919073,
-        "y": 6.768722768214768
+        "x": 5.769262890525779,
+        "y": 6.42121615443231
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue RWS"
+      "linkedName": "Dynamic Blue CWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Warmup",
+      "name": "speaker snap",
       "waypointRelativePos": 0.2,
       "command": {
         "type": "parallel",
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "speakerSnap"
               }
             }
           ]
@@ -57,14 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 188.78925979020792,
+    "rotation": 190.31001165693428,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue MidlineNotesFromAmp",
   "previewStartingState": {
     "rotation": 180,
-    "velocity": 0
+    "velocity": 2
   },
   "useDefaultConstraints": true
 }

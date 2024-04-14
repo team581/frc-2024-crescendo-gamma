@@ -1,31 +1,47 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9446474277563945,
-        "y": 7.410074050917332
+        "x": 7.76,
+        "y": 7.5600000000000005
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.776500107461755,
-        "y": 6.547100927876862
+        "x": 7.100434340868681,
+        "y": 7.012920497840997
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue 4"
+      "linkedName": "Dynamic Blue 4 after"
     },
     {
       "anchor": {
-        "x": 8.04,
-        "y": 5.64
+        "x": 8.01,
+        "y": 5.736912877825756
       },
       "prevControl": {
-        "x": 6.691545690783689,
-        "y": 5.298548289404272
+        "x": 6.841587911367181,
+        "y": 5.876745585563545
+      },
+      "nextControl": {
+        "x": 8.079504026312582,
+        "y": 5.728594805552695
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 5"
+    },
+    {
+      "anchor": {
+        "x": 7.241477774955548,
+        "y": 5.904331216662434
+      },
+      "prevControl": {
+        "x": 7.5098601981203945,
+        "y": 5.879846990093982
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 5"
+      "linkedName": "Dynamic Blue 5 intake"
     }
   ],
   "rotationTargets": [],
@@ -56,7 +72,7 @@
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 4,
     "rotation": 180,
     "rotateFast": false
   },

@@ -1,31 +1,47 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 8.129999999999999,
-        "y": 2.3779332174048973
+        "x": 7.2424013208026405,
+        "y": 2.327232918465837
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.129999999999999,
-        "y": 2.3779332174048973
+        "x": 5.63127559055118,
+        "y": 4.378736093472187
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue 7"
+      "linkedName": "Dynamic Blue 7 after"
     },
     {
       "anchor": {
-        "x": 8.1,
-        "y": 3.9399999999999995
+        "x": 7.959999999999999,
+        "y": 3.9400000000000004
       },
       "prevControl": {
-        "x": 7.241931927863854,
-        "y": 3.81532131064262
+        "x": 7.706658868405455,
+        "y": 3.9359785035359565
+      },
+      "nextControl": {
+        "x": 8.029991182409029,
+        "y": 3.9411110287966302
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 6"
+    },
+    {
+      "anchor": {
+        "x": 7.074982981965963,
+        "y": 3.0535504191008385
+      },
+      "prevControl": {
+        "x": 7.402328676657351,
+        "y": 3.6550353060706113
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 6"
+      "linkedName": "Dynamic Blue 6 After Source"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +49,7 @@
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "sequential",
         "data": {
@@ -56,7 +72,7 @@
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 2,
     "rotation": 180,
     "rotateFast": false
   },

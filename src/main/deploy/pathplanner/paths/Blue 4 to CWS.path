@@ -1,51 +1,69 @@
 {
-  "version": 1.0,
+  "version": 1,
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 7.76,
+        "y": 7.5600000000000005
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 7.379132922476371,
+        "y": 7.347175246982073
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Blue 4 after"
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 5.1,
+        "y": 6.45
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 5.573489476803514,
+        "y": 6.747489004451694
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dynamic Blue CWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "warmup",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerSnap"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.2,
-    "maxAcceleration": 5.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 187.868619246247,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue MidlineNotesFromAmp",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 180,
     "velocity": 0
   },
   "useDefaultConstraints": true

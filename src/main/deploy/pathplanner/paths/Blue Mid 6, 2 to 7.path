@@ -80,16 +80,16 @@
     },
     {
       "anchor": {
-        "x": 4.875515132568726,
-        "y": 4.1499999999999995
+        "x": 4.968895454282135,
+        "y": 4.3585595943121715
       },
       "prevControl": {
-        "x": 4.526456047840959,
-        "y": 4.511525480608244
+        "x": 4.531196997455162,
+        "y": 4.605466416112003
       },
       "nextControl": {
-        "x": 5.15178953127125,
-        "y": 3.8638586584887733
+        "x": 5.3225577405540765,
+        "y": 4.159057791799794
       },
       "isLocked": false,
       "linkedName": null
@@ -100,12 +100,28 @@
         "y": 3.9400000000000004
       },
       "prevControl": {
-        "x": 6.205689611379221,
-        "y": 3.9665110099450978
+        "x": 7.791647730603115,
+        "y": 3.8981100164130362
+      },
+      "nextControl": {
+        "x": 8.128352269396883,
+        "y": 3.9818899835869646
+      },
+      "isLocked": false,
+      "linkedName": "Dynamic Blue 6"
+    },
+    {
+      "anchor": {
+        "x": 6.292861961864272,
+        "y": 3.9399999999999995
+      },
+      "prevControl": {
+        "x": 6.818821259396902,
+        "y": 3.9414194617862925
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 6"
+      "linkedName": "Dynamic Blue 6 Decision"
     }
   ],
   "rotationTargets": [
@@ -125,7 +141,7 @@
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 5.5,
+      "waypointRelativePos": 6,
       "rotationDegrees": 180,
       "rotateFast": false
     },
