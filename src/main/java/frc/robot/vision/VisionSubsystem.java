@@ -38,6 +38,9 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 7.6, Rotation2d.fromDegrees(180));
   public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 7.6, Rotation2d.fromDegrees(0));
 
+  private static final Pose2d RED_FLOOR_SHOT_ROBOT_FALLBACK_POSE = new Pose2d(new Translation2d(16.54 / 2.0 - 2.0,1.25), new Rotation2d());
+  private static final Pose2d BLUE_FLOOR_SHOT_ROBOT_FALLBACK_POSE = new Pose2d(new Translation2d(16.54 / 2.0 + 2.0,1.25), new Rotation2d());
+
   // TODO: Update this
   public static final Pose3d CAMERA_ON_BOT =
       new Pose3d(RobotConfig.get().vision().lltranslation(), RobotConfig.get().vision().llAngle());
@@ -243,19 +246,18 @@ public class VisionSubsystem extends LifecycleSubsystem {
     Pose2d presetPose;
     if (FmsSubsystem.isRedAlliance()) {
       goalPose = RED_FLOOR_SPOT;
-      presetPose = new Pose2d(new Translation2d(12,6), Rotation2d.fromDegrees(110));
-    } else { //TODO: find out far field positions
+      presetPose = RED_FLOOR_SHOT_ROBOT_FALLBACK_POSE;
+    } else {
       goalPose = BLUE_FLOOR_SPOT;
-      presetPose = new Pose2d(new Translation2d(12,6), Rotation2d.fromDegrees(-110));
+      presetPose = BLUE_FLOOR_SHOT_ROBOT_FALLBACK_POSE;
     }
+
+    presetPose = new Pose2d(presetPose.getTranslation(), robotPose.getRotation());
+    var usedPose = getState() == VisionState.OFFLINE ? presetPose : robotPose;
 
     Logger.recordOutput("Vision/FloorSpot", goalPose);
 
-    if (getState() == VisionState.OFFLINE) {
-      return distanceToTargetPose(goalPose, presetPose);
-    }
-
-    return distanceToTargetPose(goalPose, robotPose);
+    return distanceToTargetPose(goalPose, usedPose);
   }
 
   public double getStandardDeviation(double distance) {
