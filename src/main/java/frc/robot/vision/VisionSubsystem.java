@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
@@ -239,13 +240,20 @@ public class VisionSubsystem extends LifecycleSubsystem {
 
   public DistanceAngle getDistanceAngleFloorShot() {
     Pose2d goalPose;
+    Pose2d presetPose;
     if (FmsSubsystem.isRedAlliance()) {
       goalPose = RED_FLOOR_SPOT;
-    } else {
+      presetPose = new Pose2d(new Translation2d(12,6), Rotation2d.fromDegrees(110));
+    } else { //TODO: find out far field positions
       goalPose = BLUE_FLOOR_SPOT;
+      presetPose = new Pose2d(new Translation2d(12,6), Rotation2d.fromDegrees(-110));
     }
 
     Logger.recordOutput("Vision/FloorSpot", goalPose);
+
+    if (getState() == VisionState.OFFLINE) {
+      return distanceToTargetPose(goalPose, presetPose);
+    }
 
     return distanceToTargetPose(goalPose, robotPose);
   }
