@@ -141,6 +141,9 @@ public class RobotManager extends LifecycleSubsystem {
             state = RobotState.CLIMB_3_LINEUP_FINAL;
           }
           break;
+        case IDLE_NO_GP:
+          state = RobotState.IDLE_NO_GP;
+          break;
         case CLIMB_4_HANGING:
           if (state == RobotState.CLIMB_3_LINEUP_FINAL
               || state == RobotState.CLIMB_5_HANGING_TRAP_SCORE) {
@@ -944,6 +947,10 @@ public class RobotManager extends LifecycleSubsystem {
 
   public void stowRequest() {
     flags.check(RobotFlag.STOW);
+  }
+
+  public void idleNoGPRequest() {
+    flags.check(RobotFlag.IDLE_NO_GP);
   }
 
   public void unjamRequest() {

@@ -36,6 +36,11 @@ public class RobotCommands {
         .withName("StowCommand");
   }
 
+  public Command idleNoGPCommand() {
+    return Commands.runOnce(() -> robot.idleNoGPRequest(), requirements)
+        .withName("IdleNoGpCommand");
+  }
+
   public Command stopIntakingCommand() {
     return Commands.runOnce(() -> robot.stopIntakingRequest(), requirements)
         .andThen(
