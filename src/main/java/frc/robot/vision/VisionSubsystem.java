@@ -35,8 +35,11 @@ public class VisionSubsystem extends LifecycleSubsystem {
   public static final Pose2d ORIGINAL_BLUE_SPEAKER =
       new Pose2d(Units.inchesToMeters(0), Units.inchesToMeters(218.42), Rotation2d.fromDegrees(0));
 
-  public static final Pose2d RED_FLOOR_SPOT = new Pose2d(15.5, 7.6, Rotation2d.fromDegrees(180));
-  public static final Pose2d BLUE_FLOOR_SPOT = new Pose2d(1, 7.6, Rotation2d.fromDegrees(0));
+  public static final Pose2d RED_FLOOR_SPOT_SUBWOOFER = new Pose2d(15.5, 7.9, Rotation2d.fromDegrees(180));
+  public static final Pose2d BLUE_FLOOR_SPOT_SUBWOOFER = new Pose2d(1, 7.9, Rotation2d.fromDegrees(0));
+
+  public static final Pose2d RED_FLOOR_SPOT_AMP_AREA = new Pose2d(9.5, 7, Rotation2d.fromDegrees(180));
+  public static final Pose2d BLUE_FLOOR_SPOT_AMP_AREA = new Pose2d(7, 7, Rotation2d.fromDegrees(0));
 
   private static final Pose2d RED_FLOOR_SHOT_ROBOT_FALLBACK_POSE =
       new Pose2d(new Translation2d(16.54 / 2.0 - 0.5, 1.25), new Rotation2d());
@@ -243,22 +246,38 @@ public class VisionSubsystem extends LifecycleSubsystem {
   }
 
   public DistanceAngle getDistanceAngleFloorShot() {
-    Pose2d goalPose;
+    Pose2d goalPoseSubwoofer;
+    Pose2d goalPoseAmpArea;
     Pose2d fallbackPose;
     if (FmsSubsystem.isRedAlliance()) {
-      goalPose = RED_FLOOR_SPOT;
+      goalPoseSubwoofer = RED_FLOOR_SPOT_SUBWOOFER;
+      goalPoseAmpArea = RED_FLOOR_SPOT_AMP_AREA;
       fallbackPose = RED_FLOOR_SHOT_ROBOT_FALLBACK_POSE;
     } else {
-      goalPose = BLUE_FLOOR_SPOT;
+      goalPoseSubwoofer = BLUE_FLOOR_SPOT_SUBWOOFER;
+      goalPoseAmpArea = BLUE_FLOOR_SPOT_AMP_AREA;
       fallbackPose = BLUE_FLOOR_SHOT_ROBOT_FALLBACK_POSE;
     }
 
     fallbackPose = new Pose2d(fallbackPose.getTranslation(), robotPose.getRotation());
-    var usedPose = getState() == VisionState.OFFLINE ? fallbackPose : robotPose;
+    var usedRobotPose = getState() == VisionState.OFFLINE ? fallbackPose : robotPose;
 
-    Logger.recordOutput("Vision/FloorSpot", goalPose);
+    var subwooferSpotDistance =  distanceToTargetPose(goalPoseSubwoofer, usedRobotPose);
+    var usedGoalPose = goalPoseSubwoofer;
+    var result = subwooferSpotDistance;
 
-    return distanceToTargetPose(goalPose, usedPose);
+    if (subwooferSpotDistance.distance() > 14.0) {
+        result = distanceToTargetPose(goalPoseAmpArea, usedRobotPose);
+        usedGoalPose = goalPoseAmpArea;
+    }
+
+    if (RobotConfig.IS_DEVELOPMENT) {
+      Logger.recordOutput("Vision/FloorShot/SubwooferPose", goalPoseSubwoofer);
+      Logger.recordOutput("Vision/FloorShot/AmpAreaPose", goalPoseAmpArea);
+    }
+    Logger.recordOutput("Vision/FloorShot/UsedTargetPose", usedGoalPose);
+
+    return result;
   }
 
   public double getStandardDeviation(double distance) {
