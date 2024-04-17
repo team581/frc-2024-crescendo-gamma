@@ -73,7 +73,7 @@ public class IntakeSubsystem extends LifecycleSubsystem {
         motor.setVoltage(8);
         break;
       case SHUFFLE:
-        motor.setVoltage(0.6);
+        motor.setVoltage(0.5); 
         break;
       default:
         break;
