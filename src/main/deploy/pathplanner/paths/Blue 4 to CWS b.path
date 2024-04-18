@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.07513182626365,
+        "y": 7.50252730505461
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.6942647487400215,
+        "y": 7.289702552036682
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.1,
+        "y": 6.45
+      },
+      "prevControl": {
+        "x": 5.573489476803514,
+        "y": 6.747489004451694
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "speaker snap",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "speakerSnap"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.2,
+    "maxAcceleration": 5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 187.868619246247,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Backup Blue 6 Piece",
+  "previewStartingState": {
+    "rotation": 180,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
