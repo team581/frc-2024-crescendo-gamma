@@ -3,55 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.659474726949455,
-        "y": 1.2919380238760476
+        "x": 11.44,
+        "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.0836951993904,
-        "y": 2.365764073633411
+        "x": 10.04190347980696,
+        "y": 6.283837439674881
       },
       "isLocked": false,
-      "linkedName": "Dynamic Pre-Red 7 Source"
+      "linkedName": "Dynamic Red CWS"
     },
     {
       "anchor": {
-        "x": 8.22,
-        "y": 2.71
+        "x": 8.43,
+        "y": 5.736912877825756
       },
       "prevControl": {
-        "x": 8.145640237245388,
-        "y": 2.707940964934562
-      },
-      "nextControl": {
-        "x": 8.28997317931402,
-        "y": 2.7119375697892316
-      },
-      "isLocked": false,
-      "linkedName": "Dynamic Red 7"
-    },
-    {
-      "anchor": {
-        "x": 9.297598679197359,
-        "y": 2.327232918465837
-      },
-      "prevControl": {
-        "x": 8.91673160167373,
-        "y": 2.305223703149162
+        "x": 9.238974853949706,
+        "y": 5.900637033274067
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 7 after"
+      "linkedName": "Dynamic Red 5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.55,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.2,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -72,15 +62,15 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 1.75,
+    "velocity": 0.0,
     "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromSource",
+  "folder": "Backup Red 6 Piece",
   "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0.5
+    "rotation": -10.092405122302825,
+    "velocity": 0
   },
   "useDefaultConstraints": true
 }

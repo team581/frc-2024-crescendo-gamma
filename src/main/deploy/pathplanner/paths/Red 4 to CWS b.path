@@ -3,53 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.659474726949455,
-        "y": 1.2919380238760476
+        "x": 8.464868173736349,
+        "y": 7.50252730505461
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.0836951993904,
-        "y": 2.365764073633411
+        "x": 8.845735251259978,
+        "y": 7.289702552036682
       },
       "isLocked": false,
-      "linkedName": "Dynamic Pre-Red 7 Source"
+      "linkedName": "Dynamic Red 4"
     },
     {
       "anchor": {
-        "x": 8.22,
-        "y": 2.71
+        "x": 11.44,
+        "y": 6.45
       },
       "prevControl": {
-        "x": 8.145640237245388,
-        "y": 2.707940964934562
-      },
-      "nextControl": {
-        "x": 8.28997317931402,
-        "y": 2.7119375697892316
-      },
-      "isLocked": false,
-      "linkedName": "Dynamic Red 7"
-    },
-    {
-      "anchor": {
-        "x": 9.297598679197359,
-        "y": 2.327232918465837
-      },
-      "prevControl": {
-        "x": 8.91673160167373,
-        "y": 2.305223703149162
+        "x": 10.966510523196485,
+        "y": 6.747489004451694
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 7 after"
+      "linkedName": "Dynamic Red CWS"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake",
-      "waypointRelativePos": 0.1,
+      "name": "speaker snap",
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "intakeFloor"
+                "name": "speakerSnap"
               }
             }
           ]
@@ -72,15 +56,15 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 1.75,
-    "rotation": 0,
+    "velocity": 0,
+    "rotation": -7.868619246247001,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red MidlineNotesFromSource",
+  "folder": "Backup Red 6 Piece",
   "previewStartingState": {
     "rotation": 0,
-    "velocity": 0.5
+    "velocity": 0
   },
   "useDefaultConstraints": true
 }

@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.22,
+      "y": 5.57
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "homeClimber"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "preloadNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Mid 6, 2 to 4 b"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 4 to CWS b"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red CWS to 5 b"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red 5 to RWS b"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "speakerShot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Red Dynamic Autos in Development",
+  "choreoAuto": false
+}
