@@ -3,10 +3,11 @@
   "robotLength": 0.927,
   "holonomicMode": true,
   "pathFolders": [
-    "Blue MNFS",
+    "Backup Red 6 Piece",
+    "Blue MidlineNotesFromSource",
     "Blue MidlineNotesFromAmp",
     "Blue Parent Paths",
-    "Red MNFS",
+    "Red MidlineNotesFromSource",
     "Red MidlineNotesFromAmp",
     "Red Parent Paths"
   ],
