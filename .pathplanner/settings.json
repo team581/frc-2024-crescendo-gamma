@@ -4,13 +4,12 @@
   "holonomicMode": true,
   "pathFolders": [
     "Backup Red 6 Piece",
-    "Blue MidlineNotesFromSource",
     "Blue MidlineNotesFromAmp",
+    "Blue MidlineNotesFromSource",
     "Blue Parent Paths",
-    "Red MidlineNotesFromSource",
     "Red MidlineNotesFromAmp",
-    "Red Parent Paths",
-    "Backup Blue 6 Piece"
+    "Red MidlineNotesFromSource",
+    "Red Parent Paths"
   ],
   "autoFolders": [
     "Blue Dynamic Autos in Development",

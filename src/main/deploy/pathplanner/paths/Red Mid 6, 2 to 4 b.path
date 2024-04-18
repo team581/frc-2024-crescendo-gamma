@@ -28,7 +28,7 @@
         "y": 4.109045817941109
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 2"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -44,7 +44,7 @@
         "y": 4.3748565200837755
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 1"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -60,7 +60,7 @@
         "y": 6.681646110925575
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 2.5"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -76,7 +76,7 @@
         "y": 7.226860993707026
       },
       "isLocked": false,
-      "linkedName": "Red M 6, 3"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -89,7 +89,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Red 4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
