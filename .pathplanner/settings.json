@@ -3,14 +3,14 @@
   "robotLength": 0.927,
   "holonomicMode": true,
   "pathFolders": [
+    "Backup Blue 6 Piece",
     "Backup Red 6 Piece",
     "Blue MidlineNotesFromAmp",
     "Blue MidlineNotesFromSource",
     "Blue Parent Paths",
     "Red MidlineNotesFromAmp",
     "Red MidlineNotesFromSource",
-    "Red Parent Paths",
-    "Backup Blue 6 Piece"
+    "Red Parent Paths"
   ],
   "autoFolders": [
     "Blue Dynamic Autos in Development",
