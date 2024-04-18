@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue MNFS",
+  "folder": "Blue MidlineNotesFromSource",
   "previewStartingState": {
     "rotation": 180,
     "velocity": 0
