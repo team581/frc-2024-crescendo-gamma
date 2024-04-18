@@ -1,15 +1,15 @@
 {
-  "version": 1,
+  "version": 1.0,
   "waypoints": [
     {
       "anchor": {
         "x": 8.11,
-        "y": 5.736912877825756
+        "y": 5.69
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.472518161036321,
-        "y": 5.946044704089409
+        "y": 5.899131826263653
       },
       "isLocked": false,
       "linkedName": null
