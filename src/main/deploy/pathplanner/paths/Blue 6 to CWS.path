@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.63,
-        "y": 4.94
+        "y": 5.04
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.049955252644248,
-        "y": 5.7577125520798695
+        "y": 5.857712552079869
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 6 After"
