@@ -973,6 +973,15 @@ public class RobotManager extends LifecycleSubsystem {
     }
   }
 
+  public void cancelWaitingFloorShotRequest() {
+    if (state == RobotState.FLOOR_SHOOT) {
+      // You are actively making the shot, ignore
+    } else {
+      // Do a regular stow request otherwise
+      stowRequest();
+    }
+  }
+
   public void preloadNoteRequest() {
     flags.check(RobotFlag.PRELOAD_NOTE);
   }

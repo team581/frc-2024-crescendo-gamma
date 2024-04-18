@@ -251,7 +251,7 @@ public class Robot extends TimedRobot {
     operatorController
         .leftBumper()
         .onTrue(actions.waitForFloorShotCommand())
-        .onFalse(actions.stowCommand());
+        .onFalse(actions.cancelWaitingFloorShotCommand());
     operatorController.back().onTrue(actions.homeCommand());
   }
 }

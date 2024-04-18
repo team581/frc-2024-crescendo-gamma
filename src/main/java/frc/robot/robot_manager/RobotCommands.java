@@ -239,6 +239,10 @@ public class RobotCommands {
         .withName("StopShootingCommand");
   }
 
+  public Command cancelWaitingFloorShotCommand() {
+    return Commands.runOnce(() -> robot.cancelWaitingFloorShotRequest(), requirements).withName("StopFloorShotCommand");
+  }
+
   public Command unjamCommand() {
     return Commands.runOnce(() -> robot.unjamRequest(), requirements).withName("UnjamCommand");
   }
