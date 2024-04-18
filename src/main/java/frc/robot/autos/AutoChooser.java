@@ -19,16 +19,19 @@ import org.littletonrobotics.junction.Logger;
 public class AutoChooser {
   private final SendableChooser<AutoSelection> chooser = new SendableChooser<>();
   private final Set<String> brokenAutoNames = new HashSet<>();
+  private final Command doNothingAuto;
   private Optional<Command> cachedCommand = Optional.empty();
   private String cachedAutoName = "";
 
-  public AutoChooser() {
+  public AutoChooser(AutoCommands commands) {
     SmartDashboard.putData("Autos/SelectedAuto", chooser);
     chooser.setDefaultOption(AutoSelection.DO_NOTHING.toString(), AutoSelection.DO_NOTHING);
 
     for (AutoSelection selection : EnumSet.allOf(AutoSelection.class)) {
       chooser.addOption(selection.toString(), selection);
     }
+
+    this.doNothingAuto = commands.doNothingCommand();
   }
 
   public Command getAutoCommand() {
@@ -54,8 +57,8 @@ public class AutoChooser {
     }
 
     if (autoName.equals("")) {
-      var command = Commands.print("No auto path provided, doing nothing");
-      cachedCommand = Optional.of(command);
+      var command = Commands.print("No auto path provided, running do nothing auto");
+      cachedCommand = Optional.of(command.andThen(doNothingAuto));
       return command;
     }
 

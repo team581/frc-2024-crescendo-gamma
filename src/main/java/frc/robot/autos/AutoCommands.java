@@ -31,6 +31,10 @@ public class AutoCommands {
     this.robotManager = robotManager;
   }
 
+  public Command doNothingCommand() {
+    return robotManager.localization.getZeroCommand();
+  }
+
   public Command speakerSnapCommand() {
     return actions.waitForSpeakerShotCommand();
   }

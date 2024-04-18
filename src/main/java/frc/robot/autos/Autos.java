@@ -123,7 +123,7 @@ public class Autos extends LifecycleSubsystem {
 
     PPHolonomicDriveController.setRotationTargetOverride(this::getRotationTargetOverride);
 
-    autoChooser = new AutoChooser();
+    autoChooser = new AutoChooser(autoCommands);
 
     FollowPathCommand.warmupCommand().schedule();
     PathfindingCommand.warmupCommand().schedule();
