@@ -25,6 +25,7 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 
 public class VisionSubsystem extends LifecycleSubsystem {
+  public static final double FLOOR_SPOT_MAX_DISTANCE_FOR_SUBWOOFER = 14.0;
   private static final boolean CALIBRATION_RIG_ENABLED = false;
   private static final boolean SHOOT_TO_SIDE_ENABLED = true;
   public static final boolean LIMELIGHT_UPSIDE_DOWN = true;
@@ -269,7 +270,7 @@ public class VisionSubsystem extends LifecycleSubsystem {
     var usedGoalPose = goalPoseSubwoofer;
     var result = subwooferSpotDistance;
 
-    if (subwooferSpotDistance.distance() > 14.0) {
+    if (subwooferSpotDistance.distance() > FLOOR_SPOT_MAX_DISTANCE_FOR_SUBWOOFER) {
       result = distanceToTargetPose(goalPoseAmpArea, usedRobotPose);
       usedGoalPose = goalPoseAmpArea;
     }

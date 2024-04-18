@@ -102,6 +102,9 @@ class CompConfig {
                 floorSpotDistanceToRPM.put(3.0, 1800.0);
                 floorSpotDistanceToRPM.put(5.8, 2700.0);
                 floorSpotDistanceToRPM.put(6.5, 2700.0);
+                floorSpotDistanceToRPM.put(500.0, 2700.0);
+                // Evil hacky way to have alternate shooter RPM for the amp area shot
+                floorSpotDistanceToRPM.put(581.0, 3200.0);
               }),
           new ClimberConfig(
               19,

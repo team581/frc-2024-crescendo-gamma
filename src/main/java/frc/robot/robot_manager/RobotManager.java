@@ -89,7 +89,10 @@ public class RobotManager extends LifecycleSubsystem {
     Rotation2d wristAngleForSpeaker = wrist.getAngleFromDistanceToSpeaker(speakerDistance);
     Rotation2d wristAngleForFloorSpot = wrist.getAngleFromDistanceToFloorSpot(floorSpotDistance);
     shooter.setSpeakerDistance(speakerDistance);
-    shooter.setFloorSpotDistance(floorSpotDistance);
+    shooter.setFloorSpotDistance(
+        floorSpotDistance > VisionSubsystem.FLOOR_SPOT_MAX_DISTANCE_FOR_SUBWOOFER
+            ? 581.0
+            : floorSpotDistance);
 
     // State transitions from requests
     for (RobotFlag flag : flags.getChecked()) {
