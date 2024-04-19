@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.47167233934468,
-        "y": 1.5268265176530358
+        "x": 10.845528614134153,
+        "y": 0.6413512827025655
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 7 after"
@@ -20,8 +20,8 @@
         "y": 3.01
       },
       "prevControl": {
-        "x": 12.57257962915926,
-        "y": 2.3734716789433574
+        "x": 12.84851800472832,
+        "y": 1.8747191340536533
       },
       "nextControl": null,
       "isLocked": false,

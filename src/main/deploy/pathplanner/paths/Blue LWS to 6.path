@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 3.1900000000000004,
-        "y": 3.01
+        "y": 2.512506477012954
       },
       "prevControl": null,
       "nextControl": {
         "x": 5.699941071882145,
-        "y": 0.5723007366014725
+        "y": 0.07480721361442688
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue LWS"
