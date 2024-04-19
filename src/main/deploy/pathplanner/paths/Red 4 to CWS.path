@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "warmup",
+      "name": "speaker snap",
       "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",

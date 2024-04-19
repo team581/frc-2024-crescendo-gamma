@@ -131,7 +131,7 @@
       }
     },
     {
-      "name": "intake and shoot",
+      "name": "intake and speaker snap",
       "waypointRelativePos": 3.5,
       "command": {
         "type": "sequential",
@@ -146,7 +146,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerShotNoTimeout"
+                "name": "speakerSnap"
               }
             }
           ]
