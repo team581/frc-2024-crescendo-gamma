@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.2424013208026405,
-        "y": 2.327232918465837
+        "y": 2.18
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.068327660655319,
-        "y": 1.5268265176530358
+        "x": 6.178464664621639,
+        "y": 0.5631869639123903
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 7 after"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 3.1900000000000004,
-        "y": 3.01
+        "y": 2.512506477012954
       },
       "prevControl": {
         "x": 3.967420370840741,
-        "y": 2.3734716789433574
+        "y": 1.8759781559563118
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "speaker snap",
-      "waypointRelativePos": 0.45,
+      "name": "warmup",
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "speakerSnap"
+                "name": "speakerShotNoTimeout"
               }
             }
           ]
