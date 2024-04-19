@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 6.880525273050544,
-        "y": 1.1900000000000002
+        "y": 1.04
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.456304800609599,
-        "y": 2.2638260497573635
+        "y": 2.113826049757363
       },
       "isLocked": false,
       "linkedName": "Dynamic Pre-Blue 7 Source"

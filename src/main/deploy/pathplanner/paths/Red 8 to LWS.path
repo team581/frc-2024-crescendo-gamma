@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 9.659474726949455,
-        "y": 1.2919380238760476
+        "y": 1.1400000000000001
       },
       "prevControl": null,
       "nextControl": {
         "x": 10.43395035849721,
-        "y": 1.494962956031175
+        "y": 1.3430249321551275
       },
       "isLocked": false,
       "linkedName": "Dynamic Pre-Red 7 Source"
