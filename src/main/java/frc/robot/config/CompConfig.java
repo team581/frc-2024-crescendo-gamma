@@ -164,7 +164,7 @@ class CompConfig {
                   .withOpenLoopRamps(OPEN_LOOP_RAMP),
               Rotation2d.fromDegrees(0.0),
               Rotation2d.fromDegrees(0.0),
-              Rotation2d.fromDegrees(58.0),
+              Rotation2d.fromDegrees(61.5),
               distanceToAngleTolerance -> {
                 distanceToAngleTolerance.put(0.85, 5.0);
                 distanceToAngleTolerance.put(8.0, 0.5);
