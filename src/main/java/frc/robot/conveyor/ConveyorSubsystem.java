@@ -61,6 +61,9 @@ public class ConveyorSubsystem extends LifecycleSubsystem {
       case INTAKE_TO_QUEUER:
         motor.setVoltage(3);
         break;
+      case SHUFFLE_ASSIST_WHEN_QUEUER_SENSOR_TURNS_OFF:
+        motor.setVoltage(4);
+        break;
       case QUEUER_TO_INTAKE:
         motor.setVoltage(-12);
         break;

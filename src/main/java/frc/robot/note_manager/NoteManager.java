@@ -211,28 +211,30 @@ public class NoteManager extends LifecycleSubsystem {
       case IDLE_IN_QUEUER:
         if (queuer.hasNote()) {
           intake.setState(IntakeState.IDLE);
+          conveyor.setState(ConveyorState.IDLE);
         } else {
-          intake.setState(IntakeState.TO_QUEUER_SLOW);
+          intake.setState(IntakeState.SHUFFLE_ASSIST_WHEN_QUEUER_SENSOR_TURNS_OFF);
+          conveyor.setState(ConveyorState.SHUFFLE_ASSIST_WHEN_QUEUER_SENSOR_TURNS_OFF);
         }
-        conveyor.setState(ConveyorState.IDLE);
         queuer.setState(QueuerState.INTAKING);
         break;
       case IDLE_IN_QUEUER_SHUFFLE:
         if (shuffleTimeoutTimer.hasElapsed(NOTE_SHUFFLE_TIMEOUT_DURATION)) {
           if (queuer.hasNote()) {
             intake.setState(IntakeState.IDLE);
+            conveyor.setState(ConveyorState.IDLE);
           } else {
-            intake.setState(IntakeState.TO_QUEUER_SLOW);
+            intake.setState(IntakeState.SHUFFLE_ASSIST_WHEN_QUEUER_SENSOR_TURNS_OFF);
+            conveyor.setState(ConveyorState.SHUFFLE_ASSIST_WHEN_QUEUER_SENSOR_TURNS_OFF);
           }
-          conveyor.setState(ConveyorState.IDLE);
           queuer.setState(QueuerState.INTAKING);
         } else {
           if (queuer.hasNote()) {
             intake.setState(IntakeState.SHUFFLE);
             conveyor.setState(ConveyorState.SHUFFLE);
           } else {
-            intake.setState(IntakeState.TO_QUEUER_SLOW);
-            conveyor.setState(ConveyorState.INTAKE_TO_QUEUER);
+            intake.setState(IntakeState.SHUFFLE_ASSIST_WHEN_QUEUER_SENSOR_TURNS_OFF);
+            conveyor.setState(ConveyorState.SHUFFLE_ASSIST_WHEN_QUEUER_SENSOR_TURNS_OFF);
           }
           queuer.setState(QueuerState.SHUFFLE);
         }
