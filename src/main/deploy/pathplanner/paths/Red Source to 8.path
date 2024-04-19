@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.15,
-        "y": 2.821945643891289
+        "x": 15.825323342646685,
+        "y": 4.410649733299467
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.049902971805944,
-        "y": 2.30491389382779
+        "x": 15.452723901443008,
+        "y": 3.456165100332503
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Red Left"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 0.8386901389187392
       },
       "prevControl": {
-        "x": 9.21981087464098,
-        "y": 1.154316372286591
+        "x": 9.08982829513484,
+        "y": 0.7895085598224
       },
       "nextControl": {
-        "x": 8.183436451544948,
-        "y": 0.8170269439311141
+        "x": 8.183966420490878,
+        "y": 0.842557162371576
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 8 intake"
@@ -36,8 +36,8 @@
         "y": 1.2919380238760476
       },
       "prevControl": {
-        "x": 9.333017231929201,
-        "y": 1.1468458038670462
+        "x": 9.369348425855932,
+        "y": 1.1594954356928628
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,12 +46,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.8,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.1,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -59,8 +54,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "intake and warmup",
-      "waypointRelativePos": 0.6,
+      "name": "intake",
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "sequential",
         "data": {
@@ -69,12 +64,6 @@
               "type": "named",
               "data": {
                 "name": "intakeFloor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "speakerShotNoTimeout"
               }
             }
           ]
@@ -89,14 +78,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.0,
+    "velocity": 0,
     "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Red Parent Paths",
   "previewStartingState": {
-    "rotation": 46.446074498933285,
+    "rotation": 59.23,
     "velocity": 0
   },
   "useDefaultConstraints": true

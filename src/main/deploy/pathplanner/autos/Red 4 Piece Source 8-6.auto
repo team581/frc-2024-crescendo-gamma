@@ -24,21 +24,15 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Red 4, Left to LWS"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "speakerShot"
+            "name": "subwooferShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red 4, LWS to 8"
+            "pathName": "Red Source to 8"
           }
         },
         {
