@@ -171,6 +171,7 @@ class CompConfig {
               },
               speakerDistanceToAngle -> {
                 speakerDistanceToAngle.put(1.38, 58.1);
+                speakerDistanceToAngle.put(2.16, 47.8);
                 speakerDistanceToAngle.put(2.5, 42.0);
                 speakerDistanceToAngle.put(3.5, 33.9635); // 1.854 - adjusted by quarter
                 speakerDistanceToAngle.put(4.5, 28.20125); // 1.605 - adjusted by quarter
