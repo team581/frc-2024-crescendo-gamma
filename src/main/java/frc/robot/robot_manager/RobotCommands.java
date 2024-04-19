@@ -240,7 +240,8 @@ public class RobotCommands {
   }
 
   public Command cancelWaitingFloorShotCommand() {
-    return Commands.runOnce(() -> robot.cancelWaitingFloorShotRequest(), requirements).withName("StopFloorShotCommand");
+    return Commands.runOnce(() -> robot.cancelWaitingFloorShotRequest(), requirements)
+        .withName("StopFloorShotCommand");
   }
 
   public Command unjamCommand() {
