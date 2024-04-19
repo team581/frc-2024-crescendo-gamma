@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 13.350000000000001,
-        "y": 2.512506477012954
+        "y": 3.01
       },
       "prevControl": null,
       "nextControl": {
         "x": 11.129786444188277,
-        "y": 0.9866942810808701
+        "y": 1.4841878040679157
       },
       "isLocked": false,
       "linkedName": "Dynamic Red LWS"
