@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.94419804224224,
-        "y": 0.009866942810809498
+        "x": 10.993532756296283,
+        "y": -0.2960082843242607
       },
       "isLocked": false,
       "linkedName": "Dynamic Red LWS"
@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 8.22,
-        "y": 2.71
+        "y": 2.56
       },
       "prevControl": {
         "x": 9.66166411034,
-        "y": 2.71
+        "y": 2.56
       },
       "nextControl": {
         "x": 8.150000000000004,
-        "y": 2.71
+        "y": 2.56
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 7"
@@ -33,11 +33,11 @@
     {
       "anchor": {
         "x": 9.297598679197359,
-        "y": 2.327232918465837
+        "y": 2.18
       },
       "prevControl": {
         "x": 8.73931521463043,
-        "y": 2.486082804165609
+        "y": 2.338849885699772
       },
       "nextControl": null,
       "isLocked": false,
