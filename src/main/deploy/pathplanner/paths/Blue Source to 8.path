@@ -3,53 +3,64 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.79,
-        "y": 2.512506477012954
+        "x": 0.7146766573533139,
+        "y": 4.410649733299467
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.648487172974346,
-        "y": 1.0093843027686058
+        "x": 1.4418190344072954,
+        "y": 3.680369668431645
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue LWS"
+      "linkedName": "Blue Left"
     },
     {
       "anchor": {
-        "x": 8.319999999999999,
-        "y": 2.71
+        "x": 8.29,
+        "y": 0.74
       },
       "prevControl": {
-        "x": 6.878335889659999,
-        "y": 2.71
+        "x": 7.396633477266954,
+        "y": 0.5597200914401839
       },
       "nextControl": {
-        "x": 8.389999999999995,
-        "y": 2.71
+        "x": 8.406290613204435,
+        "y": 0.7634672562507979
       },
       "isLocked": false,
-      "linkedName": "Dynamic Blue 7"
+      "linkedName": "Dynamic Blue 8 intake"
     },
     {
       "anchor": {
-        "x": 7.2424013208026405,
-        "y": 2.327232918465837
+        "x": 6.880525273050544,
+        "y": 1.1900000000000002
       },
       "prevControl": {
-        "x": 7.800684785369569,
-        "y": 2.486082804165609
+        "x": 7.098995173990349,
+        "y": 1.0944018288036577
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Dynamic Blue 7 after"
+      "linkedName": "Dynamic Pre-Blue 7 Source"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.1,
+      "rotationDegrees": 180.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.15,
+      "rotationDegrees": 180.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "intake",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -72,14 +83,14 @@
     "maxAngularAcceleration": 720
   },
   "goalEndState": {
-    "velocity": 1.75,
-    "rotation": 180,
+    "velocity": 0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue MidlineNotesFromSource",
+  "folder": "Blue Parent Paths",
   "previewStartingState": {
-    "rotation": 180,
+    "rotation": 120.77000000000001,
     "velocity": 0
   },
   "useDefaultConstraints": true
