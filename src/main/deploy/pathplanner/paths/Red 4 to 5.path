@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.980676422891309,
-        "y": 7.202868251890351
+        "y": 7.3
       },
       "prevControl": null,
       "nextControl": {
         "x": 9.640242082022628,
-        "y": 6.6557887497313475
+        "y": 6.7529204978409965
       },
       "isLocked": false,
       "linkedName": "Dynamic Red 4 after"

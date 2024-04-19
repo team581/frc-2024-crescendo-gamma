@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.9799999999999995,
-        "y": 7.1239327094038805
+        "y": 7.22
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.3204343408686805,
-        "y": 6.576853207244877
+        "y": 6.672920497840996
       },
       "isLocked": false,
       "linkedName": "Dynamic Blue 4 after"
