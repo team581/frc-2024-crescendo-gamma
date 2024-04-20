@@ -622,14 +622,22 @@ public class RobotManager extends LifecycleSubsystem {
         break;
       case WAITING_SUBWOOFER_SHOT:
       case PREPARE_SUBWOOFER_SHOT:
-        wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
+        if (DriverStation.isAutonomous()) {
+          wrist.setAngle(WristPositions.AUTO_SUBWOOFER_SHOT);
+        } else {
+          wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
+        }
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);
         noteManager.idleInQueuerRequest();
         break;
       case SUBWOOFER_SHOOT:
-        wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
+        if (DriverStation.isAutonomous()) {
+          wrist.setAngle(WristPositions.AUTO_SUBWOOFER_SHOT);
+        } else {
+          wrist.setAngle(WristPositions.SUBWOOFER_SHOT);
+        }
         elevator.setGoalHeight(ElevatorPositions.STOWED);
         shooter.setGoalMode(ShooterMode.SUBWOOFER_SHOT);
         climber.setGoalMode(ClimberMode.STOWED);

@@ -14,7 +14,8 @@ public class WristPositions {
 
   public static final Rotation2d SHOOTER_AMP = Rotation2d.fromDegrees(58.0);
 
-  public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(61.0);
+  public static final Rotation2d SUBWOOFER_SHOT = Rotation2d.fromDegrees(59.0);
+  public static final Rotation2d AUTO_SUBWOOFER_SHOT = Rotation2d.fromDegrees(61.0);
   public static final Rotation2d PRESET_AMP = Rotation2d.fromDegrees(43);
   public static final Rotation2d PRESET_SOURCE = Rotation2d.fromDegrees(58.1);
   public static final Rotation2d PRESET_MIDDLE = Rotation2d.fromDegrees(58.1);
